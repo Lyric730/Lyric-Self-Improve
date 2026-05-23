@@ -1,0 +1,1625 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>简单天梯挑战 MVP 高保真原型</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: oklch(13% 0.025 55);
+      --panel: oklch(18% 0.03 55);
+      --panel-2: oklch(23% 0.038 55);
+      --ink: oklch(95% 0.018 78);
+      --muted: oklch(73% 0.035 78);
+      --faint: oklch(52% 0.035 78);
+      --line: oklch(32% 0.045 55);
+      --orange: oklch(73% 0.18 54);
+      --orange-2: oklch(64% 0.19 45);
+      --gold: oklch(82% 0.15 80);
+      --green: oklch(75% 0.14 150);
+      --blue: oklch(72% 0.12 235);
+      --red: oklch(67% 0.18 28);
+      --radius: 8px;
+      --shadow: 0 20px 60px rgb(0 0 0 / 35%);
+      --font: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(125deg, rgb(18 15 12 / 96%), rgb(24 19 15 / 96%)),
+        repeating-linear-gradient(135deg, transparent 0 32px, rgb(255 126 23 / 3%) 32px 34px),
+        var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      letter-spacing: 0;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+
+    .sidebar {
+      padding: 24px;
+      border-right: 1px solid var(--line);
+      background: rgb(10 9 8 / 72%);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    .brand {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .brand-mark {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: linear-gradient(145deg, var(--orange), var(--orange-2));
+      color: oklch(14% 0.025 55);
+      font-weight: 900;
+      font-size: 24px;
+      box-shadow: 0 14px 36px rgb(255 118 23 / 30%);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.16;
+    }
+
+    .brand p,
+    .hint,
+    .small {
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .nav-group {
+      display: grid;
+      gap: 10px;
+      margin: 24px 0;
+    }
+
+    .nav-title {
+      color: var(--faint);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .nav-btn {
+      text-align: left;
+      padding: 13px 14px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      transition: 160ms ease;
+    }
+
+    .nav-btn.active,
+    .nav-btn:hover {
+      background: rgb(255 128 24 / 12%);
+      border-color: rgb(255 145 42 / 38%);
+      color: var(--ink);
+    }
+
+    .main {
+      padding: 28px;
+      min-width: 0;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: var(--gold);
+      background: rgb(255 190 78 / 12%);
+      border: 1px solid rgb(255 190 78 / 32%);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 390px minmax(420px, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .phone {
+      width: 390px;
+      height: 820px;
+      border-radius: 42px;
+      padding: 14px;
+      background: linear-gradient(145deg, oklch(8% 0.018 55), oklch(24% 0.04 55));
+      box-shadow: var(--shadow);
+      border: 1px solid oklch(35% 0.05 55);
+      position: sticky;
+      top: 28px;
+    }
+
+    .phone-screen {
+      height: 100%;
+      overflow: hidden;
+      border-radius: 32px;
+      background:
+        linear-gradient(160deg, rgb(25 20 16), rgb(13 12 11)),
+        var(--panel);
+      border: 1px solid rgb(255 255 255 / 8%);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-status {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      font-size: 12px;
+      color: var(--muted);
+      flex: 0 0 auto;
+    }
+
+    .phone-content {
+      overflow: auto;
+      padding: 16px;
+      flex: 1;
+    }
+
+    .phone-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 10px 12px 14px;
+      border-top: 1px solid rgb(255 255 255 / 8%);
+      background: rgb(8 7 6 / 85%);
+      flex: 0 0 auto;
+    }
+
+    .phone-tab {
+      border-radius: 8px;
+      padding: 10px 4px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .phone-tab.active {
+      background: rgb(255 126 23 / 14%);
+      color: var(--orange);
+    }
+
+    .hero-card,
+    .panel,
+    .metric-card,
+    .config-card,
+    .rank-card,
+    .screen-card {
+      background: linear-gradient(145deg, rgb(39 31 24 / 90%), rgb(22 20 18 / 92%));
+      border: 1px solid rgb(255 255 255 / 10%);
+      border-radius: var(--radius);
+      box-shadow: 0 16px 40px rgb(0 0 0 / 24%);
+    }
+
+    .hero-card {
+      padding: 18px;
+      display: grid;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 260px;
+      right: -54px;
+      top: -78px;
+      transform: rotate(18deg);
+      background: linear-gradient(180deg, rgb(255 126 23 / 28%), transparent);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .title-xl {
+      font-size: 34px;
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    .subtle {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .ghost-btn,
+    .danger-btn,
+    .success-btn {
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-weight: 800;
+      min-height: 46px;
+      transition: transform 140ms ease, filter 140ms ease, background 140ms ease;
+    }
+
+    .primary-btn {
+      background: linear-gradient(145deg, var(--orange), var(--orange-2));
+      color: oklch(13% 0.02 55);
+      box-shadow: 0 12px 28px rgb(255 118 23 / 28%);
+    }
+
+    .secondary-btn {
+      background: rgb(255 255 255 / 8%);
+      color: var(--ink);
+      border: 1px solid rgb(255 255 255 / 12%);
+    }
+
+    .ghost-btn {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgb(255 255 255 / 12%);
+    }
+
+    .danger-btn {
+      background: rgb(224 74 50 / 15%);
+      color: oklch(82% 0.13 30);
+      border: 1px solid rgb(224 74 50 / 34%);
+    }
+
+    .success-btn {
+      background: rgb(76 196 128 / 15%);
+      color: var(--green);
+      border: 1px solid rgb(76 196 128 / 34%);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .metric-card {
+      padding: 14px;
+    }
+
+    .metric-value {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .player-vs {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      background: linear-gradient(145deg, rgb(255 126 23 / 30%), rgb(255 255 255 / 8%));
+      border: 1px solid rgb(255 255 255 / 14%);
+    }
+
+    .avatar.big {
+      width: 78px;
+      height: 78px;
+      border-radius: 8px;
+      font-size: 28px;
+    }
+
+    .vs {
+      color: var(--orange);
+      font-weight: 900;
+      font-size: 22px;
+    }
+
+    .player-card {
+      padding: 14px;
+      border-radius: 8px;
+      background: rgb(255 255 255 / 6%);
+      border: 1px solid rgb(255 255 255 / 9%);
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .option-card {
+      padding: 16px;
+      border-radius: 8px;
+      background: rgb(255 255 255 / 6%);
+      border: 1px solid rgb(255 255 255 / 10%);
+      display: grid;
+      gap: 8px;
+      text-align: left;
+    }
+
+    .option-card.selected {
+      background: rgb(255 126 23 / 15%);
+      border-color: rgb(255 126 23 / 44%);
+    }
+
+    .scoreboard {
+      display: grid;
+      gap: 14px;
+    }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 1fr 52px 74px 52px;
+      align-items: center;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 8px;
+      background: rgb(255 255 255 / 6%);
+      border: 1px solid rgb(255 255 255 / 10%);
+    }
+
+    .score {
+      font-size: 38px;
+      font-weight: 900;
+      text-align: center;
+      color: var(--gold);
+    }
+
+    .score-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      background: rgb(255 126 23 / 15%);
+      color: var(--orange);
+      font-size: 24px;
+      font-weight: 900;
+      border: 1px solid rgb(255 126 23 / 32%);
+    }
+
+    .progress {
+      height: 10px;
+      background: rgb(255 255 255 / 9%);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: var(--value);
+      background: linear-gradient(90deg, var(--orange), var(--gold));
+      border-radius: inherit;
+    }
+
+    .notice {
+      padding: 14px;
+      border-radius: 8px;
+      background: rgb(255 190 78 / 10%);
+      border: 1px solid rgb(255 190 78 / 28%);
+      color: oklch(88% 0.095 82);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .notice.red {
+      background: rgb(224 74 50 / 11%);
+      border-color: rgb(224 74 50 / 32%);
+      color: oklch(83% 0.12 28);
+    }
+
+    .notice.green {
+      background: rgb(76 196 128 / 10%);
+      border-color: rgb(76 196 128 / 30%);
+      color: var(--green);
+    }
+
+    .panel {
+      padding: 20px;
+    }
+
+    .panel h3,
+    .config-card h3 {
+      margin: 0 0 12px;
+      font-size: 20px;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .config-card {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      color: var(--ink);
+      background: rgb(255 255 255 / 7%);
+      border: 1px solid rgb(255 255 255 / 14%);
+      border-radius: 8px;
+      padding: 11px 12px;
+      outline: none;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+      background: rgb(255 255 255 / 5%);
+    }
+
+    .table th,
+    .table td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid rgb(255 255 255 / 8%);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .table th {
+      color: var(--ink);
+      background: rgb(255 255 255 / 6%);
+      font-size: 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgb(255 126 23 / 12%);
+      color: var(--orange);
+      border: 1px solid rgb(255 126 23 / 26%);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tag.green {
+      background: rgb(76 196 128 / 12%);
+      color: var(--green);
+      border-color: rgb(76 196 128 / 26%);
+    }
+
+    .tag.blue {
+      background: rgb(80 154 224 / 12%);
+      color: var(--blue);
+      border-color: rgb(80 154 224 / 26%);
+    }
+
+    .rank-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .rank-card {
+      padding: 13px;
+      display: grid;
+      grid-template-columns: 40px 1fr auto;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .screen-wrap {
+      width: min(100%, 1120px);
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      padding: 22px;
+      background:
+        linear-gradient(140deg, rgb(7 7 7), rgb(30 21 12)),
+        var(--bg);
+      border: 1px solid rgb(255 255 255 / 11%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .screen-grid {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1.15fr 1.25fr 1.15fr;
+      grid-template-rows: auto 1fr;
+      gap: 16px;
+    }
+
+    .screen-title {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgb(255 126 23 / 70%);
+      padding-bottom: 12px;
+    }
+
+    .screen-title h2 {
+      margin: 0;
+      font-size: clamp(28px, 3.4vw, 54px);
+      color: var(--ink);
+    }
+
+    .podium {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: end;
+      gap: 12px;
+      height: 100%;
+    }
+
+    .podium-card {
+      border-radius: 8px;
+      padding: 14px;
+      background: linear-gradient(180deg, rgb(255 126 23 / 20%), rgb(255 255 255 / 7%));
+      border: 1px solid rgb(255 255 255 / 14%);
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .podium-card.first {
+      min-height: 270px;
+    }
+
+    .podium-card.second,
+    .podium-card.third {
+      min-height: 220px;
+    }
+
+    .screen-table {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .screen-row {
+      display: grid;
+      grid-template-columns: 42px minmax(56px, 1.15fr) minmax(62px, 1fr) 44px 44px;
+      gap: 6px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgb(255 255 255 / 7%);
+      font-size: 13px;
+    }
+
+    .screen-row span {
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .screen-row span:first-child,
+    .screen-row span:nth-child(4),
+    .screen-row span:nth-child(5) {
+      text-align: center;
+    }
+
+    .screen-row.header {
+      background: rgb(255 126 23 / 16%);
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    .empty {
+      min-height: 280px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1050px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .stage {
+        grid-template-columns: 1fr;
+      }
+      .phone {
+        position: static;
+        width: min(390px, 100%);
+        margin: 0 auto;
+      }
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    const gameTemplates = {
+      race5: {
+        id: "race5",
+        name: "中八抢 5",
+        targetWins: 5,
+        minimumMinutes: 40,
+        basePointPerRack: 10,
+        multipliers: [1, 2, 3],
+        fixedReward: 5,
+        randomBands: [
+          { max: 30, minReward: 5, maxReward: 15 },
+          { max: 60, minReward: 3, maxReward: 10 },
+          { max: 999, minReward: 1, maxReward: 5 }
+        ],
+        enabled: true,
+        rankedEnabled: true
+      },
+      race7: {
+        id: "race7",
+        name: "中八抢 7",
+        targetWins: 7,
+        minimumMinutes: 90,
+        basePointPerRack: 20,
+        multipliers: [1, 2, 3, 4],
+        fixedReward: 5,
+        randomBands: [
+          { max: 30, minReward: 8, maxReward: 20 },
+          { max: 60, minReward: 5, maxReward: 14 },
+          { max: 999, minReward: 2, maxReward: 8 }
+        ],
+        enabled: true,
+        rankedEnabled: true
+      },
+      race10: {
+        id: "race10",
+        name: "中八抢 10",
+        targetWins: 10,
+        minimumMinutes: 120,
+        basePointPerRack: 30,
+        multipliers: [1, 2, 3, 4],
+        fixedReward: 8,
+        randomBands: [
+          { max: 30, minReward: 12, maxReward: 26 },
+          { max: 60, minReward: 8, maxReward: 18 },
+          { max: 999, minReward: 3, maxReward: 10 }
+        ],
+        enabled: false,
+        rankedEnabled: true
+      }
+    };
+
+    const players = {
+      a: { name: "刀哥", avatar: "刀", rank: "走位黄金 II", stars: 3, points: 2860, wins: 18, winRate: "62%" },
+      b: { name: "阿泽", avatar: "泽", rank: "沉稳青铜 I", stars: 2, points: 1340, wins: 6, winRate: "46%" }
+    };
+
+    const rankings = [
+      { rank: 1, nickname: "准神", avatar: "准", rankTitle: "星耀 I", stars: 5, points: 8620, wins: 31, winRate: "72%", change: "+2" },
+      { rank: 2, nickname: "刘战平", avatar: "刘", rankTitle: "钻石 II", stars: 4, points: 8140, wins: 28, winRate: "69%", change: "0" },
+      { rank: 3, nickname: "文豪", avatar: "文", rankTitle: "钻石 III", stars: 3, points: 7960, wins: 24, winRate: "66%", change: "+1" },
+      { rank: 4, nickname: "Jackson", avatar: "J", rankTitle: "铂金 I", stars: 4, points: 6580, wins: 20, winRate: "61%", change: "-1" },
+      { rank: 5, nickname: "周航", avatar: "周", rankTitle: "黄金 I", stars: 3, points: 6020, wins: 16, winRate: "58%", change: "+3" },
+      { rank: 6, nickname: "Blue", avatar: "B", rankTitle: "黄金 II", stars: 2, points: 5310, wins: 12, winRate: "52%", change: "0" },
+      { rank: 7, nickname: "小刀", avatar: "刀", rankTitle: "黄金 III", stars: 2, points: 4860, wins: 10, winRate: "49%", change: "+1" },
+      { rank: 8, nickname: "阿硕", avatar: "硕", rankTitle: "白银 I", stars: 3, points: 3720, wins: 8, winRate: "44%", change: "0" },
+      { rank: 9, nickname: "慢刀", avatar: "慢", rankTitle: "白银 II", stars: 4, points: 3510, wins: 8, winRate: "53%", change: "+2" },
+      { rank: 10, nickname: "胖哥", avatar: "胖", rankTitle: "白银 III", stars: 2, points: 3260, wins: 7, winRate: "50%", change: "-1" },
+      { rank: 11, nickname: "陈遥", avatar: "陈", rankTitle: "青铜 I", stars: 5, points: 2940, wins: 6, winRate: "48%", change: "0" },
+      { rank: 12, nickname: "家明", avatar: "明", rankTitle: "青铜 II", stars: 3, points: 2610, wins: 5, winRate: "42%", change: "+1" }
+    ];
+
+    const state = {
+      role: "player",
+      playerPage: "home",
+      panelTab: "rooms",
+      roomId: "A18",
+      selectedTemplateId: "race5",
+      multiplier: 1,
+      scoreA: 0,
+      scoreB: 0,
+      bonusA: 0,
+      bonusB: 0,
+      elapsedSeconds: 0,
+      startMinute: 21 * 60 + 5,
+      tableEndMinute: 22 * 60 + 30,
+      tableId: "T03",
+      settlementApplied: false,
+      lastMessage: "今晚 3 号桌，挑战赛已就绪。",
+      mockMode: "normal"
+    };
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    function template() {
+      return gameTemplates[state.selectedTemplateId];
+    }
+
+    function pad(num) {
+      return String(num).padStart(2, "0");
+    }
+
+    function formatSeconds(total) {
+      const minutes = Math.floor(total / 60);
+      const seconds = total % 60;
+      return `${pad(minutes)}:${pad(seconds)}`;
+    }
+
+    function formatClock(minutes) {
+      const h = Math.floor(minutes / 60) % 24;
+      const m = minutes % 60;
+      return `${pad(h)}:${pad(m)}`;
+    }
+
+    function remainingMinutesAtStart() {
+      return Math.max(0, state.tableEndMinute - state.startMinute);
+    }
+
+    function secondsUntilClear() {
+      return Math.max(0, template().minimumMinutes * 60 - state.elapsedSeconds);
+    }
+
+    function targetReached() {
+      return state.scoreA >= template().targetWins || state.scoreB >= template().targetWins;
+    }
+
+    function canSettle() {
+      return targetReached() && secondsUntilClear() === 0;
+    }
+
+    function winnerKey() {
+      if (state.scoreA >= template().targetWins) return "a";
+      if (state.scoreB >= template().targetWins) return "b";
+      return "";
+    }
+
+    function randomRewardFor(playerKey) {
+      const remaining = remainingMinutesAtStart();
+      const band = template().randomBands.find(item => remaining <= item.max) || template().randomBands[template().randomBands.length - 1];
+      const seed = (playerKey === "a" ? state.scoreA * 7 : state.scoreB * 9) + state.elapsedSeconds / 60 + remaining;
+      const span = band.maxReward - band.minReward + 1;
+      return band.minReward + (Math.floor(seed) % span);
+    }
+
+    function pointsFor(playerKey) {
+      const score = playerKey === "a" ? state.scoreA : state.scoreB;
+      const bonus = playerKey === "a" ? state.bonusA : state.bonusB;
+      return score * template().basePointPerRack * state.multiplier + template().fixedReward + bonus;
+    }
+
+    function setRole(role) {
+      state.role = role;
+      if (role === "player" && !state.playerPage) state.playerPage = "home";
+      render();
+    }
+
+    function go(page) {
+      state.playerPage = page;
+      render();
+    }
+
+    function resetMatch() {
+      state.scoreA = 0;
+      state.scoreB = 0;
+      state.bonusA = 0;
+      state.bonusB = 0;
+      state.elapsedSeconds = 0;
+      state.settlementApplied = false;
+    }
+
+    function createRoom() {
+      resetMatch();
+      state.playerPage = "waiting";
+      state.lastMessage = "房间已创建，等待对手扫码进入。";
+      render();
+    }
+
+    function opponentEnter() {
+      state.playerPage = "accept";
+      state.lastMessage = "阿泽已进入房间，等待确认。";
+      render();
+    }
+
+    function acceptChallenge() {
+      state.playerPage = "mode";
+      state.lastMessage = "挑战已接受，请选择玩法。";
+      render();
+    }
+
+    function selectTemplate(id) {
+      state.selectedTemplateId = id;
+      state.multiplier = gameTemplates[id].multipliers[0];
+      render();
+    }
+
+    function selectMultiplier(value) {
+      state.multiplier = Number(value);
+      render();
+    }
+
+    function startMatch() {
+      resetMatch();
+      const remaining = remainingMinutesAtStart();
+      if (remaining < template().minimumMinutes) {
+        state.playerPage = "lowTime";
+        state.lastMessage = "球桌剩余时间不足，本场默认娱乐局。";
+      } else {
+        state.playerPage = "match";
+        state.elapsedSeconds = 1;
+        state.lastMessage = "比赛已开始，计时从 00:00:01 正向累计。";
+      }
+      render();
+    }
+
+    function addRack(playerKey) {
+      if (targetReached()) return;
+      if (playerKey === "a") {
+        state.scoreA += 1;
+        state.bonusA += randomRewardFor("a");
+      } else {
+        state.scoreB += 1;
+        state.bonusB += randomRewardFor("b");
+      }
+      state.lastMessage = `${players[playerKey].name} 赢下一盘，系统已加入本盘随机奖励。`;
+      render();
+    }
+
+    function minusRack(playerKey) {
+      if (playerKey === "a" && state.scoreA > 0) state.scoreA -= 1;
+      if (playerKey === "b" && state.scoreB > 0) state.scoreB -= 1;
+      state.lastMessage = "已撤回一盘记录。";
+      render();
+    }
+
+    function fastTime(seconds) {
+      state.elapsedSeconds = seconds;
+      if (state.elapsedSeconds === 0) state.elapsedSeconds = 1;
+      state.lastMessage = `演示时间已调整为 ${formatSeconds(state.elapsedSeconds)}。`;
+      render();
+    }
+
+    function forceTarget() {
+      state.scoreA = template().targetWins;
+      state.scoreB = Math.max(0, template().targetWins - 2);
+      state.bonusA = Math.max(state.bonusA, template().targetWins * 8);
+      state.bonusB = Math.max(state.bonusB, state.scoreB * 5);
+      state.lastMessage = `${players.a.name} 已达到胜利盘数。`;
+      render();
+    }
+
+    function confirmSettlement() {
+      state.settlementApplied = true;
+      players.a.points += pointsFor("a");
+      players.b.points += pointsFor("b");
+      state.playerPage = "settled";
+      state.lastMessage = "本场积分、段位和排行榜已清算。";
+      render();
+    }
+
+    function refuseResult() {
+      state.playerPage = "refuse";
+      state.lastMessage = "败方选择不服，请选择退出本场或再战。";
+      render();
+    }
+
+    function exitCurrentMatch() {
+      state.playerPage = "home";
+      resetMatch();
+      state.lastMessage = "双方同意退出本场，本场不结算积分和段位。";
+      render();
+    }
+
+    function rematch() {
+      resetMatch();
+      state.playerPage = "mode";
+      state.lastMessage = "已选择再战，请重新选择玩法和倍数。";
+      render();
+    }
+
+    function setPanel(tab) {
+      state.panelTab = tab;
+      render();
+    }
+
+    function updateTableEnd(value) {
+      const [h, m] = value.split(":").map(Number);
+      state.tableEndMinute = h * 60 + m;
+      state.lastMessage = `3 号桌结束时间已设置为 ${value}。`;
+      render();
+    }
+
+    function deductPoints() {
+      players.a.points = Math.max(0, players.a.points - 300);
+      state.lastMessage = "前台已扣除刀哥 300 积分用于线下兑换。";
+      render();
+    }
+
+    function shell(content) {
+      return `
+        <div class="app">
+          <aside class="sidebar">
+            <div class="brand">
+              <div class="brand-mark">8</div>
+              <h1>简单天梯挑战<br>MVP 原型</h1>
+              <p>黑橙竞技风格。规则核心：扫码、选玩法、选倍数、正向计时、到点清算。</p>
+            </div>
+
+            <div class="nav-group">
+              <div class="nav-title">角色视图</div>
+              ${navButton("player", "球友端")}
+              ${navButton("staff", "员工端")}
+              ${navButton("admin", "老板端")}
+              ${navButton("screen", "电视大屏")}
+            </div>
+
+            <div class="nav-group">
+              <div class="nav-title">当前演示状态</div>
+              <div class="notice">${state.lastMessage}</div>
+              <p class="hint">抢 5 / 抢 7 默认开放；抢 10 预留；抢 9 不开放。</p>
+            </div>
+          </aside>
+          <main class="main">
+            ${content}
+          </main>
+        </div>
+      `;
+    }
+
+    function navButton(role, label) {
+      return `<button class="nav-btn ${state.role === role ? "active" : ""}" onclick="setRole('${role}')">${label}</button>`;
+    }
+
+    function topbar(title, pill = "机制简单，操作简单") {
+      return `
+        <div class="topbar">
+          <h2>${title}</h2>
+          <div class="status-pill">${pill}</div>
+        </div>
+      `;
+    }
+
+    function phoneShell(inner, active = "challenge") {
+      return `
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-status"><span>21:05</span><span>天梯挑战</span><span>5G</span></div>
+            <div class="phone-content">${inner}</div>
+            <div class="phone-tabs">
+              <button class="phone-tab ${active === "challenge" ? "active" : ""}" onclick="go('home')">挑战赛</button>
+              <button class="phone-tab ${active === "data" ? "active" : ""}" onclick="go('data')">我的数据</button>
+              <button class="phone-tab ${active === "ranking" ? "active" : ""}" onclick="go('ranking')">排行榜</button>
+              <button class="phone-tab ${active === "points" ? "active" : ""}" onclick="go('points')">积分礼遇</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function playerView() {
+      let active = ["data", "ranking", "points"].includes(state.playerPage) ? state.playerPage : "challenge";
+      return `
+        ${topbar("球友端原型", `${players.a.rank} · ${players.a.points} 积分`)}
+        <div class="stage">
+          ${phoneShell(playerPage(), active)}
+          ${sideNotes()}
+        </div>
+      `;
+    }
+
+    function playerPage() {
+      const page = state.playerPage;
+      if (page === "waiting") return waitingPage();
+      if (page === "accept") return acceptPage();
+      if (page === "mode") return modePage();
+      if (page === "multiplier") return multiplierPage();
+      if (page === "lowTime") return lowTimePage();
+      if (page === "match") return matchPage();
+      if (page === "settlement") return settlementPage();
+      if (page === "settled") return settledPage();
+      if (page === "refuse") return refusePage();
+      if (page === "data") return dataPage();
+      if (page === "ranking") return rankingPage();
+      if (page === "points") return pointsPage();
+      return homePage();
+    }
+
+    function homePage() {
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">Tonight Challenge</div>
+            <h2 class="title-xl">3 号桌<br>开一场天梯挑战</h2>
+            <p class="subtle">扫码开房，对手加入后选择玩法和倍数。正向计时，满最低有效时间才清算。</p>
+            <div class="metric-row">
+              <div class="metric-card"><div class="metric-value">${players.a.stars}</div><div class="metric-label">当前星</div></div>
+              <div class="metric-card"><div class="metric-value">${players.a.wins}</div><div class="metric-label">胜场</div></div>
+              <div class="metric-card"><div class="metric-value">${players.a.winRate}</div><div class="metric-label">胜率</div></div>
+            </div>
+            <button class="primary-btn" onclick="createRoom()">扫码开房</button>
+            <button class="secondary-btn" onclick="state.tableEndMinute=21*60+30; state.lastMessage='已切换为剩余 25 分钟演示。'; render()">低剩余时间演示</button>
+          </section>
+          <div class="notice">当前 3 号桌结束时间 ${formatClock(state.tableEndMinute)}，若现在开赛，剩余 ${remainingMinutesAtStart()} 分钟。</div>
+        </div>
+      `;
+    }
+
+    function waitingPage() {
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">Room ${state.roomId}</div>
+            <h2 class="title-xl">等待对手进入房间</h2>
+            <p class="subtle">让对手扫描球桌码或房间码。对手进入后会看到挑战确认。</p>
+            <div class="player-vs">
+              ${miniPlayer(players.a)}
+              <div class="vs">VS</div>
+              <div class="player-card"><div class="avatar">?</div><strong>等待中</strong><span class="small">扫码加入</span></div>
+            </div>
+            <button class="primary-btn" onclick="opponentEnter()">演示：乙扫码进入</button>
+            <button class="ghost-btn" onclick="go('home')">取消房间</button>
+          </section>
+        </div>
+      `;
+    }
+
+    function acceptPage() {
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">Challenge Request</div>
+            <h2 class="title-xl">${players.a.name} 对你发起挑战</h2>
+            <div class="player-vs">
+              ${miniPlayer(players.a)}
+              <div class="vs">VS</div>
+              ${miniPlayer(players.b)}
+            </div>
+            <button class="primary-btn" onclick="acceptChallenge()">接受挑战</button>
+            <div class="grid-2">
+              <button class="secondary-btn" onclick="go('home')">投降</button>
+              <button class="ghost-btn" onclick="go('home')">逃跑</button>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    function modePage() {
+      return `
+        <div class="stack">
+          <div>
+            <div class="eyebrow">Step 1</div>
+            <h2 class="title-xl">选择玩法</h2>
+          </div>
+          ${Object.values(gameTemplates).map(item => `
+            <button class="option-card ${state.selectedTemplateId === item.id ? "selected" : ""}" onclick="selectTemplate('${item.id}')">
+              <strong>${item.name}${item.enabled ? "" : " · 预留"}</strong>
+              <span class="small">先赢 ${item.targetWins} 盘 · 最低 ${item.minimumMinutes} 分钟 · 每盘 ${item.basePointPerRack} 分</span>
+              <span class="tag ${item.enabled ? "green" : "blue"}">${item.enabled ? "当前开放" : "管理员可开放"}</span>
+            </button>
+          `).join("")}
+          <button class="primary-btn" onclick="go('multiplier')">下一步：选择倍数</button>
+        </div>
+      `;
+    }
+
+    function multiplierPage() {
+      return `
+        <div class="stack">
+          <div>
+            <div class="eyebrow">Step 2</div>
+            <h2 class="title-xl">选择倍数</h2>
+            <p class="subtle">${template().name}，倍数只影响积分，不影响段位星。</p>
+          </div>
+          <div class="grid-2">
+            ${template().multipliers.map(value => `
+              <button class="option-card ${state.multiplier === value ? "selected" : ""}" onclick="selectMultiplier(${value})">
+                <strong>x${value}</strong>
+                <span class="small">每盘 ${template().basePointPerRack * value} 分起</span>
+              </button>
+            `).join("")}
+          </div>
+          <div class="notice">若现在开赛，球桌剩余 ${remainingMinutesAtStart()} 分钟。${remainingMinutesAtStart() < template().minimumMinutes ? "低于最低有效时间，需续时后才计分。" : "满足当前玩法最低有效时间。"}</div>
+          <button class="primary-btn" onclick="startMatch()">开始比赛</button>
+          <button class="ghost-btn" onclick="go('mode')">返回玩法</button>
+        </div>
+      `;
+    }
+
+    function lowTimePage() {
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">Time Warning</div>
+            <h2 class="title-xl">剩余时间不足</h2>
+            <p class="subtle">当前球桌剩余 ${remainingMinutesAtStart()} 分钟，${template().name} 最低有效时间为 ${template().minimumMinutes} 分钟。本场可作为娱乐局，但不能计入积分和段位。</p>
+            <div class="notice red">不支持存时间。若要计入挑战赛，请先到前台续时。</div>
+            <button class="primary-btn" onclick="state.tableEndMinute=23*60; state.lastMessage='员工已续时，结束时间更新为 23:00。'; go('multiplier')">演示：前台续时</button>
+            <button class="secondary-btn" onclick="state.playerPage='match'; state.elapsedSeconds=1; render()">继续娱乐局</button>
+            <button class="ghost-btn" onclick="go('home')">退出本场</button>
+          </section>
+        </div>
+      `;
+    }
+
+    function matchPage() {
+      const target = targetReached();
+      const ready = canSettle();
+      const progressValue = Math.min(100, Math.round((state.elapsedSeconds / (template().minimumMinutes * 60)) * 100));
+      return `
+        <div class="stack">
+          <div>
+            <div class="eyebrow">${template().name} · x${state.multiplier}</div>
+            <h2 class="title-xl">比赛计分</h2>
+          </div>
+          <div class="metric-row">
+            <div class="metric-card"><div class="metric-value">${formatSeconds(state.elapsedSeconds)}</div><div class="metric-label">已进行</div></div>
+            <div class="metric-card"><div class="metric-value">${template().minimumMinutes}:00</div><div class="metric-label">最低有效</div></div>
+            <div class="metric-card"><div class="metric-value">${formatSeconds(secondsUntilClear())}</div><div class="metric-label">还差可清算</div></div>
+          </div>
+          <div class="progress" style="--value:${progressValue}%"><span></span></div>
+          <div class="scoreboard">
+            ${scoreRow("a")}
+            ${scoreRow("b")}
+          </div>
+          <div class="notice ${target && !ready ? "red" : ready ? "green" : ""}">
+            ${target && !ready ? "已达到胜利盘数，但未满最低有效时间，暂不能清算。" : ready ? "已满足胜利盘数和最低有效时间，可以进入结算。" : "双方都可以点击 + / -，系统实时预估积分。"}
+          </div>
+          <div class="grid-2">
+            <button class="secondary-btn" onclick="forceTarget()">演示：打到胜利盘数</button>
+            <button class="secondary-btn" onclick="fastTime(${template().minimumMinutes * 60 - 60})">快进到未满时间</button>
+            <button class="secondary-btn" onclick="fastTime(${template().minimumMinutes * 60})">快进到可清算</button>
+            <button class="secondary-btn" onclick="fastTime(${template().minimumMinutes * 60 + 900})">演示：超时继续打</button>
+          </div>
+          <button class="primary-btn" ${ready ? "" : "disabled"} onclick="go('settlement')" style="${ready ? "" : "opacity:.45;cursor:not-allowed"}">进入结算</button>
+        </div>
+      `;
+    }
+
+    function scoreRow(key) {
+      const player = players[key];
+      const score = key === "a" ? state.scoreA : state.scoreB;
+      const bonus = key === "a" ? state.bonusA : state.bonusB;
+      return `
+        <div class="score-row">
+          <div>
+            <strong>${player.name}</strong>
+            <div class="small">${player.rank} · 预估 ${pointsFor(key)} 分 · 随机 +${bonus}</div>
+          </div>
+          <button class="score-btn" onclick="minusRack('${key}')">-</button>
+          <div class="score">${score}</div>
+          <button class="score-btn" onclick="addRack('${key}')">+</button>
+        </div>
+      `;
+    }
+
+    function settlementPage() {
+      const winner = winnerKey() === "a" ? players.a : players.b;
+      const loser = winnerKey() === "a" ? players.b : players.a;
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">Settlement</div>
+            <h2 class="title-xl">${winner.name} 获胜</h2>
+            <p class="subtle">本场 ${players.a.name} ${state.scoreA}:${state.scoreB} ${players.b.name}，已满足最低有效时间。</p>
+            <div class="grid-2">
+              <div class="metric-card"><div class="metric-value">+${pointsFor("a")}</div><div class="metric-label">${players.a.name} 本场积分</div></div>
+              <div class="metric-card"><div class="metric-value">+${pointsFor("b")}</div><div class="metric-label">${players.b.name} 本场积分</div></div>
+            </div>
+            <div class="notice">败方 ${loser.name} 请选择：服了则清算；不服则进入退出本场或再战。</div>
+            <button class="success-btn" onclick="confirmSettlement()">服了，确认结算</button>
+            <button class="danger-btn" onclick="refuseResult()">不服</button>
+          </section>
+        </div>
+      `;
+    }
+
+    function settledPage() {
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">Done</div>
+            <h2 class="title-xl">清算完成</h2>
+            <p class="subtle">积分、段位和排行榜已更新。下一场可以重新扫码发起。</p>
+            <div class="notice green">${players.b.name} 说我服了，准神。</div>
+            <button class="primary-btn" onclick="go('ranking')">查看排行榜</button>
+            <button class="secondary-btn" onclick="go('home')">返回首页</button>
+          </section>
+        </div>
+      `;
+    }
+
+    function refusePage() {
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">Refuse</div>
+            <h2 class="title-xl">不服，下一步？</h2>
+            <p class="subtle">当前这一场不会立即结算。双方可以同意退出，也可以马上再战。</p>
+            <button class="danger-btn" onclick="exitCurrentMatch()">对方同意退出本场</button>
+            <button class="primary-btn" onclick="rematch()">双方选择再战</button>
+            <div class="notice">退出本场：双方都不清算积分和段位。再战：当前场作废，重新选择玩法和倍数。</div>
+          </section>
+        </div>
+      `;
+    }
+
+    function dataPage() {
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">My Data</div>
+            <h2 class="title-xl">${players.a.rank}</h2>
+            <p class="subtle">青铜到黄金只加星不掉星；黄金以后掉星细则待补。</p>
+            <div class="metric-row">
+              <div class="metric-card"><div class="metric-value">${players.a.points}</div><div class="metric-label">总积分</div></div>
+              <div class="metric-card"><div class="metric-value">${players.a.wins}</div><div class="metric-label">胜场</div></div>
+              <div class="metric-card"><div class="metric-value">${players.a.winRate}</div><div class="metric-label">胜率</div></div>
+            </div>
+          </section>
+          <div class="notice">最近一场：中八抢 5 · x2 · 5:3 · +105 分</div>
+        </div>
+      `;
+    }
+
+    function rankingPage() {
+      return `
+        <div class="stack">
+          <div>
+            <div class="eyebrow">Ranking</div>
+            <h2 class="title-xl">本店排行榜</h2>
+          </div>
+          <div class="rank-list">
+            ${rankings.map(row => `
+              <div class="rank-card">
+                <strong>#${row.rank}</strong>
+                <div>
+                  <strong>${row.nickname}</strong>
+                  <div class="small">${row.rankTitle} · ${row.points} 分 · 胜率 ${row.winRate}</div>
+                </div>
+                <span class="tag ${row.change.startsWith("+") ? "green" : row.change.startsWith("-") ? "" : "blue"}">${row.change}</span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function pointsPage() {
+      return `
+        <div class="stack">
+          <section class="hero-card">
+            <div class="eyebrow">Points</div>
+            <h2 class="title-xl">${players.a.points} 积分</h2>
+            <p class="subtle">积分不做线上兑换，顾客到前台兑换，由员工端扣除积分并备注。</p>
+            <button class="primary-btn" onclick="setRole('staff')">去看员工扣积分</button>
+          </section>
+          <div class="notice">可兑换：饮料、台时券、球杆保养等，以前台公示为准。</div>
+        </div>
+      `;
+    }
+
+    function miniPlayer(player) {
+      return `
+        <div class="player-card">
+          <div class="avatar">${player.avatar}</div>
+          <strong>${player.name}</strong>
+          <span class="small">${player.rank}</span>
+        </div>
+      `;
+    }
+
+    function sideNotes() {
+      return `
+        <div class="panel-grid">
+          <div class="panel">
+            <h3>原型交互覆盖</h3>
+            <div class="stack">
+              <div class="notice green">球友端可走完整抢 5 流程：开房、接受、选玩法、选倍数、加减盘数、时间模拟、结算。</div>
+              <div class="notice">比赛页使用正向计时，40 分钟是最低有效时间，不是倒计时。</div>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>当前房间参数</h3>
+            <table class="table">
+              <tr><th>项目</th><th>值</th></tr>
+              <tr><td>球桌</td><td>${state.tableId}</td></tr>
+              <tr><td>结束时间</td><td>${formatClock(state.tableEndMinute)}</td></tr>
+              <tr><td>开赛剩余</td><td>${remainingMinutesAtStart()} 分钟</td></tr>
+              <tr><td>玩法</td><td>${template().name}</td></tr>
+              <tr><td>倍数</td><td>x${state.multiplier}</td></tr>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function staffView() {
+      return `
+        ${topbar("员工端原型", "设置结束时间 · 前台扣积分")}
+        <div class="panel-grid">
+          <div class="panel">
+            <div class="nav-group" style="margin:0">
+              <button class="nav-btn ${state.panelTab === "rooms" ? "active" : ""}" onclick="setPanel('rooms')">今日房间</button>
+              <button class="nav-btn ${state.panelTab === "tables" ? "active" : ""}" onclick="setPanel('tables')">球桌结束时间</button>
+              <button class="nav-btn ${state.panelTab === "redeem" ? "active" : ""}" onclick="setPanel('redeem')">前台扣积分</button>
+              <button class="nav-btn ${state.panelTab === "issues" ? "active" : ""}" onclick="setPanel('issues')">异常比赛</button>
+            </div>
+          </div>
+          <div class="panel">${staffPanel()}</div>
+        </div>
+      `;
+    }
+
+    function staffPanel() {
+      if (state.panelTab === "tables") {
+        return `
+          <h3>球桌结束时间设置</h3>
+          <div class="stack">
+            <div class="field">
+              <label>3 号桌结束时间</label>
+              <input type="time" value="${formatClock(state.tableEndMinute)}" onchange="updateTableEnd(this.value)">
+            </div>
+            <div class="notice">比赛开始时，小程序自动计算：结束时间 - 开赛时间 = 剩余时间。员工不需要填剩余分钟。</div>
+            <table class="table">
+              <tr><th>球桌</th><th>结束时间</th><th>若 21:05 开赛</th></tr>
+              <tr><td>3 号桌</td><td>${formatClock(state.tableEndMinute)}</td><td>剩余 ${remainingMinutesAtStart()} 分钟</td></tr>
+            </table>
+          </div>
+        `;
+      }
+      if (state.panelTab === "redeem") {
+        return `
+          <h3>前台积分扣除</h3>
+          <div class="stack">
+            <div class="config-card">
+              <strong>${players.a.name}</strong>
+              <span class="small">当前积分 ${players.a.points}</span>
+              <div class="field">
+                <label>兑换备注</label>
+                <input value="饮料 / 台时券 / 球杆保养">
+              </div>
+              <button class="primary-btn" onclick="deductPoints()">扣除 300 积分</button>
+            </div>
+            <div class="notice">积分兑换不在小程序里下单，顾客到前台，员工查询后扣分。</div>
+          </div>
+        `;
+      }
+      if (state.panelTab === "issues") {
+        return `
+          <h3>异常比赛</h3>
+          <table class="table">
+            <tr><th>房间</th><th>状态</th><th>处理</th></tr>
+            <tr><td>A18</td><td>不服后再战</td><td><span class="tag blue">无需仲裁</span></td></tr>
+            <tr><td>B09</td><td>时间不足</td><td><span class="tag">娱乐局</span></td></tr>
+          </table>
+        `;
+      }
+      return `
+        <h3>今日房间</h3>
+        <table class="table">
+          <tr><th>房间</th><th>球桌</th><th>玩法</th><th>状态</th></tr>
+          <tr><td>A18</td><td>3 号桌</td><td>${template().name}</td><td><span class="tag green">进行中</span></td></tr>
+          <tr><td>C27</td><td>6 号桌</td><td>中八抢 5</td><td><span class="tag blue">等待对手</span></td></tr>
+        </table>
+      `;
+    }
+
+    function adminView() {
+      return `
+        ${topbar("老板端原型", "参数可控，不让用户复杂")}
+        <div class="panel-grid">
+          <div class="config-card">
+            <h3>玩法模板</h3>
+            <table class="table">
+              <tr><th>玩法</th><th>最低时间</th><th>每盘分</th><th>倍数</th><th>状态</th></tr>
+              ${Object.values(gameTemplates).map(item => `
+                <tr>
+                  <td>${item.name}</td>
+                  <td>${item.minimumMinutes} 分钟</td>
+                  <td>${item.basePointPerRack}</td>
+                  <td>${item.multipliers.map(v => "x" + v).join(" / ")}</td>
+                  <td><span class="tag ${item.enabled ? "green" : "blue"}">${item.enabled ? "开放" : "预留"}</span></td>
+                </tr>
+              `).join("")}
+            </table>
+          </div>
+          <div class="config-card">
+            <h3>随机奖励</h3>
+            <div class="field"><label>小于 30 分钟自动提高奖励</label><select><option>开启</option><option>关闭</option></select></div>
+            <div class="grid-2">
+              <div class="field"><label>抢 5 高奖励区间</label><input value="5-15 分"></div>
+              <div class="field"><label>抢 7 高奖励区间</label><input value="8-20 分"></div>
+              <div class="field"><label>抢 10 高奖励区间</label><input value="12-26 分"></div>
+              <div class="field"><label>未设结束时间</label><input value="0-5 分"></div>
+            </div>
+          </div>
+          <div class="config-card">
+            <h3>段位规则</h3>
+            <div class="notice green">青铜到黄金：只加星，不掉星。</div>
+            <div class="notice">黄金以后：开放掉星，具体小段位、加星、掉星规则待补。</div>
+          </div>
+          <div class="config-card">
+            <h3>大屏配置</h3>
+            <div class="field"><label>展示榜单</label><select><option>总积分榜 + 段位榜</option><option>今日榜</option><option>连胜榜</option></select></div>
+            <div class="field"><label>刷新频率</label><input value="30 秒"></div>
+            <div class="field"><label>访问令牌</label><input value="screenToken-3f8a"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function screenView() {
+      const top = rankings.slice(0, 3);
+      const rows = rankings.slice(3);
+      return `
+        ${topbar("电视大屏原型", "16:9 横屏榜单")}
+        <div class="screen-wrap">
+          <div class="screen-grid">
+            <div class="screen-title">
+              <div>
+                <div class="eyebrow">湖北 · 武汉  第一赛季</div>
+                <h2>天梯挑战排行榜</h2>
+              </div>
+              <div class="status-pill">自动刷新 30s</div>
+            </div>
+            <div class="screen-card" style="padding:14px">
+              <div class="screen-table">
+                <div class="screen-row header"><span>排名</span><span>昵称</span><span>段位</span><span>胜场</span><span>变化</span></div>
+                ${rows.slice(0, 4).map(screenRow).join("")}
+              </div>
+            </div>
+            <div class="podium">
+              ${podiumCard(top[1], "second")}
+              ${podiumCard(top[0], "first")}
+              ${podiumCard(top[2], "third")}
+            </div>
+            <div class="screen-card" style="padding:14px">
+              <div class="screen-table">
+                <div class="screen-row header"><span>排名</span><span>昵称</span><span>段位</span><span>胜场</span><span>变化</span></div>
+                ${rows.slice(4).map(screenRow).join("")}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function podiumCard(row, kind) {
+      const label = row.rank === 1 ? "冠军" : row.rank === 2 ? "第二名" : "第三名";
+      return `
+        <div class="podium-card ${kind}">
+          <div class="avatar big">${row.avatar}</div>
+          <strong>#${row.rank} ${row.nickname}</strong>
+          <span class="tag">${label}</span>
+          <span class="small">${row.rankTitle} · ${row.points} 分</span>
+          <span class="small">胜率 ${row.winRate}</span>
+        </div>
+      `;
+    }
+
+    function screenRow(row) {
+      return `
+        <div class="screen-row">
+          <strong>#${row.rank}</strong>
+          <span>${row.nickname}</span>
+          <span>${row.rankTitle}</span>
+          <span>${row.wins}</span>
+          <span>${row.change}</span>
+        </div>
+      `;
+    }
+
+    function render() {
+      let content = "";
+      if (state.role === "staff") content = staffView();
+      else if (state.role === "admin") content = adminView();
+      else if (state.role === "screen") content = screenView();
+      else content = playerView();
+      $("app").innerHTML = shell(content);
+    }
+
+    render();
+  </script>
+</body>
+</html>

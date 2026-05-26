@@ -102,6 +102,7 @@ $previewPath = Resolve-RepoPath $Preview
 
 New-Item -ItemType Directory -Force -Path $script:ResolvedOutputDir | Out-Null
 New-Item -ItemType Directory -Force -Path (Split-Path $previewPath -Parent) | Out-Null
+Get-ChildItem -Path $script:ResolvedOutputDir -Filter *.png -File | Remove-Item -Force
 
 $sourceImage = [System.Drawing.Bitmap]::FromFile($sourcePath)
 
@@ -109,18 +110,18 @@ $assets = @(
   @{ name = "rank-bronze"; x = 34; y = 140; w = 100; h = 110 },
   @{ name = "rank-silver"; x = 144; y = 138; w = 100; h = 112 },
   @{ name = "rank-gold"; x = 254; y = 126; w = 112; h = 122 },
-  @{ name = "rank-gold-iii-featured"; x = 380; y = 96; w = 150; h = 222 },
+  @{ name = "rank-gold-iii-featured"; x = 382; y = 96; w = 142; h = 222 },
   @{ name = "rank-platinum"; x = 552; y = 140; w = 98; h = 112 },
   @{ name = "rank-diamond"; x = 660; y = 136; w = 100; h = 116 },
   @{ name = "rank-star"; x = 770; y = 122; w = 108; h = 132 },
   @{ name = "rank-king"; x = 882; y = 118; w = 104; h = 134 },
-  @{ name = "reward-crate-normal"; x = 584; y = 694; w = 108; h = 94 },
-  @{ name = "reward-crate-sprint"; x = 704; y = 692; w = 104; h = 98 },
+  @{ name = "reward-crate-normal"; x = 586; y = 694; w = 102; h = 94 },
+  @{ name = "reward-crate-sprint"; x = 708; y = 692; w = 96; h = 98 },
   @{ name = "reward-coin"; x = 812; y = 706; w = 80; h = 96 },
-  @{ name = "settlement-reward-crate"; x = 1066; y = 452; w = 120; h = 124 },
-  @{ name = "settlement-rank-up"; x = 600; y = 442; w = 124; h = 142 },
-  @{ name = "settlement-victory"; x = 1212; y = 446; w = 160; h = 140 },
-  @{ name = "settlement-confirmed"; x = 1400; y = 446; w = 112; h = 140 }
+  @{ name = "settlement-reward-crate"; x = 1072; y = 452; w = 108; h = 124 },
+  @{ name = "settlement-rank-up"; x = 604; y = 442; w = 116; h = 142 },
+  @{ name = "settlement-victory"; x = 1218; y = 446; w = 150; h = 140 },
+  @{ name = "settlement-confirmed"; x = 1404; y = 446; w = 104; h = 140 }
 )
 
 $paths = New-Object System.Collections.Generic.List[string]

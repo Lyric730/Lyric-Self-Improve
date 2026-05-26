@@ -129,92 +129,18 @@
 
 .crate-visual__halo {
   position: absolute;
-  width: 174rpx;
-  height: 112rpx;
-  background: radial-gradient(circle, rgba(255, 118, 0, 0.42), transparent 70%);
+  width: 192rpx;
+  height: 128rpx;
+  background: radial-gradient(circle, rgba(255, 118, 0, 0.36), transparent 72%);
   border-radius: 999rpx;
   transform: translateY(18rpx);
 }
 
-.crate-visual__lid,
-.crate-visual__body,
-.crate-visual__feet {
+.crate-visual__asset {
   position: absolute;
-  left: 24rpx;
-  right: 24rpx;
-}
-
-.crate-visual__lid {
-  top: 32rpx;
-  height: 58rpx;
-  background:
-    linear-gradient(180deg, #4a3f31, #17110b 64%, #080706),
-    repeating-linear-gradient(90deg, rgba(255, 211, 107, 0.2) 0 2rpx, transparent 2rpx 34rpx);
-  clip-path: polygon(22rpx 0, calc(100% - 22rpx) 0, 100% 22rpx, calc(100% - 12rpx) 100%, 12rpx 100%, 0 22rpx);
-  box-shadow:
-    inset 0 0 0 1rpx rgba(255, 211, 107, 0.46),
-    0 8rpx 18rpx rgba(0, 0, 0, 0.34);
-}
-
-.crate-visual__lock {
-  position: absolute;
-  left: 50%;
-  top: 22rpx;
-  width: 44rpx;
-  height: 36rpx;
-  background: linear-gradient(180deg, #ffd36b, #a95c09);
-  clip-path: polygon(10rpx 0, calc(100% - 10rpx) 0, 100% 10rpx, 100% 100%, 0 100%, 0 10rpx);
-  transform: translateX(-50%);
-  box-shadow: inset 0 0 0 1rpx rgba(255, 242, 192, 0.7);
-}
-
-.crate-visual__body {
-  top: 78rpx;
-  height: 86rpx;
-  background:
-    linear-gradient(145deg, #35281d, #0c0a08 62%, #060504),
-    repeating-linear-gradient(135deg, rgba(255, 118, 0, 0.16) 0 3rpx, transparent 3rpx 32rpx);
-  clip-path: polygon(10rpx 0, calc(100% - 10rpx) 0, 100% 14rpx, calc(100% - 18rpx) 100%, 18rpx 100%, 0 14rpx);
-  box-shadow:
-    inset 0 0 0 1rpx rgba(255, 118, 0, 0.5),
-    inset 0 -16rpx 0 rgba(0, 0, 0, 0.28);
-}
-
-.crate-visual__slot {
-  position: absolute;
-  top: 16rpx;
-  width: 36rpx;
-  height: 50rpx;
-  background: linear-gradient(180deg, rgba(255, 180, 72, 0.72), rgba(102, 39, 0, 0.36));
-  clip-path: polygon(8rpx 0, 100% 0, calc(100% - 8rpx) 100%, 0 100%);
-}
-
-.crate-visual__slot--left {
-  left: 24rpx;
-}
-
-.crate-visual__slot--right {
-  right: 24rpx;
-  transform: scaleX(-1);
-}
-
-.crate-visual__mark {
-  position: absolute;
-  left: 50%;
-  top: 18rpx;
-  color: #ffe6a8;
-  font-family: var(--yh-font-number);
-  font-size: 58rpx;
-  font-weight: 900;
-  line-height: 1;
-  text-shadow: 0 0 18rpx rgba(255, 118, 0, 0.62);
-  transform: translateX(-50%);
-}
-
-.crate-visual__feet {
-  bottom: 8rpx;
-  height: 14rpx;
-  background: linear-gradient(90deg, transparent, rgba(217, 164, 65, 0.36), transparent);
+  width: 188rpx;
+  height: 168rpx;
+  transform: translateY(4rpx);
 }
 
 .reward-math {

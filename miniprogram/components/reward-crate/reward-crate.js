@@ -27,11 +27,20 @@ Component({
     boostPercent: {
       type: Number,
       value: 200
+    },
+    normalCrateSrc: {
+      type: String,
+      value: "/assets/ui-kit/reward-crate-normal.png"
+    },
+    sprintCrateSrc: {
+      type: String,
+      value: "/assets/ui-kit/reward-crate-sprint.png"
     }
   },
 
   data: {
-    stageItems: []
+    stageItems: [],
+    crateImage: "/assets/ui-kit/reward-crate-sprint.png"
   },
 
   lifetimes: {
@@ -52,6 +61,7 @@ Component({
       const labels = ["第1局", "第2局", "第3局", "冲刺局"];
 
       this.setData({
+        crateImage: current >= 4 ? this.data.sprintCrateSrc : this.data.normalCrateSrc,
         stageItems: labels.map((label, index) => {
           const stage = index + 1;
           const active = stage <= current;

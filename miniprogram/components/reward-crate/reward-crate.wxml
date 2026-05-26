@@ -17,15 +17,7 @@
   <view class="reward-crate__body">
     <view class="crate-visual">
       <view class="crate-visual__halo"></view>
-      <view class="crate-visual__lid">
-        <view class="crate-visual__lock"></view>
-      </view>
-      <view class="crate-visual__body">
-        <view class="crate-visual__slot crate-visual__slot--left"></view>
-        <view class="crate-visual__slot crate-visual__slot--right"></view>
-        <text class="crate-visual__mark">?</text>
-      </view>
-      <view class="crate-visual__feet"></view>
+      <image class="crate-visual__asset" src="{{crateImage}}" mode="aspectFit"></image>
     </view>
 
     <view class="reward-math">

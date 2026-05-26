@@ -90,5 +90,20 @@
   - 续时提示：到点前冲刺、奖励提升比例，强调“续时继续打”的激励循环。
 - 设计约束：
   - 继续使用四角内收切角、暗金属底、稀缺橙金高亮。
-  - 不使用图片依赖，后续可以替换为正式宝箱资产，但当前先保证小程序代码可控。
+  - 首版曾用代码绘制宝箱；第五轮已按用户反馈替换为正式抠图资产。
   - 仍然禁用 `display: grid`、`bind:`、`wx:elif`、`background-clip`、粗侧边框等高风险写法。
+
+### UI Kit 第五轮：美术资源接入策略修正
+
+- 用户明确反馈：宝箱、段位勋章等现成美术资源不应继续用代码硬画。
+- 调整原则：
+  - 宝箱、段位勋章、结算徽章、积分币走 PNG 图片资源。
+  - 代码只负责容器、布局、状态、数值、点击交互。
+- 新增资产目录：`miniprogram/assets/ui-kit/`
+- 新增抠图脚本：`scripts/extract-ui-kit-assets.ps1`
+- 新增资产映射文档：`docs/design/ui-asset-map.md`
+- 新增抠图预览：`docs/design/extracted-ui-assets-preview.png`
+- 已改造 `reward-crate`：
+  - 删除代码绘制的箱盖、锁扣、箱体结构。
+  - 使用 `/assets/ui-kit/reward-crate-normal.png` 与 `/assets/ui-kit/reward-crate-sprint.png`。
+  - 根据当前奖励阶段自动切换普通宝箱 / 冲刺宝箱。

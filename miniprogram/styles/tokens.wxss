@@ -1,0 +1,63 @@
+page,
+:host {
+  --yh-color-bg: #080705;
+  --yh-color-bg-2: #120e0a;
+  --yh-color-panel: #19140f;
+  --yh-color-panel-2: #241b13;
+  --yh-color-panel-raised: #2d2116;
+  --yh-color-felt: #07170f;
+  --yh-color-felt-2: #10291b;
+  --yh-color-rail-wood: #5a2d12;
+  --yh-color-metal: #2a2925;
+  --yh-color-orange: #ff7600;
+  --yh-color-orange-deep: #b84a00;
+  --yh-color-ember: #ff4b12;
+  --yh-color-gold: #d9a441;
+  --yh-color-gold-bright: #ffd36b;
+  --yh-color-success: #45c978;
+  --yh-color-warning: #f6b94a;
+  --yh-color-danger: #ef4d32;
+  --yh-color-info: #6a91c9;
+  --yh-color-text: #f6efe6;
+  --yh-color-text-muted: #b9a894;
+  --yh-color-text-faint: #766a5d;
+  --yh-color-disabled: #514942;
+  --yh-color-line: rgba(255, 214, 145, 0.16);
+  --yh-color-line-strong: rgba(255, 118, 0, 0.48);
+
+  --yh-space-1: 8rpx;
+  --yh-space-2: 16rpx;
+  --yh-space-3: 24rpx;
+  --yh-space-4: 32rpx;
+  --yh-space-5: 48rpx;
+  --yh-space-6: 64rpx;
+  --yh-page-pad: 32rpx;
+
+  --yh-radius-sm: 8rpx;
+  --yh-radius-md: 16rpx;
+  --yh-radius-lg: 24rpx;
+  --yh-cut-sm: 12rpx;
+  --yh-cut-md: 20rpx;
+
+  --yh-font-cn: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --yh-font-number: "DIN Alternate", "DIN Condensed", "Bahnschrift", "Arial Narrow", sans-serif;
+  --yh-text-xs: 20rpx;
+  --yh-text-sm: 24rpx;
+  --yh-text-md: 28rpx;
+  --yh-text-lg: 34rpx;
+  --yh-text-xl: 44rpx;
+  --yh-text-hero: 72rpx;
+  --yh-text-score: 96rpx;
+
+  --yh-shadow-panel: 0 16rpx 42rpx rgba(0, 0, 0, 0.36);
+  --yh-shadow-button: 0 12rpx 28rpx rgba(255, 118, 0, 0.28);
+  --yh-shadow-reward: 0 18rpx 44rpx rgba(217, 164, 65, 0.24);
+  --yh-glow-orange: 0 0 28rpx rgba(255, 118, 0, 0.42);
+  --yh-glow-gold: 0 0 32rpx rgba(255, 211, 107, 0.36);
+
+  --yh-motion-fast: 120ms;
+  --yh-motion-base: 220ms;
+  --yh-motion-slow: 420ms;
+  --yh-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --yh-ease-pop: cubic-bezier(0.22, 1.42, 0.36, 1);
+}

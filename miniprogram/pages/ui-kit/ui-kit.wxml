@@ -1,0 +1,75 @@
+<view class="ui-kit-page">
+  <view class="hero">
+    <view>
+      <text class="hero__eyebrow">YUNHAN BILLIARDS CLUB</text>
+      <text class="hero__title">球房夜赛控制台</text>
+      <text class="hero__copy">UI Kit v0.1 · 组件可编码规格起步版</text>
+    </view>
+    <view class="hero__table">
+      <text class="hero__table-label">TABLE</text>
+      <text class="hero__table-no">T03</text>
+      <text class="hero__table-time">到点 22:30</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section__title">Buttons</text>
+    <view class="button-grid">
+      <yh-button text="开始挑战" variant="primary" size="lg" block="{{true}}" bind:tap="noop" />
+      <yh-button text="服了确认" variant="success" block="{{true}}" bind:tap="noop" />
+      <yh-button text="不服" variant="danger" block="{{true}}" bind:tap="noop" />
+      <yh-button text="返回玩法" variant="secondary" block="{{true}}" bind:tap="noop" />
+      <yh-button text="低优先级" variant="ghost" block="{{true}}" bind:tap="noop" />
+      <yh-button text="处理中" variant="primary" loading="{{true}}" block="{{true}}" bind:tap="noop" />
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section__title">Mode Cards</text>
+    <view class="mode-stack">
+      <mode-card
+        wx:for="{{modes}}"
+        wx:key="modeId"
+        mode-id="{{item.modeId}}"
+        name="{{item.name}}"
+        target-wins="{{item.targetWins}}"
+        minimum-minutes="{{item.minimumMinutes}}"
+        base-options="{{item.baseOptions}}"
+        star-reward="{{item.starReward}}"
+        enabled="{{item.enabled}}"
+        selected="{{selectedMode === item.modeId}}"
+        tag="{{item.tag}}"
+        bind:select="handleModeSelect"
+      />
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section__title">Panels</text>
+    <yh-panel marker="RISK POINTS" title="风险积分" subtitle="底分 × 倍率，结算时胜方加、败方减" tone="orange" raised="{{true}}">
+      <view class="risk-line">
+        <text class="risk-line__label">100 × 3</text>
+        <text class="risk-line__value">= 300 分</text>
+      </view>
+    </yh-panel>
+
+    <yh-panel marker="RANDOM REWARD" title="随机奖励" subtitle="双方同享，结算后发放" tone="gold" raised="{{true}}">
+      <view class="reward-card">
+        <text class="reward-card__range">80 ~ 150</text>
+        <text class="reward-card__unit">积分</text>
+        <text class="reward-card__copy">本场结算后随机发放</text>
+      </view>
+    </yh-panel>
+
+    <yh-panel marker="SETTLEMENT" title="结算状态" subtitle="用于时间不足、可结算、异常等反馈" tone="success">
+      <view class="status-row status-row--success">
+        <text>可结算</text>
+        <text>胜盘 + 最低有效时间已满足</text>
+      </view>
+      <view class="status-row status-row--danger">
+        <text>时间不足</text>
+        <text>未满最低有效时间，暂不能清算</text>
+      </view>
+    </yh-panel>
+  </view>
+</view>

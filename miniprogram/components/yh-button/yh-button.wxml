@@ -1,0 +1,10 @@
+<button
+  class="custom-class yh-btn yh-btn--{{variant}} yh-btn--{{size}} {{block ? 'yh-btn--block' : ''}} {{disabled || loading ? 'is-disabled' : ''}}"
+  disabled="{{disabled || loading}}"
+  hover-class="yh-btn--hover"
+  bindtap="handleTap"
+>
+  <text wx:if="{{loading}}" class="yh-btn__loader"></text>
+  <text wx:elif="{{icon}}" class="yh-btn__icon">{{icon}}</text>
+  <text class="yh-btn__text">{{loading ? '处理中' : text}}</text>
+</button>

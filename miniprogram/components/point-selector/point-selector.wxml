@@ -1,0 +1,73 @@
+<view class="point-selector">
+  <view class="point-selector__grain"></view>
+  <view class="point-selector__frame point-selector__frame--top"></view>
+  <view class="point-selector__frame point-selector__frame--bottom"></view>
+
+  <view class="point-selector__group">
+    <view class="point-selector__label-row">
+      <text class="point-selector__label">底分选择</text>
+      <text class="point-selector__hint">店长后台可调</text>
+    </view>
+    <view class="point-selector__options">
+      <view
+        wx:for="{{baseOptions}}"
+        wx:key="*this"
+        class="point-option {{item === selectedBase ? 'is-selected' : ''}}"
+        data-value="{{item}}"
+        bindtap="selectBase"
+      >
+        <text class="point-option__value">{{item}}</text>
+        <text class="point-option__state">{{item === selectedBase ? '选中' : '未选中'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="point-selector__divider"></view>
+
+  <view class="point-selector__group">
+    <view class="point-selector__label-row">
+      <text class="point-selector__label">倍率选择</text>
+      <text class="point-selector__hint">只选档位，不手输</text>
+    </view>
+    <view class="point-selector__options point-selector__options--multi">
+      <view
+        wx:for="{{multipliers}}"
+        wx:key="*this"
+        class="point-option point-option--multiplier {{item === selectedMultiplier ? 'is-selected' : ''}}"
+        data-value="{{item}}"
+        bindtap="selectMultiplier"
+      >
+        <text class="point-option__value">x{{item}}</text>
+        <text class="point-option__state">{{item === selectedMultiplier ? '选中' : '未选中'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="risk-formula">
+    <view>
+      <text class="risk-formula__label">风险积分</text>
+      <view class="risk-formula__math">
+        <text>{{selectedBase}}</text>
+        <text class="risk-formula__symbol">×</text>
+        <text>{{selectedMultiplier}}</text>
+        <text class="risk-formula__symbol">=</text>
+        <text class="risk-formula__total">{{riskPoints}}</text>
+        <text class="risk-formula__unit">分</text>
+      </view>
+    </view>
+    <text class="risk-formula__copy">胜方加风险积分，败方减风险积分；双方另享随机奖励。</text>
+  </view>
+
+  <view class="reward-strip">
+    <view class="reward-strip__item">
+      <text class="reward-strip__kicker">普通随机奖励</text>
+      <text class="reward-strip__value">{{rewardRange}} 积分</text>
+      <text class="reward-strip__copy">结算后双方同享</text>
+    </view>
+    <view class="reward-strip__item reward-strip__item--sprint">
+      <text class="reward-strip__kicker">续时冲刺奖励</text>
+      <text class="reward-strip__value">{{sprintRewardRange}} 积分</text>
+      <text class="reward-strip__copy">临近到点时突出展示</text>
+    </view>
+  </view>
+</view>

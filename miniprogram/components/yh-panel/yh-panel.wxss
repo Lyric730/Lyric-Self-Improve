@@ -27,12 +27,14 @@
 
 .yh-panel--cut {
   clip-path: polygon(
-    0 0,
+    var(--yh-cut-md) 0,
     calc(100% - var(--yh-cut-md)) 0,
     100% var(--yh-cut-md),
-    100% 100%,
+    100% calc(100% - var(--yh-cut-md)),
+    calc(100% - var(--yh-cut-md)) 100%,
     var(--yh-cut-md) 100%,
-    0 calc(100% - var(--yh-cut-md))
+    0 calc(100% - var(--yh-cut-md)),
+    0 var(--yh-cut-md)
   );
 }
 

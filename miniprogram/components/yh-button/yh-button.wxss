@@ -20,11 +20,12 @@
   box-sizing: border-box;
   clip-path: polygon(
     18rpx 0,
-    calc(100% - 14rpx) 0,
-    100% 14rpx,
-    100% calc(100% - 14rpx),
+    calc(100% - 18rpx) 0,
+    100% 18rpx,
+    100% calc(100% - 18rpx),
     calc(100% - 18rpx) 100%,
-    0 100%,
+    18rpx 100%,
+    0 calc(100% - 18rpx),
     0 18rpx
   );
   transition: transform var(--yh-motion-fast) var(--yh-ease-out),
@@ -47,8 +48,8 @@
   inset: 0;
   opacity: 0.72;
   background:
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0 2rpx, transparent 2rpx 18rpx),
-    linear-gradient(90deg, transparent 0 12%, rgba(255, 255, 255, 0.08) 38%, transparent 62%);
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 2rpx, transparent 2rpx 18rpx),
+    linear-gradient(90deg, rgba(53, 25, 7, 0.22) 0 18%, rgba(255, 196, 95, 0.1) 42%, transparent 70%);
 }
 
 .yh-btn__shine {
@@ -133,11 +134,12 @@
 .yh-btn--primary {
   color: #1a0f08;
   background:
-    linear-gradient(180deg, #ff9a27 0%, #ef6f00 46%, #a63800 100%),
-    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0 14rpx, transparent 14rpx 28rpx);
+    linear-gradient(180deg, #ff9e25 0%, #ef6a00 48%, #8d2f00 100%),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.18) 0 14rpx, transparent 14rpx 28rpx);
   box-shadow:
-    0 14rpx 26rpx rgba(255, 102, 0, 0.23),
-    inset 0 0 0 2rpx rgba(255, 183, 75, 0.55),
+    0 12rpx 20rpx rgba(255, 102, 0, 0.18),
+    inset 0 0 0 1rpx rgba(255, 210, 126, 0.78),
+    inset 0 0 0 3rpx rgba(91, 30, 0, 0.24),
     inset 0 -8rpx 0 rgba(89, 27, 0, 0.28);
   text-shadow: 0 1rpx 0 rgba(255, 217, 146, 0.38);
 }
@@ -145,10 +147,11 @@
 .yh-btn--secondary {
   color: #f2c27a;
   background:
-    linear-gradient(180deg, #342719 0%, #19140f 52%, #0e0c09 100%),
+    linear-gradient(180deg, #241b12 0%, #11100e 54%, #090807 100%),
     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0 2rpx, transparent 2rpx 22rpx);
   box-shadow:
-    inset 0 0 0 2rpx rgba(255, 145, 28, 0.7),
+    inset 0 0 0 1rpx rgba(255, 145, 28, 0.72),
+    inset 0 0 0 3rpx rgba(255, 211, 107, 0.06),
     inset 0 -8rpx 0 rgba(0, 0, 0, 0.22),
     0 10rpx 18rpx rgba(0, 0, 0, 0.22);
 }
@@ -190,9 +193,12 @@
 
 .yh-btn--icon {
   color: #f0b64b;
-  background: linear-gradient(180deg, #382513, #16120d 56%, #090807);
+  background:
+    linear-gradient(180deg, #32210f, #13100c 56%, #070706),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 2rpx, transparent 2rpx 16rpx);
   box-shadow:
-    inset 0 0 0 2rpx rgba(255, 132, 0, 0.54),
+    inset 0 0 0 1rpx rgba(255, 132, 0, 0.56),
+    inset 0 0 0 3rpx rgba(255, 211, 107, 0.06),
     0 8rpx 18rpx rgba(0, 0, 0, 0.26);
 }
 

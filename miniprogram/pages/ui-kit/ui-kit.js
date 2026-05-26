@@ -1,6 +1,10 @@
 Page({
   data: {
     selectedMode: "race5",
+    selectedBase: 100,
+    selectedMultiplier: 3,
+    selectorBaseOptions: [50, 100, 200],
+    selectorMultipliers: [1, 2, 3, 5],
     modes: [
       {
         modeId: "race5",
@@ -38,6 +42,13 @@ Page({
   handleModeSelect(event) {
     this.setData({
       selectedMode: event.detail.modeId
+    });
+  },
+
+  handlePointChange(event) {
+    this.setData({
+      selectedBase: event.detail.selectedBase,
+      selectedMultiplier: event.detail.selectedMultiplier
     });
   },
 

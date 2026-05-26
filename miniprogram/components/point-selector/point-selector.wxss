@@ -1,0 +1,288 @@
+@import "../../styles/tokens.wxss";
+
+.point-selector {
+  position: relative;
+  display: grid;
+  gap: 28rpx;
+  padding: 30rpx;
+  overflow: hidden;
+  color: var(--yh-color-text);
+  background:
+    linear-gradient(150deg, rgba(35, 25, 16, 0.98) 0%, rgba(13, 12, 10, 0.99) 58%, rgba(6, 6, 5, 1) 100%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0 2rpx, transparent 2rpx 26rpx);
+  clip-path: polygon(
+    22rpx 0,
+    calc(100% - 22rpx) 0,
+    100% 22rpx,
+    100% calc(100% - 22rpx),
+    calc(100% - 22rpx) 100%,
+    22rpx 100%,
+    0 calc(100% - 22rpx),
+    0 22rpx
+  );
+  box-shadow:
+    inset 0 0 0 1rpx rgba(255, 118, 0, 0.42),
+    inset 0 0 0 3rpx rgba(255, 211, 107, 0.05),
+    0 18rpx 38rpx rgba(0, 0, 0, 0.32);
+}
+
+.point-selector__grain,
+.point-selector__frame {
+  position: absolute;
+  pointer-events: none;
+}
+
+.point-selector__grain {
+  inset: 0;
+  opacity: 0.82;
+  background:
+    linear-gradient(126deg, transparent 0 35%, rgba(255, 118, 0, 0.08) 35% 37%, transparent 37% 100%),
+    radial-gradient(circle at 78% 10%, rgba(255, 118, 0, 0.14), transparent 180rpx);
+}
+
+.point-selector__frame {
+  left: 22rpx;
+  right: 22rpx;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, rgba(255, 118, 0, 0.68), transparent);
+}
+
+.point-selector__frame--top {
+  top: 10rpx;
+}
+
+.point-selector__frame--bottom {
+  bottom: 10rpx;
+}
+
+.point-selector__group,
+.risk-formula,
+.reward-strip {
+  position: relative;
+  z-index: 1;
+}
+
+.point-selector__group {
+  display: grid;
+  gap: 16rpx;
+}
+
+.point-selector__label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16rpx;
+}
+
+.point-selector__label {
+  color: #d7a149;
+  font-size: 24rpx;
+  font-weight: 900;
+}
+
+.point-selector__hint {
+  color: #68594b;
+  font-size: 20rpx;
+  font-weight: 800;
+}
+
+.point-selector__options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18rpx;
+}
+
+.point-selector__options--multi {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.point-option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 88rpx;
+  padding: 12rpx 8rpx 10rpx;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(36, 31, 25, 0.96), rgba(17, 15, 13, 0.98)),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0 2rpx, transparent 2rpx 20rpx);
+  clip-path: polygon(
+    14rpx 0,
+    calc(100% - 14rpx) 0,
+    100% 14rpx,
+    100% calc(100% - 14rpx),
+    calc(100% - 14rpx) 100%,
+    14rpx 100%,
+    0 calc(100% - 14rpx),
+    0 14rpx
+  );
+  box-shadow:
+    inset 0 0 0 1rpx rgba(255, 147, 47, 0.34),
+    inset 0 -8rpx 0 rgba(0, 0, 0, 0.22),
+    0 10rpx 18rpx rgba(0, 0, 0, 0.26);
+}
+
+.point-option::before {
+  content: "";
+  position: absolute;
+  inset: 4rpx;
+  border: 1rpx solid rgba(255, 211, 107, 0.06);
+  clip-path: inherit;
+}
+
+.point-option:active {
+  transform: translateY(2rpx) scale(0.985);
+}
+
+.point-option.is-selected {
+  background:
+    linear-gradient(180deg, #a44708 0%, #f27a08 52%, #7a2c00 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 2rpx, transparent 2rpx 20rpx);
+  box-shadow:
+    inset 0 0 0 2rpx rgba(255, 202, 101, 0.8),
+    inset 0 -8rpx 0 rgba(63, 17, 0, 0.28),
+    0 0 28rpx rgba(255, 118, 0, 0.32);
+}
+
+.point-option__value {
+  color: #d8c3a7;
+  font-family: var(--yh-font-number);
+  font-size: 34rpx;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.point-option.is-selected .point-option__value {
+  color: #fff0cf;
+  text-shadow: 0 2rpx 0 rgba(77, 24, 0, 0.52);
+}
+
+.point-option__state {
+  margin-top: 8rpx;
+  color: #786652;
+  font-size: 18rpx;
+  font-weight: 800;
+}
+
+.point-option.is-selected .point-option__state {
+  color: #341300;
+}
+
+.point-selector__divider {
+  position: relative;
+  z-index: 1;
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, rgba(255, 118, 0, 0.34), transparent);
+}
+
+.risk-formula {
+  display: grid;
+  gap: 14rpx;
+  padding: 24rpx;
+  background:
+    linear-gradient(145deg, rgba(22, 16, 10, 0.92), rgba(7, 7, 6, 0.94)),
+    repeating-linear-gradient(90deg, rgba(255, 118, 0, 0.045) 0 2rpx, transparent 2rpx 28rpx);
+  clip-path: polygon(
+    18rpx 0,
+    calc(100% - 18rpx) 0,
+    100% 18rpx,
+    100% calc(100% - 18rpx),
+    calc(100% - 18rpx) 100%,
+    18rpx 100%,
+    0 calc(100% - 18rpx),
+    0 18rpx
+  );
+  box-shadow: inset 0 0 0 1rpx rgba(255, 118, 0, 0.24);
+}
+
+.risk-formula__label {
+  color: #d7a149;
+  font-size: 22rpx;
+  font-weight: 900;
+}
+
+.risk-formula__math {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 10rpx;
+  color: #f0d4a5;
+  font-family: var(--yh-font-number);
+  font-size: 54rpx;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.risk-formula__symbol {
+  color: #8e7153;
+  font-size: 36rpx;
+}
+
+.risk-formula__total {
+  color: #ff7a00;
+  font-size: 64rpx;
+  text-shadow: 0 0 22rpx rgba(255, 118, 0, 0.32);
+}
+
+.risk-formula__unit {
+  color: #f0d4a5;
+  font-size: 32rpx;
+}
+
+.risk-formula__copy {
+  color: #9e8a72;
+  font-size: 22rpx;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.reward-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18rpx;
+}
+
+.reward-strip__item {
+  display: grid;
+  gap: 8rpx;
+  padding: 20rpx;
+  background: linear-gradient(145deg, rgba(40, 27, 13, 0.88), rgba(15, 13, 10, 0.94));
+  clip-path: polygon(
+    16rpx 0,
+    calc(100% - 16rpx) 0,
+    100% 16rpx,
+    100% calc(100% - 16rpx),
+    calc(100% - 16rpx) 100%,
+    16rpx 100%,
+    0 calc(100% - 16rpx),
+    0 16rpx
+  );
+  box-shadow: inset 0 0 0 1rpx rgba(217, 164, 65, 0.24);
+}
+
+.reward-strip__item--sprint {
+  background: linear-gradient(145deg, rgba(74, 38, 7, 0.92), rgba(18, 12, 7, 0.96));
+  box-shadow:
+    inset 0 0 0 1rpx rgba(255, 118, 0, 0.5),
+    0 0 24rpx rgba(255, 118, 0, 0.16);
+}
+
+.reward-strip__kicker {
+  color: #d7a149;
+  font-size: 20rpx;
+  font-weight: 900;
+}
+
+.reward-strip__value {
+  color: #ffe1a3;
+  font-family: var(--yh-font-number);
+  font-size: 32rpx;
+  font-weight: 900;
+}
+
+.reward-strip__copy {
+  color: #806d59;
+  font-size: 20rpx;
+  font-weight: 700;
+}

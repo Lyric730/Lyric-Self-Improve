@@ -3,7 +3,7 @@
     <view>
       <text class="hero__eyebrow">YUNHAN BILLIARDS CLUB</text>
       <text class="hero__title">球房夜赛控制台</text>
-      <text class="hero__copy">按 07 号设计稿逐组件还原 · 当前：01 按钮 / 02 模式卡片</text>
+      <text class="hero__copy">按 07 号设计稿逐组件还原 · 当前：01 按钮 / 02 模式卡片 / 03 底分倍率</text>
     </view>
     <view class="hero__table">
       <text class="hero__table-label">TABLE</text>
@@ -12,7 +12,7 @@
     </view>
   </view>
 
-  <view class="kit-panel">
+  <view class="kit-panel kit-panel--buttons">
     <view class="kit-panel__head">
       <text class="kit-panel__index">01</text>
       <view>
@@ -112,7 +112,7 @@
     </view>
   </view>
 
-  <view class="kit-panel">
+  <view class="kit-panel kit-panel--modes">
     <view class="kit-panel__head">
       <text class="kit-panel__index">02</text>
       <view>
@@ -137,5 +137,25 @@
         bind:select="handleModeSelect"
       />
     </view>
+  </view>
+
+  <view class="kit-panel kit-panel--selectors">
+    <view class="kit-panel__head">
+      <text class="kit-panel__index">03</text>
+      <view>
+        <text class="kit-panel__title">底分 / 倍率选择</text>
+        <text class="kit-panel__sub">SELECTORS · 对应设计稿右上区域</text>
+      </view>
+    </view>
+
+    <point-selector
+      base-options="{{selectorBaseOptions}}"
+      multipliers="{{selectorMultipliers}}"
+      selected-base="{{selectedBase}}"
+      selected-multiplier="{{selectedMultiplier}}"
+      reward-range="80 ~ 150"
+      sprint-reward-range="200 ~ 300"
+      bind:change="handlePointChange"
+    />
   </view>
 </view>

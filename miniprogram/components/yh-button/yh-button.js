@@ -18,6 +18,10 @@ Component({
       type: String,
       value: ""
     },
+    iconOnly: {
+      type: Boolean,
+      value: false
+    },
     block: {
       type: Boolean,
       value: false

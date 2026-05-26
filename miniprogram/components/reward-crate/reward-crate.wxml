@@ -1,0 +1,72 @@
+<view class="reward-crate">
+  <view class="reward-crate__grain"></view>
+  <view class="reward-crate__rail reward-crate__rail--top"></view>
+  <view class="reward-crate__rail reward-crate__rail--bottom"></view>
+
+  <view class="reward-crate__head">
+    <view>
+      <text class="reward-crate__kicker">RANDOM BONUS</text>
+      <text class="reward-crate__title">{{title}}</text>
+      <text class="reward-crate__copy">本场结算后，双方都拿系统随机奖励。</text>
+    </view>
+    <view class="reward-crate__badge">
+      <text>全员发放</text>
+    </view>
+  </view>
+
+  <view class="reward-crate__body">
+    <view class="crate-visual">
+      <view class="crate-visual__halo"></view>
+      <view class="crate-visual__lid">
+        <view class="crate-visual__lock"></view>
+      </view>
+      <view class="crate-visual__body">
+        <view class="crate-visual__slot crate-visual__slot--left"></view>
+        <view class="crate-visual__slot crate-visual__slot--right"></view>
+        <text class="crate-visual__mark">?</text>
+      </view>
+      <view class="crate-visual__feet"></view>
+    </view>
+
+    <view class="reward-math">
+      <view class="reward-math__row">
+        <text class="reward-math__label">普通奖励</text>
+        <view class="reward-math__value-wrap">
+          <text class="reward-math__value">{{normalRange}}</text>
+          <text class="reward-math__unit">积分</text>
+        </view>
+      </view>
+      <view class="reward-math__row reward-math__row--sprint">
+        <text class="reward-math__label">续时冲刺</text>
+        <view class="reward-math__value-wrap">
+          <text class="reward-math__value">{{sprintRange}}</text>
+          <text class="reward-math__unit">积分</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="reward-cycle">
+    <view
+      wx:for="{{stageItems}}"
+      wx:key="label"
+      class="reward-stage {{item.className}}"
+      data-stage="{{item.stage}}"
+      bindtap="switchStage"
+    >
+      <text class="reward-stage__dot"></text>
+      <text class="reward-stage__label">{{item.label}}</text>
+    </view>
+  </view>
+
+  <view class="reward-crate__footer">
+    <view>
+      <text class="reward-crate__footer-label">{{cycleLabel}} · {{dueLabel}}</text>
+      <text class="reward-crate__footer-copy">低剩余时长自动突出冲刺奖励，提醒玩家续时继续打。</text>
+    </view>
+    <view class="reward-crate__boost">
+      <text>{{boostPercent}}</text>
+      <text>%</text>
+    </view>
+  </view>
+</view>

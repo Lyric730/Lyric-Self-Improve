@@ -5,6 +5,7 @@
     "yh-panel": "/components/yh-panel/yh-panel",
     "mode-card": "/components/mode-card/mode-card",
     "point-selector": "/components/point-selector/point-selector",
-    "score-control": "/components/score-control/score-control"
+    "score-control": "/components/score-control/score-control",
+    "reward-crate": "/components/reward-crate/reward-crate"
   }
 }

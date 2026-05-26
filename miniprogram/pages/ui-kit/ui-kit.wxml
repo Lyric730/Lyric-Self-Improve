@@ -3,7 +3,7 @@
     <view>
       <text class="hero__eyebrow">YUNHAN BILLIARDS CLUB</text>
       <text class="hero__title">球房夜赛控制台</text>
-      <text class="hero__copy">按 07 号设计稿逐组件还原 · 当前：01 按钮 / 02 模式卡片 / 03 底分倍率 / 04 计分控件</text>
+      <text class="hero__copy">按 07 号设计稿逐组件还原 · 当前：01 按钮 / 02 模式卡片 / 03 底分倍率 / 04 计分控件 / 05 随机奖励</text>
     </view>
     <view class="hero__table">
       <text class="hero__table-label">TABLE</text>
@@ -177,5 +177,24 @@
       elapsed-label="00:28:35"
       minimum-label="40:00"
       remaining-label="11:25"></score-control>
+  </view>
+
+  <view class="kit-panel kit-panel--reward">
+    <view class="kit-panel__head">
+      <text class="kit-panel__index">05</text>
+      <view>
+        <text class="kit-panel__title">随机奖励宝箱</text>
+        <text class="kit-panel__sub">REWARD CRATE · 对应设计稿右中区域</text>
+      </view>
+    </view>
+
+    <reward-crate
+      normal-range="80 ~ 150"
+      sprint-range="200 ~ 300"
+      current-stage="{{4}}"
+      cycle-label="第 4 大局"
+      due-label="到点前冲刺"
+      boost-percent="{{200}}"
+      bindstagechange="noop"></reward-crate>
   </view>
 </view>

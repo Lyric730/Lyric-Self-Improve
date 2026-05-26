@@ -10,14 +10,14 @@
     </view>
     <view class="point-selector__options">
       <view
-        wx:for="{{baseOptions}}"
-        wx:key="*this"
-        class="point-option {{item === selectedBase ? 'is-selected' : ''}}"
-        data-value="{{item}}"
+        wx:for="{{baseItems}}"
+        wx:key="value"
+        class="point-option {{item.selected ? 'is-selected' : ''}}"
+        data-value="{{item.value}}"
         bindtap="selectBase"
       >
-        <text class="point-option__value">{{item}}</text>
-        <text class="point-option__state">{{item === selectedBase ? '选中' : '未选中'}}</text>
+        <text class="point-option__value">{{item.value}}</text>
+        <text class="point-option__state">{{item.selected ? '选中' : '未选中'}}</text>
       </view>
     </view>
   </view>
@@ -31,14 +31,14 @@
     </view>
     <view class="point-selector__options point-selector__options--multi">
       <view
-        wx:for="{{multipliers}}"
-        wx:key="*this"
-        class="point-option point-option--multiplier {{item === selectedMultiplier ? 'is-selected' : ''}}"
-        data-value="{{item}}"
+        wx:for="{{multiplierItems}}"
+        wx:key="value"
+        class="point-option point-option--multiplier {{item.selected ? 'is-selected' : ''}}"
+        data-value="{{item.value}}"
         bindtap="selectMultiplier"
       >
-        <text class="point-option__value">x{{item}}</text>
-        <text class="point-option__state">{{item === selectedMultiplier ? '选中' : '未选中'}}</text>
+        <text class="point-option__value">x{{item.value}}</text>
+        <text class="point-option__state">{{item.selected ? '选中' : '未选中'}}</text>
       </view>
     </view>
   </view>

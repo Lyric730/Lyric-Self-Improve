@@ -145,12 +145,14 @@
 }
 
 .button-zone {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 34rpx;
 }
 
 .button-group {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 18rpx;
 }
 
@@ -163,33 +165,34 @@
 .button-row,
 .result-row,
 .icon-row {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 20rpx;
 }
 
-.button-row--primary {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.button-row--primary .button-sample {
+  flex: 1 1 190rpx;
 }
 
-.result-row {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.result-row .button-sample {
+  flex: 1 1 240rpx;
 }
 
 .icon-row {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
 }
 
 .button-sample,
 .icon-sample {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 8rpx;
-  justify-items: center;
+  align-items: center;
   min-width: 0;
 }
 
 .button-sample {
-  justify-items: stretch;
+  align-items: stretch;
 }
 
 .button-sample > text,
@@ -201,7 +204,11 @@
 }
 
 .mode-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 22rpx;
+}
+
+.mode-grid mode-card {
+  flex: 1 1 190rpx;
 }

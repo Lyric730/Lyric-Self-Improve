@@ -13,6 +13,7 @@ Page({
         minimumMinutes: 40,
         baseOptions: [20, 50, 100],
         starReward: 1,
+        selected: true,
         enabled: true,
         tag: "当前开放"
       },
@@ -23,6 +24,7 @@ Page({
         minimumMinutes: 80,
         baseOptions: [50, 100, 200],
         starReward: 2,
+        selected: false,
         enabled: true,
         tag: "高收益"
       },
@@ -33,6 +35,7 @@ Page({
         minimumMinutes: 100,
         baseOptions: [100, 200, 300],
         starReward: 3,
+        selected: false,
         enabled: false,
         tag: "预留"
       }
@@ -40,8 +43,13 @@ Page({
   },
 
   handleModeSelect(event) {
+    const selectedMode = event.detail.modeId;
     this.setData({
-      selectedMode: event.detail.modeId
+      selectedMode,
+      modes: this.data.modes.map((mode) => ({
+        ...mode,
+        selected: mode.modeId === selectedMode
+      }))
     });
   },
 

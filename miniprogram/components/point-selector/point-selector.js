@@ -27,18 +27,51 @@ Component({
   },
 
   data: {
-    riskPoints: 300
+    riskPoints: 300,
+    baseItems: [],
+    multiplierItems: []
   },
 
   observers: {
-    "selectedBase, selectedMultiplier": function updateRiskPoints(base, multiplier) {
-      this.setData({
-        riskPoints: Number(base || 0) * Number(multiplier || 0)
-      });
+    "baseOptions, multipliers, selectedBase, selectedMultiplier": function syncAll(
+      baseOptions,
+      multipliers,
+      selectedBase,
+      selectedMultiplier
+    ) {
+      this.syncOptions(baseOptions, multipliers, selectedBase, selectedMultiplier);
+    }
+  },
+
+  lifetimes: {
+    attached() {
+      this.syncOptions(
+        this.properties.baseOptions,
+        this.properties.multipliers,
+        this.properties.selectedBase,
+        this.properties.selectedMultiplier
+      );
     }
   },
 
   methods: {
+    syncOptions(baseOptions, multipliers, selectedBase, selectedMultiplier) {
+      const currentBase = Number(selectedBase || 0);
+      const currentMultiplier = Number(selectedMultiplier || 0);
+
+      this.setData({
+        riskPoints: currentBase * currentMultiplier,
+        baseItems: (Array.isArray(baseOptions) ? baseOptions : []).map((value) => ({
+          value,
+          selected: Number(value) === currentBase
+        })),
+        multiplierItems: (Array.isArray(multipliers) ? multipliers : []).map((value) => ({
+          value,
+          selected: Number(value) === currentMultiplier
+        }))
+      });
+    },
+
     selectBase(event) {
       const selectedBase = Number(event.currentTarget.dataset.value);
       this.triggerEvent("change", {

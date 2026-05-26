@@ -26,15 +26,15 @@
         <text class="button-group__title">主要按钮</text>
         <view class="button-row button-row--primary">
           <view class="button-sample button-sample--wide">
-            <yh-button text="开始挑战" variant="primary" block="{{true}}" bind:tap="noop" />
+            <yh-button text="开始挑战" variant="primary" block="{{true}}" bindtap="noop"></yh-button>
             <text>默认</text>
           </view>
           <view class="button-sample button-sample--wide">
-            <yh-button text="开始挑战" variant="primary" block="{{true}}" bind:tap="noop" />
+            <yh-button text="开始挑战" variant="primary" block="{{true}}" bindtap="noop"></yh-button>
             <text>按下</text>
           </view>
           <view class="button-sample button-sample--wide">
-            <yh-button text="开始挑战" variant="primary" disabled="{{true}}" block="{{true}}" bind:tap="noop" />
+            <yh-button text="开始挑战" variant="primary" disabled="{{true}}" block="{{true}}" bindtap="noop"></yh-button>
             <text>禁用</text>
           </view>
         </view>
@@ -44,15 +44,15 @@
         <text class="button-group__title">次要 / 提示按钮</text>
         <view class="button-row button-row--primary">
           <view class="button-sample button-sample--wide">
-            <yh-button text="临近到点提示" variant="secondary" block="{{true}}" bind:tap="noop" />
+            <yh-button text="临近到点提示" variant="secondary" block="{{true}}" bindtap="noop"></yh-button>
             <text>默认</text>
           </view>
           <view class="button-sample button-sample--wide">
-            <yh-button text="临近到点提示" variant="warning" block="{{true}}" bind:tap="noop" />
+            <yh-button text="临近到点提示" variant="warning" block="{{true}}" bindtap="noop"></yh-button>
             <text>强调</text>
           </view>
           <view class="button-sample button-sample--wide">
-            <yh-button text="临近到点提示" variant="secondary" disabled="{{true}}" block="{{true}}" bind:tap="noop" />
+            <yh-button text="临近到点提示" variant="secondary" disabled="{{true}}" block="{{true}}" bindtap="noop"></yh-button>
             <text>禁用</text>
           </view>
         </view>
@@ -62,19 +62,19 @@
         <text class="button-group__title">对局结果按钮</text>
         <view class="result-row">
           <view class="button-sample">
-            <yh-button text="不服" variant="danger" block="{{true}}" bind:tap="noop" />
+            <yh-button text="不服" variant="danger" block="{{true}}" bindtap="noop"></yh-button>
             <text>默认</text>
           </view>
           <view class="button-sample">
-            <yh-button text="不服" variant="danger" disabled="{{true}}" block="{{true}}" bind:tap="noop" />
+            <yh-button text="不服" variant="danger" disabled="{{true}}" block="{{true}}" bindtap="noop"></yh-button>
             <text>禁用</text>
           </view>
           <view class="button-sample">
-            <yh-button text="服了确认" variant="success" block="{{true}}" bind:tap="noop" />
+            <yh-button text="服了确认" variant="success" block="{{true}}" bindtap="noop"></yh-button>
             <text>默认</text>
           </view>
           <view class="button-sample">
-            <yh-button text="服了确认" variant="success" disabled="{{true}}" block="{{true}}" bind:tap="noop" />
+            <yh-button text="服了确认" variant="success" disabled="{{true}}" block="{{true}}" bindtap="noop"></yh-button>
             <text>禁用</text>
           </view>
         </view>
@@ -84,27 +84,27 @@
         <text class="button-group__title">图标按钮</text>
         <view class="icon-row">
           <view class="icon-sample">
-            <yh-button icon="+" variant="icon" icon-only="{{true}}" bind:tap="noop" />
+            <yh-button icon="+" variant="icon" icon-only="{{true}}" bindtap="noop"></yh-button>
             <text>默认</text>
           </view>
           <view class="icon-sample">
-            <yh-button icon="+" variant="warning" icon-only="{{true}}" bind:tap="noop" />
+            <yh-button icon="+" variant="warning" icon-only="{{true}}" bindtap="noop"></yh-button>
             <text>按下</text>
           </view>
           <view class="icon-sample">
-            <yh-button icon="+" variant="icon" icon-only="{{true}}" disabled="{{true}}" bind:tap="noop" />
+            <yh-button icon="+" variant="icon" icon-only="{{true}}" disabled="{{true}}" bindtap="noop"></yh-button>
             <text>禁用</text>
           </view>
           <view class="icon-sample">
-            <yh-button icon="-" variant="icon" icon-only="{{true}}" bind:tap="noop" />
+            <yh-button icon="-" variant="icon" icon-only="{{true}}" bindtap="noop"></yh-button>
             <text>默认</text>
           </view>
           <view class="icon-sample">
-            <yh-button icon="‹" variant="icon" icon-only="{{true}}" bind:tap="noop" />
+            <yh-button icon="‹" variant="icon" icon-only="{{true}}" bindtap="noop"></yh-button>
             <text>返回</text>
           </view>
           <view class="icon-sample">
-            <yh-button icon="?" variant="icon" icon-only="{{true}}" bind:tap="noop" />
+            <yh-button icon="?" variant="icon" icon-only="{{true}}" bindtap="noop"></yh-button>
             <text>规则</text>
           </view>
         </view>
@@ -132,10 +132,9 @@
         base-options="{{item.baseOptions}}"
         star-reward="{{item.starReward}}"
         enabled="{{item.enabled}}"
-        selected="{{selectedMode === item.modeId}}"
+        selected="{{item.selected}}"
         tag="{{item.tag}}"
-        bind:select="handleModeSelect"
-      />
+        bindselect="handleModeSelect"></mode-card>
     </view>
   </view>
 
@@ -155,7 +154,6 @@
       selected-multiplier="{{selectedMultiplier}}"
       reward-range="80 ~ 150"
       sprint-reward-range="200 ~ 300"
-      bind:change="handlePointChange"
-    />
+      bindchange="handlePointChange"></point-selector>
   </view>
 </view>

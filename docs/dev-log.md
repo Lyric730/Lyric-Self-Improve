@@ -43,3 +43,26 @@
   - JSON 格式检查通过。
   - 禁用样式扫描通过。
   - 微信开发者工具 CLI `preview` 通过，包大小约 `39.7 KB`。
+
+### UI Kit 模拟器只显示文字的问题修复
+
+现象：
+
+- 微信开发者工具里页面没有正常显示按钮、模式卡、选择器，只剩大段默认文字。
+- 这说明问题不只是视觉不像，而是组件/WXSS 在模拟器里没有按预期生效。
+
+处理：
+
+- 自定义组件调用从自闭合写法改成显式闭合写法，例如 `<yh-button></yh-button>`。
+- 事件绑定从 `bind:tap / bind:select / bind:change` 改为更稳的 `bindtap / bindselect / bindchange`。
+- `usingComponents` 路径改成小程序根路径写法，例如 `/components/yh-button/yh-button`。
+- 模式卡选中态从 WXML 的 `selectedMode === item.modeId` 表达式挪到 JS 数据字段 `item.selected`。
+- `PointSelector` 的选中态从 WXML 表达式挪到组件 JS 生成的 `baseItems / multiplierItems`。
+- 页面和底分倍率组件的主体布局从 `display: grid` 改为更稳的 flex 布局。
+
+验证：
+
+- JS 语法检查通过。
+- JSON 格式检查通过。
+- 高风险语法扫描通过，不再出现 `bind:`、`display: grid`、`wx:elif`、`selectedMode ===`。
+- 微信开发者工具 CLI 清缓存、重置文件索引、重新预览通过，包大小约 `43.9 KB`。

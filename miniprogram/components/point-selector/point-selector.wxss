@@ -2,7 +2,8 @@
 
 .point-selector {
   position: relative;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 28rpx;
   padding: 30rpx;
   overflow: hidden;
@@ -63,7 +64,8 @@
 }
 
 .point-selector__group {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 16rpx;
 }
 
@@ -87,19 +89,25 @@
 }
 
 .point-selector__options {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 18rpx;
 }
 
-.point-selector__options--multi {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+.point-selector__options .point-option {
+  flex: 1 1 150rpx;
+}
+
+.point-selector__options--multi .point-option {
+  flex-basis: 112rpx;
 }
 
 .point-option {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-height: 88rpx;
   padding: 12rpx 8rpx 10rpx;
   overflow: hidden;
@@ -176,7 +184,8 @@
 }
 
 .risk-formula {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 14rpx;
   padding: 24rpx;
   background:
@@ -238,13 +247,15 @@
 }
 
 .reward-strip {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 18rpx;
 }
 
 .reward-strip__item {
-  display: grid;
+  display: flex;
+  flex: 1 1 230rpx;
+  flex-direction: column;
   gap: 8rpx;
   padding: 20rpx;
   background: linear-gradient(145deg, rgba(40, 27, 13, 0.88), rgba(15, 13, 10, 0.94));

@@ -9,6 +9,6 @@
   <text class="yh-btn__bevel yh-btn__bevel--top"></text>
   <text class="yh-btn__bevel yh-btn__bevel--bottom"></text>
   <text wx:if="{{loading}}" class="yh-btn__loader"></text>
-  <text wx:elif="{{icon}}" class="yh-btn__icon">{{icon}}</text>
+  <text wx:if="{{!loading && icon}}" class="yh-btn__icon">{{icon}}</text>
   <text wx:if="{{!iconOnly}}" class="yh-btn__text">{{loading ? '处理中' : text}}</text>
 </button>

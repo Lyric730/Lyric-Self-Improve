@@ -4,6 +4,7 @@
     "yh-button": "/components/yh-button/yh-button",
     "yh-panel": "/components/yh-panel/yh-panel",
     "mode-card": "/components/mode-card/mode-card",
-    "point-selector": "/components/point-selector/point-selector"
+    "point-selector": "/components/point-selector/point-selector",
+    "score-control": "/components/score-control/score-control"
   }
 }

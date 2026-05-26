@@ -1,0 +1,82 @@
+<view class="score-control">
+  <view class="score-control__rail score-control__rail--top"></view>
+  <view class="score-control__rail score-control__rail--bottom"></view>
+
+  <view class="score-control__stage">
+    <view class="player-card player-card--a">
+      <view class="player-card__avatar">
+        <text>A</text>
+      </view>
+      <text class="player-card__name">{{playerAName}}</text>
+      <text class="player-card__badge">我方</text>
+    </view>
+
+    <view class="score-display">
+      <view class="score-display__due">
+        <text>到点</text>
+        <text>{{dueTime}}</text>
+      </view>
+      <view class="score-display__numbers">
+        <text>{{localScoreA}}</text>
+        <text class="score-display__colon">:</text>
+        <text>{{localScoreB}}</text>
+      </view>
+      <text class="score-display__mode">抢{{targetWins}} · 先胜{{targetWins}}局</text>
+      <view class="score-display__dots">
+        <text></text>
+        <text></text>
+        <text class="is-active"></text>
+        <text></text>
+        <text></text>
+      </view>
+    </view>
+
+    <view class="player-card player-card--b">
+      <view class="player-card__avatar">
+        <text>B</text>
+      </view>
+      <text class="player-card__name">{{playerBName}}</text>
+      <text class="player-card__badge player-card__badge--away">对手</text>
+    </view>
+  </view>
+
+  <view class="score-control__operator">
+    <view class="stepper stepper--left">
+      <text class="stepper__label">我方局分</text>
+      <button class="stepper__button stepper__button--plus" bindtap="increaseA">+</button>
+      <text class="stepper__value">{{localScoreA}}</text>
+      <button class="stepper__button stepper__button--minus" bindtap="decreaseA">−</button>
+    </view>
+
+    <view class="rack-card">
+      <text class="rack-card__label">当前局</text>
+      <text class="rack-card__value">{{rackLabel}}</text>
+      <text class="rack-card__copy">抢{{targetWins}} 先胜{{targetWins}}局</text>
+      <text class="rack-card__state">{{settleLabel}}</text>
+    </view>
+
+    <view class="stepper stepper--right">
+      <text class="stepper__label">对手局分</text>
+      <button class="stepper__button stepper__button--plus" bindtap="increaseB">+</button>
+      <text class="stepper__value">{{localScoreB}}</text>
+      <button class="stepper__button stepper__button--minus" bindtap="decreaseB">−</button>
+    </view>
+  </view>
+
+  <view class="timer-panel timer-panel--{{timerTone}}">
+    <view class="timer-panel__main">
+      <text class="timer-panel__label">计时器</text>
+      <text class="timer-panel__value">{{elapsedLabel}}</text>
+      <text class="timer-panel__copy">最低有效时间 {{minimumLabel}}</text>
+    </view>
+    <view class="timer-panel__bar">
+      <view class="timer-panel__fill"></view>
+      <view class="timer-panel__knob"></view>
+    </view>
+    <view class="timer-panel__meta">
+      <text>已用 {{elapsedLabel}}</text>
+      <text>最低 {{minimumLabel}}</text>
+      <text>剩余 {{remainingLabel}}</text>
+    </view>
+  </view>
+</view>

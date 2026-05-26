@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/ui-kit/ui-kit"
+  ],
+  "window": {
+    "navigationBarTitleText": "云瀚 UI Kit",
+    "navigationBarBackgroundColor": "#080705",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#080705"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

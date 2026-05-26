@@ -1,0 +1,13 @@
+<view class="custom-class yh-panel yh-panel--{{tone}} {{cut ? 'yh-panel--cut' : ''}} {{raised ? 'yh-panel--raised' : ''}}">
+  <view wx:if="{{title || subtitle || marker}}" class="yh-panel__header">
+    <view>
+      <text wx:if="{{marker}}" class="yh-panel__marker">{{marker}}</text>
+      <text wx:if="{{title}}" class="yh-panel__title">{{title}}</text>
+      <text wx:if="{{subtitle}}" class="yh-panel__subtitle">{{subtitle}}</text>
+    </view>
+    <slot name="extra"></slot>
+  </view>
+  <view class="yh-panel__body">
+    <slot></slot>
+  </view>
+</view>

@@ -1,0 +1,239 @@
+<view class="ui-kit-page">
+  <view class="spec-hero">
+    <view class="spec-hero__copy">
+      <text class="spec-hero__eyebrow">YUNHAN BILLIARDS CLUB · UI KIT REVIEW</text>
+      <text class="spec-hero__title">球房夜赛组件验收台</text>
+      <text class="spec-hero__desc">把 07 / 08 号设计稿拆成可复用组件，逐项检查状态、间距、美术资产和小程序表现。</text>
+    </view>
+    <view class="spec-hero__panel">
+      <text class="spec-hero__label">CURRENT</text>
+      <text class="spec-hero__value">UI-03</text>
+      <text class="spec-hero__meta">组件验收台</text>
+    </view>
+  </view>
+
+  <view class="review-rail">
+    <view class="review-rail__item is-done">
+      <text>01</text>
+      <text>资产流水线</text>
+    </view>
+    <view class="review-rail__item is-done">
+      <text>02</text>
+      <text>资产组件</text>
+    </view>
+    <view class="review-rail__item is-active">
+      <text>03</text>
+      <text>验收台</text>
+    </view>
+    <view class="review-rail__item">
+      <text>04</text>
+      <text>对照验收</text>
+    </view>
+  </view>
+
+  <view class="spec-section spec-section--primary">
+    <view class="spec-section__head">
+      <text class="spec-section__index">01</text>
+      <view class="spec-section__copy">
+        <text class="spec-section__title">按钮状态矩阵</text>
+        <text class="spec-section__sub">BUTTONS · 对应 07 号设计稿左上按钮区</text>
+      </view>
+    </view>
+
+    <view class="state-stack">
+      <view class="state-lane">
+        <view class="state-lane__head">
+          <text class="state-lane__title">主按钮</text>
+          <text class="state-lane__hint">开始挑战、确认下一步，只保留一个强入口</text>
+        </view>
+        <view class="state-grid state-grid--three">
+          <view class="state-sample">
+            <yh-button text="开始挑战" variant="primary" block="{{true}}" bind:tap="noop" />
+            <text>默认</text>
+          </view>
+          <view class="state-sample is-pressed">
+            <yh-button text="开始挑战" variant="primary" block="{{true}}" bind:tap="noop" />
+            <text>按下</text>
+          </view>
+          <view class="state-sample">
+            <yh-button text="开始挑战" variant="primary" disabled="{{true}}" block="{{true}}" bind:tap="noop" />
+            <text>禁用</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="state-lane">
+        <view class="state-lane__head">
+          <text class="state-lane__title">次要 / 提示按钮</text>
+          <text class="state-lane__hint">返回、临近到点、低优先级操作</text>
+        </view>
+        <view class="state-grid state-grid--three">
+          <view class="state-sample">
+            <yh-button text="临近到点提示" variant="secondary" block="{{true}}" bind:tap="noop" />
+            <text>默认</text>
+          </view>
+          <view class="state-sample">
+            <yh-button text="临近到点提示" variant="warning" block="{{true}}" bind:tap="noop" />
+            <text>强调</text>
+          </view>
+          <view class="state-sample">
+            <yh-button text="临近到点提示" variant="secondary" disabled="{{true}}" block="{{true}}" bind:tap="noop" />
+            <text>禁用</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="state-lane">
+        <view class="state-lane__head">
+          <text class="state-lane__title">对局结果按钮</text>
+          <text class="state-lane__hint">服 / 不服需要强区分，避免误操作</text>
+        </view>
+        <view class="state-grid state-grid--two">
+          <view class="state-sample">
+            <yh-button text="不服" variant="danger" block="{{true}}" bind:tap="noop" />
+            <text>退出 / 再战入口</text>
+          </view>
+          <view class="state-sample">
+            <yh-button text="服了确认" variant="success" block="{{true}}" bind:tap="noop" />
+            <text>双方确认</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="state-lane state-lane--icons">
+        <view class="state-lane__head">
+          <text class="state-lane__title">图标按钮</text>
+          <text class="state-lane__hint">加减分、返回、规则，保持大触点</text>
+        </view>
+        <view class="icon-strip">
+          <view class="icon-sample">
+            <yh-button icon="+" variant="icon" icon-only="{{true}}" bind:tap="noop" />
+            <text>加分</text>
+          </view>
+          <view class="icon-sample">
+            <yh-button icon="-" variant="icon" icon-only="{{true}}" bind:tap="noop" />
+            <text>减分</text>
+          </view>
+          <view class="icon-sample">
+            <yh-button icon="‹" variant="icon" icon-only="{{true}}" bind:tap="noop" />
+            <text>返回</text>
+          </view>
+          <view class="icon-sample">
+            <yh-button icon="?" variant="icon" icon-only="{{true}}" bind:tap="noop" />
+            <text>规则</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="spec-section">
+    <view class="spec-section__head">
+      <text class="spec-section__index">02</text>
+      <view class="spec-section__copy">
+        <text class="spec-section__title">玩法卡片分层</text>
+        <text class="spec-section__sub">MODE CARDS · 对应 07 号设计稿上中区域</text>
+      </view>
+    </view>
+
+    <view class="mode-stage">
+      <view class="mode-stage__feature">
+        <text class="mode-stage__label">当前推荐</text>
+        <mode-card
+          mode-id="{{modes[0].modeId}}"
+          name="{{modes[0].name}}"
+          target-wins="{{modes[0].targetWins}}"
+          minimum-minutes="{{modes[0].minimumMinutes}}"
+          base-options="{{modes[0].baseOptions}}"
+          star-reward="{{modes[0].starReward}}"
+          enabled="{{modes[0].enabled}}"
+          selected="{{true}}"
+          tag="{{modes[0].tag}}"
+          bind:select="handleModeSelect"
+        />
+      </view>
+      <view class="mode-stage__side">
+        <text class="mode-stage__label">高收益 / 预留</text>
+        <mode-card
+          mode-id="{{modes[1].modeId}}"
+          name="{{modes[1].name}}"
+          target-wins="{{modes[1].targetWins}}"
+          minimum-minutes="{{modes[1].minimumMinutes}}"
+          base-options="{{modes[1].baseOptions}}"
+          star-reward="{{modes[1].starReward}}"
+          enabled="{{modes[1].enabled}}"
+          selected="{{false}}"
+          tag="{{modes[1].tag}}"
+          bind:select="handleModeSelect"
+        />
+        <mode-card
+          mode-id="{{modes[2].modeId}}"
+          name="{{modes[2].name}}"
+          target-wins="{{modes[2].targetWins}}"
+          minimum-minutes="{{modes[2].minimumMinutes}}"
+          base-options="{{modes[2].baseOptions}}"
+          star-reward="{{modes[2].starReward}}"
+          enabled="{{modes[2].enabled}}"
+          selected="{{false}}"
+          tag="{{modes[2].tag}}"
+          bind:select="handleModeSelect"
+        />
+      </view>
+    </view>
+  </view>
+
+  <view class="spec-section">
+    <view class="spec-section__head">
+      <text class="spec-section__index">03</text>
+      <view class="spec-section__copy">
+        <text class="spec-section__title">美术资产组件</text>
+        <text class="spec-section__sub">ART ASSETS · 对应 08 号设计稿段位 / 星级 / 奖励 / 结算区域</text>
+      </view>
+    </view>
+
+    <view class="asset-review">
+      <view class="asset-review__rank">
+        <text class="review-label">段位与星级</text>
+        <rank-badge tier="gold" featured="{{true}}" />
+        <view class="star-matrix">
+          <view>
+            <text>加星</text>
+            <star-track value="{{4}}" total="{{5}}" mode="new" />
+          </view>
+          <view>
+            <text>保护</text>
+            <star-track value="{{3}}" total="{{5}}" mode="protected" />
+          </view>
+          <view>
+            <text>扣星</text>
+            <star-track value="{{2}}" total="{{5}}" mode="lost" />
+          </view>
+        </view>
+      </view>
+
+      <view class="asset-review__reward">
+        <text class="review-label">随机奖励</text>
+        <reward-crate type="normal" title="普通随机奖励" range="10 ~ 20 积分" subtitle="每场结算后双方同享" />
+        <reward-crate type="sprint" title="续时冲刺奖励" range="80 ~ 150 积分" subtitle="临近到点时强化刺激" />
+      </view>
+
+      <view class="asset-review__settlement">
+        <text class="review-label">结算反馈</text>
+        <view class="settlement-strip">
+          <settlement-badge variant="rankUp" label="段位提升" />
+          <settlement-badge variant="plus" label="+180 积分" />
+          <settlement-badge variant="minus" label="-100 积分" />
+          <settlement-badge variant="reward" label="随机奖励" />
+        </view>
+      </view>
+
+      <view class="asset-review__result">
+        <text class="review-label">胜负确认</text>
+        <view class="result-pair">
+          <victory-banner subtitle="胜方结算仪式资产" />
+          <accept-stamp label="服了确认章资产" />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

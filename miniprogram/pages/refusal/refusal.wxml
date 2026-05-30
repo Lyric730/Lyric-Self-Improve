@@ -1,0 +1,46 @@
+<view class="flow-page flow-page--locked">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">REFUSAL</text>
+    <text class="flow-hero__title">本场暂不结算</text>
+    <text class="flow-hero__subtitle">{{settlement.mode.name}} · {{settlement.scoreText}} · {{settlement.loser.name}} 未确认</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="退出本场" subtitle="双方确认后，本场不计积分、不加星" marker="EXIT" tone="danger" raised>
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>积分变化</text>
+          <text>0</text>
+        </view>
+        <view class="metric-card">
+          <text>段位星级</text>
+          <text>0</text>
+        </view>
+        <view class="metric-card">
+          <text>排行榜</text>
+          <text>不更新</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="再战一场" subtitle="当前场作废，重新选择玩法、底分和倍率" marker="REMATCH" tone="orange">
+      <view class="player-strip">
+        <view class="player-card">
+          <text class="avatar-token">{{settlement.winner.shortName}}</text>
+          <text class="player-card__name">{{settlement.winner.name}}</text>
+          <text class="player-card__meta">上一场胜方</text>
+        </view>
+        <view class="player-card">
+          <text class="avatar-token avatar-token--blue">{{settlement.loser.shortName}}</text>
+          <text class="player-card__name">{{settlement.loser.name}}</text>
+          <text class="player-card__meta">重新挑战</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <view class="flow-actions">
+      <yh-button text="双方同意退出" size="lg" variant="danger" block bind:tap="exitMatch" />
+      <yh-button text="再战一场" size="lg" variant="primary" block bind:tap="rematch" />
+    </view>
+  </view>
+</view>

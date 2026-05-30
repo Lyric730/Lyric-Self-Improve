@@ -1,0 +1,8 @@
+<view class="reward-crate reward-crate--{{type}}">
+  <view class="reward-crate__copy">
+    <text class="reward-crate__title">{{title}}</text>
+    <text class="reward-crate__range">{{range}}</text>
+    <text class="reward-crate__subtitle">{{subtitle}}</text>
+  </view>
+  <image class="reward-crate__asset" src="{{assetSrc}}" mode="aspectFit" />
+</view>

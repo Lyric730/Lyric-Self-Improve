@@ -1,0 +1,52 @@
+@import "../../styles/player-flow.wxss";
+
+.boss-mode {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 92rpx;
+  gap: 18rpx;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid rgba(255, 214, 145, 0.1);
+}
+
+.boss-mode:last-child {
+  border-bottom: 0;
+}
+
+.boss-mode view {
+  min-width: 0;
+}
+
+.boss-mode text {
+  display: block;
+}
+
+.boss-mode view text:first-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-lg);
+  font-weight: 900;
+}
+
+.boss-mode view text:not(:first-child) {
+  margin-top: 8rpx;
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.boss-mode > text {
+  height: 52rpx;
+  color: #120804;
+  font-size: var(--yh-text-xs);
+  font-weight: 900;
+  line-height: 52rpx;
+  text-align: center;
+  background: linear-gradient(180deg, #ffcf72, #ff8b18);
+  clip-path: polygon(12rpx 0, 100% 0, 100% calc(100% - 12rpx), calc(100% - 12rpx) 100%, 0 100%, 0 12rpx);
+}
+
+.boss-mode > text.is-off {
+  color: var(--yh-color-text-muted);
+  background: linear-gradient(180deg, #312b24, #16120e);
+}

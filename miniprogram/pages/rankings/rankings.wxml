@@ -1,0 +1,33 @@
+<view class="flow-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">RANKING</text>
+    <text class="flow-hero__title">排行榜</text>
+    <text class="flow-hero__subtitle">店内总榜 · 同段位榜 · 微信好友榜</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="排行战报" subtitle="积分越高，排名越靠前" marker="TOP" tone="gold" raised>
+      <view class="ranking-tabs">
+        <text wx:for="{{tabs}}" wx:key="id" class="{{activeTab === item.id ? 'is-active' : ''}}" data-tab="{{item.id}}" bindtap="switchTab">{{item.label}}</text>
+      </view>
+      <view class="ranking-list">
+        <view wx:for="{{activeRows}}" wx:key="id" class="ranking-row">
+          <text>#{{item.no}}</text>
+          <view>
+            <text>{{item.name}}</text>
+            <text>{{item.rank}}</text>
+          </view>
+          <text>{{item.points}}</text>
+          <text>{{item.trend}}</text>
+        </view>
+      </view>
+    </yh-panel>
+  </view>
+
+  <view class="bottom-tabs">
+    <text bindtap="goHome">挑战</text>
+    <text bindtap="goData">数据</text>
+    <text class="is-active">排行</text>
+    <text bindtap="goPerks">积分</text>
+  </view>
+</view>

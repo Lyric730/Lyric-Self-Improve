@@ -1,0 +1,33 @@
+<view class="flow-page flow-page--locked">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">FINAL CHECK</text>
+    <text class="flow-hero__title">确认开局</text>
+    <text class="flow-hero__subtitle">确认后开始计时，本场达到最低时间后才可结算</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="本场参数" subtitle="{{setup.mode.name}} · 底分 {{setup.selectedBase}} · x{{setup.selectedMultiplier}}" marker="MATCH" tone="orange" raised>
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>风险积分</text>
+          <text>{{setup.riskPoints}}</text>
+        </view>
+        <view class="metric-card">
+          <text>最低有效</text>
+          <text>{{setup.mode.minimumMinutes}}'</text>
+        </view>
+        <view class="metric-card">
+          <text>胜方加星</text>
+          <text>+{{setup.mode.starReward}}</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <reward-crate type="normal" title="普通随机奖励" range="{{setup.mode.normalReward}} 积分" subtitle="本场结算后发放" />
+    <reward-crate type="sprint" title="续时冲刺奖励" range="{{setup.mode.sprintReward}} 积分" subtitle="到点后继续打，奖励更高" />
+
+    <view class="flow-actions">
+      <yh-button text="开始比赛" size="lg" variant="primary" block bind:tap="startMatch" />
+    </view>
+  </view>
+</view>

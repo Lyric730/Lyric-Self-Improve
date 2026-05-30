@@ -1,0 +1,31 @@
+<view class="flow-page member-code-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">MEMBER CODE</text>
+    <text class="flow-hero__title">会员码</text>
+    <text class="flow-hero__subtitle">前台扫码后核销积分</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="前台核销" subtitle="只在店内前台出示" marker="CODE" tone="gold" raised>
+      <view class="member-code-box">
+        <view wx:if="{{qrCodeDataUrl && !loading}}" class="member-code-card">
+          <image src="{{qrCodeDataUrl}}" mode="aspectFit" />
+        </view>
+        <view wx:elif="{{loading}}" class="member-code-state">
+          <text>生成中</text>
+        </view>
+        <view wx:else class="member-code-state member-code-state--error">
+          <text>{{errorText}}</text>
+        </view>
+      </view>
+      <text wx:if="{{pointsText}}" class="member-code-points">{{pointsText}}</text>
+      <view class="flow-actions">
+        <yh-button text="刷新会员码" variant="secondary" loading="{{loading}}" block bind:tap="loadMemberCode" />
+      </view>
+    </yh-panel>
+  </view>
+
+  <view class="bottom-tabs">
+    <text bindtap="goBack">返回</text>
+  </view>
+</view>

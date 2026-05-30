@@ -1,0 +1,33 @@
+@import "../../styles/tokens.wxss";
+
+.settlement-badge {
+  display: grid;
+  justify-items: center;
+  gap: 10rpx;
+  min-height: 230rpx;
+  padding: 18rpx;
+  border: 1rpx solid rgba(255, 118, 0, 0.24);
+  background: rgba(13, 10, 8, 0.88);
+  clip-path: polygon(0 18rpx, 18rpx 0, 100% 0, 100% calc(100% - 18rpx), calc(100% - 18rpx) 100%, 0 100%);
+}
+
+.settlement-badge__asset {
+  width: 176rpx;
+  height: 176rpx;
+}
+
+.settlement-badge__label {
+  color: var(--yh-color-text-muted);
+  font-size: 20rpx;
+  font-weight: 800;
+}
+
+.settlement-badge--plus .settlement-badge__label,
+.settlement-badge--rankUp .settlement-badge__label,
+.settlement-badge--reward .settlement-badge__label {
+  color: var(--yh-color-gold-bright);
+}
+
+.settlement-badge--minus .settlement-badge__label {
+  color: var(--yh-color-danger);
+}

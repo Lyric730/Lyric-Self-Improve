@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "云瀚 UI Kit",
+  "usingComponents": {
+    "yh-button": "../../components/yh-button/yh-button",
+    "yh-panel": "../../components/yh-panel/yh-panel",
+    "mode-card": "../../components/mode-card/mode-card",
+    "rank-badge": "../../components/rank-badge/rank-badge",
+    "star-track": "../../components/star-track/star-track",
+    "reward-crate": "../../components/reward-crate/reward-crate",
+    "settlement-badge": "../../components/settlement-badge/settlement-badge",
+    "victory-banner": "../../components/victory-banner/victory-banner",
+    "accept-stamp": "../../components/accept-stamp/accept-stamp"
+  }
+}

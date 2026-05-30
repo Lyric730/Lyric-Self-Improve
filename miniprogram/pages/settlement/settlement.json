@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "结算确认",
+  "usingComponents": {
+    "yh-button": "../../components/yh-button/yh-button",
+    "yh-panel": "../../components/yh-panel/yh-panel",
+    "victory-banner": "../../components/victory-banner/victory-banner",
+    "reward-crate": "../../components/reward-crate/reward-crate",
+    "accept-stamp": "../../components/accept-stamp/accept-stamp"
+  }
+}

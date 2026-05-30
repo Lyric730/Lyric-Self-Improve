@@ -1,0 +1,15 @@
+.superpowers/
+.asset-review/
+project.private.config.json
+node_modules/
+.venv/
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+Thumbs.db
+desktop.ini
+*.Zone.Identifier
+*Zone.Identifier

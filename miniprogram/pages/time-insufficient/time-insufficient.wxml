@@ -1,0 +1,35 @@
+<view class="flow-page flow-page--locked">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">TIME CHECK</text>
+    <text class="flow-hero__title">还不能结算</text>
+    <text class="flow-hero__subtitle">最低有效时间是结算门槛，不是倒计时</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="时间不足" subtitle="{{setup.mode.name}} 需要满 {{setup.mode.minimumMinutes}} 分钟" marker="NOTICE" tone="danger" raised>
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>当前用时</text>
+          <text>{{elapsedText}}</text>
+        </view>
+        <view class="metric-card">
+          <text>最低有效</text>
+          <text>{{requiredText}}</text>
+        </view>
+        <view class="metric-card">
+          <text>积分段位</text>
+          <text>未生效</text>
+        </view>
+      </view>
+      <view class="notice-card">
+        <text>继续打满时间后再结算</text>
+        <text>如果球桌到点，请先到前台续时；本场不支持存时间。</text>
+      </view>
+    </yh-panel>
+
+    <view class="flow-actions">
+      <yh-button text="继续计分" size="lg" variant="primary" block bind:tap="keepPlaying" />
+      <yh-button text="先去续时" variant="secondary" block bind:tap="extendTime" />
+    </view>
+  </view>
+</view>

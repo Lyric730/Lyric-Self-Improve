@@ -1,0 +1,40 @@
+<view class="flow-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">POINTS</text>
+    <text class="flow-hero__title">积分礼遇</text>
+    <text class="flow-hero__subtitle">当前积分可到前台兑换礼遇</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="当前积分" subtitle="{{pointsPerks.nextRewardText}}" marker="BALANCE" tone="gold" raised>
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>当前积分</text>
+          <text>{{match.playerA.points}}</text>
+        </view>
+        <view class="metric-card">
+          <text>兑换门槛</text>
+          <text>{{pointsPerks.exchangeThreshold}}</text>
+        </view>
+        <view class="metric-card">
+          <text>开台赠分</text>
+          <text>+{{pointsPerks.tableOpenBonus}}</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="前台兑换" subtitle="出示会员码即可核销" marker="COUNTER" tone="default">
+      <text class="flow-note">{{pointsPerks.counterHint}}</text>
+      <view class="flow-actions">
+        <yh-button text="出示会员码" variant="primary" block bind:tap="goMemberCode" />
+      </view>
+    </yh-panel>
+  </view>
+
+  <view class="bottom-tabs">
+    <text bindtap="goHome">挑战</text>
+    <text bindtap="goData">数据</text>
+    <text bindtap="goRankings">排行</text>
+    <text class="is-active">积分</text>
+  </view>
+</view>

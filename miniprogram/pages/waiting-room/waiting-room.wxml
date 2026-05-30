@@ -1,0 +1,44 @@
+<view class="flow-page flow-page--locked waiting-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">MATCH ROOM</text>
+    <text class="flow-hero__title">等待对手加入</text>
+    <text class="flow-hero__subtitle">{{roomState.tableNo}} · 房间 {{roomState.roomNo}}</text>
+  </view>
+
+  <view class="flow-stack">
+    <view class="room-ticket">
+      <view class="room-ticket__main">
+        <text class="room-ticket__label">房间码</text>
+        <text class="room-ticket__code">{{roomState.roomNo}}</text>
+        <text class="room-ticket__hint">{{roomState.statusHint}}</text>
+      </view>
+      <view class="room-ticket__table">
+        <text>TABLE</text>
+        <text>{{roomState.tableNo}}</text>
+      </view>
+    </view>
+
+    <yh-panel title="发起人" subtitle="{{roomState.expiresText}}" marker="HOST" tone="orange" raised>
+      <view class="player-card player-card--horizontal">
+        <text class="avatar-token">{{roomState.host.shortName}}</text>
+        <view>
+          <text class="player-card__name">{{roomState.host.name}}</text>
+          <text class="player-card__rank">{{roomState.host.rankTitle}}</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <view class="room-status">
+      <text class="room-status__dot {{roomState.opponentJoined ? 'is-ready' : ''}}"></text>
+      <view>
+        <text>{{roomState.statusText}}</text>
+        <text>对手加入后，将进入玩法选择。</text>
+      </view>
+    </view>
+
+    <view class="flow-actions">
+      <yh-button text="刷新状态" size="lg" variant="secondary" block bind:tap="refreshRoom" />
+      <yh-button text="取消挑战" variant="ghost" block bind:tap="cancelRoom" />
+    </view>
+  </view>
+</view>

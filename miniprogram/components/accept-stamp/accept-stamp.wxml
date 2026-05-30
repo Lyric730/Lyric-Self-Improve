@@ -1,0 +1,4 @@
+<view class="accept-stamp">
+  <image class="accept-stamp__asset" src="/assets/ui-kit/settlement-accept-stamp.png" mode="aspectFit" />
+  <text class="accept-stamp__label">{{label}}</text>
+</view>

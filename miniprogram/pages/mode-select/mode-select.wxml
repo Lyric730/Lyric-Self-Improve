@@ -1,0 +1,33 @@
+<view class="flow-page flow-page--locked">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">MATCH SETUP</text>
+    <text class="flow-hero__title">选择挑战玩法</text>
+    <text class="flow-hero__subtitle">抢 5 稳定开局，抢 7 加星更快</text>
+  </view>
+
+  <view class="flow-stack">
+    <view class="mode-stack">
+      <mode-card
+        wx:for="{{modes}}"
+        wx:key="modeId"
+        mode-id="{{item.modeId}}"
+        target-wins="{{item.targetWins}}"
+        minimum-minutes="{{item.minimumMinutes}}"
+        base-options="{{item.baseOptions}}"
+        star-reward="{{item.starReward}}"
+        enabled="{{item.enabled}}"
+        selected="{{selectedModeId === item.modeId}}"
+        tag="{{item.tag}}"
+        bind:select="handleModeSelect"
+      />
+    </view>
+
+    <yh-panel title="段位收益" subtitle="全部玩法共用一个段位" marker="RANK" tone="default">
+      <text class="flow-note">抢 5 胜利 +1 星，抢 7 胜利 +2 星。未达到最低有效时间时，本场不进入积分结算。</text>
+    </yh-panel>
+
+    <view class="flow-actions">
+      <yh-button text="选择底分倍率" size="lg" variant="primary" block bind:tap="next" />
+    </view>
+  </view>
+</view>

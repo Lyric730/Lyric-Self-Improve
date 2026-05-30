@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "云瀚 UI Kit",
+  "usingComponents": {
+    "yh-button": "../../components/yh-button/yh-button",
+    "yh-panel": "../../components/yh-panel/yh-panel",
+    "mode-card": "../../components/mode-card/mode-card"
+  }
+}

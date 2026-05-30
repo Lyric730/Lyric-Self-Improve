@@ -1,0 +1,23 @@
+<view
+  class="custom-class mode-card {{selected ? 'is-selected' : ''}} {{enabled ? '' : 'is-disabled'}}"
+  bindtap="handleSelect"
+>
+  <view class="mode-card__main">
+    <view>
+      <text class="mode-card__name">{{name}}</text>
+      <text class="mode-card__desc">先胜{{targetWins}}局 · 最低{{minimumMinutes}}分钟</text>
+    </view>
+    <text class="mode-card__tag">{{enabled ? (tag || '当前开放') : '预留'}}</text>
+  </view>
+
+  <view class="mode-card__meta">
+    <view class="mode-card__meta-item">
+      <text class="mode-card__meta-label">底分</text>
+      <text class="mode-card__meta-value">{{baseText}}</text>
+    </view>
+    <view class="mode-card__meta-item">
+      <text class="mode-card__meta-label">胜方加星</text>
+      <text class="mode-card__meta-value">+{{starReward}}星</text>
+    </view>
+  </view>
+</view>

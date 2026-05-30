@@ -1,0 +1,109 @@
+{
+  "channels_scanned": 11,
+  "channels_succeeded": 11,
+  "multi_source": {
+    "mcp": [
+      "anthropic-release-notes",
+      "github-trending"
+    ],
+    "claude-code": [
+      "anthropic-release-notes",
+      "github-trending"
+    ],
+    "agent-skills": [
+      "anthropic-release-notes",
+      "search-engine-land-seo"
+    ],
+    "fine-tuning-2026": [
+      "anthropic-release-notes",
+      "openai-rss",
+      "reddit-r-MachineLearning-hot"
+    ],
+    "structured-outputs": [
+      "anthropic-release-notes",
+      "reddit-r-MachineLearning-hot"
+    ],
+    "geo": [
+      "aleyda-rss",
+      "anthropic-release-notes",
+      "search-engine-land-seo"
+    ],
+    "llms-txt": [
+      "aleyda-rss",
+      "reddit-r-SEO-hot"
+    ],
+    "ai-search": [
+      "aleyda-rss",
+      "search-engine-land-seo"
+    ],
+    "aeo": [
+      "aleyda-rss",
+      "search-engine-land-seo"
+    ],
+    "ai-overview": [
+      "aleyda-rss",
+      "search-engine-land-seo"
+    ]
+  },
+  "single_source": {
+    "prompt-caching": [
+      "anthropic-release-notes"
+    ],
+    "computer-use": [
+      "anthropic-release-notes"
+    ],
+    "vibe-coding": [
+      "google-ai-blog"
+    ],
+    "ai-citations": [
+      "aleyda-rss"
+    ]
+  },
+  "source_hits": {
+    "hn-algolia": [],
+    "github-trending": [
+      "claude-code",
+      "mcp"
+    ],
+    "anthropic-release-notes": [
+      "agent-skills",
+      "claude-code",
+      "computer-use",
+      "fine-tuning-2026",
+      "geo",
+      "mcp",
+      "prompt-caching",
+      "structured-outputs"
+    ],
+    "openai-rss": [
+      "fine-tuning-2026"
+    ],
+    "google-ai-blog": [
+      "vibe-coding"
+    ],
+    "aleyda-rss": [
+      "aeo",
+      "ai-citations",
+      "ai-overview",
+      "ai-search",
+      "geo",
+      "llms-txt"
+    ],
+    "search-engine-land-seo": [
+      "aeo",
+      "agent-skills",
+      "ai-overview",
+      "ai-search",
+      "geo"
+    ],
+    "reddit-r-SEO-hot": [
+      "llms-txt"
+    ],
+    "reddit-r-MachineLearning-hot": [
+      "fine-tuning-2026",
+      "structured-outputs"
+    ],
+    "reddit-r-LocalLLaMA-hot": [],
+    "reddit-r-Anthropic-hot": []
+  }
+}

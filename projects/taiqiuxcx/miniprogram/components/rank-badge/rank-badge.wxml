@@ -1,0 +1,11 @@
+<view class="rank-badge {{featured ? 'rank-badge--featured' : ''}}">
+  <image class="rank-badge__asset" src="{{assetSrc}}" mode="aspectFit" />
+  <view class="rank-badge__body">
+    <text class="rank-badge__title">{{title}}</text>
+    <text class="rank-badge__points">{{points}}</text>
+    <view class="rank-badge__bar">
+      <text></text>
+    </view>
+    <text class="rank-badge__hint">{{hint}}</text>
+  </view>
+</view>

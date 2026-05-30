@@ -1,0 +1,126 @@
+{
+  "competitor": "continue.dev",
+  "count": 20,
+  "data": [
+    {
+      "dr": "97",
+      "ref_url": "https://github.com/continuedev/continue",
+      "ref_title": "GitHub - continuedev/continue: ⏩ Source-controlled AI checks, enforceable in CI. Powered by the open-source Continue CLI · GitHubhttps://github.com/continuedev/continue",
+      "anchor": "https://changelog.continue.dev/"
+    },
+    {
+      "dr": "69",
+      "ref_url": "https://codeanywhere.com/",
+      "ref_title": "Online Code Editor · AI Cloud IDE · Codeanywherehttps://codeanywhere.com/",
+      "anchor": "in plain english and get production code ready, powered by Continue .https://continue.dev/"
+    },
+    {
+      "dr": "92",
+      "ref_url": "https://marketplace.visualstudio.com/items?itemName=Continue.continue",
+      "ref_title": "Continue - open-source AI code agent - Visual Studio Marketplacehttps://marketplace.visualstudio.com/items?itemName=Continue.continue",
+      "anchor": "continue.dev https://continue.dev/"
+    },
+    {
+      "dr": "94",
+      "ref_url": "https://medium.com/madhukarkumar/a-comprehensive-guide-to-vibe-coding-tools-2bd35e2d7b4f",
+      "ref_title": "A Comprehensive Guide to Vibe Coding Tools | by Madhukar Kumar | Software, AI and Marketing | Mediumhttps://medium.com/madhukarkumar/a-comprehensive-guide-to-vibe-coding-tools-2bd35e2d7b4f",
+      "anchor": "3. Continue https://www.continue.dev/"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://plugins.jetbrains.com/plugin/22707-continue",
+      "ref_title": "Continue Plugin for JetBrains IDEs | JetBrains Marketplacehttps://plugins.jetbrains.com/plugin/22707-continue",
+      "anchor": "Agent to work on development tasks together with AIhttps://docs.continue.dev/ide-extensions/agent/quick-start"
+    },
+    {
+      "dr": "75",
+      "ref_url": "https://www.descope.com/learn/post/mcp",
+      "ref_title": "What Is the Model Context Protocol (MCP) and How It Workshttps://www.descope.com/learn/post/mcp",
+      "anchor": "Continue : Open-source AI coding companion for JetBrains and VS Codehttps://docs.continue.dev/customize/deep-dives/mcp"
+    },
+    {
+      "dr": "73",
+      "ref_url": "https://www.voyageai.com/",
+      "ref_title": "Voyage AI | Homehttps://www.voyageai.com/",
+      "anchor": "https://www.continue.dev/"
+    },
+    {
+      "dr": "81",
+      "ref_url": "https://tweakers.net/nieuws/242176/europees-ai-bedrijf-mistral-komt-met-nieuwe-ai-modellen-en-maakt-ze-opensource.html",
+      "ref_title": "Europees AI-bedrijf Mistral komt met nieuwe AI-modellen en maakt ze opensource - Tweakershttps://tweakers.net/nieuws/242176/europees-ai-bedrijf-mistral-komt-met-nieuwe-ai-modellen-en-maakt-ze-opensour",
+      "anchor": "een klant zitten waar ze dat niet kunnen, gebruiken vaak https://www.continue.dev/ gecombineerd met https://github.com/vllm-project/vllm (of ollama).https://www.continue.dev/"
+    },
+    {
+      "dr": "77",
+      "ref_url": "https://dev.classmethod.jp/articles/nvidia-dgx-spark-first-impressions/",
+      "ref_title": "NVIDIA DGX Sparkがやってきた | DevelopersIOhttps://dev.classmethod.jp/articles/nvidia-dgx-spark-first-impressions/",
+      "anchor": "Continue.dev https://continue.dev/307 https://www.continue.dev/"
+    },
+    {
+      "dr": "28",
+      "ref_url": "https://chriskirby.net/run-a-free-ai-coding-assistant-locally-with-vs-code/",
+      "ref_title": "Run a free AI coding assistant locally with VS Codehttps://chriskirby.net/run-a-free-ai-coding-assistant-locally-with-vs-code/",
+      "anchor": "continue.dev https://continue.dev/?ref=chriskirby.net"
+    },
+    {
+      "dr": "80",
+      "ref_url": "https://artificialanalysis.ai/agents/coding",
+      "ref_title": "Coding Agents Comparison: Cursor, Claude Code, GitHub Copilot, and morehttps://artificialanalysis.ai/agents/coding",
+      "anchor": "Continue Continue Continue https://www.continue.dev/"
+    },
+    {
+      "dr": "1",
+      "ref_url": "https://letsbuild.ai/",
+      "ref_title": "Let's Build AIhttps://letsbuild.ai/",
+      "anchor": "Documentation https://continue.dev/docs/"
+    },
+    {
+      "dr": "90",
+      "ref_url": "https://www.onamae.com/business/article/26878/",
+      "ref_title": "ChatGPTとVSCodeを連携させる方法｜手順や使い方を解説 | ビジネスコンシェルジュ powered by お名前.comhttps://www.onamae.com/business/article/26878/",
+      "anchor": "参考： Continue – Ship faster with Continuous AI https://www.continue.dev/"
+    },
+    {
+      "dr": "84",
+      "ref_url": "https://www.datacamp.com/de/blog/top-mcp-servers-and-clients",
+      "ref_title": "Die 10 besten MCP-Server und -Clients für die Automatisierung von KI-Workflows im Jahr 2026 | DataCamphttps://www.datacamp.com/de/blog/top-mcp-servers-and-clients",
+      "anchor": "Einführung | Weiter https://docs.continue.dev/"
+    },
+    {
+      "dr": "75",
+      "ref_url": "https://kilo.ai/articles/open-source-github-copilot-alternatives",
+      "ref_title": "6 Open-Source GitHub Copilot Alternatives for 2026 (Model-agnostic, BYOK) | Kilohttps://kilo.ai/articles/open-source-github-copilot-alternatives",
+      "anchor": "Continue is an open-source platform for AI-driven code quality. Its tagline,https://www.continue.dev/"
+    },
+    {
+      "dr": "92",
+      "ref_url": "https://spectrum.ieee.org/best-ai-coding-tools",
+      "ref_title": "Best AI Coding Tools: Claude Code, Windsurf, and VSCode - IEEE Spectrumhttps://spectrum.ieee.org/best-ai-coding-tools",
+      "anchor": "add their own AI extensions. Cline , Roo Code , Continue.dev , and Tabnine are among the more popular examples.https://www.continue.dev/"
+    },
+    {
+      "dr": "75",
+      "ref_url": "https://spacelift.io/blog/ai-coding-assistant-tools",
+      "ref_title": "20 Best AI-Powered Coding Assistant Tools in 2026https://spacelift.io/blog/ai-coding-assistant-tools",
+      "anchor": "https://continue.dev/ https://continue.dev/"
+    },
+    {
+      "dr": "62",
+      "ref_url": "https://linuxfoundation.eu/newsroom/the-state-of-open-source-generative-ai-for-developers",
+      "ref_title": "The State of Open Source Generative AI for Developershttps://linuxfoundation.eu/newsroom/the-state-of-open-source-generative-ai-for-developers",
+      "anchor": "techniques described earlier for text models; this is exactly what Continue allows you to do with their context providers. It is important to note thathttps://docs.continue.dev/customization/context-providers"
+    },
+    {
+      "dr": "92",
+      "ref_url": "https://www.sherlock.stanford.edu/docs/user-guide/ondemand/",
+      "ref_title": "OnDemand - Sherlockhttps://www.sherlock.stanford.edu/docs/user-guide/ondemand/",
+      "anchor": "You can use the Continue extension to connect code-server to an Ollama server running onhttps://continue.dev/"
+    },
+    {
+      "dr": "38",
+      "ref_url": "https://www.mslinn.com/llm/coding-llms.html",
+      "ref_title": "Best Local LLMs for Codinghttps://www.mslinn.com/llm/coding-llms.html",
+      "anchor": "Continue.dev Blog https://blog.continue.dev/"
+    }
+  ]
+}

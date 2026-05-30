@@ -1,0 +1,54 @@
+<view class="flow-page flow-page--locked">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">LIVE MATCH</text>
+    <text class="flow-hero__title">比赛计分</text>
+    <text class="flow-hero__subtitle">{{setup.mode.name}} · 先胜 {{setup.mode.targetWins}} 局 · 风险 {{setup.riskPoints}} 分</text>
+  </view>
+
+  <view class="flow-stack score-arena">
+    <view class="score-board">
+      <view class="score-board__side">
+        <text class="avatar-token">{{match.playerA.shortName}}</text>
+        <text>{{match.playerA.name}}</text>
+      </view>
+      <view class="score-board__core">
+        <text class="score-board__number">{{scoreA}}:{{scoreB}}</text>
+        <text class="score-board__sub">已进行 {{elapsedText}}</text>
+      </view>
+      <view class="score-board__side">
+        <text class="avatar-token avatar-token--blue">{{match.playerB.shortName}}</text>
+        <text>{{match.playerB.name}}</text>
+      </view>
+    </view>
+
+    <view class="stepper-grid">
+      <view class="stepper-box">
+        <text>我方盘数</text>
+        <yh-button icon="+" icon-only variant="primary" data-side="a" data-delta="{{1}}" bind:tap="changeScore" />
+        <yh-button icon="-" icon-only variant="secondary" data-side="a" data-delta="{{-1}}" bind:tap="changeScore" />
+      </view>
+      <view class="stepper-box">
+        <text>对手盘数</text>
+        <yh-button icon="+" icon-only variant="primary" data-side="b" data-delta="{{1}}" bind:tap="changeScore" />
+        <yh-button icon="-" icon-only variant="secondary" data-side="b" data-delta="{{-1}}" bind:tap="changeScore" />
+      </view>
+    </view>
+
+    <yh-panel title="时间状态" subtitle="{{remainingText}}" marker="TIME" tone="{{timeReady ? 'gold' : 'danger'}}">
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>最低有效</text>
+          <text>{{setup.mode.minimumMinutes}}'</text>
+        </view>
+        <view class="metric-card">
+          <text>当前用时</text>
+          <text>{{elapsedText}}</text>
+        </view>
+        <view class="metric-card">
+          <text>清算状态</text>
+          <text>{{timeReady ? '可结算' : '未满足'}}</text>
+        </view>
+      </view>
+    </yh-panel>
+  </view>
+</view>

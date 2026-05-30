@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "排行榜",
+  "usingComponents": {
+    "yh-panel": "../../components/yh-panel/yh-panel"
+  }
+}

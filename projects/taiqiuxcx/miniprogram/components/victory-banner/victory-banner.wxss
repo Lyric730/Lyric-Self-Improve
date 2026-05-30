@@ -1,0 +1,21 @@
+@import "../../styles/tokens.wxss";
+
+.victory-banner {
+  display: grid;
+  justify-items: center;
+  gap: 8rpx;
+  padding: 20rpx;
+  border: 1rpx solid rgba(255, 211, 107, 0.32);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 118, 0, 0.2), rgba(11, 8, 6, 0.92));
+}
+
+.victory-banner__asset {
+  width: 260rpx;
+  height: 136rpx;
+}
+
+.victory-banner__subtitle {
+  color: var(--yh-color-text-muted);
+  font-size: 20rpx;
+  font-weight: 800;
+}

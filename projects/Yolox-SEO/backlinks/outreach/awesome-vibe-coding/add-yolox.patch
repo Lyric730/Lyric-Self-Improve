@@ -1,0 +1,24 @@
+﻿From 202d1eb80a3a3fc2cda0577617c0487bbb123a91 Mon Sep 17 00:00:00 2001
+From: Lyric730 <217029648+Lyric730@users.noreply.github.com>
+Date: Sun, 24 May 2026 01:28:36 +0800
+Subject: [PATCH] Add Yolox
+
+---
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/README.md b/README.md
+index 5d294cd..4ee5479 100644
+--- a/README.md
++++ b/README.md
+@@ -50,6 +50,7 @@ English | [Português](./README-PT.md) | [한국어](./README-KR.md) | [中文](
+ - [Emergent](https://emergent.sh/) - Multi-agent AI app builder that plans, codes, tests, and deploys full-stack web and mobile apps autonomously.
+ - [Manus](https://manus.im/) - Autonomous AI agent for end-to-end project automation, from research to deployment.
+ - [Same.new](https://same.new/) - AI web builder for cloning and creating websites from descriptions.
++- [Yolox](https://yolox.ai/) - AI agent team platform for building expert AI teams across growth, writing, sales, and social media.
+ 
+ ## IDEs and Code Editors
+ 
+-- 
+2.53.0.windows.1
+

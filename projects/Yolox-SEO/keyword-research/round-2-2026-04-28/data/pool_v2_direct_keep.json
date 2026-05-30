@@ -1,0 +1,1063 @@
+[
+  {
+    "keyword": "AI agent for code review",
+    "icp": "ai-builder",
+    "source": "pool-a-step4-icp",
+    "product": "Skills · Developer Tools 217 (e.g. agent-tools); team AI App Builder",
+    "_norm": "ai agent for code review",
+    "_kw_canonical": "AI agent for code review",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": null,
+    "kwf_kd": 34,
+    "kwf_intent": "commercial, transactional",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "AI Overview",
+    "kwf_cpc": "",
+    "kwf_content_type": "LISTICLES, REDDIT, REVIEWS",
+    "_priority": "tier-2-kd-only"
+  },
+  {
+    "keyword": "how to get amazon reviews without vine",
+    "icp": "amazon-seller",
+    "source": "pool-a-step4-icp",
+    "product": "team Amazon Seller; agent Alice (Review Manager)",
+    "_norm": "how to get amazon reviews without vine",
+    "_kw_canonical": "how to get amazon reviews without vine",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "amazon FBA shipment lost tracking",
+    "icp": "amazon-seller",
+    "source": "pool-a-step4-icp",
+    "product": "team Amazon Seller",
+    "_norm": "amazon fba shipment lost tracking",
+    "_kw_canonical": "amazon FBA shipment lost tracking",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "selling handmade items online platform comparison",
+    "icp": "artisan-dtc",
+    "source": "pool-a-step4-icp",
+    "product": "team Artisan / DTC Brand Founder",
+    "_norm": "selling handmade items online platform comparison",
+    "_kw_canonical": "selling handmade items online platform comparison",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "cold email metrics that matter",
+    "icp": "b2b-sdr",
+    "source": "pool-a-step4-icp",
+    "product": "agent Lucas (Cold Outreach Pro); agent Daniel (Email Closer)",
+    "_norm": "cold email metrics that matter",
+    "_kw_canonical": "cold email metrics that matter",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "cold email volume vs deliverability",
+    "icp": "b2b-sdr",
+    "source": "pool-a-step4-icp",
+    "product": "agent Lucas (Cold Outreach Pro)",
+    "_norm": "cold email volume vs deliverability",
+    "_kw_canonical": "cold email volume vs deliverability",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI agent for PR",
+    "icp": "brand-pr",
+    "source": "pool-a-step4-icp",
+    "product": "agent Wyatt (Press Release Writer); agent Alexander (Crisis PR Advisor)",
+    "_norm": "ai agent for pr",
+    "_kw_canonical": "AI agent for PR",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "value of media placements for clients",
+    "icp": "brand-pr",
+    "source": "pool-a-step4-icp",
+    "product": "team Brand & PR Manager",
+    "_norm": "value of media placements for clients",
+    "_kw_canonical": "value of media placements for clients",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "best business coaching program",
+    "icp": "coach",
+    "source": "pool-a-step4-icp",
+    "product": "team Career & Life Coach",
+    "_norm": "best business coaching program",
+    "_kw_canonical": "best business coaching program",
+    "kwf_volume": 30,
+    "kwf_kd": 36,
+    "kwf_intent": "commercial",
+    "kwf_growth_pct": -81,
+    "kwf_serp_features": "AI Overview, People Also Ask",
+    "kwf_cpc": "12.11",
+    "kwf_content_type": "REDDIT, HOMEPAGES, LISTICLES",
+    "_priority": "tier-1-validated"
+  },
+  {
+    "keyword": "best scheduling tool for coaches",
+    "icp": "coach",
+    "source": "pool-a-step4-icp",
+    "product": "team Career & Life Coach; skill Productivity",
+    "_norm": "best scheduling tool for coaches",
+    "_kw_canonical": "best scheduling tool for coaches",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "consultant powerpoint design tips",
+    "icp": "consultant",
+    "source": "pool-a-step4-icp",
+    "product": "team Consultant; agent Silas (Pitch Deck Builder)",
+    "_norm": "consultant powerpoint design tips",
+    "_kw_canonical": "consultant powerpoint design tips",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "traits of high performing consultant",
+    "icp": "consultant",
+    "source": "pool-a-step4-icp",
+    "product": "team Consultant",
+    "_norm": "traits of high performing consultant",
+    "_kw_canonical": "traits of high performing consultant",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "content marketing strategy that works 2026",
+    "icp": "content-mkt-mgr",
+    "source": "pool-a-step4-icp",
+    "product": "team Content Marketing Manager; agent Theodore (Content Machine)",
+    "_norm": "content marketing strategy that works 2026",
+    "_kw_canonical": "content marketing strategy that works 2026",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI SEO agency for product descriptions",
+    "icp": "content-mkt-mgr",
+    "source": "pool-a-step4-icp",
+    "product": "agent Sophie (SEO Doctor); agent Isaiah (SEO Content Factory)",
+    "_norm": "ai seo agency for product descriptions",
+    "_kw_canonical": "AI SEO agency for product descriptions",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "how to get LLM link citations",
+    "icp": "content-mkt-mgr",
+    "source": "pool-a-step4-icp",
+    "product": "agent Sophie (SEO Doctor); skill ai-seo",
+    "_norm": "how to get llm link citations",
+    "_kw_canonical": "how to get LLM link citations",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "how to create and sell online course",
+    "icp": "course-creator",
+    "source": "pool-a-step4-icp",
+    "product": "team Knowledge IP Builder; agent Scarlett (Course Architect)",
+    "_norm": "how to create and sell online course",
+    "_kw_canonical": "how to create and sell online course",
+    "kwf_volume": null,
+    "kwf_kd": 46,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "GUIDES, LISTICLES",
+    "_priority": "tier-2-kd-only"
+  },
+  {
+    "keyword": "best platform to sell online courses",
+    "icp": "course-creator",
+    "source": "pool-a-step4-icp",
+    "product": "team Knowledge IP Builder; agent Scarlett (Course Architect)",
+    "_norm": "best platform to sell online courses",
+    "_kw_canonical": "best platform to sell online courses",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "how to start data analysis project from scratch",
+    "icp": "data-analyst",
+    "source": "pool-a-step4-icp",
+    "product": "agent Camila (Data Interpreter); agent Jackson (Dashboard Designer)",
+    "_norm": "how to start data analysis project from scratch",
+    "_kw_canonical": "how to start data analysis project from scratch",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "SQL self join tutorial mental model",
+    "icp": "data-analyst",
+    "source": "pool-a-step4-icp",
+    "product": "skill Data & Analytics 20",
+    "_norm": "sql self join tutorial mental model",
+    "_kw_canonical": "SQL self join tutorial mental model",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "local SEO cost for small business",
+    "icp": "fallback-generic",
+    "source": "pool-a-step4-icp",
+    "product": "agent Sophie (SEO Doctor); team Local Restaurant",
+    "_norm": "local seo cost for small business",
+    "_kw_canonical": "local SEO cost for small business",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "how to handle fee-sensitive prospects",
+    "icp": "financial-advisor",
+    "source": "pool-a-step4-icp",
+    "product": "team Independent Financial Advisor",
+    "_norm": "how to handle fee sensitive prospects",
+    "_kw_canonical": "how to handle fee-sensitive prospects",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "best CRM for financial advisors",
+    "icp": "financial-advisor",
+    "source": "pool-a-step4-icp",
+    "product": "team Independent Financial Advisor",
+    "_norm": "best crm for financial advisors",
+    "_kw_canonical": "best CRM for financial advisors",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "how to write freelance design proposals",
+    "icp": "freelance-designer",
+    "source": "pool-a-step4-icp",
+    "product": "team Freelance Designer; agent Aria (Freelance Proposal Writer)",
+    "_norm": "how to write freelance design proposals",
+    "_kw_canonical": "how to write freelance design proposals",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "why ChatGPT cites pages",
+    "icp": "growth-marketer",
+    "source": "pool-a-step4-icp",
+    "product": "agent Sophie (SEO Doctor); skill ai-seo",
+    "_norm": "why chatgpt cites pages",
+    "_kw_canonical": "why ChatGPT cites pages",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "Cloudflare blocking GPTBot SEO impact",
+    "icp": "growth-marketer",
+    "source": "pool-a-step4-icp",
+    "product": "agent Brooks (Website Audit Reporter); skill ai-seo",
+    "_norm": "cloudflare blocking gptbot seo impact",
+    "_kw_canonical": "Cloudflare blocking GPTBot SEO impact",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "buying backlinks DA score risk",
+    "icp": "growth-marketer",
+    "source": "pool-a-step4-icp",
+    "product": "agent Brooks (Website Audit Reporter); skill backlink-analyzer",
+    "_norm": "buying backlinks da score risk",
+    "_kw_canonical": "buying backlinks DA score risk",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "why visitors don't sign up SaaS",
+    "icp": "indie-saas-founder",
+    "source": "pool-a-step4-icp",
+    "product": "team SaaS Founder; agent Luna (Conversion Optimizer)",
+    "_norm": "why visitors don t sign up saas",
+    "_kw_canonical": "why visitors don't sign up SaaS",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "best community for SaaS builders",
+    "icp": "indie-saas-founder",
+    "source": "pool-a-step4-icp",
+    "product": "team SaaS Founder",
+    "_norm": "best community for saas builders",
+    "_kw_canonical": "best community for SaaS builders",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "React Native cross platform 2026 comparison",
+    "icp": "mobile-dev",
+    "source": "pool-a-step4-icp",
+    "product": "team App Developer; agent Oliver (ASO Optimizer)",
+    "_norm": "react native cross platform 2026 comparison",
+    "_kw_canonical": "React Native cross platform 2026 comparison",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "where to advertise newsletter for subscribers",
+    "icp": "newsletter-writer",
+    "source": "pool-a-step4-icp",
+    "product": "team Newsletter Creator; agent Aurora (Newsletter Curator)",
+    "_norm": "where to advertise newsletter for subscribers",
+    "_kw_canonical": "where to advertise newsletter for subscribers",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "tips for growing small newsletter",
+    "icp": "newsletter-writer",
+    "source": "pool-a-step4-icp",
+    "product": "team Newsletter Creator",
+    "_norm": "tips for growing small newsletter",
+    "_kw_canonical": "tips for growing small newsletter",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "best social media to promote substack",
+    "icp": "newsletter-writer",
+    "source": "pool-a-step4-icp",
+    "product": "team Substack/Newsletter-First Creator; agent Aurora",
+    "_norm": "best social media to promote substack",
+    "_kw_canonical": "best social media to promote substack",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "streaming TV vs paid social ads",
+    "icp": "paid-ads",
+    "source": "pool-a-step4-icp",
+    "product": "agent Savannah (Paid Ads Strategist); agent Olivia (Ad Creative Studio)",
+    "_norm": "streaming tv vs paid social ads",
+    "_kw_canonical": "streaming TV vs paid social ads",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "best landing page builder for PPC agencies",
+    "icp": "paid-ads",
+    "source": "pool-a-step4-icp",
+    "product": "agent Addison (Landing Page Builder); agent Savannah (Paid Ads Strategist)",
+    "_norm": "best landing page builder for ppc agencies",
+    "_kw_canonical": "best landing page builder for PPC agencies",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "podcast guest release agreement template",
+    "icp": "podcaster",
+    "source": "pool-a-step4-icp",
+    "product": "team Podcaster; agent Elena (Podcast Producer)",
+    "_norm": "podcast guest release agreement template",
+    "_kw_canonical": "podcast guest release agreement template",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI candidate sourcing tool",
+    "icp": "recruiter",
+    "source": "pool-a-step4-icp",
+    "product": "team Recruiter",
+    "_norm": "ai candidate sourcing tool",
+    "_kw_canonical": "AI candidate sourcing tool",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "freelance recruiter daily workflow",
+    "icp": "recruiter",
+    "source": "pool-a-step4-icp",
+    "product": "team Recruiter",
+    "_norm": "freelance recruiter daily workflow",
+    "_kw_canonical": "freelance recruiter daily workflow",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "small restaurant marketing strategies",
+    "icp": "restaurant-owner",
+    "source": "pool-a-step4-icp",
+    "product": "team Local Restaurant; agent Leo (Local Event Planner)",
+    "_norm": "small restaurant marketing strategies",
+    "_kw_canonical": "small restaurant marketing strategies",
+    "_overlap_sources": [
+      "step2-D3-google"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "restaurant marketing on small budget",
+    "icp": "restaurant-owner",
+    "source": "pool-a-step4-icp",
+    "product": "team Local Restaurant",
+    "_norm": "restaurant marketing on small budget",
+    "_kw_canonical": "restaurant marketing on small budget",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "ecommerce growth strategy 2026",
+    "icp": "shopify-owner",
+    "source": "pool-a-step4-icp",
+    "product": "team Shopify/DTC Brand",
+    "_norm": "ecommerce growth strategy 2026",
+    "_kw_canonical": "ecommerce growth strategy 2026",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "shopify alternatives ecommerce platforms",
+    "icp": "shopify-owner",
+    "source": "pool-a-step4-icp",
+    "product": "team Shopify/DTC Brand",
+    "_norm": "shopify alternatives ecommerce platforms",
+    "_kw_canonical": "shopify alternatives ecommerce platforms",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "how to batch create social content",
+    "icp": "social-mkt-mgr",
+    "source": "pool-a-step4-icp",
+    "product": "team Social Media Manager; agent Harper (Content Repurposing Engine)",
+    "_norm": "how to batch create social content",
+    "_kw_canonical": "how to batch create social content",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "best multi-platform social media management tool",
+    "icp": "social-mkt-mgr",
+    "source": "pool-a-step4-icp",
+    "product": "team Social Media Manager",
+    "_norm": "best multi platform social media management tool",
+    "_kw_canonical": "best multi-platform social media management tool",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "self hosting mistakes for beginners",
+    "icp": "solo-dev",
+    "source": "pool-a-step4-icp",
+    "product": "team Indie Hacker; skill DevOps",
+    "_norm": "self hosting mistakes for beginners",
+    "_kw_canonical": "self hosting mistakes for beginners",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "starting Instagram from day 1 strategy",
+    "icp": "tiktok-creator",
+    "source": "pool-a-step4-icp",
+    "product": "team Short Video Creator; agent Claire (Twitter Growth Pilot)",
+    "_norm": "starting instagram from day 1 strategy",
+    "_kw_canonical": "starting Instagram from day 1 strategy",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "when to LLC YouTube channel",
+    "icp": "youtuber",
+    "source": "pool-a-step4-icp",
+    "product": "team YouTube/Twitch Creator; agent Sadie (Video Producer)",
+    "_norm": "when to llc youtube channel",
+    "_kw_canonical": "when to LLC YouTube channel",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI proposal generator",
+    "icp": "freelance-designer",
+    "source": "pool-a-step5-product",
+    "product": "agent Aria (Freelance Proposal Writer); team Freelance Designer",
+    "suggest_hits": 10,
+    "_norm": "ai proposal generator",
+    "_kw_canonical": "AI proposal generator",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": 530,
+    "kwf_kd": 34,
+    "kwf_intent": "",
+    "kwf_growth_pct": -50,
+    "kwf_serp_features": "People Also Ask",
+    "kwf_cpc": "14.33",
+    "kwf_content_type": "TOOLS",
+    "_priority": "tier-1-validated"
+  },
+  {
+    "keyword": "AI ad creative generator",
+    "icp": "artisan-dtc",
+    "source": "pool-a-step5-product",
+    "product": "agent Olivia (Ad Creative Studio); team Artisan/DTC",
+    "suggest_hits": 10,
+    "_norm": "ai ad creative generator",
+    "_kw_canonical": "AI ad creative generator",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": 60,
+    "kwf_kd": 45,
+    "kwf_intent": "",
+    "kwf_growth_pct": 75,
+    "kwf_serp_features": "People Also Ask",
+    "kwf_cpc": "19.47",
+    "kwf_content_type": "HOMEPAGES, REDDIT",
+    "_priority": "tier-1-validated"
+  },
+  {
+    "keyword": "AI app builder",
+    "icp": "mobile-dev",
+    "source": "pool-a-step5-product",
+    "product": "team App Developer",
+    "suggest_hits": 10,
+    "_norm": "ai app builder",
+    "_kw_canonical": "AI app builder",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": 9600,
+    "kwf_kd": 47,
+    "kwf_intent": "navigational",
+    "kwf_growth_pct": 305,
+    "kwf_serp_features": "",
+    "kwf_cpc": "20.08",
+    "kwf_content_type": "HOMEPAGES, REDDIT",
+    "_priority": "tier-1-validated"
+  },
+  {
+    "keyword": "AI for ML research",
+    "icp": "ai-builder",
+    "source": "pool-a-step5-product",
+    "product": "Skills · Data & Analytics; team AI App Builder",
+    "suggest_hits": 10,
+    "_norm": "ai for ml research",
+    "_kw_canonical": "AI for ML research",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI newsletter writer",
+    "icp": "newsletter-writer",
+    "source": "pool-a-step5-product",
+    "product": "agent Aurora (Newsletter Curator); team Newsletter Creator",
+    "suggest_hits": 10,
+    "_norm": "ai newsletter writer",
+    "_kw_canonical": "AI newsletter writer",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": 10,
+    "kwf_kd": 30,
+    "kwf_intent": "",
+    "kwf_growth_pct": -67,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "TOOLS, HOMEPAGES",
+    "_priority": "tier-1-validated"
+  },
+  {
+    "keyword": "AI infographic generator",
+    "icp": "content-mkt-mgr",
+    "source": "pool-a-step5-product",
+    "product": "agent Logan (Infographic Designer); team Content Marketing",
+    "suggest_hits": 8,
+    "_norm": "ai infographic generator",
+    "_kw_canonical": "AI infographic generator",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "Shopify AI product description",
+    "icp": "shopify-owner",
+    "source": "pool-a-step5-product",
+    "product": "agent Grayson (Product Listing Copywriter); team Shopify/DTC",
+    "suggest_hits": 7,
+    "_norm": "shopify ai product description",
+    "_kw_canonical": "Shopify AI product description",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "programmatic SEO AI",
+    "icp": "indie-saas-founder",
+    "source": "pool-a-step5-product",
+    "product": "agent Stella (Programmatic SEO Builder); team SaaS Founder",
+    "suggest_hits": 6,
+    "_norm": "programmatic seo ai",
+    "_kw_canonical": "programmatic SEO AI",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI agent for API documentation",
+    "icp": "solo-dev",
+    "source": "pool-a-step5-product",
+    "product": "Skills · DevOps; team Indie Hacker",
+    "suggest_hits": 5,
+    "_norm": "ai agent for api documentation",
+    "_kw_canonical": "AI agent for API documentation",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI cold email tool",
+    "icp": "b2b-sdr",
+    "source": "pool-a-step5-product",
+    "product": "agent Lucas (Cold Outreach Pro); agent Daniel (Email Closer)",
+    "suggest_hits": 5,
+    "_norm": "ai cold email tool",
+    "_kw_canonical": "AI cold email tool",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI agent for unit testing",
+    "icp": "ai-builder",
+    "source": "pool-a-step5-product",
+    "product": "Skills · Developer Tools",
+    "suggest_hits": 4,
+    "_norm": "ai agent for unit testing",
+    "_kw_canonical": "AI agent for unit testing",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "Marketing & Growth AI agents",
+    "icp": "growth-marketer",
+    "source": "pool-a-step5-product",
+    "product": "Skills · Marketing & Growth 33",
+    "suggest_hits": 4,
+    "_norm": "marketing growth ai agents",
+    "_kw_canonical": "Marketing & Growth AI agents",
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "Content & Writing AI agents",
+    "icp": "content-mkt-mgr",
+    "source": "pool-a-step5-product",
+    "product": "Skills · Content & Writing 24",
+    "suggest_hits": 4,
+    "_norm": "content writing ai agents",
+    "_kw_canonical": "Content & Writing AI agents",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "Generative Engine Optimization",
+    "icp": "(cross-icp)",
+    "source": "pool-a-step6-emerging",
+    "product": "L4 验证",
+    "exploratory_sources": 3,
+    "note": "AEO 同类 / 2026 SEO 红利",
+    "_norm": "generative engine optimization",
+    "_kw_canonical": "Generative Engine Optimization",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": 4800,
+    "kwf_kd": 63,
+    "kwf_intent": "",
+    "kwf_growth_pct": 180,
+    "kwf_serp_features": "AI Overview",
+    "kwf_cpc": "",
+    "kwf_content_type": "REDDIT, GUIDES",
+    "_priority": "tier-1-validated"
+  },
+  {
+    "keyword": "Model Context Protocol",
+    "icp": "(cross-icp)",
+    "source": "pool-a-step6-emerging",
+    "product": "L4 验证",
+    "exploratory_sources": 2,
+    "note": "Anthropic 2024-2025 推的 agent 协议",
+    "_norm": "model context protocol",
+    "_kw_canonical": "Model Context Protocol",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": 21500,
+    "kwf_kd": 55,
+    "kwf_intent": "commercial, informational, transactional",
+    "kwf_growth_pct": -35,
+    "kwf_serp_features": "AI Overview",
+    "kwf_cpc": "",
+    "kwf_content_type": "DOCUMENTATION, MEDIA_BLOGS",
+    "_priority": "tier-1-validated"
+  },
+  {
+    "keyword": "Claude Code workflow",
+    "icp": "(cross-icp)",
+    "source": "pool-a-step6-emerging",
+    "product": "L4 验证",
+    "exploratory_sources": 2,
+    "note": "Anthropic CLI 工具品牌名",
+    "_norm": "claude code workflow",
+    "_kw_canonical": "Claude Code workflow",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "Claude agent skills",
+    "icp": "(cross-icp)",
+    "source": "pool-a-step6-emerging",
+    "product": "L4 验证",
+    "exploratory_sources": 2,
+    "note": "Anthropic 2025 新概念",
+    "_norm": "claude agent skills",
+    "_kw_canonical": "Claude agent skills",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "llms.txt SEO",
+    "icp": "(cross-icp)",
+    "source": "pool-a-step6-emerging",
+    "product": "L4 验证",
+    "exploratory_sources": 2,
+    "note": "2024 提案 · LLM-optimized robots.txt",
+    "_norm": "llms txt seo",
+    "_kw_canonical": "llms.txt SEO",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube"
+    ],
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "Answer Engine Optimization",
+    "icp": "(cross-icp)",
+    "source": "pool-a-step6-emerging",
+    "product": "L4 验证",
+    "exploratory_sources": 2,
+    "note": "GEO 同类 / 答案引擎优化",
+    "_norm": "answer engine optimization",
+    "_kw_canonical": "Answer Engine Optimization",
+    "_overlap_sources": [
+      "step2-D3-google",
+      "step2-G-youtube",
+      "step2-H1-bing",
+      "step2-H2-ddg"
+    ],
+    "kwf_volume": 2100,
+    "kwf_kd": 49,
+    "kwf_intent": "",
+    "kwf_growth_pct": 200,
+    "kwf_serp_features": "AI Overview, People Also Ask",
+    "kwf_cpc": "12.90",
+    "kwf_content_type": "MEDIA_BLOGS, REDDIT, GUIDES, PRODUCT",
+    "_priority": "tier-1-validated"
+  },
+  {
+    "keyword": "Google AI Overview optimization",
+    "icp": "(cross-icp)",
+    "source": "pool-a-step6-emerging",
+    "product": "L4 验证",
+    "exploratory_sources": 2,
+    "note": "Google 2024 AI Overview 产品",
+    "_norm": "google ai overview optimization",
+    "_kw_canonical": "Google AI Overview optimization",
+    "_overlap_sources": [
+      "step2-D3-google"
+    ],
+    "kwf_volume": null,
+    "kwf_kd": null,
+    "kwf_intent": "",
+    "kwf_growth_pct": null,
+    "kwf_serp_features": "",
+    "kwf_cpc": "",
+    "kwf_content_type": "",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "tasks entrepreneurs can automate",
+    "icp": "fallback-generic",
+    "source": "pool-a-step1-promoted",
+    "product": "agent Xavier (Workflow Automator); Skills · Automation",
+    "reason": "高 score 231/281c · automation 主题强对接 YOLOX agent (Xavier Workflow Automator)",
+    "_norm": "tasks entrepreneurs can automate",
+    "_kw_canonical": "tasks entrepreneurs can automate",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "AI generated podcasts 2026",
+    "icp": "podcaster",
+    "source": "pool-a-step1-promoted",
+    "product": "team Podcaster; agent Elena (Podcast Producer)",
+    "reason": "新兴话题 + podcaster ICP 之前稀疏 (1 词 → 2 词)",
+    "_norm": "ai generated podcasts 2026",
+    "_kw_canonical": "AI generated podcasts 2026",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "how to build TikTok presence in 2026",
+    "icp": "tiktok-creator",
+    "source": "pool-a-step1-promoted",
+    "product": "team Short Video Creator; agent Sadie (Video Producer)",
+    "reason": "TikTok 建号策略 + tiktok-creator ICP 稀疏",
+    "_norm": "how to build tiktok presence in 2026",
+    "_kw_canonical": "how to build TikTok presence in 2026",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "YouTube video stolen on TikTok recovery",
+    "icp": "youtuber",
+    "source": "pool-a-step1-promoted",
+    "product": "team YouTube/Twitch Creator; agent Sadie",
+    "reason": "维权 + 跨平台具体痛点 + youtuber 稀疏 (1→3 词)",
+    "_norm": "youtube video stolen on tiktok recovery",
+    "_kw_canonical": "YouTube video stolen on TikTok recovery",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "youtuber pain points 2026",
+    "icp": "youtuber",
+    "source": "pool-a-step1-promoted",
+    "product": "team YouTube/Twitch Creator",
+    "reason": "行业 pain 综合搜索词 + youtuber 第二位",
+    "_norm": "youtuber pain points 2026",
+    "_kw_canonical": "youtuber pain points 2026",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "cold email at million scale",
+    "icp": "b2b-sdr",
+    "source": "pool-a-step1-promoted",
+    "product": "agent Lucas (Cold Outreach Pro); agent Daniel (Email Closer)",
+    "reason": "score 70/68c + 量级讨论强 (1 million cold emails)",
+    "_norm": "cold email at million scale",
+    "_kw_canonical": "cold email at million scale",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "amazon vine review recovery",
+    "icp": "amazon-seller",
+    "source": "pool-a-step1-promoted",
+    "product": "team Amazon Seller; agent Alice (Review Manager)",
+    "reason": "1-star Vine 杀单具体痛点 + 求解",
+    "_norm": "amazon vine review recovery",
+    "_kw_canonical": "amazon vine review recovery",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "consulting ex-consultant clients",
+    "icp": "consultant",
+    "source": "pool-a-step1-promoted",
+    "product": "team Consultant",
+    "reason": "score 391/73c + 复杂业务场景 + 高质量 consultant 经验",
+    "_norm": "consulting ex consultant clients",
+    "_kw_canonical": "consulting ex-consultant clients",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "data analysis early career mistakes",
+    "icp": "data-analyst",
+    "source": "pool-a-step1-promoted",
+    "product": "agent Camila (Data Interpreter); team Indie Hacker",
+    "reason": "score 95/24c + 经验性求解 + analyst 入门",
+    "_norm": "data analysis early career mistakes",
+    "_kw_canonical": "data analysis early career mistakes",
+    "_priority": "tier-2-pool-a"
+  },
+  {
+    "keyword": "financial advisor disengaged client management",
+    "icp": "financial-advisor",
+    "source": "pool-a-step1-promoted",
+    "product": "team Independent Financial Advisor",
+    "reason": "score 25/76c + advisor 业务管理痛点",
+    "_norm": "financial advisor disengaged client management",
+    "_kw_canonical": "financial advisor disengaged client management",
+    "_overlap_sources": [
+      "step2-G-youtube"
+    ],
+    "_priority": "tier-2-pool-a"
+  }
+]

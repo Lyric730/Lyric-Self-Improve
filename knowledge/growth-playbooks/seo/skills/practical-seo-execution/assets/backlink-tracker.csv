@@ -1,0 +1,2 @@
+source_site,target_url,submission_type,submitted_url,status,rel_expected,rel_actual,evidence_url,anchor_text,notes,created_at,updated_at
+example.com,https://example-product.com/,directory,https://example.com/submit,submitted,dofollow,,,"","",YYYY-MM-DD,YYYY-MM-DD

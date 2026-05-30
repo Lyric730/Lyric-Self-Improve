@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/challenge-home/challenge-home",
+    "pages/waiting-room/waiting-room",
+    "pages/accept-challenge/accept-challenge",
+    "pages/mode-select/mode-select",
+    "pages/points-select/points-select",
+    "pages/match-confirm/match-confirm",
+    "pages/match-scoring/match-scoring",
+    "pages/time-insufficient/time-insufficient",
+    "pages/settlement/settlement",
+    "pages/refusal/refusal",
+    "pages/match-result/match-result",
+    "pages/my-data/my-data",
+    "pages/rankings/rankings",
+    "pages/points-perks/points-perks",
+    "pages/member-code/member-code",
+    "pages/staff-desk/staff-desk",
+    "pages/boss-config/boss-config",
+    "pages/tv-ranking/tv-ranking"
+  ],
+  "window": {
+    "navigationBarTitleText": "云瀚台球",
+    "navigationBarBackgroundColor": "#080705",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#080705"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

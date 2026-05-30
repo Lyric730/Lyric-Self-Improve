@@ -1,0 +1,4 @@
+<view class="victory-banner">
+  <image class="victory-banner__asset" src="/assets/ui-kit/settlement-victory-banner.png" mode="aspectFit" />
+  <text class="victory-banner__subtitle">{{subtitle}}</text>
+</view>

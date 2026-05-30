@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "底分倍率",
+  "usingComponents": {
+    "yh-button": "../../components/yh-button/yh-button",
+    "yh-panel": "../../components/yh-panel/yh-panel"
+  }
+}

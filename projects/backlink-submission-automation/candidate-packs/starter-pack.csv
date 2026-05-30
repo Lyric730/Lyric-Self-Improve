@@ -1,0 +1,6 @@
+domain,url,dr,category,source,submission_type,notes
+github.com,https://github.com/search?q=awesome+ai+tools&type=repositories,97,GitHub awesome lists,starter,github_pr,Search and choose maintained relevant lists; do not bulk PR blindly
+tailwindcss.com,https://tailwindcss.com/showcase,90,Showcase,starter,directory,Submit only if product site genuinely uses Tailwind and quality is high
+producthunt.com,https://www.producthunt.com/,92,Launch platform,starter,directory,Manual hold by default; do not automate launch submission
+saashub.com,https://www.saashub.com/,77,SaaS directory,starter,directory,Directory listing route; verify outbound rel after approval
+aiai.tools,https://aiai.tools/submit-ai-tool,31,AI directory,starter,directory,Example self-serve submit form

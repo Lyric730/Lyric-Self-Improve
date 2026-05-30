@@ -1,0 +1,79 @@
+<view wx:if="{{accessReady}}" class="flow-page flow-page--locked staff-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">STAFF DESK</text>
+    <text class="flow-hero__title">前台工作台</text>
+    <text class="flow-hero__subtitle">开台到点 · 积分核销 · 异常处理</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="今日球桌" subtitle="选择球桌后设置开台到点时间" marker="TABLE" tone="orange" raised>
+      <view class="staff-table-grid">
+        <view
+          wx:for="{{staffTables}}"
+          wx:key="id"
+          class="staff-table {{selectedTableId === item.id ? 'is-active' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="chooseTable"
+        >
+          <text>{{item.name}}</text>
+          <text>到点 {{item.dueTime}}</text>
+          <text>{{item.status}}</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="{{selectedTable.name}} 到点时间" subtitle="只需要和开台软件到点时间保持一致" marker="DUE TIME" tone="gold">
+      <view class="option-grid">
+        <button
+          wx:for="{{timeOptions}}"
+          wx:key="*this"
+          class="option-chip {{selectedTime === item ? 'is-active' : ''}}"
+          data-time="{{item}}"
+          bindtap="chooseTime"
+        >
+          {{item}}
+        </button>
+      </view>
+      <view class="flow-actions">
+        <yh-button text="保存到点时间" size="lg" variant="primary" block loading="{{savingDue}}" bind:tap="saveDueTime" />
+      </view>
+    </yh-panel>
+
+    <yh-panel title="前台积分核销" subtitle="{{selectedMemberText}}" marker="EXCHANGE">
+      <view class="member-select">
+        <view class="member-card {{selectedMember ? 'is-active' : ''}}">
+          <text>{{selectedMember ? selectedMember.name : '未选择会员'}}</text>
+          <text>{{selectedMember ? '积分账户已匹配' : '扫描会员码后核销积分'}}</text>
+        </view>
+        <yh-button text="扫码选择" variant="secondary" loading="{{scanningMember}}" bind:tap="scanMember" />
+      </view>
+      <view class="option-grid">
+        <button
+          wx:for="{{deductOptions}}"
+          wx:key="*this"
+          class="option-chip {{selectedDeduct === item ? 'is-active' : ''}}"
+          data-value="{{item}}"
+          bindtap="chooseDeduct"
+        >
+          -{{item}}
+        </button>
+      </view>
+      <view class="flow-actions">
+        <yh-button text="确认核销" variant="success" block disabled="{{!selectedMember}}" loading="{{deducting}}" bind:tap="confirmDeduct" />
+      </view>
+    </yh-panel>
+
+    <yh-panel title="异常比赛" subtitle="只处理退出、再战、作废和备注" marker="REVIEW" tone="danger">
+      <view class="staff-issue" wx:for="{{abnormalMatches}}" wx:key="id">
+        <view>
+          <text>{{item.tableNo}} · {{item.title}}</text>
+          <text>{{item.detail}}</text>
+        </view>
+        <text>{{item.time}}</text>
+      </view>
+      <view class="flow-actions">
+        <yh-button text="作废当前异常" variant="danger" block loading="{{voiding}}" bind:tap="voidMatch" />
+      </view>
+    </yh-panel>
+  </view>
+</view>

@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "posts": [
+    {
+      "slug": "podcast-guest-release-form",
+      "title": "Podcast Guest Release Form: Free 2026 Template (AI Ready)",
+      "description": "Free 2026 podcast guest release form template with AI training opt-out, social re-distribution, and IP transfer clauses. Copy, customize, send.",
+      "date": "2026-05-17",
+      "author": "Ben Zhang",
+      "author_linkedin": "https://www.linkedin.com/in/ben-zhang-4a8958a3/",
+      "tags": [
+        "podcast-guest-release-form",
+        "podcast-contract",
+        "creator-legal",
+        "podcast-template",
+        "ai-training-clause"
+      ],
+      "draft": false
+    },
+    {
+      "slug": "cold-email-deliverability",
+      "title": "Cold Email Deliverability: 7-Step Setup Guide (2026)",
+      "description": "Cold email deliverability under 50%? 7-step setup for SPF/DKIM/DMARC, warmup, and recovery — verified May 2026 against Gmail/Yahoo rules.",
+      "date": "2026-05-17",
+      "author": "Ben Zhang",
+      "author_linkedin": "https://www.linkedin.com/in/ben-zhang-4a8958a3/",
+      "tags": [
+        "cold-email",
+        "deliverability",
+        "spf-dkim-dmarc",
+        "b2b-sales",
+        "email-warmup"
+      ],
+      "draft": false
+    },
+    {
+      "slug": "ai-agents-for-project-management",
+      "title": "8 AI Agents for Project Management Worth Using (2026)",
+      "description": "8 AI agents for project management — what each one does, when to use it, and how 'agent' differs from Notion AI. Honest 2026 picks with bias disclaimer.",
+      "date": "2026-05-17",
+      "author": "Ben Zhang",
+      "author_linkedin": "https://www.linkedin.com/in/ben-zhang-4a8958a3/",
+      "tags": [
+        "ai-agents",
+        "project-management",
+        "ai-tools",
+        "ai-agents-for-project-management",
+        "ai-pm-tools"
+      ],
+      "draft": false
+    },
+    {
+      "slug": "ai-tools-for-recruiting",
+      "title": "AI Tools for Recruiting: 10 Picks by Hiring Stage (2026)",
+      "description": "Stage-by-stage AI recruiting stack for 2026: 10 vetted tools across sourcing, screening, engagement, and assessment — plus 3 stack recipes.",
+      "date": "2026-05-17",
+      "author": "Ben Zhang",
+      "author_linkedin": "https://www.linkedin.com/in/ben-zhang-4a8958a3/",
+      "tags": [
+        "ai-recruiting",
+        "talent-acquisition",
+        "sourcing-tools",
+        "b2b-ai",
+        "hr-tech"
+      ],
+      "draft": false
+    },
+    {
+      "slug": "generative-engine-optimization",
+      "title": "What is Generative Engine Optimization (GEO)? 2026 Guide",
+      "description": "Generative Engine Optimization (GEO) optimizes content for AI search. Definition, 5 ranking factors, and how it differs from AEO and SEO in 2026.",
+      "date": "2026-05-17",
+      "author": "Ben Zhang",
+      "author_linkedin": "https://www.linkedin.com/in/ben-zhang-4a8958a3/",
+      "tags": [
+        "geo",
+        "generative-engine-optimization",
+        "aeo",
+        "ai-search",
+        "ai-overview"
+      ],
+      "draft": false
+    },
+    {
+      "slug": "aeo-vs-geo",
+      "title": "AEO vs GEO: A 2026 Decision Framework for AI Search",
+      "description": "AEO vs GEO in 2026: 5-dimension comparison, decision tree, and honest answer on whether you need both. Built for SMB marketers, not vendors.",
+      "date": "2026-05-17",
+      "author": "Ben Zhang",
+      "author_linkedin": "https://www.linkedin.com/in/ben-zhang-4a8958a3/",
+      "tags": [
+        "aeo",
+        "geo",
+        "ai-search",
+        "answer-engine-optimization",
+        "generative-engine-optimization"
+      ],
+      "draft": false
+    },
+    {
+      "slug": "best-aeo-services-for-smb-brands",
+      "title": "Best Answer Engine Optimization Services for SMB (2026)",
+      "description": "AEO services pricing: $1.5k-$60k/month. Honest buyer's guide with real tiers, vendor red flags, and DIY decision tree for SMB brands.",
+      "date": "2026-05-14",
+      "author": "Ben Zhang",
+      "author_linkedin": "https://www.linkedin.com/in/ben-zhang-4a8958a3/",
+      "tags": [
+        "aeo",
+        "smb",
+        "seo"
+      ],
+      "draft": false,
+      "coverImage": "posts/best-aeo-services-for-smb-brands/cover-aeo.webp"
+    }
+  ]
+}

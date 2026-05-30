@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>云瀚台球俱乐部天梯大屏</title>
+  <style>
+    :root {
+      --bg: #050403;
+      --panel: #18100a;
+      --line: rgba(255, 118, 0, 0.36);
+      --orange: #ff7600;
+      --gold: #ffd36b;
+      --text: #f6efe6;
+      --muted: #b9a894;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 8%, rgba(255, 118, 0, 0.18), transparent 22vw),
+        linear-gradient(135deg, #050403, #0e0a07 52%, #160902);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      overflow: hidden;
+    }
+
+    .screen {
+      width: 100vw;
+      height: 100vh;
+      padding: 2.4vw;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 2vw;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 28vw;
+      gap: 2vw;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      color: var(--orange);
+      font-size: 1.25vw;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+    }
+
+    h1 {
+      margin: 0.5vw 0 0;
+      font-size: 4.6vw;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin-top: 1vw;
+      color: var(--gold);
+      font-size: 1.55vw;
+      font-weight: 900;
+    }
+
+    .activity,
+    .podium,
+    .board {
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(45, 33, 22, 0.96), rgba(11, 8, 6, 0.98));
+      clip-path: polygon(1.4vw 0, calc(100% - 1.4vw) 0, 100% 1.4vw, 100% 100%, 0 100%, 0 1.4vw);
+      box-shadow: 0 1.4vw 3vw rgba(0, 0, 0, 0.32);
+    }
+
+    .activity {
+      padding: 1.6vw;
+      background: linear-gradient(135deg, rgba(255, 118, 0, 0.34), rgba(20, 11, 5, 0.96));
+    }
+
+    .activity strong,
+    .board-head strong {
+      display: block;
+      color: var(--gold);
+      font-size: 1.9vw;
+      font-weight: 900;
+    }
+
+    .activity span,
+    .board-head span {
+      display: block;
+      margin-top: 0.9vw;
+      color: var(--muted);
+      font-size: 1.15vw;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 1.8vw;
+      min-height: 0;
+    }
+
+    .podium {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: end;
+      gap: 1vw;
+      padding: 1.5vw;
+    }
+
+    .podium-card {
+      min-height: 45vh;
+      display: grid;
+      align-content: center;
+      gap: 0.8vw;
+      padding: 1.3vw;
+      text-align: center;
+      background: radial-gradient(circle at 50% 10%, rgba(255, 211, 107, 0.24), transparent 9vw), rgba(7, 6, 5, 0.72);
+      border: 1px solid rgba(255, 214, 145, 0.18);
+    }
+
+    .podium-card:first-child {
+      min-height: 61vh;
+      border-color: rgba(255, 211, 107, 0.72);
+      box-shadow: 0 0 2vw rgba(255, 211, 107, 0.25);
+    }
+
+    .podium-card:nth-child(2) {
+      min-height: 52vh;
+    }
+
+    .rank-no {
+      color: var(--gold);
+      font-family: "DIN Alternate", "Arial Narrow", sans-serif;
+      font-size: 4vw;
+      font-weight: 900;
+    }
+
+    .name {
+      font-size: 1.7vw;
+      font-weight: 900;
+    }
+
+    .rank-title {
+      color: var(--muted);
+      font-size: 1.1vw;
+      font-weight: 800;
+    }
+
+    .points {
+      color: var(--orange);
+      font-family: "DIN Alternate", "Arial Narrow", sans-serif;
+      font-size: 2.6vw;
+      font-weight: 900;
+    }
+
+    .board {
+      padding: 1.5vw;
+      overflow: hidden;
+    }
+
+    .board-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      margin-bottom: 1vw;
+    }
+
+    .board-head span {
+      margin-top: 0.35vw;
+      text-align: right;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 3.6vw 1fr 8vw 5vw 4vw;
+      gap: 0.7vw;
+      align-items: center;
+      min-height: 5.1vh;
+      padding: 0 0.9vw;
+      margin-bottom: 0.65vw;
+      background: rgba(8, 7, 6, 0.64);
+      border: 1px solid rgba(255, 214, 145, 0.1);
+      font-size: 1.15vw;
+      font-weight: 900;
+    }
+
+    .row span {
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .row span:nth-child(2) {
+      color: var(--text);
+      font-size: 1.45vw;
+    }
+
+    .row span:nth-child(4),
+    .row span:last-child {
+      color: var(--gold);
+      text-align: right;
+      font-family: "DIN Alternate", "Arial Narrow", sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <header class="header">
+      <section>
+        <div class="eyebrow">YUNHAN BILLIARDS CLUB</div>
+        <h1>云瀚台球俱乐部</h1>
+        <div class="subtitle">第一赛季 · 天梯排行榜</div>
+      </section>
+      <aside class="activity">
+        <strong>今晚活动</strong>
+        <span>22:30 前完成挑战，随机奖励提升</span>
+      </aside>
+    </header>
+
+    <section class="grid">
+      <div class="podium">
+        <article class="podium-card">
+          <div class="rank-no">#1</div>
+          <div class="name">泰森练练</div>
+          <div class="rank-title">走位黄金 III</div>
+          <div class="points">3560</div>
+        </article>
+        <article class="podium-card">
+          <div class="rank-no">#2</div>
+          <div class="name">文哥 GG</div>
+          <div class="rank-title">推杆白银 II</div>
+          <div class="points">3240</div>
+        </article>
+        <article class="podium-card">
+          <div class="rank-no">#3</div>
+          <div class="name">刘战平</div>
+          <div class="rank-title">沉稳青铜 I</div>
+          <div class="points">3100</div>
+        </article>
+      </div>
+
+      <section class="board">
+        <div class="board-head">
+          <strong>店内总榜</strong>
+          <span>60 秒刷新</span>
+        </div>
+        <div class="row"><span>#4</span><span>孙总</span><span>推杆白银 II</span><span>2860</span><span>+1</span></div>
+        <div class="row"><span>#5</span><span>Jackson</span><span>沉稳青铜 I</span><span>2780</span><span>0</span></div>
+        <div class="row"><span>#6</span><span>周航Captain</span><span>沉稳青铜 I</span><span>2650</span><span>+1</span></div>
+        <div class="row"><span>#7</span><span>台球小宇</span><span>沉稳青铜 I</span><span>2420</span><span>+1</span></div>
+        <div class="row"><span>#8</span><span>阿泽</span><span>推杆白银 I</span><span>2310</span><span>0</span></div>
+      </section>
+
+      <section class="board">
+        <div class="board-head">
+          <strong>赏金猎人</strong>
+          <span>本周期赢分榜</span>
+        </div>
+        <div class="row"><span>#1</span><span>刘战平</span><span>沉稳青铜 I</span><span>620</span><span>+180</span></div>
+        <div class="row"><span>#2</span><span>泰森练练</span><span>走位黄金 III</span><span>540</span><span>+150</span></div>
+        <div class="row"><span>#3</span><span>孙总</span><span>推杆白银 II</span><span>410</span><span>+120</span></div>
+        <div class="row"><span>#4</span><span>台球小宇</span><span>沉稳青铜 I</span><span>320</span><span>+90</span></div>
+      </section>
+    </section>
+  </main>
+  <script>
+    window.setInterval(function refreshScreen() {
+      window.location.reload();
+    }, 60000);
+  </script>
+</body>
+</html>

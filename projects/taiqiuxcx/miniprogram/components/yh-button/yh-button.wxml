@@ -1,0 +1,14 @@
+<button
+  class="custom-class yh-btn yh-btn--{{variant}} yh-btn--{{size}} {{block ? 'yh-btn--block' : ''}} {{iconOnly ? 'yh-btn--icon-only' : ''}} {{disabled || loading ? 'is-disabled' : ''}} {{loading ? 'is-loading' : ''}}"
+  disabled="{{disabled || loading}}"
+  hover-class="yh-btn--hover"
+  bindtap="handleTap"
+>
+  <text class="yh-btn__grain"></text>
+  <text class="yh-btn__shine"></text>
+  <text class="yh-btn__bevel yh-btn__bevel--top"></text>
+  <text class="yh-btn__bevel yh-btn__bevel--bottom"></text>
+  <text wx:if="{{loading}}" class="yh-btn__loader"></text>
+  <text wx:elif="{{icon}}" class="yh-btn__icon">{{icon}}</text>
+  <text wx:if="{{!iconOnly}}" class="yh-btn__text">{{loading ? '处理中' : text}}</text>
+</button>

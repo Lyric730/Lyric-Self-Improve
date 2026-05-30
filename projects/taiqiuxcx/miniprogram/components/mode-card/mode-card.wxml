@@ -1,0 +1,23 @@
+<view
+  class="custom-class mode-card {{selected ? 'is-selected' : ''}} {{enabled ? '' : 'is-disabled'}}"
+  bindtap="handleSelect"
+>
+  <text class="mode-card__grain"></text>
+  <text class="mode-card__corner mode-card__corner--top"></text>
+  <text class="mode-card__corner mode-card__corner--bottom"></text>
+  <text wx:if="{{!enabled}}" class="mode-card__lock">未</text>
+
+  <view class="mode-card__body">
+    <view class="mode-card__title-row">
+      <text class="mode-card__prefix">抢</text>
+      <text class="mode-card__number">{{targetWins}}</text>
+    </view>
+    <text class="mode-card__desc">先胜{{targetWins}}局</text>
+    <view class="mode-card__rule">
+      <text>{{minimumMinutes}} 分钟</text>
+      <text>+{{starReward}} 星</text>
+    </view>
+  </view>
+
+  <text class="mode-card__tag">{{enabled ? (selected ? '已选择' : (tag || '可选择')) : '暂未开放'}}</text>
+</view>

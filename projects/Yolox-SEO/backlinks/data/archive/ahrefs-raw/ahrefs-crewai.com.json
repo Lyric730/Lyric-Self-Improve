@@ -1,0 +1,126 @@
+{
+  "competitor": "crewai.com",
+  "count": 20,
+  "data": [
+    {
+      "dr": "97",
+      "ref_url": "https://github.com/crewaiinc/crewai",
+      "ref_title": "GitHub - crewAIInc/crewAI: Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex",
+      "anchor": "Precise: Easily orchestrate autonomous agents through intuitive Crews or precise Flows , achieving perfect balance for your needs.https://docs.crewai.com/concepts/flows"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://www.nvidia.com/en-us/ai-on-rtx/",
+      "ref_title": "NVIDIA GeForce RTX AI PCs | Powering Advanced AIhttps://www.nvidia.com/en-us/ai-on-rtx/",
+      "anchor": "CrewAI https://docs.crewai.com/concepts/llms"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://www.digitalocean.com/resources/articles/what-is-vertex-ai",
+      "ref_title": "What is Vertex AI? Unpacking Google's ML Platform | DigitalOceanhttps://www.digitalocean.com/resources/articles/what-is-vertex-ai",
+      "anchor": "CrewAI takes a new approach to AI development that focuses onhttps://www.crewai.com/301 https://crewai.com/"
+    },
+    {
+      "dr": "72",
+      "ref_url": "https://www.gumloop.com/blog/agentic-ai-tools",
+      "ref_title": "8 best agentic AI tools I'm using in 2026 (free + paid)https://www.gumloop.com/blog/agentic-ai-tools",
+      "anchor": "7. CrewAI https://www.crewai.com/301 https://crewai.com/"
+    },
+    {
+      "dr": "94",
+      "ref_url": "https://qwenlm.github.io/blog/qwen2.5/",
+      "ref_title": "Qwen2.5: A Party of Foundation Models! | Qwenhttps://qwenlm.github.io/blog/qwen2.5/",
+      "anchor": "Agent and RAG Frameworks: Dify , LlamaIndex , CrewAI https://www.crewai.com/"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://zapier.com/blog/ai-agent/",
+      "ref_title": "What are AI agents? How they work and how to use themhttps://zapier.com/blog/ai-agent/",
+      "anchor": "and CrewAI (multi-agent systems)https://www.crewai.com/"
+    },
+    {
+      "dr": "32",
+      "ref_url": "https://nocodestartup.io/melhores-ferramentas-no-code/",
+      "ref_title": "As 12 Melhores Ferramentas No Codehttps://nocodestartup.io/melhores-ferramentas-no-code/",
+      "anchor": "orquestração, como o LangGraph para controle de fluxo complexo, o CrewAI para times de agentes baseados em papéis, e até mesmohttps://www.crewai.com/"
+    },
+    {
+      "dr": "79",
+      "ref_url": "https://machinelearningmastery.com/the-roadmap-to-mastering-agentic-ai-design-patterns/",
+      "ref_title": "The Roadmap to Mastering Agentic AI Design Patternshttps://machinelearningmastery.com/the-roadmap-to-mastering-agentic-ai-design-patterns/",
+      "anchor": "like LangGraph , AutoGen , CrewAI , and Guardrails AI .https://crewai.com/"
+    },
+    {
+      "dr": "49",
+      "ref_url": "https://spider.cloud/",
+      "ref_title": "Spider - Crawl, Scrape, and Search the Web for AI Agentshttps://spider.cloud/",
+      "anchor": "CrewAI https://docs.crewai.com/en/tools/web-scraping/spidertool"
+    },
+    {
+      "dr": "81",
+      "ref_url": "https://realpython.com/what-can-i-do-with-python/",
+      "ref_title": "What Can I Do With Python? – Real Pythonhttps://realpython.com/what-can-i-do-with-python/",
+      "anchor": "CrewAI https://docs.crewai.com/introduction"
+    },
+    {
+      "dr": "77",
+      "ref_url": "https://weaviate.io/blog/what-is-agentic-rag",
+      "ref_title": "What Is Agentic RAG? From LLM RAG to AI Agents | Weaviatehttps://weaviate.io/blog/what-is-agentic-rag",
+      "anchor": "CrewAI is one of the leading frameworks for developing multi-agent systems.https://www.crewai.com/301 https://crewai.com/"
+    },
+    {
+      "dr": "92",
+      "ref_url": "https://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/software-industry-outlook.html",
+      "ref_title": "2026 Software Industry Outlook | Deloitte Insightshttps://www.deloitte.com/us/en/insights/industry/technology/technology-media-telecom-outlooks/software-industry-outlook.html",
+      "anchor": "CrewAI, “ Home page ,” accessed Dec. 11, 2025; Fabrix.ai, “ Bringing together thehttps://www.crewai.com/301 https://crewai.com/"
+    },
+    {
+      "dr": "72",
+      "ref_url": "https://www.futurepedia.io/tool/crewai",
+      "ref_title": "CrewAI Reviews: Use Cases, Pricing & Alternativeshttps://www.futurepedia.io/tool/crewai",
+      "anchor": "Image related to crewAI, an AI tool for building and deploying autonomous agents. https://www.crewai.com/"
+    },
+    {
+      "dr": "70",
+      "ref_url": "https://agent.ai/crewai",
+      "ref_title": "Agent.ai | The #1 Professional Network for AI Agentshttps://agent.ai/crewai",
+      "anchor": "You may have been looking for CrewAI.com (don't worry, common mistake).https://www.crewai.com/"
+    },
+    {
+      "dr": "84",
+      "ref_url": "https://www.datacamp.com/tutorial/crew-ai",
+      "ref_title": "CrewAI: A Guide With Examples of Multi AI Agent Systems | DataCamphttps://www.datacamp.com/tutorial/crew-ai",
+      "anchor": "CrewAI https://www.crewai.com/301 https://crewai.com/"
+    },
+    {
+      "dr": "61",
+      "ref_url": "https://docs.ag-ui.com/introduction",
+      "ref_title": "AG-UI Overview - Agent User Interaction Protocolhttps://docs.ag-ui.com/introduction",
+      "anchor": "CrewAI https://crewai.com/"
+    },
+    {
+      "dr": "99",
+      "ref_url": "https://www.youtube.com/watch?v=UV81LAb3x2g",
+      "ref_title": "crewAI Crash Course For Beginners-How To Create Multi AI Agent For Complex Usecases - YouTubehttps://www.youtube.com/watch?v=UV81LAb3x2g",
+      "anchor": "https://www.crewai.com/ JS https://crewai.com/"
+    },
+    {
+      "dr": "92",
+      "ref_url": "https://www.ibm.com/think/topics/llm-orchestration",
+      "ref_title": "What is LLM Orchestration? | IBMhttps://www.ibm.com/think/topics/llm-orchestration",
+      "anchor": "21 crewAI, Inc. “Agent Monitoring with AgentOps”. https://docs.crewai.com/introduction#agentops .https://docs.crewai.com/introduction307 https://docs.crewai.com/en/introduction"
+    },
+    {
+      "dr": "96",
+      "ref_url": "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns",
+      "ref_title": "AI Agent Orchestration Patterns - Azure Architecture Center | Microsoft Learnhttps://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns",
+      "anchor": "SDKs. Other frameworks that support multi-agent orchestration include LangChain , CrewAI , and the OpenAI Agents SDK . Each framework hashttps://docs.crewai.com/concepts/processes"
+    },
+    {
+      "dr": "76",
+      "ref_url": "https://www.lindy.ai/blog/best-ai-agents",
+      "ref_title": "The 12 Best AI Agents in 2026: Tested & Reviewed | Lindyhttps://www.lindy.ai/blog/best-ai-agents",
+      "anchor": "CrewAI https://www.crewai.com/301 https://crewai.com/"
+    }
+  ]
+}

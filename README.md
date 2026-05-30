@@ -1,21 +1,40 @@
 # Lyric's Brain
 
-> 增长 PM / AI 时代超级个体 / 19岁在路上
+> 增长 PM / AI 时代超级个体 / 19 岁在路上
+
+这是一个本地 Markdown 工作区，可以直接用 Obsidian 打开，也可以让 Codex 维护。
+
+## Obsidian 入口
+
+把这个目录作为 vault 打开：
+
+```text
+F:\Making money\Lyric-Self-Improve
+```
+
+打开后先看：
+
+- [knowledge/_indexes/home.md](knowledge/_indexes/home.md) - 知识库首页
+- [knowledge/_indexes/project-map.md](knowledge/_indexes/project-map.md) - 项目地图
+- [knowledge/_indexes/open-loops.md](knowledge/_indexes/open-loops.md) - 待整理问题
+
+也可以直接双击：
+
+```text
+open-obsidian.cmd
+```
 
 ## 目录
 
-### `projects/` — 我的项目
-实际的项目代码和文件，每个项目一个文件夹。
-
-### `knowledge/` — AI 帮我沉淀的知识
-从和 AI 的对话中提炼出来的可复用内容，**由 AI 整理，不需要手动写**。
-
-- `growth-playbooks/` — 增长打法、方法论
-- `ai-workflows/` — 和 AI 协作的有效流程
-- `insights/` — 值得留存的思考和判断
+| 目录 | 用途 |
+| --- | --- |
+| `projects/` | 实际项目代码、项目文档、阶段交付物 |
+| `knowledge/` | 从项目和对话中提炼出来的可复用知识 |
+| `knowledge/_indexes/` | Obsidian 入口、项目地图、SOP 地图、待整理清单 |
 
 ## 怎么用
 
-1. 项目直接在 `projects/` 里做
-2. 对话中有价值的内容，跟 AI 说"存一下"
-3. AI 提炼后自动放进 `knowledge/`
+1. 项目直接在 `projects/` 里做。
+2. 对话中有价值的内容，跟 Codex 说“沉淀进 knowledge”。
+3. Codex 提炼后放进 `knowledge/`，并更新 `_indexes/`。
+4. 只服务单个项目的材料留在 `projects/`，不要硬搬进知识库。

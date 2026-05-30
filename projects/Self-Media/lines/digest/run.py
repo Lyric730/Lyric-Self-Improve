@@ -41,7 +41,8 @@ def file_exists(p: Path, min_bytes: int = 100) -> bool:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("date", help="YYYY-MM-DD")
+    parser.add_argument("date", help="YYYY-MM-DD (发布日期 = 产物目录)")
+    parser.add_argument("--content-date", default=None, help="内容日期 = fetch 哪天的事件；不传默认 = date (向后兼容手工跑)")
     parser.add_argument("--skip-fetch", action="store_true")
     parser.add_argument("--skip-enrich", action="store_true")
     parser.add_argument("--only-render", action="store_true", help="跳过 fetch/enrich，仅渲染（final.json 已就绪）")
@@ -65,7 +66,10 @@ def main() -> None:
     elif args.skip_fetch and file_exists(raw):
         print(f"\n→ Step 1 fetch: SKIP (--skip-fetch + raw.json 已存在)")
     else:
-        run(["python3", f"{SCRIPT_DIR}/fetch_aihot.py", date], "Step 1: fetch_aihot")
+        fetch_cmd = ["python3", f"{SCRIPT_DIR}/fetch_aihot.py", date]
+        if args.content_date:
+            fetch_cmd += ["--content-date", args.content_date]
+        run(fetch_cmd, f"Step 1: fetch_aihot (content={args.content_date or date})")
 
     # ----- Step 2: enrich -----
     if args.only_render or args.only_pack:

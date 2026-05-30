@@ -1,0 +1,37 @@
+{
+  "intake": {
+    "mode": "markdown_fallback",
+    "runtime_agent": "example-agent",
+    "structured_input_tool": "none",
+    "schema_path": "assets/intake-schema.json"
+  },
+  "profile_mode": "new",
+  "brand_name": "ExampleProduct",
+  "canonical_url": "https://product.example/",
+  "contact_email": "growth@example.com",
+  "allow_account_creation": "yes",
+  "password_storage": "local_sqlite",
+  "candidate_source_mode": "bundled_packs",
+  "optional": {
+    "positioning": "none",
+    "audience": "none",
+    "primary_outcome": "none",
+    "categories": "none",
+    "tags": "none",
+    "hq_country": "none",
+    "hq_city": "none",
+    "forbidden_phrases": "none",
+    "one_liner": "none",
+    "short_description": "none",
+    "long_description": "none",
+    "assets": {
+      "logo_square": "none",
+      "logo_wide": "none",
+      "screenshot": "none",
+      "pdf": "none",
+      "public_screenshot_url": "none"
+    },
+    "min_dr": 20,
+    "manual_hold_domains": ["producthunt.com", "news.ycombinator.com", "g2.com", "capterra.com", "trustpilot.com"]
+  }
+}

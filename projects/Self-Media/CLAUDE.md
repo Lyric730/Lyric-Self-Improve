@@ -2,6 +2,7 @@
 
 > 小刀老师的自媒体 AI 增长 PM 内容项目。
 > 这个文件是项目入口——任何 Claude / Agent 进入这个目录工作前，**先读这个文件**。
+> 任何 Agent / Codex / Claude 在执行任务前，还必须先读根目录 `README.md` 和 `AGENTS.md`，严格遵守“先出方案、确认后执行”的工作规则。
 > 由 `/impeccable teach` 于 2026-05-13 创建并维护与 `.impeccable.md` 的 Design Context 同步。
 
 ---
@@ -34,17 +35,21 @@ git -C "/home/lyric/Making money/Lyric-Self-Improve" branch --show-current
 
 ---
 
-## 项目结构（多产线架构 · 2026-05-21 重组）
+## 项目结构（多产线架构 · 2026-05-28 同步）
 
 **核心原则**：每条内容产线 = 一个独立 `lines/<name>/` 子目录，自带代码 / 模板 / 视觉 brief / 审稿 DoD。**产线之间不共享设计资产**（人群定位、aesthetic、字体色彩各自独立）。
 
 ```
 Self-Media/
-├── CLAUDE.md                    项目宪法（本文件，入口；跨产线）
+├── README.md                    项目入口：先看这里
+├── AGENTS.md                    Agent 工作规则（Codex 优先识别）
+├── AGENT.md                     兼容入口，指向 AGENTS.md
+├── CLAUDE.md                    项目宪法（本文件，跨产线高层决策）
+├── docs/                        跨产线文档：结构、交接、方案、归档
 ├── topics/                      孤立长图文 / 单篇深度（未来可能演化成新产线）
 │
 ├── lines/                       ← 所有内容产线代码 + 资产
-│   └── digest/                  ← 产线 1：AI 日报（共鸣速览）
+│   ├── digest/                  ← 产线 1：AI 日报（历史可用产线）
 │       ├── PLAN.md              产线总规划
 │       ├── REVIEW_CHECKLIST.md  人工审稿 10-15 min DoD
 │       ├── .impeccable.md       digest 产线专属视觉 brief
@@ -66,11 +71,25 @@ Self-Media/
 │       ├── templates/           Jinja2 模板（daily.html.j2 + post.md.j2）
 │       └── fixtures/sample_enriched.json
 │
+│   └── three-minute-future/      ← 当前主线：《三分钟未来》图文 + 视频
+│       ├── README.md            产线入口
+│       ├── PRODUCTION_LINE.md   生产线总览
+│       ├── RUNBOOK.md           运行手册
+│       ├── TASK_FLOW.md         任务拆解
+│       ├── VIDEO_SOP.md         视频生产 SOP
+│       ├── VISUAL_BRIEF.md      视觉规则
+│       ├── COVER_PROMPT_FRAMEWORK.md  仅重新探索封面时参考
+│       ├── config/              信源、选题、视觉资产策略
+│       ├── templates/           HTML 模板
+│       ├── styles/              图文样式
+│       ├── remotion/            Remotion 草稿工程
+│       └── hyperframes/         Hyperframes 视频工程
+│
 ├── .claude/commands/            ← Slash 命令（产线名一致）
 │   └── digest.md                /digest skill — digest 产线撰写
 │
 └── daily/<YYYY-MM-DD>/          ← 产物按日期 + 产线双重隔离
-    └── <line-name>/             （目前只有 digest，未来 e.g. weekly/）
+    └── <line-name>/             （digest / three-minute-future / 未来新产线）
         ├── publish/             发布包（直接用）
         │   ├── README.md / post.md / daily.html / images/01-09.png
         ├── work/                pipeline 中间产物（raw / enriched / final.json）
@@ -100,7 +119,14 @@ Self-Media/
 
 | 文档 | 内容 | 何时看 |
 |---|---|---|
-| 本文件 | 项目宪法 + 多产线结构 + Design Context 镜像 | 进入项目第一时间读 |
+| `README.md` | 项目入口 + 目录分层 | 第一次进入项目 |
+| `AGENTS.md` | Agent 工作规则 | 每次执行前 |
+| 本文件 | 项目宪法 + 多产线结构 + Design Context 镜像 | 需要高层原则时 |
+| `docs/PROJECT_STRUCTURE.md` | 目录框架和文件归属规则 | 不知道文件放哪时 |
+| `docs/README.md` | docs 子目录说明 | 找交接、方案、归档时 |
+| `lines/three-minute-future/README.md` | 《三分钟未来》产线入口 | 做当前主线时 |
+| `lines/three-minute-future/PRODUCTION_LINE.md` | 《三分钟未来》生产线总览 | 改该产线前 |
+| `lines/digest/README.md` | digest 产线入口 | 做历史 AI 日报产线时 |
 | `lines/digest/archive/2026-05-12-self-media-ai-positioning-design.md` | digest 产线主 design：受众三层、内容支柱、90 天节奏 | digest 策略决策前 |
 | `lines/digest/.impeccable.md` | digest 产线视觉 brief（**仅本产线复用，新产线必须独立 brief**）| digest 视觉动作前；`/impeccable craft` 加载 |
 | `lines/digest/PLAN.md` | digest pipeline 工程规划 | digest 改架构前 |
@@ -124,7 +150,9 @@ Self-Media/
 
 ---
 
-## Pipeline 架构（W0 待 ship）
+## Digest Pipeline 架构（历史基线）
+
+> 当前主线已转为 `lines/three-minute-future/`。继续做《三分钟未来》时，以 `lines/three-minute-future/PRODUCTION_LINE.md`、`RUNBOOK.md`、`TASK_FLOW.md`、`VIDEO_SOP.md` 为准。
 
 ```
 [Cron 06:00 daily]
@@ -251,7 +279,6 @@ Self-Media/
 
 ## Next Steps
 
-- [ ] `/impeccable craft` 产出 5月12 9 图模板 v1（封面 + 1 张事件卡 dry run）
-- [ ] W0 准备周清单（design §11 sect）
-- [ ] Pipeline Step 1-6 spike 脚本（Python 或 Node，复用 OpenCLI + Claude API）
-- [ ] HTML PPT 设计系统 prompt v1
+- [ ] 《三分钟未来》继续以 `lines/three-minute-future/PRODUCTION_LINE.md` 作为源头总览。
+- [ ] 每次产线级改动后，同步检查 `README.md`、`docs/PROJECT_STRUCTURE.md` 和对应产线 `README.md`。
+- [ ] digest 仅在需要维护历史 AI 日报产线时再进入。

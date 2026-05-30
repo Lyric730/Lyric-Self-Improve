@@ -1,0 +1,44 @@
+<view class="flow-page flow-page--locked">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">RESULT</text>
+    <text class="flow-hero__title">结算已生效</text>
+    <text class="flow-hero__subtitle">{{settlement.winner.name}} 胜 · {{settlement.winnerDeltaText}} 积分</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="段位与星级" subtitle="{{settlement.mode.name}} 胜利 {{settlement.starRewardText}}" marker="RANK UP" tone="gold" raised>
+      <rank-badge tier="gold" title="{{settlement.winner.rankTitle}}" points="{{settlement.winnerAfterPoints}} / 3000" hint="全部玩法共用一个段位" featured />
+      <view class="flow-actions">
+        <star-track value="{{settlement.starAfter}}" total="{{5}}" mode="new" />
+      </view>
+    </yh-panel>
+
+    <view class="metric-grid">
+      <settlement-badge variant="plus" label="{{settlement.winnerDeltaText}} 积分" />
+      <settlement-badge variant="{{settlement.loserDeltaVariant}}" label="{{settlement.loserDeltaText}} 积分" />
+      <settlement-badge variant="reward" label="奖励 +{{settlement.rewardValue}}" />
+    </view>
+
+    <yh-panel title="本场记录" subtitle="{{settlement.scoreText}} · {{settlement.elapsedText}}" marker="MATCH">
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>胜方</text>
+          <text>{{settlement.winner.shortName}}</text>
+        </view>
+        <view class="metric-card">
+          <text>败方</text>
+          <text>{{settlement.loser.shortName}}</text>
+        </view>
+        <view class="metric-card">
+          <text>风险积分</text>
+          <text>{{settlement.riskPoints}}</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <view class="flow-actions">
+      <yh-button text="再来一局" size="lg" variant="primary" block bind:tap="replay" />
+      <yh-button text="回到首页" variant="secondary" block bind:tap="goHome" />
+    </view>
+  </view>
+</view>

@@ -6,10 +6,15 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+.obsidian/workspace.json
 
 # Temp
 *.log
 *.tmp
+*.Zone.Identifier
+*:Zone.Identifier
+*Zone.Identifier
+.worktrees/
 
 # Secrets
 .env
@@ -20,6 +25,8 @@ Thumbs.db
 # Build/cache
 node_modules/
 .cache/
+projects/growth-engine-pipeline/runtime/
+projects/Self-Media/lines/three-minute-future/hyperframes/vol-*/
 
 # Self-Media 产物（日报输出 / 中间数据，不追踪）
 projects/Self-Media/daily/

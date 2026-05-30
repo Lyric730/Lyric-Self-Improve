@@ -1,0 +1,4 @@
+domain,url,dr,category,source,submission_type,notes
+aiai.tools,https://aiai.tools/submit-ai-tool,31,Software directory,lxx_ai,directory,Example self-serve tool submission
+producthunt.com,https://www.producthunt.com/,92,Launch platform,manual,directory,Manual hold example
+lowdr-example.test,https://lowdr-example.test/submit,8,Low DR directory,manual,directory,Low DR skip example

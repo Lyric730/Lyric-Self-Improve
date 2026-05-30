@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "接受挑战",
+  "usingComponents": {
+    "yh-button": "../../components/yh-button/yh-button",
+    "yh-panel": "../../components/yh-panel/yh-panel"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-05-28T12:15:37+00:00",
+  "default_min_dr": 20,
+  "distribution": "Candidate packs are bundled source assets. When the skill folder is installed from Git, ZIP, or copied into CODEX_HOME/skills, this directory and manifest travel with it. Runtime campaign flows should import these CSVs, not overwrite them.",
+  "columns": [
+    "id",
+    "source_id",
+    "source",
+    "domain",
+    "url",
+    "dr",
+    "traffic",
+    "category",
+    "submission_type",
+    "priority",
+    "notes"
+  ],
+  "packs": [
+    {
+      "name": "starter-pack",
+      "file": "starter-pack.csv",
+      "rows": 5,
+      "source": "bundled starter CSV",
+      "description": "Small safe starter pack for first-run smoke tests and users without their own source.",
+      "import_source": "starter_pack",
+      "notes": "Contains manual-hold examples; selection filters still apply.",
+      "import_command": "python skills/backlink-submission-automation/scripts/import_candidates.py --db campaigns/<campaign-slug>/data/backlinks.db --csv skills/backlink-submission-automation/candidate-packs/starter-pack.csv --source starter_pack"
+    },
+    {
+      "name": "lxx-ai",
+      "file": "lxx-ai.csv",
+      "rows": 2227,
+      "source": "LXX browser export from https://www.lxx.ai/backlinks",
+      "description": "Chrome-exported LXX directory/profile/classified candidates bundled with the skill.",
+      "import_source": "lxx_ai",
+      "notes": "Raw page showed 3328 backlinks; bundled CSV is URL-normalized, deduped, filtered to DR>=20 when DR is known, with obvious spam domains removed. Manual-hold platforms are marked and deprioritized.",
+      "import_command": "python skills/backlink-submission-automation/scripts/import_candidates.py --db campaigns/<campaign-slug>/data/backlinks.db --csv skills/backlink-submission-automation/candidate-packs/lxx-ai.csv --source lxx_ai"
+    },
+    {
+      "name": "ahrefs-competitor-backlinks",
+      "file": "ahrefs-competitor-backlinks.csv",
+      "rows": 304,
+      "source": "bundled competitor-backlink research export",
+      "description": "Competitor backlink reverse-engineering candidates; inspect route before submitting.",
+      "import_source": "ahrefs",
+      "notes": "Filtered to DR>=20 when DR is known; domain_seen_count boosts repeated platforms.",
+      "import_command": "python skills/backlink-submission-automation/scripts/import_candidates.py --db campaigns/<campaign-slug>/data/backlinks.db --csv skills/backlink-submission-automation/candidate-packs/ahrefs-competitor-backlinks.csv --source ahrefs"
+    },
+    {
+      "name": "legacy-226-review",
+      "file": "legacy-226-review.csv",
+      "rows": 155,
+      "source": "bundled legacy review export",
+      "description": "Legacy 226-pool blog-comment URLs with a prior URL field signal; must re-audit in browser.",
+      "import_source": "legacy_226",
+      "notes": "Review-only pack; DR is usually unknown and previous audit labels are not final.",
+      "import_command": "python skills/backlink-submission-automation/scripts/import_candidates.py --db campaigns/<campaign-slug>/data/backlinks.db --csv skills/backlink-submission-automation/candidate-packs/legacy-226-review.csv --source legacy_226"
+    }
+  ]
+}

@@ -1,0 +1,3603 @@
+[
+  {
+    "platform": "reddit",
+    "post_id": "1snna81",
+    "source": "Anthropic",
+    "kind": "subreddit-top-month",
+    "title": "How to trick Opus 4.7 into thinking",
+    "score": 1924,
+    "num_comments": 111,
+    "url": "https://www.reddit.com/r/Anthropic/comments/1snna81/how_to_trick_opus_47_into_thinking/",
+    "author": "untreated-stupidity",
+    "icp": "ai-builder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1se6nq5",
+    "source": "LocalLLaMA",
+    "kind": "subreddit-top-month",
+    "title": "What it took to launch Google DeepMind's Gemma 4",
+    "score": 1197,
+    "num_comments": 133,
+    "url": "https://www.reddit.com/r/LocalLLaMA/comments/1se6nq5/what_it_took_to_launch_google_deepminds_gemma_4/",
+    "author": "jacek2023",
+    "icp": "ai-builder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s8r3w3",
+    "source": "LocalLLaMA",
+    "kind": "subreddit-top-month",
+    "title": "How it started vs How it's going",
+    "score": 1196,
+    "num_comments": 110,
+    "url": "https://www.reddit.com/r/LocalLLaMA/comments/1s8r3w3/how_it_started_vs_how_its_going/",
+    "author": "HornyGooner4401",
+    "icp": "ai-builder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bvs\\b|\\bversus\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sgg7wm",
+    "source": "Anthropic",
+    "kind": "subreddit-top-month",
+    "title": "Why don’t they just use Mythos to fix all the bugs in Claude Code?",
+    "score": 1038,
+    "num_comments": 122,
+    "url": "https://www.reddit.com/r/Anthropic/comments/1sgg7wm/why_dont_they_just_use_mythos_to_fix_all_the_bugs/",
+    "author": "SherbertMindless8205",
+    "icp": "ai-builder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sbzxwn",
+    "source": "MachineLearning",
+    "kind": "subreddit-top-month",
+    "title": "[D] Those of you with 10+ years in ML — what is the public completely wrong about?",
+    "score": 236,
+    "num_comments": 270,
+    "url": "https://www.reddit.com/r/MachineLearning/comments/1sbzxwn/d_those_of_you_with_10_years_in_ml_what_is_the/",
+    "author": "PhattRatt",
+    "icp": "ai-builder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1syjidd",
+    "source": "LocalLLaMA",
+    "kind": "subreddit-hot-week",
+    "title": "Why isn’t LLM reasoning done in vector space instead of natural language?",
+    "score": 229,
+    "num_comments": 105,
+    "url": "https://www.reddit.com/r/LocalLLaMA/comments/1syjidd/why_isnt_llm_reasoning_done_in_vector_space/",
+    "author": "ZeusZCC",
+    "icp": "ai-builder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sdmn97",
+    "source": "MachineLearning",
+    "kind": "subreddit-top-month",
+    "title": "[D] How to break free from LLM's chains as a PhD student?",
+    "score": 217,
+    "num_comments": 106,
+    "url": "https://www.reddit.com/r/MachineLearning/comments/1sdmn97/d_how_to_break_free_from_llms_chains_as_a_phd/",
+    "author": "etoipi1",
+    "icp": "ai-builder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1skql34",
+    "source": "MachineLearning",
+    "kind": "subreddit-top-month",
+    "title": "I scaled a pure Spiking Neural Network (SNN) to 1.088B parameters from scratch. Ran out of budget, but here is what I found [R]",
+    "score": 144,
+    "num_comments": 60,
+    "url": "https://www.reddit.com/r/MachineLearning/comments/1skql34/i_scaled_a_pure_spiking_neural_network_snn_to/",
+    "author": "zemondza",
+    "icp": "ai-builder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sq5dfj",
+    "source": "FulfillmentByAmazon",
+    "kind": "subreddit-top-month",
+    "title": "4 months in as a FBA newbie. Now selling in a week what I used to sell in a month. Happy to share what I’ve learned so far if it helps anyone…",
+    "score": 49,
+    "num_comments": 85,
+    "url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1sq5dfj/4_months_in_as_a_fba_newbie_now_selling_in_a_week/",
+    "author": "Brief-League2526",
+    "icp": "amazon-seller",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1swbi3c",
+    "source": "FulfillmentByAmazon",
+    "kind": "subreddit-hot-week",
+    "title": "Struggling to get reviews without Vine",
+    "score": 11,
+    "num_comments": 13,
+    "url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1swbi3c/struggling_to_get_reviews_without_vine/",
+    "author": "Safe_Bodybuilder1810",
+    "icp": [
+      "amazon-seller"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bstruggling\\s+(with|to)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ss70jc",
+    "source": "FulfillmentByAmazon",
+    "kind": "subreddit-top-month",
+    "title": "One 1-star Vine review completely killed my sales overnight. How do you recover from this?",
+    "score": 11,
+    "num_comments": 35,
+    "url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1ss70jc/one_1star_vine_review_completely_killed_my_sales/",
+    "author": "diesel12001",
+    "icp": "amazon-seller",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1seangl",
+    "source": "FulfillmentByAmazon",
+    "kind": "subreddit-top-month",
+    "title": "I'm a sock manufacturer and thought FBA was a no-brainer. Lost a lot of money. What did I do wrong?",
+    "score": 10,
+    "num_comments": 35,
+    "url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1seangl/im_a_sock_manufacturer_and_thought_fba_was_a/",
+    "author": "Background_Badger544",
+    "icp": "amazon-seller",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sh54c4",
+    "source": "AmazonSeller",
+    "kind": "subreddit-top-month",
+    "title": "What do you wish you knew sooner as a seller?",
+    "score": 8,
+    "num_comments": 39,
+    "url": "https://www.reddit.com/r/AmazonSeller/comments/1sh54c4/what_do_you_wish_you_knew_sooner_as_a_seller/",
+    "author": "PlayaBikeSunset",
+    "icp": "amazon-seller",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ss5q4d",
+    "source": "AmazonSeller",
+    "kind": "subreddit-hot-week",
+    "title": "How do I know if my shipment is lost?",
+    "score": 7,
+    "num_comments": 14,
+    "url": "https://www.reddit.com/r/AmazonSeller/comments/1ss5q4d/how_do_i_know_if_my_shipment_is_lost/",
+    "author": "CompetitiveIsland985",
+    "icp": [
+      "amazon-seller"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1svxwl9",
+    "source": "FulfillmentByAmazon",
+    "kind": "subreddit-hot-week",
+    "title": "anyone using kentucky for fulfillment instead of the usual california/texas hubs?",
+    "score": 6,
+    "num_comments": 8,
+    "url": "https://www.reddit.com/r/FulfillmentByAmazon/comments/1svxwl9/anyone_using_kentucky_for_fulfillment_instead_of/",
+    "author": "Known_Leading_6872",
+    "icp": "amazon-seller",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\banyone\\s+(using|tried|know)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sx9tt8",
+    "source": "AmazonSeller",
+    "kind": "subreddit-hot-week",
+    "title": "Switching from OA to wholesale/brand direct how do you start?",
+    "score": 5,
+    "num_comments": 9,
+    "url": "https://www.reddit.com/r/AmazonSeller/comments/1sx9tt8/switching_from_oa_to_wholesalebrand_direct_how_do/",
+    "author": "Acrobatic-Cover9033",
+    "icp": [
+      "amazon-seller"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sbpvbb",
+    "source": "Etsy",
+    "kind": "subreddit-top-month",
+    "title": "Etsy refunded $600 to buyer without requiring a return… what can I do?",
+    "score": 141,
+    "num_comments": 123,
+    "url": "https://www.reddit.com/r/Etsy/comments/1sbpvbb/etsy_refunded_600_to_buyer_without_requiring_a/",
+    "author": "ankit_nyk",
+    "icp": "artisan-dtc",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sinwrf",
+    "source": "Etsy",
+    "kind": "subreddit-top-month",
+    "title": "What happened?",
+    "score": 135,
+    "num_comments": 44,
+    "url": "https://www.reddit.com/r/Etsy/comments/1sinwrf/what_happened/",
+    "author": "ComfortableAd1971",
+    "icp": "artisan-dtc",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1secr3x",
+    "source": "Etsy",
+    "kind": "subreddit-top-month",
+    "title": "why are some sellers like this?",
+    "score": 88,
+    "num_comments": 42,
+    "url": "https://www.reddit.com/r/Etsy/comments/1secr3x/why_are_some_sellers_like_this/",
+    "author": "spiderman089_",
+    "icp": "artisan-dtc",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1stwmm9",
+    "source": "Etsy",
+    "kind": "subreddit-top-month",
+    "title": "Awkward situation with a customer - what would you do?",
+    "score": 64,
+    "num_comments": 37,
+    "url": "https://www.reddit.com/r/Etsy/comments/1stwmm9/awkward_situation_with_a_customer_what_would_you/",
+    "author": "Salty_Information187",
+    "icp": "artisan-dtc",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sejn49",
+    "source": "Etsy",
+    "kind": "subreddit-top-month",
+    "title": "Why are sellers like this",
+    "score": 50,
+    "num_comments": 40,
+    "url": "https://www.reddit.com/r/Etsy/comments/1sejn49/why_are_sellers_like_this/",
+    "author": "spiderman089_",
+    "icp": "artisan-dtc",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sjnz9b",
+    "source": "Etsy",
+    "kind": "subreddit-top-month",
+    "title": "I think artist is using AI?",
+    "score": 294,
+    "num_comments": 92,
+    "url": "https://www.reddit.com/r/Etsy/comments/1sjnz9b/i_think_artist_is_using_ai/",
+    "author": "Grand_Foundation1807",
+    "icp": "artisan-dtc",
+    "low_confidence": false,
+    "_l2_keep_hits": [],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sitbld",
+    "source": "Etsy",
+    "kind": "subreddit-top-month",
+    "title": "Selling “uneven” crochet earrings?",
+    "score": 66,
+    "num_comments": 31,
+    "url": "https://www.reddit.com/r/Etsy/comments/1sitbld/selling_uneven_crochet_earrings/",
+    "author": "pandaandturtle",
+    "icp": "artisan-dtc",
+    "low_confidence": false,
+    "_l2_keep_hits": [],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sftc2w",
+    "source": "Etsy",
+    "kind": "subreddit-top-month",
+    "title": "Do you guys think this is a valid reason for using AI generated images and videos for sewing patterns on Etsy?",
+    "score": 55,
+    "num_comments": 63,
+    "url": "https://www.reddit.com/r/Etsy/comments/1sftc2w/do_you_guys_think_this_is_a_valid_reason_for/",
+    "author": "jarofknees",
+    "icp": "artisan-dtc",
+    "low_confidence": false,
+    "_l2_keep_hits": [],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1slmxuo",
+    "source": "sales",
+    "kind": "subreddit-top-month",
+    "title": "What does the richest salesperson you know SELL?",
+    "score": 416,
+    "num_comments": 702,
+    "url": "https://www.reddit.com/r/sales/comments/1slmxuo/what_does_the_richest_salesperson_you_know_sell/",
+    "author": "usman232323",
+    "icp": "b2b-sdr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sqt7vz",
+    "source": "sales",
+    "kind": "subreddit-top-month",
+    "title": "I'm a sales manager, going through a very severe mental health crisis. How do I inform my employer?",
+    "score": 260,
+    "num_comments": 206,
+    "url": "https://www.reddit.com/r/sales/comments/1sqt7vz/im_a_sales_manager_going_through_a_very_severe/",
+    "author": "PortugueseRoamer",
+    "icp": "b2b-sdr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s8lp85",
+    "source": "sales",
+    "kind": "subreddit-top-month",
+    "title": "The hardest skill in sales is knowing when to stop selling.",
+    "score": 173,
+    "num_comments": 51,
+    "url": "https://www.reddit.com/r/sales/comments/1s8lp85/the_hardest_skill_in_sales_is_knowing_when_to/",
+    "author": "Seven_Figure_Closer",
+    "icp": "b2b-sdr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1so2bwt",
+    "source": "coldemail",
+    "kind": "subreddit-top-month",
+    "title": "I sent cold emails for 6 months and tracked everything. Here's what the data actually showed.",
+    "score": 73,
+    "num_comments": 45,
+    "url": "https://www.reddit.com/r/coldemail/comments/1so2bwt/i_sent_cold_emails_for_6_months_and_tracked/",
+    "author": "Emergency_Event_8353",
+    "icp": "b2b-sdr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sthyme",
+    "source": "coldemail",
+    "kind": "subreddit-top-month",
+    "title": "I sent 1 million cold emails - here is what i got back",
+    "score": 70,
+    "num_comments": 68,
+    "url": "https://www.reddit.com/r/coldemail/comments/1sthyme/i_sent_1_million_cold_emails_here_is_what_i_got/",
+    "author": "BashKing12",
+    "icp": "b2b-sdr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sxdxbe",
+    "source": "sales",
+    "kind": "subreddit-hot-week",
+    "title": "During a very hard period, what was the best thing you did for your mental health?",
+    "score": 68,
+    "num_comments": 128,
+    "url": "https://www.reddit.com/r/sales/comments/1sxdxbe/during_a_very_hard_period_what_was_the_best_thing/",
+    "author": "MisterC0ck",
+    "icp": "b2b-sdr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sbui9l",
+    "source": "coldemail",
+    "kind": "subreddit-top-month",
+    "title": "I send 50,000 cold emails a day. here is what nobody tells you.",
+    "score": 68,
+    "num_comments": 35,
+    "url": "https://www.reddit.com/r/coldemail/comments/1sbui9l/i_send_50000_cold_emails_a_day_here_is_what/",
+    "author": "Sweet-Signature-5702",
+    "icp": "b2b-sdr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1swkzy7",
+    "source": "coldemail",
+    "kind": "subreddit-top-month",
+    "title": "sent 265,127 cold emails in april. here's what actually mattered",
+    "score": 46,
+    "num_comments": 41,
+    "url": "https://www.reddit.com/r/coldemail/comments/1swkzy7/sent_265127_cold_emails_in_april_heres_what/",
+    "author": "Current_Ordinary_688",
+    "icp": "b2b-sdr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1si43bp",
+    "source": "PublicRelations",
+    "kind": "subreddit-top-month",
+    "title": "What happens when actors don't run statements by their PR people",
+    "score": 185,
+    "num_comments": 132,
+    "url": "https://www.reddit.com/r/PublicRelations/comments/1si43bp/what_happens_when_actors_dont_run_statements_by/",
+    "author": "McNasty420",
+    "icp": "brand-pr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ssj1ye",
+    "source": "PublicRelations",
+    "kind": "subreddit-hot-week",
+    "title": "AI Agents in PR- what are you building?",
+    "score": 73,
+    "num_comments": 78,
+    "url": "https://www.reddit.com/r/PublicRelations/comments/1ssj1ye/ai_agents_in_pr_what_are_you_building/",
+    "author": "Creative-Onion-4221",
+    "icp": [
+      "brand-pr"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1shbt6y",
+    "source": "PublicRelations",
+    "kind": "subreddit-top-month",
+    "title": "Why are there no threads about the worst PR agencies and the worst PR Agency owners?",
+    "score": 66,
+    "num_comments": 47,
+    "url": "https://www.reddit.com/r/PublicRelations/comments/1shbt6y/why_are_there_no_threads_about_the_worst_pr/",
+    "author": "teddyismybestie",
+    "icp": "brand-pr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1smyt4p",
+    "source": "branding",
+    "kind": "subreddit-top-month",
+    "title": "Branding isn’t what you say. It’s what people remember.",
+    "score": 54,
+    "num_comments": 30,
+    "url": "https://www.reddit.com/r/branding/comments/1smyt4p/branding_isnt_what_you_say_its_what_people/",
+    "author": "Deepakkochhar13",
+    "icp": "brand-pr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sww2mf",
+    "source": "PublicRelations",
+    "kind": "subreddit-hot-week",
+    "title": "How Do You Handle: “Who Do You Know?”",
+    "score": 27,
+    "num_comments": 24,
+    "url": "https://www.reddit.com/r/PublicRelations/comments/1sww2mf/how_do_you_handle_who_do_you_know/",
+    "author": "Comms_Factory",
+    "icp": [
+      "brand-pr"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sij7wa",
+    "source": "branding",
+    "kind": "subreddit-top-month",
+    "title": "You don't own your brand. Your audience does. Here's how to influence what they decide it is.",
+    "score": 24,
+    "num_comments": 13,
+    "url": "https://www.reddit.com/r/branding/comments/1sij7wa/you_dont_own_your_brand_your_audience_does_heres/",
+    "author": "Z-AliYoucef",
+    "icp": "brand-pr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b",
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1scifm4",
+    "source": "branding",
+    "kind": "subreddit-top-month",
+    "title": "Why most founders are building an audience that will never buy from them",
+    "score": 24,
+    "num_comments": 5,
+    "url": "https://www.reddit.com/r/branding/comments/1scifm4/why_most_founders_are_building_an_audience_that/",
+    "author": "Thoughtleaderr",
+    "icp": "brand-pr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1so2qg3",
+    "source": "PublicRelations",
+    "kind": "subreddit-top-month",
+    "title": "How do you explain the value of media placements to clients who only care about reach?",
+    "score": 23,
+    "num_comments": 21,
+    "url": "https://www.reddit.com/r/PublicRelations/comments/1so2qg3/how_do_you_explain_the_value_of_media_placements/",
+    "author": "Jellyfish-446",
+    "icp": "brand-pr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1pp0ybu",
+    "source": "Coaching",
+    "kind": "subreddit-hot-week",
+    "title": "Looking for Recommendations: Coach Mentoring (ICF ACC)",
+    "score": 23,
+    "num_comments": 36,
+    "url": "https://www.reddit.com/r/Coaching/comments/1pp0ybu/looking_for_recommendations_coach_mentoring_icf/",
+    "author": "nominadehuesos",
+    "icp": "coach",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(recommend|recommendation|suggestion)s?\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sow4a2",
+    "source": "lifecoaching",
+    "kind": "subreddit-hot-week",
+    "title": "What do you actually use to keep clients engaged between sessions?",
+    "score": 21,
+    "num_comments": 75,
+    "url": "https://www.reddit.com/r/lifecoaching/comments/1sow4a2/what_do_you_actually_use_to_keep_clients_engaged/",
+    "author": "leslysaurus",
+    "icp": [
+      "coach"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sn5byi",
+    "source": "Coaching",
+    "kind": "subreddit-hot-week",
+    "title": "What is the best business coaching program you can recommend?",
+    "score": 20,
+    "num_comments": 19,
+    "url": "https://www.reddit.com/r/Coaching/comments/1sn5byi/what_is_the_best_business_coaching_program_you/",
+    "author": "daniel_c133",
+    "icp": [
+      "coach"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s",
+      "\\b(recommend|recommendation|suggestion)s?\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sioobc",
+    "source": "lifecoaching",
+    "kind": "subreddit-hot-week",
+    "title": "Feeling stuck with a client who won’t act on what they know",
+    "score": 15,
+    "num_comments": 42,
+    "url": "https://www.reddit.com/r/lifecoaching/comments/1sioobc/feeling_stuck_with_a_client_who_wont_act_on_what/",
+    "author": "Euphoric_Spite8998",
+    "icp": [
+      "coach"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1stj8co",
+    "source": "lifecoaching",
+    "kind": "subreddit-hot-week",
+    "title": "I reviewed 90 days of marketing data from 6 coaching businesses. Here’s what it really cost to sign a client.",
+    "score": 13,
+    "num_comments": 26,
+    "url": "https://www.reddit.com/r/lifecoaching/comments/1stj8co/i_reviewed_90_days_of_marketing_data_from_6/",
+    "author": "Rhynohere",
+    "icp": [
+      "coach"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1srsxvf",
+    "source": "Coaching",
+    "kind": "subreddit-hot-week",
+    "title": "How do you get your first testimonial ?",
+    "score": 10,
+    "num_comments": 26,
+    "url": "https://www.reddit.com/r/Coaching/comments/1srsxvf/how_do_you_get_your_first_testimonial/",
+    "author": "daniel_c133",
+    "icp": [
+      "coach"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1odd9mz",
+    "source": "Coaching",
+    "kind": "subreddit-hot-week",
+    "title": "What scheduling tool?",
+    "score": 10,
+    "num_comments": 45,
+    "url": "https://www.reddit.com/r/Coaching/comments/1odd9mz/what_scheduling_tool/",
+    "author": "finnfrenzl",
+    "icp": "coach",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1suvesk",
+    "source": "lifecoaching",
+    "kind": "subreddit-hot-week",
+    "title": "Where to start",
+    "score": 9,
+    "num_comments": 29,
+    "url": "https://www.reddit.com/r/lifecoaching/comments/1suvesk/where_to_start/",
+    "author": "BigWillTheKing",
+    "icp": [
+      "coach"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1se43d6",
+    "source": "consulting",
+    "kind": "subreddit-top-month",
+    "title": "How do you handle a project where the client themselves are ex consultants but with deep industry experience and have much more nuanced takes?",
+    "score": 391,
+    "num_comments": 73,
+    "url": "https://www.reddit.com/r/consulting/comments/1se43d6/how_do_you_handle_a_project_where_the_client/",
+    "author": "Shadowdancerdone",
+    "icp": "consultant",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b",
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1smhwig",
+    "source": "consulting",
+    "kind": "subreddit-top-month",
+    "title": "How are busy consultants so fit… when their time is worth $200+/hr?",
+    "score": 281,
+    "num_comments": 188,
+    "url": "https://www.reddit.com/r/consulting/comments/1smhwig/how_are_busy_consultants_so_fit_when_their_time/",
+    "author": "IllRead2057",
+    "icp": "consultant",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sni2jl",
+    "source": "consulting",
+    "kind": "subreddit-top-month",
+    "title": "My boss is an alcoholic and now sure what to do",
+    "score": 112,
+    "num_comments": 49,
+    "url": "https://www.reddit.com/r/consulting/comments/1sni2jl/my_boss_is_an_alcoholic_and_now_sure_what_to_do/",
+    "author": "Mammoth_Newt5148",
+    "icp": "consultant",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sji6kf",
+    "source": "consulting",
+    "kind": "subreddit-top-month",
+    "title": "How do you deal with the stress?",
+    "score": 103,
+    "num_comments": 56,
+    "url": "https://www.reddit.com/r/consulting/comments/1sji6kf/how_do_you_deal_with_the_stress/",
+    "author": "gwok4h2i9176",
+    "icp": "consultant",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1se3dtj",
+    "source": "consulting",
+    "kind": "subreddit-top-month",
+    "title": "Tips to make better slides to become PowerPoint God?",
+    "score": 101,
+    "num_comments": 51,
+    "url": "https://www.reddit.com/r/consulting/comments/1se3dtj/tips_to_make_better_slides_to_become_powerpoint/",
+    "author": "biz_booster",
+    "icp": "consultant",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\btips?\\s+(for|on|to)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1seychs",
+    "source": "consulting",
+    "kind": "subreddit-top-month",
+    "title": "How much time do you spend on just formatting slides vs actually thinking?",
+    "score": 92,
+    "num_comments": 45,
+    "url": "https://www.reddit.com/r/consulting/comments/1seychs/how_much_time_do_you_spend_on_just_formatting/",
+    "author": "biz_booster",
+    "icp": "consultant",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bvs\\b|\\bversus\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1suebve",
+    "source": "consulting",
+    "kind": "subreddit-hot-week",
+    "title": "What traits define a high-performing consultant?",
+    "score": 75,
+    "num_comments": 67,
+    "url": "https://www.reddit.com/r/consulting/comments/1suebve/what_traits_define_a_highperforming_consultant/",
+    "author": "Curious_Suchit",
+    "icp": "consultant",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sxps9y",
+    "source": "consulting",
+    "kind": "subreddit-hot-week",
+    "title": "Consulting to AI startup: what to think through?",
+    "score": 38,
+    "num_comments": 22,
+    "url": "https://www.reddit.com/r/consulting/comments/1sxps9y/consulting_to_ai_startup_what_to_think_through/",
+    "author": "f00kster",
+    "icp": "consultant",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s97j3h",
+    "source": "blogging",
+    "kind": "subreddit-top-month",
+    "title": "Two years of blogging and I finally understand why my older posts perform better than my newer ones",
+    "score": 73,
+    "num_comments": 21,
+    "url": "https://www.reddit.com/r/Blogging/comments/1s97j3h/two_years_of_blogging_and_i_finally_understand/",
+    "author": "Conscious-Text6482",
+    "icp": "content-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1saevi4",
+    "source": "blogging",
+    "kind": "subreddit-top-month",
+    "title": "how do you write Pinterest pin descriptions that actually drive blog traffic",
+    "score": 25,
+    "num_comments": 20,
+    "url": "https://www.reddit.com/r/Blogging/comments/1saevi4/how_do_you_write_pinterest_pin_descriptions_that/",
+    "author": "krjgarcia",
+    "icp": "content-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sa7g5g",
+    "source": "contentmarketing",
+    "kind": "subreddit-top-month",
+    "title": "What content marketing strategy is actually working for you right now?",
+    "score": 22,
+    "num_comments": 38,
+    "url": "https://www.reddit.com/r/ContentMarketing/comments/1sa7g5g/what_content_marketing_strategy_is_actually/",
+    "author": "Impressive_Energy947",
+    "icp": "content-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1souv6z",
+    "source": "contentmarketing",
+    "kind": "subreddit-top-month",
+    "title": "Nobody talks about how hard it is to post \nconsistently when you're running a business alone",
+    "score": 17,
+    "num_comments": 19,
+    "url": "https://www.reddit.com/r/ContentMarketing/comments/1souv6z/nobody_talks_about_how_hard_it_is_to_post/",
+    "author": "Global_Sandwich998",
+    "icp": "content-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1swpbnf",
+    "source": "blogging",
+    "kind": "subreddit-hot-week",
+    "title": "Which platforms do you use most for external traffic?",
+    "score": 16,
+    "num_comments": 39,
+    "url": "https://www.reddit.com/r/Blogging/comments/1swpbnf/which_platforms_do_you_use_most_for_external/",
+    "author": "Maplee-Tech",
+    "icp": [
+      "content-mkt-mgr"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sk2w6j",
+    "source": "contentmarketing",
+    "kind": "subreddit-top-month",
+    "title": "Can an AISEO agency help with product descriptions and category pages?",
+    "score": 16,
+    "num_comments": 30,
+    "url": "https://www.reddit.com/r/ContentMarketing/comments/1sk2w6j/can_an_aiseo_agency_help_with_product/",
+    "author": "Away_You9725",
+    "icp": "content-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhelp\\s+(with|me)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ssihlu",
+    "source": "contentmarketing",
+    "kind": "subreddit-hot-week",
+    "title": "Citations vs brand mentions in LLM results. How do I get link citations?",
+    "score": 15,
+    "num_comments": 22,
+    "url": "https://www.reddit.com/r/ContentMarketing/comments/1ssihlu/citations_vs_brand_mentions_in_llm_results_how_do/",
+    "author": "Excellent-Trick5288",
+    "icp": [
+      "content-mkt-mgr"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b",
+      "\\bvs\\b|\\bversus\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sgurim",
+    "source": "contentmarketing",
+    "kind": "subreddit-top-month",
+    "title": "fanpro studio reviews??? vs higgsfield for ai content creators, which one??",
+    "score": 13,
+    "num_comments": 30,
+    "url": "https://www.reddit.com/r/ContentMarketing/comments/1sgurim/fanpro_studio_reviews_vs_higgsfield_for_ai/",
+    "author": "osoluz2",
+    "icp": "content-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s",
+      "\\bvs\\b|\\bversus\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sv3ajh",
+    "source": "teachers",
+    "kind": "subreddit-top-month",
+    "title": "I gave my students a copy of the test as a study guide to see who would actually study",
+    "score": 6678,
+    "num_comments": 444,
+    "url": "https://www.reddit.com/r/Teachers/comments/1sv3ajh/i_gave_my_students_a_copy_of_the_test_as_a_study/",
+    "author": "watermelonlollies",
+    "icp": "course-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bguide\\s+(for|to|on)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sg2bvn",
+    "source": "teachers",
+    "kind": "subreddit-top-month",
+    "title": "What are you tired of dealing with because parents just…aren’t parenting anymore?",
+    "score": 3914,
+    "num_comments": 877,
+    "url": "https://www.reddit.com/r/Teachers/comments/1sg2bvn/what_are_you_tired_of_dealing_with_because/",
+    "author": "Emergency-Pepper3537",
+    "icp": "course-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1smcqpi",
+    "source": "teachers",
+    "kind": "subreddit-top-month",
+    "title": "What sort of devious tips do you have as a teacher?",
+    "score": 2463,
+    "num_comments": 352,
+    "url": "https://www.reddit.com/r/Teachers/comments/1smcqpi/what_sort_of_devious_tips_do_you_have_as_a_teacher/",
+    "author": "ICUP01",
+    "icp": "course-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1syfar4",
+    "source": "teachers",
+    "kind": "subreddit-hot-week",
+    "title": "Story time! Tell a story about when you have seen a parent do something and then thought “Oh that’s why your kid is like that!”",
+    "score": 242,
+    "num_comments": 26,
+    "url": "https://www.reddit.com/r/Teachers/comments/1syfar4/story_time_tell_a_story_about_when_you_have_seen/",
+    "author": "cute-Abominable",
+    "icp": "course-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sypc2i",
+    "source": "teachers",
+    "kind": "subreddit-hot-week",
+    "title": "How do you deal with high school seniors saying \"I don't need your class to graduate?\"",
+    "score": 8,
+    "num_comments": 35,
+    "url": "https://www.reddit.com/r/Teachers/comments/1sypc2i/how_do_you_deal_with_high_school_seniors_saying_i/",
+    "author": "LandofOz39",
+    "icp": "course-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "quora",
+    "post_id": "How-can-I-create-and-sell-online-courses-or-educational-cont",
+    "source": "how to create and sell online course",
+    "kind": "serp-fallback",
+    "title": "How to create and sell online courses or educational ...",
+    "snippet": "Building and selling online courses is now really easy because you do not need a lot of money, a studio, or a computer science degree to ...",
+    "score": null,
+    "num_comments": null,
+    "url": "https://www.quora.com/How-can-I-create-and-sell-online-courses-or-educational-content-for-a-profit",
+    "icp": "course-creator",
+    "low_confidence": true,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "quora",
+    "post_id": "How-can-I-create-and-sell-online-courses-through-YouTube",
+    "source": "how to create and sell online course",
+    "kind": "serp-fallback",
+    "title": "How to create and sell online courses through YouTube",
+    "snippet": "Plan the course; outline key topics. Create quality content; use good equipment. Engage the audience; use YouTube's features. Promote courses; ...",
+    "score": null,
+    "num_comments": null,
+    "url": "https://www.quora.com/How-can-I-create-and-sell-online-courses-through-YouTube",
+    "icp": "course-creator",
+    "low_confidence": true,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "quora",
+    "post_id": "What-is-the-best-platform-to-create-and-sell-online-courses-",
+    "source": "how to create and sell online course",
+    "kind": "serp-fallback",
+    "title": "What is the best platform to create and sell online courses ...",
+    "snippet": "Blackboard, Canvas, and Moodle are the Big Three and all are excellent. Blackboard is the market leader in higher education. Moodle is open ...",
+    "score": null,
+    "num_comments": null,
+    "url": "https://www.quora.com/What-is-the-best-platform-to-create-and-sell-online-courses-in-2025-2026",
+    "icp": "course-creator",
+    "low_confidence": true,
+    "_l2_keep_hits": [
+      "\\bbest\\s+\\w+\\s+(for|to)\\b",
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sc3osu",
+    "source": "dataanalysis",
+    "kind": "subreddit-top-month",
+    "title": "5 SQL tricks I wish I knew when I started — saves hours of frustration",
+    "score": 560,
+    "num_comments": 26,
+    "url": "https://www.reddit.com/r/dataanalysis/comments/1sc3osu/5_sql_tricks_i_wish_i_knew_when_i_started_saves/",
+    "author": "Only-Economist1887",
+    "icp": "data-analyst",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sn5vug",
+    "source": "SQL",
+    "kind": "subreddit-top-month",
+    "title": "You work at E-commerce. Your BOSS/CEO who just use Claude, he just created index on order.status and say index is good.  It makes things faster.  What do you do here as SQL BE guy?",
+    "score": 103,
+    "num_comments": 69,
+    "url": "https://www.reddit.com/r/SQL/comments/1sn5vug/you_work_at_ecommerce_your_bossceo_who_just_use/",
+    "author": "lune-soft",
+    "icp": "data-analyst",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s9i98m",
+    "source": "dataanalysis",
+    "kind": "subreddit-top-month",
+    "title": "What is  a data analysis mistake you made early in your career that you will never make again?",
+    "score": 95,
+    "num_comments": 24,
+    "url": "https://www.reddit.com/r/dataanalysis/comments/1s9i98m/what_is_a_data_analysis_mistake_you_made_early_in/",
+    "author": "Vivid_Release_9710",
+    "icp": "data-analyst",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1skhfk7",
+    "source": "dataanalysis",
+    "kind": "subreddit-top-month",
+    "title": "How do data analysts actually start a project from scratch?",
+    "score": 60,
+    "num_comments": 15,
+    "url": "https://www.reddit.com/r/dataanalysis/comments/1skhfk7/how_do_data_analysts_actually_start_a_project/",
+    "author": "No_Set_3251",
+    "icp": "data-analyst",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sl5gbi",
+    "source": "SQL",
+    "kind": "subreddit-top-month",
+    "title": "What difference between database engines has burned you the hardest?",
+    "score": 44,
+    "num_comments": 33,
+    "url": "https://www.reddit.com/r/SQL/comments/1sl5gbi/what_difference_between_database_engines_has/",
+    "author": "catekoder",
+    "icp": "data-analyst",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s7np7p",
+    "source": "SQL",
+    "kind": "subreddit-top-month",
+    "title": "I've been stuck on SQL self-joins for 6 months and I'm desperate, what is my mental model missing?",
+    "score": 35,
+    "num_comments": 51,
+    "url": "https://www.reddit.com/r/SQL/comments/1s7np7p/ive_been_stuck_on_sql_selfjoins_for_6_months_and/",
+    "author": "Medohh2120",
+    "icp": "data-analyst",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sbh68i",
+    "source": "SQL",
+    "kind": "subreddit-top-month",
+    "title": "Why do most SQL interview questions feel nothing like real analyst work?",
+    "score": 34,
+    "num_comments": 20,
+    "url": "https://www.reddit.com/r/SQL/comments/1sbh68i/why_do_most_sql_interview_questions_feel_nothing/",
+    "author": "sqlcasebuilder",
+    "icp": "data-analyst",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sklxat",
+    "source": "dataanalysis",
+    "kind": "subreddit-top-month",
+    "title": "6 YOE Data Analyst feeling stuck – what should I learn next?",
+    "score": 28,
+    "num_comments": 14,
+    "url": "https://www.reddit.com/r/dataanalysis/comments/1sklxat/6_yoe_data_analyst_feeling_stuck_what_should_i/",
+    "author": "Subject_Banana_1833",
+    "icp": "data-analyst",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s",
+      "\\bshould\\s+I\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sb2zxs",
+    "source": "Entrepreneur",
+    "kind": "subreddit-top-month",
+    "title": "[Requested] Nobody wants to talk about buying a septic business. Thats exactly why the margins are 60%+ and the multiples are 2.5x. Full breakdown inside.",
+    "score": 339,
+    "num_comments": 101,
+    "url": "https://www.reddit.com/r/Entrepreneur/comments/1sb2zxs/requested_nobody_wants_to_talk_about_buying_a/",
+    "author": "canhelp",
+    "icp": "fallback-generic",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sgxkdt",
+    "source": "Entrepreneur",
+    "kind": "subreddit-top-month",
+    "title": "Why does no one talk about how lonely building a business can be?",
+    "score": 261,
+    "num_comments": 266,
+    "url": "https://www.reddit.com/r/Entrepreneur/comments/1sgxkdt/why_does_no_one_talk_about_how_lonely_building_a/",
+    "author": "Pro_Automation__",
+    "icp": "fallback-generic",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1scsris",
+    "source": "smallbusiness",
+    "kind": "subreddit-top-month",
+    "title": "can someone just PLEASE explain to me --- HOW do millionaires/billionaires pay so little in taxes?",
+    "score": 232,
+    "num_comments": 392,
+    "url": "https://www.reddit.com/r/smallbusiness/comments/1scsris/can_someone_just_please_explain_to_me_how_do/",
+    "author": "QuoteAdventurous1145",
+    "icp": "fallback-generic",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ssg49y",
+    "source": "Entrepreneur",
+    "kind": "subreddit-top-month",
+    "title": "Entrepreneurs, what daily task did you completely eliminate using automation for you or your business?",
+    "score": 231,
+    "num_comments": 281,
+    "url": "https://www.reddit.com/r/Entrepreneur/comments/1ssg49y/entrepreneurs_what_daily_task_did_you_completely/",
+    "author": "dewharmony03",
+    "icp": "fallback-generic",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1snmold",
+    "source": "smallbusiness",
+    "kind": "subreddit-top-month",
+    "title": "I effed up. What should I do",
+    "score": 230,
+    "num_comments": 243,
+    "url": "https://www.reddit.com/r/smallbusiness/comments/1snmold/i_effed_up_what_should_i_do/",
+    "author": "Aufshnitt",
+    "icp": "fallback-generic",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s",
+      "\\bshould\\s+I\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sbjiuh",
+    "source": "smallbusiness",
+    "kind": "subreddit-top-month",
+    "title": "How do piercing shops make enough money to stay open?",
+    "score": 169,
+    "num_comments": 59,
+    "url": "https://www.reddit.com/r/smallbusiness/comments/1sbjiuh/how_do_piercing_shops_make_enough_money_to_stay/",
+    "author": "K-Pumper",
+    "icp": "fallback-generic",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sfps91",
+    "source": "smallbusiness",
+    "kind": "subreddit-top-month",
+    "title": "Quoted $3500/month for local SEO as a plumbing business - how do you even know if it's worth it?",
+    "score": 149,
+    "num_comments": 263,
+    "url": "https://www.reddit.com/r/smallbusiness/comments/1sfps91/quoted_3500month_for_local_seo_as_a_plumbing/",
+    "author": "Fun_Delay_5224",
+    "icp": "fallback-generic",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sb1icq",
+    "source": "smallbusiness",
+    "kind": "subreddit-top-month",
+    "title": "Anyone here running a business with ADHD? How do you manage it?",
+    "score": 112,
+    "num_comments": 140,
+    "url": "https://www.reddit.com/r/smallbusiness/comments/1sb1icq/anyone_here_running_a_business_with_adhd_how_do/",
+    "author": "Comfortable-Garage77",
+    "icp": "fallback-generic",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s903zy",
+    "source": "FinancialPlanning",
+    "kind": "subreddit-top-month",
+    "title": "Why am I getting only $1k from a 22 year old Gerber life grow up plan",
+    "score": 276,
+    "num_comments": 69,
+    "url": "https://www.reddit.com/r/FinancialPlanning/comments/1s903zy/why_am_i_getting_only_1k_from_a_22_year_old/",
+    "author": "EntrepreneurAble6565",
+    "icp": "financial-advisor",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sn38x2",
+    "source": "FinancialPlanning",
+    "kind": "subreddit-top-month",
+    "title": "Should I withdraw from my 401K to help my parents?",
+    "score": 62,
+    "num_comments": 245,
+    "url": "https://www.reddit.com/r/FinancialPlanning/comments/1sn38x2/should_i_withdraw_from_my_401k_to_help_my_parents/",
+    "author": "SugaSweetbells",
+    "icp": "financial-advisor",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bshould\\s+I\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1spuh05",
+    "source": "FinancialPlanning",
+    "kind": "subreddit-top-month",
+    "title": "For people who recently retired or have close family who did, what do they actually\ndo all day?",
+    "score": 37,
+    "num_comments": 70,
+    "url": "https://www.reddit.com/r/FinancialPlanning/comments/1spuh05/for_people_who_recently_retired_or_have_close/",
+    "author": "Key-Hawk-895",
+    "icp": "financial-advisor",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1si5zrw",
+    "source": "CFP",
+    "kind": "subreddit-top-month",
+    "title": "How Do You Handle Fee-Sensitive Prospects with No Real Financial Plan?",
+    "score": 28,
+    "num_comments": 48,
+    "url": "https://www.reddit.com/r/CFP/comments/1si5zrw/how_do_you_handle_feesensitive_prospects_with_no/",
+    "author": "Critical-Research810",
+    "icp": "financial-advisor",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ss44bh",
+    "source": "CFP",
+    "kind": "subreddit-hot-week",
+    "title": "How do you work with people who don’t care? Can you make them care or should you just disengage?",
+    "score": 25,
+    "num_comments": 76,
+    "url": "https://www.reddit.com/r/CFP/comments/1ss44bh/how_do_you_work_with_people_who_dont_care_can_you/",
+    "author": "Droodforfood",
+    "icp": [
+      "financial-advisor"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1skv3ly",
+    "source": "CFP",
+    "kind": "subreddit-top-month",
+    "title": "What do you say to people who decline your services?",
+    "score": 23,
+    "num_comments": 45,
+    "url": "https://www.reddit.com/r/CFP/comments/1skv3ly/what_do_you_say_to_people_who_decline_your/",
+    "author": "Salty-Passenger-4801",
+    "icp": "financial-advisor",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sdn7t6",
+    "source": "CFP",
+    "kind": "subreddit-top-month",
+    "title": "What software do you use to help with automation and why?",
+    "score": 23,
+    "num_comments": 33,
+    "url": "https://www.reddit.com/r/CFP/comments/1sdn7t6/what_software_do_you_use_to_help_with_automation/",
+    "author": "Hulk_Goes_Smash327",
+    "icp": "financial-advisor",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s",
+      "\\bhelp\\s+(with|me)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sb2is5",
+    "source": "FinancialPlanning",
+    "kind": "subreddit-top-month",
+    "title": "When to hire a financial planner",
+    "score": 21,
+    "num_comments": 25,
+    "url": "https://www.reddit.com/r/FinancialPlanning/comments/1sb2is5/when_to_hire_a_financial_planner/",
+    "author": "eljefe-5",
+    "icp": "financial-advisor",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1shkl5h",
+    "source": "graphic_design",
+    "kind": "subreddit-top-month",
+    "title": "What is next?",
+    "score": 5332,
+    "num_comments": 190,
+    "url": "https://www.reddit.com/r/graphic_design/comments/1shkl5h/what_is_next/",
+    "author": "Blasterano",
+    "icp": "freelance-designer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sw52ml",
+    "source": "graphic_design",
+    "kind": "subreddit-top-month",
+    "title": "Learning 3D as a designer (and why it was worth it)",
+    "score": 2408,
+    "num_comments": 91,
+    "url": "https://www.reddit.com/r/graphic_design/comments/1sw52ml/learning_3d_as_a_designer_and_why_it_was_worth_it/",
+    "author": "BecauseBanter",
+    "icp": "freelance-designer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sp5842",
+    "source": "graphic_design",
+    "kind": "subreddit-top-month",
+    "title": "What is this art style called? I love it",
+    "score": 1079,
+    "num_comments": 63,
+    "url": "https://www.reddit.com/r/graphic_design/comments/1sp5842/what_is_this_art_style_called_i_love_it/",
+    "author": "iGotRuka",
+    "icp": "freelance-designer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sk0dwh",
+    "source": "graphic_design",
+    "kind": "subreddit-top-month",
+    "title": "How can I create these textures/gradients?",
+    "score": 851,
+    "num_comments": 17,
+    "url": "https://www.reddit.com/r/graphic_design/comments/1sk0dwh/how_can_i_create_these_texturesgradients/",
+    "author": "Fragrant_Magician_36",
+    "icp": "freelance-designer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sri674",
+    "source": "graphic_design",
+    "kind": "subreddit-top-month",
+    "title": "So many large companies are posting social media graphics that look like this, why is this OK?",
+    "score": 841,
+    "num_comments": 218,
+    "url": "https://www.reddit.com/r/graphic_design/comments/1sri674/so_many_large_companies_are_posting_social_media/",
+    "author": "sweetery",
+    "icp": "freelance-designer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s4k0jm",
+    "source": "freelance",
+    "kind": "subreddit-hot-week",
+    "title": "How to write freelance proposals that actually win",
+    "score": 69,
+    "num_comments": 42,
+    "url": "https://www.reddit.com/r/freelance/comments/1s4k0jm/how_to_write_freelance_proposals_that_actually_win/",
+    "author": "Top-Engineer9939",
+    "icp": "freelance-designer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sxytad",
+    "source": "graphic_design",
+    "kind": "subreddit-hot-week",
+    "title": "Why the hell are graphic designers being asked to do everything for ₹28–30k?",
+    "score": 69,
+    "num_comments": 47,
+    "url": "https://www.reddit.com/r/graphic_design/comments/1sxytad/why_the_hell_are_graphic_designers_being_asked_to/",
+    "author": "Afraid-Ad6189",
+    "icp": "freelance-designer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sycdtn",
+    "source": "graphic_design",
+    "kind": "subreddit-hot-week",
+    "title": "Depressing Job Lead: Teaching AI how to be a publication designer",
+    "score": 58,
+    "num_comments": 23,
+    "url": "https://www.reddit.com/r/graphic_design/comments/1sycdtn/depressing_job_lead_teaching_ai_how_to_be_a/",
+    "author": "Dangerous-Shirt-123",
+    "icp": "freelance-designer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s9waku",
+    "source": "marketing",
+    "kind": "subreddit-top-month",
+    "title": "Ever got to the stage with marketing when you just want to quit it all and live on a farm?",
+    "score": 457,
+    "num_comments": 247,
+    "url": "https://www.reddit.com/r/marketing/comments/1s9waku/ever_got_to_the_stage_with_marketing_when_you/",
+    "author": "jason_digital",
+    "icp": "growth-marketer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1shxrvx",
+    "source": "marketing",
+    "kind": "subreddit-top-month",
+    "title": "What do you think about this advertising? Can that be helpful even after the hate they get?",
+    "score": 217,
+    "num_comments": 58,
+    "url": "https://www.reddit.com/r/marketing/comments/1shxrvx/what_do_you_think_about_this_advertising_can_that/",
+    "author": "Careless-Character21",
+    "icp": "growth-marketer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ss0drr",
+    "source": "SEO",
+    "kind": "subreddit-top-month",
+    "title": "Why ChatGPT Cites One Page Over Another (Study of 1.4M Prompts)",
+    "score": 100,
+    "num_comments": 49,
+    "url": "https://www.reddit.com/r/SEO/comments/1ss0drr/why_chatgpt_cites_one_page_over_another_study_of/",
+    "author": "WebLinkr",
+    "icp": "growth-marketer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1srlq0o",
+    "source": "SEO",
+    "kind": "subreddit-top-month",
+    "title": "Cloudflare has been quietly blocking GPTBot and PerplexityBot on my site for months. Here's how to check yours.",
+    "score": 56,
+    "num_comments": 36,
+    "url": "https://www.reddit.com/r/SEO/comments/1srlq0o/cloudflare_has_been_quietly_blocking_gptbot_and/",
+    "author": "PrincipleTop4437",
+    "icp": "growth-marketer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sj00ez",
+    "source": "SEO",
+    "kind": "subreddit-top-month",
+    "title": "Why buying Backlinks on the Homepage 'DA\" Score is a bad idea  [SEO Debate]",
+    "score": 55,
+    "num_comments": 53,
+    "url": "https://www.reddit.com/r/SEO/comments/1sj00ez/why_buying_backlinks_on_the_homepage_da_score_is/",
+    "author": "WebLinkr",
+    "icp": "growth-marketer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sa5qp8",
+    "source": "marketing",
+    "kind": "subreddit-top-month",
+    "title": "Underpaid restaurant “marketing lead” doing full-stack marketing + events alone. How do I leverage this into a real role?",
+    "score": 44,
+    "num_comments": 75,
+    "url": "https://www.reddit.com/r/marketing/comments/1sa5qp8/underpaid_restaurant_marketing_lead_doing/",
+    "author": "Supercatgirl",
+    "icp": "growth-marketer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1spvgmc",
+    "source": "marketing",
+    "kind": "subreddit-hot-week",
+    "title": "What was your red/green flags when hiring people in your team?",
+    "score": 42,
+    "num_comments": 74,
+    "url": "https://www.reddit.com/r/marketing/comments/1spvgmc/what_was_your_redgreen_flags_when_hiring_people/",
+    "author": "skip_39",
+    "icp": [
+      "growth-marketer"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sn3jmc",
+    "source": "marketing",
+    "kind": "subreddit-hot-week",
+    "title": "What are these AI training jobs disguised as marketing jobs?",
+    "score": 39,
+    "num_comments": 40,
+    "url": "https://www.reddit.com/r/marketing/comments/1sn3jmc/what_are_these_ai_training_jobs_disguised_as/",
+    "author": "OkHiGuysOkCiao",
+    "icp": [
+      "growth-marketer"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1stl8l7",
+    "source": "SaaS",
+    "kind": "subreddit-top-month",
+    "title": "8,000 active users in 8 weeks, $0 on ads. Here's what actually worked.",
+    "score": 149,
+    "num_comments": 121,
+    "url": "https://www.reddit.com/r/SaaS/comments/1stl8l7/8000_active_users_in_8_weeks_0_on_ads_heres_what/",
+    "author": "BadMenFinance",
+    "icp": "indie-saas-founder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sxwjnu",
+    "source": "SaaS",
+    "kind": "subreddit-hot-week",
+    "title": "When your saas started getting paid user",
+    "score": 102,
+    "num_comments": 131,
+    "url": "https://www.reddit.com/r/SaaS/comments/1sxwjnu/when_your_saas_started_getting_paid_user/",
+    "author": "OkPerspective5632",
+    "icp": "indie-saas-founder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sl7xpt",
+    "source": "indiehackers",
+    "kind": "subreddit-hot-week",
+    "title": "I am a solo entrepreneur , learnt one new thing . What I found changed how I look at websites . Want to share with all indiehackers.",
+    "score": 52,
+    "num_comments": 128,
+    "url": "https://www.reddit.com/r/indiehackers/comments/1sl7xpt/i_am_a_solo_entrepreneur_learnt_one_new_thing/",
+    "author": "Academic_Flamingo302",
+    "icp": [
+      "indie-saas-founder"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s7x5lg",
+    "source": "indiehackers",
+    "kind": "subreddit-top-month",
+    "title": "Where are the \"actually building\" founder communities (no vibecoders please)?",
+    "score": 46,
+    "num_comments": 108,
+    "url": "https://www.reddit.com/r/indiehackers/comments/1s7x5lg/where_are_the_actually_building_founder/",
+    "author": "ismaelbranco",
+    "icp": "indie-saas-founder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1smtafn",
+    "source": "indiehackers",
+    "kind": "subreddit-hot-week",
+    "title": "How do I find out why people visited my website are not signing up?",
+    "score": 45,
+    "num_comments": 144,
+    "url": "https://www.reddit.com/r/indiehackers/comments/1smtafn/how_do_i_find_out_why_people_visited_my_website/",
+    "author": "kelvinyinnyxian",
+    "icp": [
+      "indie-saas-founder"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b",
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1std3x4",
+    "source": "indiehackers",
+    "kind": "subreddit-hot-week",
+    "title": "How do you deal with the risk your startup can be replaced with next big AI company feature?",
+    "score": 40,
+    "num_comments": 159,
+    "url": "https://www.reddit.com/r/indiehackers/comments/1std3x4/how_do_you_deal_with_the_risk_your_startup_can_be/",
+    "author": "Sea_Dinner5230",
+    "icp": [
+      "indie-saas-founder"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1skh6rz",
+    "source": "indiehackers",
+    "kind": "subreddit-hot-week",
+    "title": "I’m building my 6th SaaS after building 5 over the past 3 years. Here’s what I do differently now.",
+    "score": 37,
+    "num_comments": 116,
+    "url": "https://www.reddit.com/r/indiehackers/comments/1skh6rz/im_building_my_6th_saas_after_building_5_over_the/",
+    "author": "Jonathan_Geiger",
+    "icp": [
+      "indie-saas-founder"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sdxns4",
+    "source": "indiehackers",
+    "kind": "subreddit-top-month",
+    "title": "We thought distractions were random. They’re not. Here’s what we built instead",
+    "score": 26,
+    "num_comments": 76,
+    "url": "https://www.reddit.com/r/indiehackers/comments/1sdxns4/we_thought_distractions_were_random_theyre_not/",
+    "author": "timingbetter",
+    "icp": "indie-saas-founder",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1seolvw",
+    "source": "reactnative",
+    "kind": "subreddit-top-month",
+    "title": "how to create this comment thread curved line",
+    "score": 191,
+    "num_comments": 28,
+    "url": "https://www.reddit.com/r/reactnative/comments/1seolvw/how_to_create_this_comment_thread_curved_line/",
+    "author": "ashishgodiyal",
+    "icp": "mobile-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sp09jv",
+    "source": "androiddev",
+    "kind": "subreddit-top-month",
+    "title": "what a lovely bug, thank you Firebase for making my day",
+    "score": 144,
+    "num_comments": 18,
+    "url": "https://www.reddit.com/r/androiddev/comments/1sp09jv/what_a_lovely_bug_thank_you_firebase_for_making/",
+    "author": "Livid_Poetry_882",
+    "icp": "mobile-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sb6ldz",
+    "source": "reactnative",
+    "kind": "subreddit-top-month",
+    "title": "Is React Native still the best choice for cross platform apps in 2026",
+    "score": 129,
+    "num_comments": 78,
+    "url": "https://www.reddit.com/r/reactnative/comments/1sb6ldz/is_react_native_still_the_best_choice_for_cross/",
+    "author": "Zestyclose_Case5565",
+    "icp": "mobile-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bbest\\s+\\w+\\s+(for|to)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ska1cv",
+    "source": "reactnative",
+    "kind": "subreddit-top-month",
+    "title": "Which branding do you like better?",
+    "score": 109,
+    "num_comments": 93,
+    "url": "https://www.reddit.com/r/reactnative/comments/1ska1cv/which_branding_do_you_like_better/",
+    "author": "TheWalkingFridge",
+    "icp": "mobile-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1suyrul",
+    "source": "reactnative",
+    "kind": "subreddit-top-month",
+    "title": "A cool thing I learnt while developing apps is that if you want to quickly test what it would look like on various screen sizes, just test it on iPad simulator, You can quickly resize the window and see if it works or needs adjustments",
+    "score": 79,
+    "num_comments": 8,
+    "url": "https://www.reddit.com/r/reactnative/comments/1suyrul/a_cool_thing_i_learnt_while_developing_apps_is/",
+    "author": "unkindgame",
+    "icp": "mobile-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s8j00v",
+    "source": "iOSProgramming",
+    "kind": "subreddit-top-month",
+    "title": "SwiftUI is easy, where is the catch ?",
+    "score": 69,
+    "num_comments": 92,
+    "url": "https://www.reddit.com/r/iOSProgramming/comments/1s8j00v/swiftui_is_easy_where_is_the_catch/",
+    "author": "BeDevForLife",
+    "icp": "mobile-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sdumb7",
+    "source": "iOSProgramming",
+    "kind": "subreddit-top-month",
+    "title": "Why you should start with UIKit for your new app",
+    "score": 52,
+    "num_comments": 46,
+    "url": "https://www.reddit.com/r/iOSProgramming/comments/1sdumb7/why_you_should_start_with_uikit_for_your_new_app/",
+    "author": "endgamer42",
+    "icp": "mobile-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s7md9x",
+    "source": "reactnative",
+    "kind": "subreddit-top-month",
+    "title": "I wrote a 12-part deep dive on React Native's native layer — from \"what is JSI\" to building a real-time audio pipeline and storage engine from scratch",
+    "score": 44,
+    "num_comments": 12,
+    "url": "https://www.reddit.com/r/reactnative/comments/1s7md9x/i_wrote_a_12part_deep_dive_on_react_natives/",
+    "author": "tmntxf1sh",
+    "icp": "mobile-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1supttv",
+    "source": "Substack",
+    "kind": "subreddit-top-month",
+    "title": "Just crossed 100 paid subs!! Sharing what worked for me",
+    "score": 99,
+    "num_comments": 38,
+    "url": "https://www.reddit.com/r/Substack/comments/1supttv/just_crossed_100_paid_subs_sharing_what_worked/",
+    "author": "Gaussianperson",
+    "icp": "newsletter-writer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sxtuwa",
+    "source": "Substack",
+    "kind": "subreddit-hot-week",
+    "title": "After you hit publish, what do you actually do?",
+    "score": 47,
+    "num_comments": 76,
+    "url": "https://www.reddit.com/r/Substack/comments/1sxtuwa/after_you_hit_publish_what_do_you_actually_do/",
+    "author": "slangy_",
+    "icp": [
+      "newsletter-writer"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sq19u1",
+    "source": "Substack",
+    "kind": "subreddit-top-month",
+    "title": "Made something for the \"how do I share my work outside Substack\" problem",
+    "score": 47,
+    "num_comments": 32,
+    "url": "https://www.reddit.com/r/Substack/comments/1sq19u1/made_something_for_the_how_do_i_share_my_work/",
+    "author": "bscottmonaco",
+    "icp": "newsletter-writer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sbokjg",
+    "source": "Substack",
+    "kind": "subreddit-top-month",
+    "title": "Not being funny – but what are you all trying to achieve?",
+    "score": 39,
+    "num_comments": 97,
+    "url": "https://www.reddit.com/r/Substack/comments/1sbokjg/not_being_funny_but_what_are_you_all_trying_to/",
+    "author": "cavani_to_suarez",
+    "icp": "newsletter-writer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1shyjgt",
+    "source": "Substack",
+    "kind": "subreddit-top-month",
+    "title": "My friend spends 8-10 hours a day on her Substack but gets 0 traction. Please give us some honest feedback what to change",
+    "score": 32,
+    "num_comments": 51,
+    "url": "https://www.reddit.com/r/Substack/comments/1shyjgt/my_friend_spends_810_hours_a_day_on_her_substack/",
+    "author": "No-Sort-9340",
+    "icp": "newsletter-writer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s8riv3",
+    "source": "Substack",
+    "kind": "subreddit-top-month",
+    "title": "What Socials Are the Best to Promote Substack?",
+    "score": 15,
+    "num_comments": 23,
+    "url": "https://www.reddit.com/r/Substack/comments/1s8riv3/what_socials_are_the_best_to_promote_substack/",
+    "author": "Cloud_Luna",
+    "icp": "newsletter-writer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sijyjz",
+    "source": "Newsletters",
+    "kind": "subreddit-top-month",
+    "title": "Where to advertise your newsletter to get the most subscribers?",
+    "score": 8,
+    "num_comments": 25,
+    "url": "https://www.reddit.com/r/Newsletters/comments/1sijyjz/where_to_advertise_your_newsletter_to_get_the/",
+    "author": "thoughtcaffeine",
+    "icp": "newsletter-writer",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sy5aas",
+    "source": "Newsletters",
+    "kind": "subreddit-hot-week",
+    "title": "Tips for growing small newsletters?",
+    "score": 6,
+    "num_comments": 7,
+    "url": "https://www.reddit.com/r/Newsletters/comments/1sy5aas/tips_for_growing_small_newsletters/",
+    "author": "Free-Property2412",
+    "icp": [
+      "newsletter-writer"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\btips?\\s+(for|on|to)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sn99wr",
+    "source": "FacebookAds",
+    "kind": "subreddit-top-month",
+    "title": "Why You Guys are Getting Outages From Certified Meta Executive",
+    "score": 45,
+    "num_comments": 21,
+    "url": "https://www.reddit.com/r/FacebookAds/comments/1sn99wr/why_you_guys_are_getting_outages_from_certified/",
+    "author": "Late-Cranberry-4826",
+    "icp": "paid-ads",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1scfmoi",
+    "source": "FacebookAds",
+    "kind": "subreddit-top-month",
+    "title": "Meta Ads is killing my business right now… what are you guys doing?",
+    "score": 37,
+    "num_comments": 83,
+    "url": "https://www.reddit.com/r/FacebookAds/comments/1scfmoi/meta_ads_is_killing_my_business_right_now_what/",
+    "author": "ClubAlternative9328",
+    "icp": "paid-ads",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1slif6j",
+    "source": "FacebookAds",
+    "kind": "subreddit-top-month",
+    "title": "What on earth is happening?!",
+    "score": 35,
+    "num_comments": 85,
+    "url": "https://www.reddit.com/r/FacebookAds/comments/1slif6j/what_on_earth_is_happening/",
+    "author": "Low-Ad-2937",
+    "icp": "paid-ads",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sq8705",
+    "source": "PPC",
+    "kind": "subreddit-top-month",
+    "title": "What is this awful new Google Ads UI",
+    "score": 34,
+    "num_comments": 10,
+    "url": "https://www.reddit.com/r/PPC/comments/1sq8705/what_is_this_awful_new_google_ads_ui/",
+    "author": "Traditional-Grade121",
+    "icp": "paid-ads",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1syahgw",
+    "source": "FacebookAds",
+    "kind": "subreddit-hot-week",
+    "title": "hands down my best hack for meta ads.",
+    "score": 33,
+    "num_comments": 25,
+    "url": "https://www.reddit.com/r/FacebookAds/comments/1syahgw/hands_down_my_best_hack_for_meta_ads/",
+    "author": "Physical_Anteater_51",
+    "icp": "paid-ads",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bbest\\s+\\w+\\s+(for|to)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sgtgni",
+    "source": "FacebookAds",
+    "kind": "subreddit-top-month",
+    "title": "Why META affects us all different but we all say it's worse than before",
+    "score": 31,
+    "num_comments": 11,
+    "url": "https://www.reddit.com/r/FacebookAds/comments/1sgtgni/why_meta_affects_us_all_different_but_we_all_say/",
+    "author": "Bubbly_Setting_4217",
+    "icp": "paid-ads",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sleosw",
+    "source": "PPC",
+    "kind": "subreddit-top-month",
+    "title": "Streaming TV vs paid social: do we approach it as a complement or replacement?",
+    "score": 19,
+    "num_comments": 38,
+    "url": "https://www.reddit.com/r/PPC/comments/1sleosw/streaming_tv_vs_paid_social_do_we_approach_it_as/",
+    "author": "Fun_Average_3813",
+    "icp": "paid-ads",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bvs\\b|\\bversus\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sjj9o8",
+    "source": "PPC",
+    "kind": "subreddit-top-month",
+    "title": "Agencies running PPC, what landing page builders are you using right now? (Unbounce, Leadpages, etc)",
+    "score": 17,
+    "num_comments": 43,
+    "url": "https://www.reddit.com/r/PPC/comments/1sjj9o8/agencies_running_ppc_what_landing_page_builders/",
+    "author": "Andrej760",
+    "icp": "paid-ads",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sxmmv6",
+    "source": "podcasting",
+    "kind": "subreddit-hot-week",
+    "title": "Where Are The Indie/Hobbyist Podcasters?",
+    "score": 87,
+    "num_comments": 143,
+    "url": "https://www.reddit.com/r/podcasting/comments/1sxmmv6/where_are_the_indiehobbyist_podcasters/",
+    "author": "wintermute1000",
+    "icp": [
+      "podcaster"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sg1ii8",
+    "source": "podcasting",
+    "kind": "subreddit-top-month",
+    "title": "Tell me your stupid mistakes you made when you started podcasting.... I feel very not smart right now",
+    "score": 41,
+    "num_comments": 87,
+    "url": "https://www.reddit.com/r/podcasting/comments/1sg1ii8/tell_me_your_stupid_mistakes_you_made_when_you/",
+    "author": "maryanneb27",
+    "icp": "podcaster",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sfx1ee",
+    "source": "podcasting",
+    "kind": "subreddit-top-month",
+    "title": "107 episodes, what a journey!",
+    "score": 34,
+    "num_comments": 39,
+    "url": "https://www.reddit.com/r/podcasting/comments/1sfx1ee/107_episodes_what_a_journey/",
+    "author": "LitterBoxTigersPod",
+    "icp": "podcaster",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sx54py",
+    "source": "podcasting",
+    "kind": "subreddit-hot-week",
+    "title": "Tail wagging the dog: when the prep doc starts running the interview",
+    "score": 18,
+    "num_comments": 20,
+    "url": "https://www.reddit.com/r/podcasting/comments/1sx54py/tail_wagging_the_dog_when_the_prep_doc_starts/",
+    "author": "PoppyCoconut",
+    "icp": [
+      "podcaster"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sxc3sd",
+    "source": "podcasting",
+    "kind": "subreddit-hot-week",
+    "title": "Guest release agreements – how do you guys do it?",
+    "score": 7,
+    "num_comments": 24,
+    "url": "https://www.reddit.com/r/podcasting/comments/1sxc3sd/guest_release_agreements_how_do_you_guys_do_it/",
+    "author": "AmineAce",
+    "icp": "podcaster",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sqx0hy",
+    "source": "podcasting",
+    "kind": "subreddit-top-month",
+    "title": "Thoughts on the rise of AI generated podcasts",
+    "score": 55,
+    "num_comments": 70,
+    "url": "https://www.reddit.com/r/podcasting/comments/1sqx0hy/thoughts_on_the_rise_of_ai_generated_podcasts/",
+    "author": "FitEdition",
+    "icp": "podcaster",
+    "low_confidence": false,
+    "_l2_keep_hits": [],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1skjvqi",
+    "source": "podcasting",
+    "kind": "subreddit-top-month",
+    "title": "What I learned managing podcast clips that generated 10M+ views in 30 days",
+    "score": 35,
+    "num_comments": 32,
+    "url": "https://www.reddit.com/r/podcasting/comments/1skjvqi/what_i_learned_managing_podcast_clips_that/",
+    "author": "yash_bhati69",
+    "icp": "podcaster",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": [
+      "\\bwhat\\s+i\\s+(learned|wish|did|tried)\\b"
+    ]
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sa8pq0",
+    "source": "podcasting",
+    "kind": "subreddit-top-month",
+    "title": "How long does it take for you?",
+    "score": 32,
+    "num_comments": 94,
+    "url": "https://www.reddit.com/r/podcasting/comments/1sa8pq0/how_long_does_it_take_for_you/",
+    "author": "FerdinandHu",
+    "icp": "podcaster",
+    "low_confidence": false,
+    "_l2_keep_hits": [],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1scxou1",
+    "source": "recruiting",
+    "kind": "subreddit-top-month",
+    "title": "Why are there More women Recruiters than men?",
+    "score": 64,
+    "num_comments": 63,
+    "url": "https://www.reddit.com/r/recruiting/comments/1scxou1/why_are_there_more_women_recruiters_than_men/",
+    "author": "Deep-Arrival1594",
+    "icp": "recruiter",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1suioa7",
+    "source": "recruiting",
+    "kind": "subreddit-hot-week",
+    "title": "How do you handle unqualified referrals?",
+    "score": 25,
+    "num_comments": 31,
+    "url": "https://www.reddit.com/r/recruiting/comments/1suioa7/how_do_you_handle_unqualified_referrals/",
+    "author": "Active-Muscle-8793",
+    "icp": [
+      "recruiter"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sp9ehd",
+    "source": "recruiting",
+    "kind": "subreddit-top-month",
+    "title": "solo/freelance recruiters - how do you actually run your desk day to day?",
+    "score": 23,
+    "num_comments": 24,
+    "url": "https://www.reddit.com/r/recruiting/comments/1sp9ehd/solofreelance_recruiters_how_do_you_actually_run/",
+    "author": "kxnhz",
+    "icp": "recruiter",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sergyb",
+    "source": "recruiting",
+    "kind": "subreddit-top-month",
+    "title": "Is it worth it to pay for an Ai notetaker?",
+    "score": 21,
+    "num_comments": 54,
+    "url": "https://www.reddit.com/r/recruiting/comments/1sergyb/is_it_worth_it_to_pay_for_an_ai_notetaker/",
+    "author": "Affectionate-Fan3228",
+    "icp": "recruiter",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bis\\s+\\w+\\s+(worth|good|better)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s9wwe7",
+    "source": "recruiting",
+    "kind": "subreddit-top-month",
+    "title": "What fields are hot for you right now?",
+    "score": 20,
+    "num_comments": 31,
+    "url": "https://www.reddit.com/r/recruiting/comments/1s9wwe7/what_fields_are_hot_for_you_right_now/",
+    "author": "Rick_James_Lich",
+    "icp": "recruiter",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sn293c",
+    "source": "recruiting",
+    "kind": "subreddit-top-month",
+    "title": "Anyone using AI candidate sourcing?",
+    "score": 18,
+    "num_comments": 109,
+    "url": "https://www.reddit.com/r/recruiting/comments/1sn293c/anyone_using_ai_candidate_sourcing/",
+    "author": "Happy_Explorer127",
+    "icp": "recruiter",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\banyone\\s+(using|tried|know)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1saychz",
+    "source": "recruiting",
+    "kind": "subreddit-top-month",
+    "title": "When did you figure out recruiter was not for you?",
+    "score": 18,
+    "num_comments": 59,
+    "url": "https://www.reddit.com/r/recruiting/comments/1saychz/when_did_you_figure_out_recruiter_was_not_for_you/",
+    "author": "thatrunnerboy",
+    "icp": "recruiter",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1svqtt2",
+    "source": "recruiting",
+    "kind": "subreddit-hot-week",
+    "title": "What should I do better in my recruiting process?",
+    "score": 14,
+    "num_comments": 22,
+    "url": "https://www.reddit.com/r/recruiting/comments/1svqtt2/what_should_i_do_better_in_my_recruiting_process/",
+    "author": "TargetTricky3901",
+    "icp": "recruiter",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s",
+      "\\bshould\\s+I\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sx3xdn",
+    "source": "KitchenConfidential",
+    "kind": "subreddit-hot-week",
+    "title": "When you’re a line cook with zero piping skills",
+    "score": 11010,
+    "num_comments": 239,
+    "url": "https://www.reddit.com/r/KitchenConfidential/comments/1sx3xdn/when_youre_a_line_cook_with_zero_piping_skills/",
+    "author": "im__on__smoko",
+    "icp": [
+      "restaurant-owner"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1syc7y5",
+    "source": "KitchenConfidential",
+    "kind": "subreddit-hot-week",
+    "title": "I bought you when I opened the restaurant 9 years ago and you did such a good job mixing stuff up. Sleep well sweet prince.",
+    "score": 4188,
+    "num_comments": 136,
+    "url": "https://www.reddit.com/r/KitchenConfidential/comments/1syc7y5/i_bought_you_when_i_opened_the_restaurant_9_years/",
+    "author": "Sirnando138",
+    "icp": "restaurant-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sy4g4v",
+    "source": "KitchenConfidential",
+    "kind": "subreddit-hot-week",
+    "title": "What Chefs Want... I doubt it.",
+    "score": 103,
+    "num_comments": 26,
+    "url": "https://www.reddit.com/r/KitchenConfidential/comments/1sy4g4v/what_chefs_want_i_doubt_it/",
+    "author": "AOP_fiction",
+    "icp": "restaurant-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sjfqkl",
+    "source": "restaurateur",
+    "kind": "subreddit-hot-week",
+    "title": "Winery tasting room menu (no kitchen, no fresh prep), what actually works?",
+    "score": 5,
+    "num_comments": 6,
+    "url": "https://www.reddit.com/r/restaurateur/comments/1sjfqkl/winery_tasting_room_menu_no_kitchen_no_fresh_prep/",
+    "author": "jas0441",
+    "icp": "restaurant-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "quora",
+    "post_id": "What-are-the-best-strategies-for-restaurant-marketing-and-pr",
+    "source": "restaurant marketing strategy small business",
+    "kind": "serp-fallback",
+    "title": "What are the best strategies for restaurant marketing and ...",
+    "snippet": "Create a social media account and post customer stories or testimonials with respect to your business. · Hold contests and provide discounts to ...",
+    "score": null,
+    "num_comments": null,
+    "url": "https://www.quora.com/What-are-the-best-strategies-for-restaurant-marketing-and-promotion",
+    "icp": "restaurant-owner",
+    "low_confidence": true,
+    "_l2_keep_hits": [
+      "\\bbest\\s+\\w+\\s+(for|to)\\b",
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "quora",
+    "post_id": "What-are-the-best-marketing-strategies-for-small-restaurant-",
+    "source": "restaurant marketing strategy small business",
+    "kind": "serp-fallback",
+    "title": "What are the best marketing strategies for small restaurant ...",
+    "snippet": "There are several marketing strategies that small restaurants can utilize that are either free (it needs to be noted NO marketing for anything is FREE.",
+    "score": null,
+    "num_comments": null,
+    "url": "https://moneybusinessideas.quora.com/What-are-the-best-marketing-strategies-for-small-restaurant-businesses",
+    "icp": "restaurant-owner",
+    "low_confidence": true,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "quora",
+    "post_id": "How-do-I-market-a-restaurant-with-a-small-budget",
+    "source": "restaurant marketing strategy small business",
+    "kind": "serp-fallback",
+    "title": "How to market a restaurant with a small budget",
+    "snippet": "Optimize your Google Business Profile, encourage customer reviews, and stay active on Instagram & WhatsApp with real food photos, reels, ...",
+    "score": null,
+    "num_comments": null,
+    "url": "https://www.quora.com/How-do-I-market-a-restaurant-with-a-small-budget",
+    "icp": "restaurant-owner",
+    "low_confidence": true,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "quora",
+    "post_id": "If-you-have-a-small-restaurant-what-is-the-best-advertisng-m",
+    "source": "restaurant marketing strategy small business",
+    "kind": "serp-fallback",
+    "title": "If you have a small restaurant what is the best advertisng ...",
+    "snippet": "Create a social media account and post customer stories or testimonials with respect to your business. · Hold contests and provide discounts to ...",
+    "score": null,
+    "num_comments": null,
+    "url": "https://www.quora.com/If-you-have-a-small-restaurant-what-is-the-best-advertisng-method-that-has-been-must-successful",
+    "icp": "restaurant-owner",
+    "low_confidence": true,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1swkgiv",
+    "source": "shopify",
+    "kind": "subreddit-hot-week",
+    "title": "Why are they constalty adding UI/UX updates that make everything take double the amount of clicks?",
+    "score": 63,
+    "num_comments": 37,
+    "url": "https://www.reddit.com/r/shopify/comments/1swkgiv/why_are_they_constalty_adding_uiux_updates_that/",
+    "author": "Known-Swim-3654",
+    "icp": [
+      "shopify-owner"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s9rutr",
+    "source": "shopify",
+    "kind": "subreddit-top-month",
+    "title": "Why do we pay PayPal over 3.5%?",
+    "score": 53,
+    "num_comments": 91,
+    "url": "https://www.reddit.com/r/shopify/comments/1s9rutr/why_do_we_pay_paypal_over_35/",
+    "author": "VillageHomeF",
+    "icp": "shopify-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sua704",
+    "source": "ecommerce",
+    "kind": "subreddit-top-month",
+    "title": "I know everyone recommends Shopify, but are there other good ecommerce platforms?",
+    "score": 44,
+    "num_comments": 94,
+    "url": "https://www.reddit.com/r/ecommerce/comments/1sua704/i_know_everyone_recommends_shopify_but_are_there/",
+    "author": "Appropriate-Lie-8812",
+    "icp": "shopify-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(recommend|recommendation|suggestion)s?\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1safpea",
+    "source": "ecommerce",
+    "kind": "subreddit-top-month",
+    "title": "Other eCommerce platforms vs Shopify? Is Shopify really the best? Why is it so popular?",
+    "score": 37,
+    "num_comments": 105,
+    "url": "https://www.reddit.com/r/ecommerce/comments/1safpea/other_ecommerce_platforms_vs_shopify_is_shopify/",
+    "author": "softpulseinfotechhub",
+    "icp": "shopify-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s",
+      "\\bvs\\b|\\bversus\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sqmfin",
+    "source": "ecommerce",
+    "kind": "subreddit-top-month",
+    "title": "Struggling with eCommerce growth what’s actually working in 2026?",
+    "score": 33,
+    "num_comments": 79,
+    "url": "https://www.reddit.com/r/ecommerce/comments/1sqmfin/struggling_with_ecommerce_growth_whats_actually/",
+    "author": "SorbetFew4206",
+    "icp": "shopify-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bstruggling\\s+(with|to)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ssolat",
+    "source": "ecommerce",
+    "kind": "subreddit-top-month",
+    "title": "how to sell super expensive items",
+    "score": 27,
+    "num_comments": 48,
+    "url": "https://www.reddit.com/r/ecommerce/comments/1ssolat/how_to_sell_super_expensive_items/",
+    "author": "rpmeg",
+    "icp": "shopify-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sjc4i8",
+    "source": "ecommerce",
+    "kind": "subreddit-top-month",
+    "title": "Genuinely struggling to let go of packing orders myself, does pick and pack fulfillment at a 3PL actually support custom assembly specs",
+    "score": 27,
+    "num_comments": 57,
+    "url": "https://www.reddit.com/r/ecommerce/comments/1sjc4i8/genuinely_struggling_to_let_go_of_packing_orders/",
+    "author": "Powerful-Money6759",
+    "icp": "shopify-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bstruggling\\s+(with|to)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sij4bv",
+    "source": "shopify",
+    "kind": "subreddit-top-month",
+    "title": "How can I get rid of Shop Pay forever?",
+    "score": 26,
+    "num_comments": 24,
+    "url": "https://www.reddit.com/r/shopify/comments/1sij4bv/how_can_i_get_rid_of_shop_pay_forever/",
+    "author": "By_A_Rat_Whisker",
+    "icp": "shopify-owner",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sgh8pc",
+    "source": "SocialMediaMarketing",
+    "kind": "subreddit-top-month",
+    "title": "Stopped posting daily for 30 days — here's what happened to organic reach",
+    "score": 37,
+    "num_comments": 22,
+    "url": "https://www.reddit.com/r/SocialMediaMarketing/comments/1sgh8pc/stopped_posting_daily_for_30_days_heres_what/",
+    "author": "Suspicious-Offer5268",
+    "icp": "social-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1srijlt",
+    "source": "SocialMediaMarketing",
+    "kind": "subreddit-top-month",
+    "title": "Early-stage B2B startup - how would you approach social from 0?",
+    "score": 24,
+    "num_comments": 30,
+    "url": "https://www.reddit.com/r/SocialMediaMarketing/comments/1srijlt/earlystage_b2b_startup_how_would_you_approach/",
+    "author": "clancularius10",
+    "icp": "social-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1spati2",
+    "source": "SocialMediaMarketing",
+    "kind": "subreddit-top-month",
+    "title": "Where to start",
+    "score": 23,
+    "num_comments": 35,
+    "url": "https://www.reddit.com/r/SocialMediaMarketing/comments/1spati2/where_to_start/",
+    "author": "TaxiTakeoffLanding",
+    "icp": "social-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1stfd8v",
+    "source": "SocialMediaMarketing",
+    "kind": "subreddit-top-month",
+    "title": "How do I create social content when I am too busy to market consistently?",
+    "score": 21,
+    "num_comments": 49,
+    "url": "https://www.reddit.com/r/SocialMediaMarketing/comments/1stfd8v/how_do_i_create_social_content_when_i_am_too_busy/",
+    "author": "Berlin57",
+    "icp": "social-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b",
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1swa0jj",
+    "source": "SocialMediaMarketing",
+    "kind": "subreddit-top-month",
+    "title": "How do you go about building a TikTok in 2026?",
+    "score": 20,
+    "num_comments": 32,
+    "url": "https://www.reddit.com/r/SocialMediaMarketing/comments/1swa0jj/how_do_you_go_about_building_a_tiktok_in_2026/",
+    "author": "Embarrassed_City1409",
+    "icp": "social-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sm0vv7",
+    "source": "SocialMediaMarketing",
+    "kind": "subreddit-top-month",
+    "title": "Social Media Marketers who post consistently: how do you decide what to talk about?",
+    "score": 18,
+    "num_comments": 27,
+    "url": "https://www.reddit.com/r/SocialMediaMarketing/comments/1sm0vv7/social_media_marketers_who_post_consistently_how/",
+    "author": "TaleOfACat",
+    "icp": "social-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b",
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sx526o",
+    "source": "SocialMediaMarketing",
+    "kind": "subreddit-hot-week",
+    "title": "I need tips for better marketing on Instagram",
+    "score": 11,
+    "num_comments": 23,
+    "url": "https://www.reddit.com/r/SocialMediaMarketing/comments/1sx526o/i_need_tips_for_better_marketing_on_instagram/",
+    "author": "Fantastic-Ant-4429",
+    "icp": "social-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\btips?\\s+(for|on|to)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1shhtgu",
+    "source": "socialmedia",
+    "kind": "subreddit-top-month",
+    "title": "What tools are you using to manage multi platform social media in 2026?",
+    "score": 11,
+    "num_comments": 29,
+    "url": "https://www.reddit.com/r/socialmedia/comments/1shhtgu/what_tools_are_you_using_to_manage_multi_platform/",
+    "author": "ParsnipSure5095",
+    "icp": "social-mkt-mgr",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sfaclb",
+    "source": "selfhosted",
+    "kind": "subreddit-top-month",
+    "title": "Popular e-mail host MXRoute tried to get me FIRED when I criticized them for making retaliatory trustpilot reviews against their ex-customers",
+    "score": 1274,
+    "num_comments": 327,
+    "url": "https://www.reddit.com/r/selfhosted/comments/1sfaclb/popular_email_host_mxroute_tried_to_get_me_fired/",
+    "author": "WyvernCo",
+    "icp": "solo-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1smyun6",
+    "source": "programming",
+    "kind": "subreddit-top-month",
+    "title": "The API Tooling Crisis: Why developers are abandoning Postman and its clones?",
+    "score": 651,
+    "num_comments": 390,
+    "url": "https://www.reddit.com/r/programming/comments/1smyun6/the_api_tooling_crisis_why_developers_are/",
+    "author": "Successful_Bowl2564",
+    "icp": "solo-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1skahqe",
+    "source": "selfhosted",
+    "kind": "subreddit-top-month",
+    "title": "What self hosting mistake would you warn beginners about?",
+    "score": 540,
+    "num_comments": 496,
+    "url": "https://www.reddit.com/r/selfhosted/comments/1skahqe/what_self_hosting_mistake_would_you_warn/",
+    "author": "Soulvisirr",
+    "icp": "solo-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sbuv3p",
+    "source": "programming",
+    "kind": "subreddit-top-month",
+    "title": "How To Write Unmaintainable Code (1999)",
+    "score": 489,
+    "num_comments": 105,
+    "url": "https://www.reddit.com/r/programming/comments/1sbuv3p/how_to_write_unmaintainable_code_1999/",
+    "author": "Ordinary_Leader_2971",
+    "icp": "solo-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sm01ev",
+    "source": "programming",
+    "kind": "subreddit-top-month",
+    "title": "Direct Win32 API, Weird-Shaped Windows, and Why They Mostly Disappeared",
+    "score": 431,
+    "num_comments": 181,
+    "url": "https://www.reddit.com/r/programming/comments/1sm01ev/direct_win32_api_weirdshaped_windows_and_why_they/",
+    "author": "nccwarp9",
+    "icp": "solo-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s8dk9q",
+    "source": "programming",
+    "kind": "subreddit-top-month",
+    "title": "Why have supply chain attacks become a near daily occurrence ?",
+    "score": 375,
+    "num_comments": 134,
+    "url": "https://www.reddit.com/r/programming/comments/1s8dk9q/why_have_supply_chain_attacks_become_a_near_daily/",
+    "author": "Successful_Bowl2564",
+    "icp": "solo-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1swwo7h",
+    "source": "programming",
+    "kind": "subreddit-hot-week",
+    "title": "First time using the MareNostrum V Supercomputer, writeup of what actually surprised me coming from cloud",
+    "score": 123,
+    "num_comments": 39,
+    "url": "https://www.reddit.com/r/programming/comments/1swwo7h/first_time_using_the_marenostrum_v_supercomputer/",
+    "author": "Georgiou1226",
+    "icp": "solo-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sy46p6",
+    "source": "selfhosted",
+    "kind": "subreddit-hot-week",
+    "title": "Help with New Pool on Mini PC",
+    "score": 6,
+    "num_comments": 10,
+    "url": "https://www.reddit.com/r/selfhosted/comments/1sy46p6/help_with_new_pool_on_mini_pc/",
+    "author": "nicoboldo",
+    "icp": "solo-dev",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhelp\\s+(with|me)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1hr5c0o",
+    "source": "CreatorsAdvice",
+    "kind": "subreddit-hot-week",
+    "title": "How to get 85% payout on Fansly (for new joiners) ",
+    "score": 88,
+    "num_comments": 37,
+    "url": "https://www.reddit.com/r/CreatorsAdvice/comments/1hr5c0o/how_to_get_85_payout_on_fansly_for_new_joiners/",
+    "author": "SansaAdvice",
+    "icp": "tiktok-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sgk2vn",
+    "source": "CreatorsAdvice",
+    "kind": "subreddit-top-month",
+    "title": "How should I (graciously) respond to buyers request",
+    "score": 27,
+    "num_comments": 18,
+    "url": "https://www.reddit.com/r/CreatorsAdvice/comments/1sgk2vn/how_should_i_graciously_respond_to_buyers_request/",
+    "author": "dumbbitch998",
+    "icp": "tiktok-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b",
+      "\\bshould\\s+I\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sk8hl1",
+    "source": "CreatorsAdvice",
+    "kind": "subreddit-top-month",
+    "title": "What actually helped you grow faster as a creator on Reddit?",
+    "score": 24,
+    "num_comments": 22,
+    "url": "https://www.reddit.com/r/CreatorsAdvice/comments/1sk8hl1/what_actually_helped_you_grow_faster_as_a_creator/",
+    "author": "SelaraNyx",
+    "icp": "tiktok-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s7uyba",
+    "source": "CreatorsAdvice",
+    "kind": "subreddit-top-month",
+    "title": "When we have a free page and a paid page for OF, what are we posting for free content? and then what are we charging for on the free page? I mean specifically image or video wise? I am confused what goes for free and what does not and then are we posting the paid stuff without a PPV on the paid one?",
+    "score": 19,
+    "num_comments": 32,
+    "url": "https://www.reddit.com/r/CreatorsAdvice/comments/1s7uyba/when_we_have_a_free_page_and_a_paid_page_for_of/",
+    "author": "ellaxbangs",
+    "icp": "tiktok-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1svhics",
+    "source": "CreatorsAdvice",
+    "kind": "subreddit-hot-week",
+    "title": "What are ur go to places to buy high quality lingerie/cute sets at an affordable price?",
+    "score": 17,
+    "num_comments": 20,
+    "url": "https://www.reddit.com/r/CreatorsAdvice/comments/1svhics/what_are_ur_go_to_places_to_buy_high_quality/",
+    "author": "ButterflyAbject7440",
+    "icp": [
+      "tiktok-creator"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1spybhk",
+    "source": "CreatorsAdvice",
+    "kind": "subreddit-top-month",
+    "title": "If you were starting an Instagram today, what would you do from day 1?",
+    "score": 14,
+    "num_comments": 12,
+    "url": "https://www.reddit.com/r/CreatorsAdvice/comments/1spybhk/if_you_were_starting_an_instagram_today_what/",
+    "author": "Goodolethrowawayacct",
+    "icp": "tiktok-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1s9dyxx",
+    "source": "CreatorsAdvice",
+    "kind": "subreddit-top-month",
+    "title": "How to not get banned on Reddit?",
+    "score": 13,
+    "num_comments": 13,
+    "url": "https://www.reddit.com/r/CreatorsAdvice/comments/1s9dyxx/how_to_not_get_banned_on_reddit/",
+    "author": "tollyop",
+    "icp": "tiktok-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\bhow\\s+(to|do|can|should|would)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sjlqr0",
+    "source": "CreatorsAdvice",
+    "kind": "subreddit-top-month",
+    "title": "Are we in agreement that engagement is down right now across all platforms? 👀✍🏼",
+    "score": 94,
+    "num_comments": 24,
+    "url": "https://www.reddit.com/r/CreatorsAdvice/comments/1sjlqr0/are_we_in_agreement_that_engagement_is_down_right/",
+    "author": "shinyteakettle",
+    "icp": "tiktok-creator",
+    "low_confidence": false,
+    "_l2_keep_hits": [],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1smj0tq",
+    "source": "NewTubers",
+    "kind": "subreddit-top-month",
+    "title": "I got over 100,000 views on my FIRST VIDEO. What do I do now?",
+    "score": 155,
+    "num_comments": 103,
+    "url": "https://www.reddit.com/r/NewTubers/comments/1smj0tq/i_got_over_100000_views_on_my_first_video_what_do/",
+    "author": "Barbell-Economics",
+    "icp": "youtuber",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1ssxw5e",
+    "source": "NewTubers",
+    "kind": "subreddit-top-month",
+    "title": "Why is it that new YouTubers feel more entitled to quick success / compensation than other artists?",
+    "score": 117,
+    "num_comments": 87,
+    "url": "https://www.reddit.com/r/NewTubers/comments/1ssxw5e/why_is_it_that_new_youtubers_feel_more_entitled/",
+    "author": "garbageeater",
+    "icp": "youtuber",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sycgvi",
+    "source": "NewTubers",
+    "kind": "subreddit-hot-week",
+    "title": "My channel took of and I'm overwhelmed by the comments. What do you do with so many?",
+    "score": 106,
+    "num_comments": 39,
+    "url": "https://www.reddit.com/r/NewTubers/comments/1sycgvi/my_channel_took_of_and_im_overwhelmed_by_the/",
+    "author": "CayaMaya",
+    "icp": [
+      "youtuber"
+    ],
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1sbvas4",
+    "source": "PartneredYoutube",
+    "kind": "subreddit-top-month",
+    "title": "Someone stole my YouTube video, reuploaded it on TikTok, and got 1M views in a day… what would you do?",
+    "score": 79,
+    "num_comments": 69,
+    "url": "https://www.reddit.com/r/PartneredYoutube/comments/1sbvas4/someone_stole_my_youtube_video_reuploaded_it_on/",
+    "author": "Available-Wasabi-672",
+    "icp": "youtuber",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1srmybp",
+    "source": "NewTubers",
+    "kind": "subreddit-top-month",
+    "title": "What are some of the biggest pains in being a youtuber in 2026?",
+    "score": 78,
+    "num_comments": 191,
+    "url": "https://www.reddit.com/r/NewTubers/comments/1srmybp/what_are_some_of_the_biggest_pains_in_being_a/",
+    "author": "Nothingclever9791",
+    "icp": "youtuber",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1si1xbi",
+    "source": "PartneredYoutube",
+    "kind": "subreddit-top-month",
+    "title": "Inauthentic content?  What you need to know",
+    "score": 38,
+    "num_comments": 112,
+    "url": "https://www.reddit.com/r/PartneredYoutube/comments/1si1xbi/inauthentic_content_what_you_need_to_know/",
+    "author": "redbeardrex",
+    "icp": "youtuber",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1so2sdu",
+    "source": "PartneredYoutube",
+    "kind": "subreddit-top-month",
+    "title": "When is it worth making your channel into an LLC?",
+    "score": 31,
+    "num_comments": 58,
+    "url": "https://www.reddit.com/r/PartneredYoutube/comments/1so2sdu/when_is_it_worth_making_your_channel_into_an_llc/",
+    "author": "IdkMyName1846",
+    "icp": "youtuber",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s",
+      "\\bis\\s+\\w+\\s+(worth|good|better)\\b"
+    ],
+    "_l2_cut_hits": []
+  },
+  {
+    "platform": "reddit",
+    "post_id": "1spfmjw",
+    "source": "PartneredYoutube",
+    "kind": "subreddit-top-month",
+    "title": "I tracked which brands sponsor which creators across 15,000+ brands — here's what the data shows",
+    "score": 22,
+    "num_comments": 20,
+    "url": "https://www.reddit.com/r/PartneredYoutube/comments/1spfmjw/i_tracked_which_brands_sponsor_which_creators/",
+    "author": "Master_Advertising19",
+    "icp": "youtuber",
+    "low_confidence": false,
+    "_l2_keep_hits": [
+      "\\b(what|which|where|when|why)\\s"
+    ],
+    "_l2_cut_hits": []
+  }
+]

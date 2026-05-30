@@ -1,0 +1,51 @@
+<view class="flow-page flow-page--locked">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">RISK POINTS</text>
+    <text class="flow-hero__title">底分 / 倍率</text>
+    <text class="flow-hero__subtitle">{{mode.name}} · 先胜 {{mode.targetWins}} 局 · 最低 {{mode.minimumMinutes}} 分钟</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="挑战底分" subtitle="选择本场风险积分底数" marker="BASE" tone="orange" raised>
+      <view class="selector-block">
+        <view class="option-grid">
+          <button
+            wx:for="{{mode.baseOptions}}"
+            wx:key="*this"
+            class="option-chip {{selectedBase === item ? 'is-active' : ''}}"
+            data-value="{{item}}"
+            bindtap="chooseBase"
+          >{{item}}</button>
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="积分倍率" subtitle="倍率越高，胜负积分变化越大" marker="ODDS" tone="default" raised>
+      <view class="selector-block">
+        <view class="option-grid">
+          <button
+            wx:for="{{mode.multipliers}}"
+            wx:key="*this"
+            class="option-chip {{selectedMultiplier === item ? 'is-active' : ''}}"
+            data-value="{{item}}"
+            bindtap="chooseMultiplier"
+          >x{{item}}</button>
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="本场风险积分" subtitle="胜方加，败方扣；随机奖励另算" marker="RISK" tone="gold" raised>
+      <view class="risk-formula">
+        <text>{{selectedBase}}</text>
+        <text>×</text>
+        <text>{{selectedMultiplier}}</text>
+        <text>=</text>
+        <text>{{riskPoints}} 分</text>
+      </view>
+    </yh-panel>
+
+    <view class="flow-actions">
+      <yh-button text="确认参数" size="lg" variant="primary" block bind:tap="next" />
+    </view>
+  </view>
+</view>

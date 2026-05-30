@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_claude-mem_mcp-search__search",
+      "Bash(find /home/lyric/growth-engine-pipeline -path */runtime/source_items* -type d)",
+      "Bash(find /home/lyric/growth-engine-pipeline -type f -name *.py -path */pipeline/* -exec grep -l \"official_x\\\\|article_x\" {})",
+      "Bash(2)",
+      "Bash(python3 pipeline/ingest/normalize.py --help)",
+      "Bash(grep -l \"article_x\" /home/lyric/growth-engine-pipeline/runtime/source_items/article_x/items/*/source_item.json)",
+      "Bash(xargs cat:*)",
+      "Bash(grep -r article_x /home/lyric/growth-engine-pipeline/pipeline/ --include=*.py)",
+      "Bash(python3 -m json.tool)",
+      "Bash(python3 pipeline/ingest/x/discover_official_x_guest_rss.py --out-dir /tmp/test_ingest --window-hours 168 --max-per-handle 5)",
+      "Bash(grep -nA 10 \"5.1.1 品牌故事\\\\|5.1.2 品牌slogan\\\\|5.1 品牌升级\" /home/lyric/.claude/projects/-home-lyric-growth-engine-pipeline/83148965-fbf1-4c03-975f-38df33d2ef18/tool-results/b2t6tm0p1.txt)",
+      "Bash(awk '/^5\\\\.1 品牌升级$|^5\\\\.1\\\\.1 品牌故事$|^5\\\\.1\\\\.2 品牌slogan$|^5\\\\.1\\\\.3 摄影海报$/,/^5\\\\.2 |^5\\\\.3 |^5\\\\.1\\\\.4 /' /home/lyric/.claude/projects/-home-lyric-growth-engine-pipeline/83148965-fbf1-4c03-975f-38df33d2ef18/tool-results/b2t6tm0p1.txt)",
+      "Bash(python3 *)"
+    ]
+  }
+}

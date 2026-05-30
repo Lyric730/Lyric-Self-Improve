@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skills.infiniteflow.ai/backlink-submission-automation/intake-schema.json",
+  "title": "Backlink Submission Automation Intake",
+  "description": "Cross-agent intake contract for creating or importing a backlink campaign profile.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["profile_mode"],
+  "properties": {
+    "intake": {
+      "type": "object",
+      "description": "How the current runtime collected the intake.",
+      "additionalProperties": true,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["native_structured", "hybrid_structured", "markdown_fallback", "file_import"]
+        },
+        "runtime_agent": {
+          "type": "string",
+          "description": "Codex, Claude, Gemini, custom growth agent, or other runtime name."
+        },
+        "structured_input_tool": {
+          "type": "string",
+          "description": "Native tool/UI used for structured intake, or none."
+        },
+        "schema_path": {
+          "type": "string",
+          "default": "assets/intake-schema.json"
+        }
+      }
+    },
+    "profile_mode": {
+      "type": "string",
+      "title": "Profile source",
+      "enum": ["new", "import"],
+      "description": "Create a new campaign profile or import an existing profile repository/folder/JSON file."
+    },
+    "import_path": {
+      "type": "string",
+      "title": "Existing profile path or Git URL",
+      "description": "Required when profile_mode is import."
+    },
+    "brand_name": {
+      "type": "string",
+      "title": "Product or brand name"
+    },
+    "canonical_url": {
+      "type": "string",
+      "title": "Official website URL"
+    },
+    "contact_email": {
+      "type": "string",
+      "title": "Contact or registration email"
+    },
+    "allow_account_creation": {
+      "type": "string",
+      "title": "May the agent create third-party accounts and store credentials?",
+      "enum": ["yes", "no"]
+    },
+    "password_storage": {
+      "type": "string",
+      "title": "Credential storage policy",
+      "enum": ["local_sqlite", "team_vault_pointer", "current_session_only"]
+    },
+    "candidate_source_mode": {
+      "type": "string",
+      "title": "Candidate source mode",
+      "enum": ["import_user_sources", "bundled_packs"],
+      "default": "bundled_packs"
+    },
+    "optional": {
+      "type": "object",
+      "description": "Optional profile fields. Use none or blank when unknown; the agent must fill missing values before live submission.",
+      "additionalProperties": true,
+      "properties": {
+        "positioning": { "type": "string" },
+        "audience": { "type": "string" },
+        "primary_outcome": { "type": "string" },
+        "categories": { "type": ["string", "array"] },
+        "tags": { "type": ["string", "array"] },
+        "hq_country": { "type": "string" },
+        "hq_city": { "type": "string" },
+        "forbidden_phrases": { "type": ["string", "array"] },
+        "one_liner": { "type": "string" },
+        "short_description": { "type": "string" },
+        "long_description": { "type": "string" },
+        "assets": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "logo_square": { "type": "string" },
+            "logo_wide": { "type": "string" },
+            "screenshot": { "type": "string" },
+            "pdf": { "type": "string" },
+            "public_screenshot_url": { "type": "string" }
+          }
+        },
+        "min_dr": { "type": "integer", "minimum": 0, "default": 20 },
+        "manual_hold_domains": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["producthunt.com", "news.ycombinator.com", "g2.com", "capterra.com", "trustpilot.com"]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "profile_mode": { "const": "import" } },
+        "required": ["profile_mode"]
+      },
+      "then": { "required": ["import_path"] }
+    },
+    {
+      "if": {
+        "properties": { "profile_mode": { "const": "new" } },
+        "required": ["profile_mode"]
+      },
+      "then": {
+        "required": ["brand_name", "canonical_url", "contact_email", "allow_account_creation", "password_storage"]
+      }
+    }
+  ],
+  "x-agent-ui": {
+    "preferred_order": [
+      "profile_mode",
+      "import_path",
+      "brand_name",
+      "canonical_url",
+      "contact_email",
+      "allow_account_creation",
+      "password_storage",
+      "candidate_source_mode",
+      "optional"
+    ],
+    "grouping": {
+      "source": ["profile_mode", "import_path"],
+      "required_new_profile": ["brand_name", "canonical_url", "contact_email", "allow_account_creation", "password_storage"],
+      "optional_profile": ["optional"],
+      "candidate_source": ["candidate_source_mode"]
+    },
+    "fallback_instruction": "If native structured input is unavailable, ask the Markdown fallback form from SKILL.md and normalize the answer into this JSON shape."
+  }
+}

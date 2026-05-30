@@ -1,0 +1,126 @@
+{
+  "competitor": "jetbrains.com",
+  "count": 20,
+  "data": [
+    {
+      "dr": "97",
+      "ref_url": "https://github.com/features/copilot",
+      "ref_title": "GitHub Copilot · Your AI pair programmer · GitHubhttps://github.com/features/copilot",
+      "anchor": "JetBrains IDEs https://plugins.jetbrains.com/plugin/17718-github-copilot"
+    },
+    {
+      "dr": "86",
+      "ref_url": "https://kotlinlang.org/",
+      "ref_title": "Kotlin Programming Languagehttps://kotlinlang.org/",
+      "anchor": "Kotlin Slack https://surveys.jetbrains.com/s3/kotlin-slack-sign-up"
+    },
+    {
+      "dr": "71",
+      "ref_url": "https://wokwi.com/",
+      "ref_title": "Wokwi - World's most advanced ESP32 Simulatorhttps://wokwi.com/",
+      "anchor": "Wokwi for JetBrains Wokwi for JetBrains https://plugins.jetbrains.com/plugin/23826-wokwi-simulator"
+    },
+    {
+      "dr": "88",
+      "ref_url": "https://ai.google.dev/",
+      "ref_title": "Gemini Developer API | Gemma open models | Google AI for Developershttps://ai.google.dev/",
+      "anchor": "Partner logo for JetBrains IDEs JetBrains IDEs https://plugins.jetbrains.com/plugin/8079-gemini--google-cloud-code"
+    },
+    {
+      "dr": "97",
+      "ref_url": "https://en.wikipedia.org/wiki/Yandex",
+      "ref_title": "Yandexhttps://en.wikipedia.org/wiki/Yandex",
+      "anchor": "Poborchiy, Roman (20 August 2021). \"Code Completion, Episode 4: Model Training\" . JetBrains .https://blog.jetbrains.com/blog/2021/08/20/code-completion-episode-4-model-training/"
+    },
+    {
+      "dr": "82",
+      "ref_url": "https://godotengine.org/",
+      "ref_title": "Godot Engine - Free and open source 2D and 3D game enginehttps://godotengine.org/",
+      "anchor": "JetBrains https://www.jetbrains.com/lp/rider-godot/"
+    },
+    {
+      "dr": "79",
+      "ref_url": "https://nestjs.com/",
+      "ref_title": "NestJS - A progressive Node.js frameworkhttps://nestjs.com/",
+      "anchor": "Jetbrains https://www.jetbrains.com/"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://claude.com/product/claude-code",
+      "ref_title": "Claude Code by Anthropic | AI Coding Agent, Terminal, IDEhttps://claude.com/product/claude-code",
+      "anchor": "JetBrains https://plugins.jetbrains.com/plugin/27310-claude-code-beta-"
+    },
+    {
+      "dr": "86",
+      "ref_url": "https://nuxt.com/",
+      "ref_title": "Nuxt: The Full-Stack Vue Frameworkhttps://nuxt.com/",
+      "anchor": "JetBrains logo JetBrains https://www.jetbrains.com/"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://pypi.org/",
+      "ref_title": "PyPI · The Python Package Indexhttps://pypi.org/",
+      "anchor": "Survey 2026 and have a chance to win a prize Take the 2026 survey! https://surveys.jetbrains.com/s3/python-developers-survey-2026"
+    },
+    {
+      "dr": "90",
+      "ref_url": "https://laravel.com/docs/13.x/installation",
+      "ref_title": "Installation | Laravel 13.x - The clean stack for Artisans and agentshttps://laravel.com/docs/13.x/installation",
+      "anchor": "extensive and robust support of Laravel, take a look at PhpStorm , a JetBrains IDE. PhpStorm's built-in Laravel framework support includeshttps://www.jetbrains.com/phpstorm/laravel/?ref=laravel-2025Canonical https://www.jetbrains.com/phpstorm/laravel/"
+    },
+    {
+      "dr": "55",
+      "ref_url": "https://sqliteonline.com/",
+      "ref_title": "SQL Online IDE - Fast SQL Editor | SQL Compilerhttps://sqliteonline.com/",
+      "anchor": "https://www.jetbrains.com/ https://www.jetbrains.com/"
+    },
+    {
+      "dr": "86",
+      "ref_url": "https://pycharm-community-edition.en.softonic.com/",
+      "ref_title": "PyCharm Community Edition - Downloadhttps://pycharm-community-edition.en.softonic.com/",
+      "anchor": "PyCharm Community Edition https://www.jetbrains.com/"
+    },
+    {
+      "dr": "81",
+      "ref_url": "https://www.scala-lang.org/",
+      "ref_title": "The Scala Programming Languagehttps://www.scala-lang.org/",
+      "anchor": "JetBrains https://www.jetbrains.com/"
+    },
+    {
+      "dr": "78",
+      "ref_url": "https://htmx.org/",
+      "ref_title": "</> htmx - high power tools for htmlhttps://htmx.org/",
+      "anchor": "Jetbrains https://www.jetbrains.com/"
+    },
+    {
+      "dr": "89",
+      "ref_url": "https://kinsta.com/blog/best-programming-fonts/",
+      "ref_title": "15 Best Programming Fonts for Better Codinghttps://kinsta.com/blog/best-programming-fonts/",
+      "anchor": "JetBrains Mono comes packed with nearly 140 code ligatures, 8 weights eachhttps://www.jetbrains.com/lp/mono/"
+    },
+    {
+      "dr": "59",
+      "ref_url": "https://sequencediagram.org/",
+      "ref_title": "SequenceDiagram.org - UML Sequence Diagram Online Toolhttps://sequencediagram.org/",
+      "anchor": "JetBrains Marketplace link: SequenceDiagram.org Plugin https://plugins.jetbrains.com/plugin/23115-sequencediagram-org"
+    },
+    {
+      "dr": "59",
+      "ref_url": "https://www.programmingfonts.org/",
+      "ref_title": "Programming Fonts - Test Drivehttps://www.programmingfonts.org/",
+      "anchor": "Website https://www.jetbrains.com/lp/mono/"
+    },
+    {
+      "dr": "94",
+      "ref_url": "https://medium.com/@joerosborne/intro-to-web-scraping-build-your-first-scraper-in-5-minutes-1c36b5c4b110",
+      "ref_title": "Intro to Web Scraping: Build Your First Scraper in 5 Minutes | by Joe Osborne | Mediumhttps://medium.com/@joerosborne/intro-to-web-scraping-build-your-first-scraper-in-5-minutes-1c36b5c4b110",
+      "anchor": "An IDE — I prefer PyCharm for Python and VSCode for JavaScript/TypeScript.https://www.jetbrains.com/pycharm/download/?section=mac"
+    },
+    {
+      "dr": "85",
+      "ref_url": "https://helm.sh/",
+      "ref_title": "Helmhttps://helm.sh/",
+      "anchor": "JetBrains logo https://www.jetbrains.com/"
+    }
+  ]
+}

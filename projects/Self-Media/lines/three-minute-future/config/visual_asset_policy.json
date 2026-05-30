@@ -1,0 +1,176 @@
+{
+  "description": "三分钟未来视觉素材策略。用于控制公司视觉、X 截图裁切、以及清晰度/快闪效果的默认取向。",
+  "visualEffectMode": {
+    "default": "clarity-first",
+    "clarityFirst": {
+      "description": "默认发布档。图片主体和文字必须清楚，快闪感只放在边框、色差、ticker 和轻微 scanline 上。",
+      "imageFilter": "contrast(1.08) saturate(1.06)",
+      "allowHeavyBlur": false,
+      "maxGlitchOpacity": 0.18
+    },
+    "flashStyle": {
+      "description": "预告/转场档。可加霓虹闪烁、局部高斯模糊、抖动和高对比，但不能牺牲标题与主体识别。",
+      "imageFilter": "contrast(1.12) saturate(1.18)",
+      "allowHeavyBlur": true,
+      "maxGlitchOpacity": 0.38
+    }
+  },
+  "coverComposition": {
+    "description": "标准流程固定复用已确认的构成主义工业新闻背景，不再默认重新生图；HTML/CSS 只替换当期期数、时间、目录标题和轻量指标。COVER_PROMPT_FRAMEWORK.md 仅保留为用户明确要求重新探索封面时的参考。",
+    "mode": "fixed-reuse-background",
+    "fixedBackgroundPath": "daily/2026-05-23/three-minute-future/work/cover/constructivist-cover-bg-v1.png",
+    "allowNewGenerationByDefault": false,
+    "minStoryAnchors": 3,
+    "maxStoryAnchors": 4,
+    "singleStoryCoverAllowed": false,
+    "canvas": {
+      "width": 1080,
+      "height": 1080,
+      "aspect": "1:1",
+      "description": "当前封面导出为 1080x1080，不使用 9:16 或 1080x1920 作为封面生图尺寸。"
+    },
+    "styleFramework": {
+      "fixed": [
+        "早期苏联构成主义与前卫摄影蒙太奇",
+        "严肃工业新闻海报，不做科幻插画",
+        "强斜线构图、激进不对称、硬几何块、粗粝纸张和网点印刷质感",
+        "黑、石墨灰、脏白为主，酸绿、青色、警示红/洋红为辅助"
+      ],
+      "dynamicPerIssue": [
+        "每期从 selection 提炼 1 个主视觉锚点和 2-3 个辅助锚点",
+        "主视觉锚点必须服务本期核心主题，不能自动沿用上一期物件",
+        "辅助锚点以剪贴碎片、背景面板、阴影线索出现，不平均堆成图标墙"
+      ],
+      "forbiddenAsPermanentTemplate": [
+        "成本单",
+        "政策文件",
+        "发票",
+        "机器人",
+        "机场",
+        "门店",
+        "服务器",
+        "办公室"
+      ]
+    },
+    "promptGuardrails": {
+      "description": "实际送去生图模型的提示词必须压缩，避免触发信息图、表格、教育海报或对比图。",
+      "maxSecondaryAnchorsInPrompt": 3,
+      "requiredPromptSections": [
+        "Asset / size",
+        "Core idea",
+        "Primary visual anchor",
+        "Secondary fragments",
+        "Style + negatives"
+      ],
+      "avoidTermsInPrompt": [
+        "infographic",
+        "diagram",
+        "table",
+        "chart",
+        "comparison",
+        "list",
+        "labels",
+        "UI",
+        "protocol",
+        "assessment",
+        "forms",
+        "channel",
+        "educational",
+        "presentation",
+        "good habits",
+        "bad habits"
+      ],
+      "preferredVisualSubstitutions": {
+        "protocol": ["blank access cards", "permission gates", "locked server doors"],
+        "assessment": ["public administration desk", "stamped blank folders", "institutional files"],
+        "forms": ["blank paper blocks", "unreadable paper slabs"]
+      }
+    },
+    "rules": [
+      "主事件可以作为最大局部，但不能成为整张封面的唯一主体。",
+      "优先选本期 selection 里能体现 AI 改变现实的制度、身份、成本、责任链、公共空间、产业现场等元素。",
+      "所有元素必须统一调色、统一光线、统一颗粒质感，避免素材截图墙。",
+      "背景图里不生成可读标题、栏目名、账号名、logo 文案；文字层交给 HTML/CSS。"
+    ]
+  },
+  "companyVisualRules": [
+    {
+      "company": "Meta",
+      "match": ["Meta", "Facebook"],
+      "queries": [
+        "Meta logo sign Menlo Park",
+        "Meta headquarters sign",
+        "Meta logo campus",
+        "Facebook Meta sign headquarters"
+      ],
+      "mustPreferTerms": ["meta", "facebook", "logo", "sign", "headquarters", "campus"]
+    },
+    {
+      "company": "Starbucks",
+      "match": ["Starbucks", "星巴克"],
+      "queries": [
+        "Starbucks logo sign store",
+        "Starbucks coffeehouse sign",
+        "Starbucks storefront logo",
+        "Starbucks Reserve sign"
+      ],
+      "mustPreferTerms": ["starbucks", "logo", "sign", "store", "coffeehouse", "storefront"]
+    },
+    {
+      "company": "Google",
+      "match": ["Google", "谷歌"],
+      "queries": [
+        "Google logo sign headquarters",
+        "Googleplex sign",
+        "Google office logo",
+        "Google campus sign"
+      ],
+      "mustPreferTerms": ["google", "logo", "sign", "googleplex", "campus", "headquarters"]
+    },
+    {
+      "company": "X",
+      "match": ["X ", "x.com", "Twitter", "推特"],
+      "queries": [
+        "X logo sign headquarters",
+        "X Corp logo",
+        "Twitter X logo sign",
+        "X app logo"
+      ],
+      "mustPreferTerms": ["x", "twitter", "logo", "sign"]
+    },
+    {
+      "company": "OpenAI",
+      "match": ["OpenAI"],
+      "queries": [
+        "OpenAI logo office",
+        "OpenAI logo building",
+        "OpenAI office sign",
+        "OpenAI logo"
+      ],
+      "mustPreferTerms": ["openai", "logo", "office", "sign"]
+    },
+    {
+      "company": "NVIDIA",
+      "match": ["NVIDIA", "英伟达"],
+      "queries": [
+        "NVIDIA logo sign headquarters",
+        "NVIDIA campus sign",
+        "NVIDIA logo building",
+        "NVIDIA GPU server"
+      ],
+      "mustPreferTerms": ["nvidia", "logo", "sign", "gpu", "campus"]
+    }
+  ],
+  "xScreenshotPolicy": {
+    "description": "X 截图只保留帖子核心内容。禁止把右侧登录框、推荐用户、趋势栏作为正文配图主体。",
+    "preferredViewport": "820x1100",
+    "cropMode": "left-column-post",
+    "cropBox": {
+      "left": 120,
+      "top": 0,
+      "width": 780,
+      "height": 900
+    },
+    "rejectIfContains": ["使用 Google 账号注册", "创建账号", "相关用户", "有什么新鲜事"]
+  }
+}

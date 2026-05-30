@@ -1,0 +1,20 @@
+{
+  "name": "three-minute-future-remotion",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "render": "remotion render src/index.tsx ThreeMinuteFuture"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.466",
+    "@remotion/renderer": "4.0.466",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.466"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.12",
+    "@types/react": "18.3.3",
+    "typescript": "5.4.5"
+  }
+}

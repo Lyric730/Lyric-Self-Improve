@@ -1,0 +1,126 @@
+{
+  "competitor": "sourcegraph.com",
+  "count": 20,
+  "data": [
+    {
+      "dr": "90",
+      "ref_url": "https://fedoraproject.org/",
+      "ref_title": "Fedora Linux | The Fedora Projecthttps://fedoraproject.org/",
+      "anchor": "SourcegraphYou can use this to search for things in Fedora's code repositores. See the Fedora Magazine article for more info. https://sourcegraph.com/search?q=context:global+repo:^src.fedoraproject.org/&patternType=regexp"
+    },
+    {
+      "dr": "54",
+      "ref_url": "https://justdeleteme.xyz/",
+      "ref_title": "Just Delete Me | A directory of direct links to delete your account from web services.https://justdeleteme.xyz/",
+      "anchor": "Sourcegraph support via email using your primary email (shown at accounts.sourcegraph.com when signed in).https://accounts.sourcegraph.com/"
+    },
+    {
+      "dr": "54",
+      "ref_url": "https://axify.io/blog/the-best-ai-coding-assistants-a-full-comparison-of-17-tools",
+      "ref_title": "The Best AI Coding Assistants: A Full Comparison of 17 Toolshttps://axify.io/blog/the-best-ai-coding-assistants-a-full-comparison-of-17-tools",
+      "anchor": "Sourcegraph Cody gives you an assistant that understands your entire codebase insteadhttps://sourcegraph.com/"
+    },
+    {
+      "dr": "75",
+      "ref_url": "https://v2.tauri.app/",
+      "ref_title": "Tauri 2.0 | Taurihttps://v2.tauri.app/",
+      "anchor": "Sourcegraph https://about.sourcegraph.com/?ref=tauri.app301 https://sourcegraph.com/?ref=tauri.app"
+    },
+    {
+      "dr": "84",
+      "ref_url": "https://caddyserver.com/",
+      "ref_title": "Caddy - The Ultimate Server with Automatic HTTPShttps://caddyserver.com/",
+      "anchor": "Sourcegraph https://sourcegraph.com/"
+    },
+    {
+      "dr": "74",
+      "ref_url": "https://www.augmentcode.com/tools/13-best-ai-coding-tools-for-complex-codebases",
+      "ref_title": "13 Best AI Coding Tools for Complex Codebases in 2026 | Augment Codehttps://www.augmentcode.com/tools/13-best-ai-coding-tools-for-complex-codebases",
+      "anchor": "platforms, including Augment Code, GitHub Copilot , Tabnine , and Sourcegraph Cody , have implemented repository-wide context features, all leading tools stillhttps://sourcegraph.com/amp"
+    },
+    {
+      "dr": "66",
+      "ref_url": "https://ladybird.org/",
+      "ref_title": "Ladybirdhttps://ladybird.org/",
+      "anchor": "Sourcegraph https://sourcegraph.com/"
+    },
+    {
+      "dr": "94",
+      "ref_url": "https://medium.com/@mattklein123/monorepos-please-dont-e9a279be011b",
+      "ref_title": "Monorepos: Please don’t!. Here we are at the beginning of 2019… | by Matt Klein | Mediumhttps://medium.com/@mattklein123/monorepos-please-dont-e9a279be011b",
+      "anchor": "newer and more sophisticated indexing and collaboration tools such as Sourcegraph .https://sourcegraph.com/start"
+    },
+    {
+      "dr": "97",
+      "ref_url": "https://github.com/filipecalegario/awesome-vibe-coding",
+      "ref_title": "GitHub - filipecalegario/awesome-vibe-coding: A curated list of vibe coding references, collaborating with AI to write code. · GitHubhttps://github.com/filipecalegario/awesome-vibe-coding",
+      "anchor": "Cody - Free AI code assistant by Sourcegraph with deep codebasehttps://sourcegraph.com/docs/codyCanonical https://sourcegraph.com/cody301 https://sourcegraph.com/docs"
+    },
+    {
+      "dr": "82",
+      "ref_url": "https://codemirror.net/",
+      "ref_title": "CodeMirrorhttps://codemirror.net/",
+      "anchor": "Sourcegraph https://about.sourcegraph.com/"
+    },
+    {
+      "dr": "38",
+      "ref_url": "https://www.seoprakticky.cz/slovnik-pojmu/umela-inteligence-zdarma-v-cestine/",
+      "ref_title": "Umělá inteligence ZDARMA a v češtině | SEOPRAKTICKY.czhttps://www.seoprakticky.cz/slovnik-pojmu/umela-inteligence-zdarma-v-cestine/",
+      "anchor": "Sourcegraph Cody https://sourcegraph.com/docs/codyCanonical https://sourcegraph.com/cody301 https://about.sourcegraph.com/cody301 https://sourcegraph.com/docs"
+    },
+    {
+      "dr": "79",
+      "ref_url": "https://neovim.io/doc/",
+      "ref_title": "Documentation - Neovimhttps://neovim.io/doc/",
+      "anchor": "Sourcegraph for exploring Nvim's source codehttps://sourcegraph.com/github.com/neovim/neovim"
+    },
+    {
+      "dr": "77",
+      "ref_url": "https://rivet.ironcladapp.com/",
+      "ref_title": "Rivethttps://rivet.ironcladapp.com/",
+      "anchor": "Sourcegraph https://www.sourcegraph.com/301 https://sourcegraph.com/"
+    },
+    {
+      "dr": "75",
+      "ref_url": "https://opentracing.io/",
+      "ref_title": "The OpenTracing projecthttps://opentracing.io/",
+      "anchor": "https://sourcegraph.com/"
+    },
+    {
+      "dr": "74",
+      "ref_url": "https://typescript-eslint.io/",
+      "ref_title": "typescript-eslinthttps://typescript-eslint.io/",
+      "anchor": "Sourcegraph logo https://about.sourcegraph.com/301 https://sourcegraph.com/"
+    },
+    {
+      "dr": "51",
+      "ref_url": "https://www.aviator.co/blog/what-is-a-monorepo-and-why-use-one/",
+      "ref_title": "What is Monorepo? Benefits, Use Cases, and Best Practiceshttps://www.aviator.co/blog/what-is-a-monorepo-and-why-use-one/",
+      "anchor": "Code navigation tools such as Sourcegraph and integrated features within platforms like GitHub serve as invaluablehttps://sourcegraph.com/search"
+    },
+    {
+      "dr": "88",
+      "ref_url": "https://prismic.io/blog/ai-code-generators",
+      "ref_title": "12 AI Code Generators Tested: Which Is Best? (2026)https://prismic.io/blog/ai-code-generators",
+      "anchor": "Amp is Sourcegraph’s agentic coding tool. It is available in IDEshttps://sourcegraph.com/amp"
+    },
+    {
+      "dr": "75",
+      "ref_url": "https://www.descope.com/learn/post/mcp",
+      "ref_title": "What Is the Model Context Protocol (MCP) and How It Workshttps://www.descope.com/learn/post/mcp",
+      "anchor": "Sourcegraph Cody : AI coding assistant implementing MCP through OpenCtxhttps://sourcegraph.com/blog/cody-supports-anthropic-model-context-protocol"
+    },
+    {
+      "dr": "90",
+      "ref_url": "https://brave.com/compare/",
+      "ref_title": "See how Brave stacks up against the competition. | Bravehttps://brave.com/compare/",
+      "anchor": "we make . We also make our code available at code.brave.com .https://sourcegraph.com/github.com/brave/brave-core"
+    },
+    {
+      "dr": "86",
+      "ref_url": "https://www.computerweekly.com/de/definition/ChatGPT",
+      "ref_title": "ChatGPThttps://www.computerweekly.com/de/definition/ChatGPT",
+      "anchor": "Cody https://sourcegraph.com/cody301 https://sourcegraph.com/docs/cody"
+    }
+  ]
+}

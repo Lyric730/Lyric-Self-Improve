@@ -1,0 +1,37 @@
+{
+  "campaign_name": "Example product backlink campaign",
+  "brand_name": "ExampleProduct",
+  "canonical_url": "https://product.example/",
+  "target_domain": "product.example",
+  "positioning": "workflow automation platform",
+  "audience": "small teams and operators",
+  "primary_outcome": "save time on repeatable operational workflows",
+  "forbidden_phrases": ["guaranteed results", "official partner"],
+  "contact_email": "replace-with-campaign-email@example.com",
+  "comment_email": "replace-with-comment-email@example.com",
+  "submitter_name": "ExampleProduct Team",
+  "hq_country": "United States",
+  "hq_city": "San Francisco",
+  "categories": ["Workflow Automation", "Productivity", "Small Business"],
+  "tags": ["automation", "productivity", "workflow", "small business"],
+  "one_liner": "Automate repeatable workflows for small teams.",
+  "short_description": "ExampleProduct helps small teams automate repeatable operational workflows without adding heavy process overhead.",
+  "long_description": "ExampleProduct is a workflow automation platform for small teams and operators. It helps users automate repeatable operational workflows, coordinate routine tasks, and keep work moving without adding heavy process overhead.",
+  "anchors": [
+    ["ExampleProduct", "brand"],
+    ["ExampleProduct workflow automation", "brand"],
+    ["workflow automation platform", "lsi"],
+    ["automation tools for small teams", "lsi"],
+    ["tools like ExampleProduct", "descriptive"],
+    ["https://product.example/", "naked"]
+  ],
+  "assets": {
+    "logo_square": "assets/logo-square.png",
+    "logo_wide": "assets/logo-wide.png",
+    "screenshot": "assets/screenshot.png",
+    "pdf": "assets/product-one-pager.pdf",
+    "public_screenshot_url": "https://product.example/screenshot.png"
+  },
+  "min_dr": 20,
+  "manual_hold_domains": ["producthunt.com", "news.ycombinator.com", "g2.com", "capterra.com", "trustpilot.com"]
+}

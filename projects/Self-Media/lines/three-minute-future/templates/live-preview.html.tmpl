@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title} · 实时预览</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #090909; color: #f4f1e8; font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif; }
+    body { display: grid; grid-template-columns: 260px 1fr; overflow: hidden; }
+    aside {
+      border-right: 1px solid rgba(244,241,232,.16);
+      padding: 18px 16px;
+      background: #0f100d;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    h1 { margin: 0; font-size: 24px; line-height: 1.1; color: #cfff00; }
+    .hint { margin: 0; color: rgba(244,241,232,.6); font-size: 13px; line-height: 1.55; }
+    .toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0 12px;
+      border-bottom: 1px solid rgba(244,241,232,.12);
+      color: rgba(244,241,232,.82);
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      border: 1px solid rgba(244,241,232,.18);
+      background: transparent;
+      color: rgba(244,241,232,.86);
+      font: inherit;
+      text-align: left;
+      padding: 11px 12px;
+      cursor: pointer;
+    }
+    button.active {
+      background: #cfff00;
+      color: #070706;
+      border-color: #cfff00;
+      font-weight: 900;
+      box-shadow: 8px 8px 0 #d91f3a;
+    }
+    main {
+      min-width: 0;
+      overflow: auto;
+      display: grid;
+      place-items: start center;
+      padding: 22px;
+      background:
+        linear-gradient(135deg, rgba(207,255,0,.08), transparent 28%),
+        linear-gradient(0deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        #070807;
+      background-size: auto, 24px 24px, auto;
+    }
+    .phone {
+      border: 1px solid rgba(244,241,232,.24);
+      box-shadow: 0 20px 80px rgba(0,0,0,.55);
+      overflow: hidden;
+      background: #000;
+      transform-origin: top center;
+    }
+    iframe {
+      display: block;
+      border: 0;
+      transform-origin: top left;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <h1>${title}<br>实时预览</h1>
+    <p class="hint">这里加载当前输出目录下的 HTML 页面。模板或数据变更后刷新即可预览。</p>
+    <label class="toggle">
+      <span>自动刷新</span>
+      <input id="auto" type="checkbox" checked>
+    </label>
+    <div id="nav"></div>
+  </aside>
+  <main>
+    <div class="phone">
+      <iframe id="stage" title="page preview"></iframe>
+    </div>
+  </main>
+  <script>
+    const pages = ${pages_json};
+    const nav = document.querySelector("#nav");
+    const stage = document.querySelector("#stage");
+    const phone = document.querySelector(".phone");
+    const scale = 0.4;
+    let active = 0;
+
+    function load(index) {
+      active = index;
+      const page = pages[index];
+      phone.style.width = `${page.width * scale}px`;
+      phone.style.height = `${page.height * scale}px`;
+      stage.style.width = `${page.width}px`;
+      stage.style.height = `${page.height}px`;
+      stage.style.transform = `scale(${scale})`;
+      stage.src = `${page.href}?v=${Date.now()}`;
+      [...nav.children].forEach((button, i) => button.classList.toggle("active", i === index));
+    }
+
+    pages.forEach((page, index) => {
+      const button = document.createElement("button");
+      button.textContent = page.label;
+      button.addEventListener("click", () => load(index));
+      nav.appendChild(button);
+    });
+
+    load(0);
+    setInterval(() => {
+      if (document.querySelector("#auto").checked) load(active);
+    }, 1800);
+  </script>
+</body>
+</html>

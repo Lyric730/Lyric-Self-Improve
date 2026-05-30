@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backlink Submission Automation"
+  short_description: "Run audited backlink submission workflows"
+  default_prompt: "Use $backlink-submission-automation to collect campaign profile intake, then build, submit, verify, and report a backlink campaign. For live submissions, use the runtime's approved interactive browser controller, not headless Playwright."

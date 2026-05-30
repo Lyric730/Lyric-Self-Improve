@@ -1,0 +1,17 @@
+{
+  "userIgnoreFilters": [
+    ".git/",
+    ".worktrees/",
+    "**/node_modules/",
+    "**/.venv/",
+    "**/__pycache__/",
+    "**/dist/",
+    "**/build/",
+    "**/.next/",
+    "projects/growth-engine-pipeline/runtime/",
+    "projects/growth-engine-pipeline/.cache/"
+  ],
+  "attachmentFolderPath": "knowledge/_attachments",
+  "readableLineLength": true,
+  "showInlineTitle": true
+}

@@ -1,0 +1,4 @@
+<view class="settlement-badge settlement-badge--{{variant}}">
+  <image class="settlement-badge__asset" src="{{assetSrc}}" mode="aspectFit" />
+  <text class="settlement-badge__label">{{label}}</text>
+</view>

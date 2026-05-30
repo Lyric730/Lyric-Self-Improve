@@ -1,0 +1,126 @@
+{
+  "competitor": "huggingface.co",
+  "count": 20,
+  "data": [
+    {
+      "dr": "92",
+      "ref_url": "https://www.python.org/",
+      "ref_title": "Welcome to Python.orghttps://www.python.org/",
+      "anchor": ", TensorFlow , scikit-learn , Transformers , Anthropic , LangChainhttps://huggingface.co/docs/transformers/302 https://huggingface.co/docs/transformers"
+    },
+    {
+      "dr": "97",
+      "ref_url": "https://pl.wikipedia.org/wiki/ChatGPT",
+      "ref_title": "ChatGPThttps://pl.wikipedia.org/wiki/ChatGPT",
+      "anchor": "HuggingChat [online], huggingface.cohttps://huggingface.co/chat/models"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://blog.google/innovation-and-ai/technology/ai/google-gemini-ai/",
+      "ref_title": "Introducing Gemini: Google’s most capable AI model yethttps://blog.google/innovation-and-ai/technology/ai/google-gemini-ai/",
+      "anchor": "its output follows our policies, we’re using benchmarks such as Real Toxicity Prompts , a set of 100,000 prompts with varying degrees ofhttps://allenai.org/data/real-toxicity-prompts307 https://huggingface.co/datasets/allenai/real-toxicity-prompts"
+    },
+    {
+      "dr": "29",
+      "ref_url": "https://dechecker.ai/",
+      "ref_title": "AI Checker - Advanced AI Detector for GPT-5, Claude & Geminihttps://dechecker.ai/",
+      "anchor": "Contact us - Hugging Face - Dechecker https://huggingface.co/spaces/Dechecker/ai-checker"
+    },
+    {
+      "dr": "52",
+      "ref_url": "https://chat-deep.ai/",
+      "ref_title": "DeepSeekhttps://chat-deep.ai/",
+      "anchor": "DeepSeek on Hugging Face https://huggingface.co/deepseek-ai"
+    },
+    {
+      "dr": "53",
+      "ref_url": "https://www.chai-research.com/",
+      "ref_title": "CHAI | AI Characters & Storieshttps://www.chai-research.com/",
+      "anchor": "Reddit YouTube Hugging Face Facebook Instagramhttps://huggingface.co/ChaiML"
+    },
+    {
+      "dr": "79",
+      "ref_url": "https://vllm.ai/",
+      "ref_title": "vLLMhttps://vllm.ai/",
+      "anchor": "DeepSeekDeepSeek V4DeepSeek V3.2DeepSeek R1 https://huggingface.co/deepseek-ai"
+    },
+    {
+      "dr": "77",
+      "ref_url": "https://www.minimax.io/",
+      "ref_title": "MiniMaxhttps://www.minimax.io/",
+      "anchor": "https://huggingface.co/MiniMaxAI"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://sahkovatkain.web.app/",
+      "ref_title": "Pörssisähkön hintaennustehttps://sahkovatkain.web.app/",
+      "anchor": "nyt päivän sisäiset tiedot ja mahdolliset hintapiikkien riskit. Kielimalliksi vaihdettu DeepSeek-V3 .https://huggingface.co/deepseek-ai/DeepSeek-V3"
+    },
+    {
+      "dr": "78",
+      "ref_url": "https://www.analyticsvidhya.com/blog/2023/12/chatgpt-4-for-free/",
+      "ref_title": "8 Easy Ways to Access ChatGPT for Free - Analytics Vidhyahttps://www.analyticsvidhya.com/blog/2023/12/chatgpt-4-for-free/",
+      "anchor": "Visit the Hugging Face space where the latest ChatGPT model is hosted. You can alsohttps://huggingface.co/spaces/yuntian-deng/ChatGPT"
+    },
+    {
+      "dr": "97",
+      "ref_url": "https://github.com/automatic1111/stable-diffusion-webui",
+      "ref_title": "GitHub - AUTOMATIC1111/stable-diffusion-webui: Stable Diffusion web UI · GitHubhttps://github.com/automatic1111/stable-diffusion-webui",
+      "anchor": "Segmind Stable Diffusion supporthttps://huggingface.co/segmind/SSD-1B"
+    },
+    {
+      "dr": "84",
+      "ref_url": "https://codimd.apps.education.fr/s/r1H5nglAY",
+      "ref_title": "Une sélection d’IA génératives gratuites en ligne - CodiMDhttps://codimd.apps.education.fr/s/r1H5nglAY",
+      "anchor": "MagicQuill https://huggingface.co/spaces/AI4Editing/MagicQuill"
+    },
+    {
+      "dr": "40",
+      "ref_url": "https://faceonlive.com/face-search-online/",
+      "ref_title": "Free Face Search Online - The Best Alternative to PimEyes and FaceCheck ID - FaceOnLive : On-Premises ID Verification & Biometrics Solution Providerhttps://faceonlive.com/face-search-online/",
+      "anchor": "Hugging Face https://huggingface.co/FaceOnLive"
+    },
+    {
+      "dr": "46",
+      "ref_url": "https://vojtechbruk.cz/chat-gpt/",
+      "ref_title": "Chat GPT – vše co potřebujete vědět (2026)https://vojtechbruk.cz/chat-gpt/",
+      "anchor": "Nebo třeba platformy Huggingface .https://huggingface.co/"
+    },
+    {
+      "dr": "92",
+      "ref_url": "https://arxiv.org/abs/1706.03762",
+      "ref_title": "[1706.03762] Attention Is All You Needhttps://arxiv.org/abs/1706.03762",
+      "anchor": "( What is Spaces? )https://huggingface.co/docs/hub/spaces"
+    },
+    {
+      "dr": "91",
+      "ref_url": "https://zapier.com/blog/what-is-gpt/",
+      "ref_title": "What is GPT? Everything you need to know | Zapierhttps://zapier.com/blog/what-is-gpt/",
+      "anchor": "From there, the first version of GPT was documented in a paper published in 2018 , and GPT-2 was released the following year . Ithttps://paperswithcode.com/paper/improving-language-understanding-by302 https://huggingface.co/papers/trending"
+    },
+    {
+      "dr": "53",
+      "ref_url": "https://www.youreverydayai.com/free-chatgpt-vs-chatgpt-plus-whats-the-difference/",
+      "ref_title": "ChatGPT Free vs. Paid - What's the difference?https://www.youreverydayai.com/free-chatgpt-vs-chatgpt-plus-whats-the-difference/",
+      "anchor": "Opus are impressive. And looking at benchmarks and even the Chatbot Arena Leaderboard , you’d think that GPT-4 is getting old and stale.https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard307 https://huggingface.co/spaces/lmarena-ai/arena-leaderboard"
+    },
+    {
+      "dr": "84",
+      "ref_url": "https://www.datacamp.com/pt/blog/computer-vision-projects",
+      "ref_title": "19 Computer Vision Projects From Beginner to Advanced | DataCamphttps://www.datacamp.com/pt/blog/computer-vision-projects",
+      "anchor": "Image source: Papers With Code https://paperswithcode.com/dataset/shapenet302 https://huggingface.co/papers/trending"
+    },
+    {
+      "dr": "93",
+      "ref_url": "https://openai.com/business/apps/hugging-face/",
+      "ref_title": "Hugging Face | OpenAIhttps://openai.com/business/apps/hugging-face/",
+      "anchor": "App supportRead more https://huggingface.co/docs"
+    },
+    {
+      "dr": "82",
+      "ref_url": "https://www.xataka.com/basics/gpt-4-gratis-5-maneras-poder-utilizarlo-pagar-chatgpt-plus",
+      "ref_title": "GPT-4 gratis: cinco alternativas para usarlo sin pagar ChatGPT Plushttps://www.xataka.com/basics/gpt-4-gratis-5-maneras-poder-utilizarlo-pagar-chatgpt-plus",
+      "anchor": "Enlace: huggingface.co/spaces/ysharma/ChatGPT4 https://huggingface.co/spaces/ysharma/ChatGPT4"
+    }
+  ]
+}

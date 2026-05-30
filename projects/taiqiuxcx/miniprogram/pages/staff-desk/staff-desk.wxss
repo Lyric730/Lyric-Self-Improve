@@ -1,0 +1,106 @@
+@import "../../styles/player-flow.wxss";
+
+.staff-table-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14rpx;
+}
+
+.staff-table {
+  display: grid;
+  gap: 8rpx;
+  padding: 20rpx;
+  background: rgba(8, 7, 6, 0.62);
+  border: 1rpx solid rgba(255, 214, 145, 0.14);
+  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+}
+
+.staff-table.is-active {
+  border-color: rgba(255, 118, 0, 0.68);
+  box-shadow: var(--yh-glow-orange);
+}
+
+.staff-table text:first-child,
+.staff-issue text:first-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-md);
+  font-weight: 900;
+}
+
+.staff-table text {
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+}
+
+.staff-issue {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72rpx;
+  gap: 16rpx;
+  align-items: center;
+  padding: 18rpx 0;
+  border-bottom: 1rpx solid rgba(255, 214, 145, 0.1);
+}
+
+.staff-issue:last-child {
+  border-bottom: 0;
+}
+
+.staff-issue view {
+  min-width: 0;
+}
+
+.staff-issue text {
+  display: block;
+}
+
+.staff-issue view text:last-child,
+.staff-issue > text {
+  margin-top: 6rpx;
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+}
+
+.staff-issue > text {
+  margin-top: 0;
+  text-align: right;
+}
+
+.member-select {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180rpx;
+  gap: 16rpx;
+  align-items: stretch;
+  margin-bottom: 18rpx;
+}
+
+.member-card {
+  display: grid;
+  gap: 8rpx;
+  min-width: 0;
+  padding: 18rpx 20rpx;
+  background: rgba(8, 7, 6, 0.68);
+  border: 1rpx solid rgba(255, 214, 145, 0.12);
+  clip-path: polygon(12rpx 0, 100% 0, 100% calc(100% - 12rpx), calc(100% - 12rpx) 100%, 0 100%, 0 12rpx);
+}
+
+.member-card.is-active {
+  border-color: rgba(59, 214, 123, 0.62);
+  box-shadow: 0 0 26rpx rgba(59, 214, 123, 0.12);
+}
+
+.member-card text:first-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-md);
+  font-weight: 900;
+}
+
+.member-card text:last-child {
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

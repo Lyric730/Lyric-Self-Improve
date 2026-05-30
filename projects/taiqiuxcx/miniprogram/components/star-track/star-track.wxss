@@ -1,0 +1,22 @@
+@import "../../styles/tokens.wxss";
+
+.star-track {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.star-track__star {
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.star-track__star--new {
+  width: 64rpx;
+  height: 64rpx;
+  filter: drop-shadow(0 0 18rpx rgba(255, 211, 107, 0.5));
+}
+
+.star-track__star--lost {
+  opacity: 0.74;
+}

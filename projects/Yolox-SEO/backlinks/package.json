@@ -1,0 +1,14 @@
+{
+  "name": "yolox-backlinks",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Yolox 外链建设自动化工具 — Playwright MCP + 数据库 + 提交流水线",
+  "type": "module",
+  "scripts": {
+    "mcp": "npx @playwright/mcp@latest"
+  },
+  "dependencies": {
+    "@playwright/mcp": "^0.0.75",
+    "playwright": "^1.61.0-alpha-1778188671000"
+  }
+}

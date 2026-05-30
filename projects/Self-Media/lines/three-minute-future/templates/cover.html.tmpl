@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>${page_title}</title>
+  <style>${css}</style>
+</head>
+<body>
+  <article class="page cover" style="--cover-bg: url('${cover_bg}');">
+    <div class="bg"></div>
+    <div class="wash"></div>
+    <div class="quiet-slab"></div>
+
+    <div class="brand">AI HOT / REALITY SIGNAL</div>
+    <div class="title">《${cover_title}》</div>
+    <div class="subtitle">${cover_subtitle}</div>
+
+    <div class="issue">
+      第 <span class="num">${vol}</span> 期
+      <span class="range">${date_range}</span>
+    </div>
+
+    <div class="lead-hook">${lead_hook}</div>
+
+    <div class="sub-hooks">
+      <div>${sub_hook_1}</div>
+      <div>${sub_hook_2}</div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">本期报道<strong>${report_count} 篇</strong></div>
+      <div class="metric">预计时长<strong>${estimated_duration}</strong></div>
+    </div>
+
+    <div class="cover-banner">
+      <span>THREE-MINUTE FUTURE</span>
+      <span>${account}</span>
+    </div>
+  </article>
+</body>
+</html>

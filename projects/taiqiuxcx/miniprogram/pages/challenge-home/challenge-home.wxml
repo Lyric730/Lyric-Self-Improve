@@ -1,0 +1,63 @@
+<view class="flow-page home-page">
+  <view class="flow-hero">
+    <text class="flow-hero__eyebrow">YUNHAN BILLIARDS CLUB</text>
+    <text class="flow-hero__title">{{challengeGate.tableSession.clubName}}</text>
+    <text class="flow-hero__subtitle">{{challengeGate.tableSession.tableNo}} 夜赛控制台 · 到点 {{challengeGate.tableSession.dueTime}}</text>
+    <view class="flow-table">
+      <text>TABLE</text>
+      <text>{{challengeGate.tableSession.tableNo}}</text>
+    </view>
+  </view>
+
+  <view class="flow-stack">
+    <view class="home-entry">
+      <view class="home-entry__copy">
+        <text class="home-entry__eyebrow">RANKED MATCH</text>
+        <text class="home-entry__title">开启排位挑战</text>
+        <text class="home-entry__meta">{{challengeGate.tableSession.tableNo}} · 到点 {{challengeGate.tableSession.dueTime}} · {{challengeGate.tableSession.remainingText}}</text>
+      </view>
+
+      <view class="home-entry__action">
+        <text class="home-entry__status {{canStartChallenge ? 'is-live' : 'is-muted'}}">{{playableStatusText}}</text>
+        <yh-button
+          text="发起挑战"
+          size="lg"
+          variant="primary"
+          block
+          disabled="{{!canStartChallenge}}"
+          bind:tap="goWaitingRoom"
+        />
+        <text wx:if="{{!canStartChallenge}}" class="home-entry__hint">{{gateMessage}}</text>
+      </view>
+    </view>
+
+    <yh-panel title="当前段位" subtitle="全部游戏模式共用一个段位" marker="RANK" tone="gold" raised>
+      <rank-badge tier="gold" title="{{match.playerA.rankTitle}}" points="{{match.playerA.points}} / 3000" hint="再得 140 分升至走位黄金 II" featured />
+      <view class="flow-actions">
+        <star-track value="{{3}}" total="{{5}}" mode="new" />
+      </view>
+    </yh-panel>
+
+    <view class="home-shortcuts">
+      <view bindtap="goData">
+        <text>我的数据</text>
+        <text>{{match.playerA.points}} 积分</text>
+      </view>
+      <view bindtap="goRankings">
+        <text>排行榜</text>
+        <text>店内总榜</text>
+      </view>
+      <view bindtap="goPerks">
+        <text>积分礼遇</text>
+        <text>前台兑换</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-tabs">
+    <text class="is-active">挑战</text>
+    <text bindtap="goData">数据</text>
+    <text bindtap="goRankings">排行</text>
+    <text bindtap="goPerks">积分</text>
+  </view>
+</view>

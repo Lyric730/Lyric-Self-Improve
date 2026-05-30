@@ -1,0 +1,4 @@
+interface:
+  display_name: "Practical SEO Execution"
+  short_description: "Execute early product SEO with dashboards, keywords, blogs, backlinks, and technical audits."
+  default_prompt: "Use this skill to turn an early product SEO goal into concrete execution steps, reusable templates, and validation checks."

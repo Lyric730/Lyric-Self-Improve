@@ -1,0 +1,57 @@
+<view class="flow-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">MY DATA</text>
+    <text class="flow-hero__title">我的数据</text>
+    <text class="flow-hero__subtitle">本赛季表现 · 全部玩法共用一个段位</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="当前段位" subtitle="胜场加星，黄金前不掉星" marker="RANK" tone="gold" raised>
+      <rank-badge tier="gold" title="{{match.playerA.rankTitle}}" points="{{match.playerA.points}} / 3000" hint="再得 140 分升至走位黄金 II" featured />
+      <view class="flow-actions">
+        <star-track value="{{3}}" total="{{5}}" mode="new" />
+      </view>
+    </yh-panel>
+
+    <yh-panel title="赛季战绩" subtitle="只统计有效积分挑战" marker="SEASON" tone="default">
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>胜率</text>
+          <text>{{playerStats.seasonWinRate}}</text>
+        </view>
+        <view class="metric-card">
+          <text>挑战</text>
+          <text>{{playerStats.validMatches}}</text>
+        </view>
+        <view class="metric-card">
+          <text>连胜</text>
+          <text>{{playerStats.winStreak}}</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="我的排名" subtitle="店内、同段位和好友排名" marker="RANKING" tone="orange">
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>店内</text>
+          <text>#{{playerStats.storeRank}}</text>
+        </view>
+        <view class="metric-card">
+          <text>同段位</text>
+          <text>#{{playerStats.sameRankRank}}</text>
+        </view>
+        <view class="metric-card">
+          <text>好友</text>
+          <text>#{{playerStats.friendRank}}</text>
+        </view>
+      </view>
+    </yh-panel>
+  </view>
+
+  <view class="bottom-tabs">
+    <text bindtap="goHome">挑战</text>
+    <text class="is-active">数据</text>
+    <text bindtap="goRankings">排行</text>
+    <text bindtap="goPerks">积分</text>
+  </view>
+</view>

@@ -1,0 +1,28 @@
+{
+  "aihot": {
+    "url": "https://aihot.virxact.com/api/public/items",
+    "mode": "all",
+    "take": 100
+  },
+  "google_news": {
+    "hl": "zh-CN",
+    "gl": "CN",
+    "ceid": "CN:zh-Hans",
+    "window_days": 2,
+    "queries": [
+      "人工智能 法院 裁员",
+      "AI 学校 教育 抗议",
+      "AI 机器人 机场 工厂",
+      "AI 医疗 医院",
+      "AI 影视 奥斯卡 版权",
+      "AI 国防 五角大楼",
+      "AI 零售 星巴克 库存",
+      "AI layoffs lawsuit workers",
+      "AI school protest education",
+      "AI robot airport factory",
+      "AI healthcare hospital",
+      "AI defense Pentagon",
+      "AI film copyright Oscars"
+    ]
+  }
+}

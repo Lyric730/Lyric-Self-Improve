@@ -1,0 +1,79 @@
+<view wx:if="{{accessReady}}" class="flow-page flow-page--locked boss-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">OWNER CONFIG</text>
+    <text class="flow-hero__title">门店参数</text>
+    <text class="flow-hero__subtitle">玩法 · 积分 · 防刷分 · 大屏</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="玩法模板" subtitle="顾客只看到已启用玩法" marker="MODES" tone="gold" raised>
+      <view class="boss-mode" wx:for="{{adminConfig.modes}}" wx:key="modeId">
+        <view>
+          <text>{{item.name}}</text>
+          <text>底分 {{item.baseText}} · 倍率 {{item.multiplierText}}</text>
+          <text>普通奖励 {{item.normalReward}} · 冲刺奖励 {{item.sprintReward}}</text>
+        </view>
+        <text class="{{item.enabled ? 'is-on' : 'is-off'}}">{{item.enabled ? '启用' : '未启用'}}</text>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="积分补给" subtitle="用于开局门槛和前台兑换" marker="POINTS">
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>新用户</text>
+          <text>{{adminConfig.points.newUser}}</text>
+        </view>
+        <view class="metric-card">
+          <text>到店登录</text>
+          <text>{{adminConfig.points.checkIn}}</text>
+        </view>
+        <view class="metric-card">
+          <text>开台赠分</text>
+          <text>{{adminConfig.points.tableOpenBonus}}</text>
+        </view>
+      </view>
+      <view class="risk-formula">
+        <text>兑换门槛</text>
+        <text>{{adminConfig.points.exchangeThreshold}}</text>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="防刷分" subtitle="有效挑战必须满足这些门槛" marker="CHECK" tone="danger">
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>店内定位</text>
+          <text>{{adminConfig.antiCheat.geoFence}}</text>
+        </view>
+        <view class="metric-card">
+          <text>开台到点</text>
+          <text>{{adminConfig.antiCheat.tableDueRequired}}</text>
+        </view>
+        <view class="metric-card">
+          <text>最低时间</text>
+          <text>{{adminConfig.antiCheat.minimumTimeRequired}}</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="大屏榜单" subtitle="{{adminConfig.screen.refreshText}}" marker="SCREEN" tone="orange">
+      <view class="metric-grid">
+        <view class="metric-card">
+          <text>主榜</text>
+          <text>{{adminConfig.screen.storeBoard}}</text>
+        </view>
+        <view class="metric-card">
+          <text>副榜</text>
+          <text>{{adminConfig.screen.bountyBoard}}</text>
+        </view>
+        <view class="metric-card">
+          <text>门店活动</text>
+          <text>开启</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <view class="flow-actions">
+      <yh-button text="保存配置" size="lg" variant="primary" block loading="{{saving}}" bind:tap="saveConfig" />
+    </view>
+  </view>
+</view>

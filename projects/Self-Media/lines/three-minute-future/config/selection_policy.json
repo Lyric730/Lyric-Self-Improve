@@ -1,0 +1,61 @@
+{
+  "description": "三分钟未来选题排序策略。后续每次人工审核后都可以调这里，而不是改代码。",
+  "sourceWeights": {
+    "aihot": {
+      "bonus": 3,
+      "targetRole": "AI 圈快速信号",
+      "targetSelected": 8,
+      "maxSelected": 9
+    },
+    "google-news": {
+      "bonus": 1,
+      "targetRole": "AI 改变现实的外扩新闻",
+      "maxSelected": 10
+    }
+  },
+  "defaultItemLimit": 15,
+  "sourceMixForEightItems": {
+    "aihot": 4,
+    "externalNews": 3,
+    "domesticMedia": 1,
+    "fallbackWhenBucketShort": true
+  },
+  "sourceMixForFifteenItems": {
+    "aihot": 8,
+    "externalNews": 5,
+    "domesticMedia": 2,
+    "fallbackWhenBucketShort": true
+  },
+  "allowNoRealityTagFallback": false,
+  "regionWeights": {
+    "foreign": 3,
+    "domestic": -2,
+    "unknown": 0
+  },
+  "tagCaps": {
+    "healthcare": 1
+  },
+  "tagWeights": {
+    "healthcare": -3
+  },
+  "qualityWeights": {
+    "lowValuePressRelease": -2,
+    "noRealityTag": -4,
+    "strongRealityConflict": 2,
+    "verticalImage": 2,
+    "horizontalImage": 1
+  },
+  "sourceCaps": {
+    "domesticMedia": 2
+  },
+  "imagePolicy": {
+    "reuseImageAcrossItems": false,
+    "screenshotFallback": true,
+    "keywordSearchFallback": true,
+    "keywordSearchProvider": "wikimedia-commons",
+    "keywordSearchLicense": "free commercial-use compatible",
+    "coverMayUseItemImage": false,
+    "coverPrimaryMode": "fixed-reuse-background",
+    "coverFallbackMode": "fixed-reuse-background"
+  }
+}

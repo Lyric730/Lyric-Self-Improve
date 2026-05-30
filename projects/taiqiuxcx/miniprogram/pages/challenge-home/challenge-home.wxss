@@ -1,0 +1,133 @@
+@import "../../styles/player-flow.wxss";
+
+.home-page {
+  padding-top: 24rpx;
+}
+
+.home-entry {
+  position: relative;
+  display: grid;
+  gap: var(--yh-space-4);
+  padding: 34rpx 28rpx 30rpx;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 12%, rgba(255, 128, 0, 0.22), transparent 230rpx),
+    linear-gradient(135deg, rgba(44, 30, 18, 0.96), rgba(10, 8, 6, 0.98) 62%, rgba(55, 20, 0, 0.9));
+  border: 1rpx solid rgba(255, 136, 22, 0.42);
+  box-shadow:
+    0 22rpx 52rpx rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1rpx rgba(255, 216, 157, 0.08);
+  clip-path: polygon(26rpx 0, calc(100% - 22rpx) 0, 100% 22rpx, 100% calc(100% - 26rpx), calc(100% - 26rpx) 100%, 0 100%, 0 26rpx);
+}
+
+.home-entry::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.38;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 2rpx, transparent 2rpx 28rpx),
+    linear-gradient(112deg, transparent 0 50%, rgba(255, 118, 0, 0.18) 50% 66%, transparent 66%);
+  pointer-events: none;
+}
+
+.home-entry__copy,
+.home-entry__action {
+  position: relative;
+  z-index: 1;
+}
+
+.home-entry__eyebrow,
+.home-entry__title,
+.home-entry__meta,
+.home-entry__status,
+.home-entry__hint {
+  display: block;
+}
+
+.home-entry__eyebrow {
+  color: var(--yh-color-orange);
+  font-size: var(--yh-text-xs);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.home-entry__title {
+  margin-top: 10rpx;
+  color: var(--yh-color-text);
+  font-size: 50rpx;
+  font-weight: 900;
+  line-height: 1.08;
+}
+
+.home-entry__meta {
+  margin-top: 12rpx;
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-sm);
+  font-weight: 900;
+}
+
+.home-entry__action {
+  display: grid;
+  gap: 18rpx;
+}
+
+.home-entry__status {
+  justify-self: start;
+  min-height: 44rpx;
+  padding: 0 18rpx;
+  color: #160b04;
+  font-size: var(--yh-text-xs);
+  font-weight: 900;
+  line-height: 44rpx;
+  background: linear-gradient(180deg, #ffcf72, #ff8b18);
+  box-shadow: 0 0 22rpx rgba(255, 118, 0, 0.28);
+  clip-path: polygon(12rpx 0, 100% 0, 100% calc(100% - 12rpx), calc(100% - 12rpx) 100%, 0 100%, 0 12rpx);
+}
+
+.home-entry__status.is-muted {
+  color: var(--yh-color-text-muted);
+  background: linear-gradient(180deg, #312b24, #16120e);
+  box-shadow: none;
+}
+
+.home-entry__hint {
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.home-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14rpx;
+}
+
+.home-shortcuts > view {
+  min-width: 0;
+  padding: 22rpx 16rpx;
+  background: rgba(8, 7, 6, 0.62);
+  border: 1rpx solid rgba(255, 214, 145, 0.14);
+  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+}
+
+.home-shortcuts text {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-shortcuts text:first-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-sm);
+  font-weight: 900;
+}
+
+.home-shortcuts text:last-child {
+  margin-top: 8rpx;
+  color: var(--yh-color-gold-bright);
+  font-size: var(--yh-text-xs);
+  font-weight: 900;
+}

@@ -8,6 +8,11 @@
 
 set -e
 
+# Deprecated: the old Claude-driven digest automation is intentionally paused.
+# Keep this file for reference; new production lines will get their own entrypoints.
+echo "Self-Media digest automation is disabled. No work was run."
+exit 0
+
 # ----- 环境 -----
 export PATH="$HOME/.local/bin:$HOME/.nvm/versions/node/v24.15.0/bin:/usr/local/bin:/usr/bin:/bin"
 # Clash 代理（WSL 走 Windows Clash）
@@ -24,7 +29,11 @@ fi
 
 # ----- 路径 -----
 PROJECT="/home/lyric/Making money/Lyric-Self-Improve/projects/Self-Media"
-DATE=$(date +%F)                    # "今天" = 2026-05-18
+# 设计原则：「<触发日> 跑 <触发日-1> 的事件」
+# - DATE       = 今天 = 发布日 = 产物目录 + 邮件标题
+# - CONTENT_DATE = 昨天 = fetch 哪天的事件（数据完整）
+DATE=$(date +%F)
+CONTENT_DATE=$(date -d 'yesterday' +%F)
 LOG="/tmp/daily-${DATE}.log"
 STATE_FILE="${PROJECT}/daily/${DATE}/digest/.scheduled-state"
 
@@ -35,7 +44,8 @@ mkdir -p "daily/${DATE}/digest"
 {
   echo "═════════════════════════════════════════"
   echo "  Daily Pipeline · $(date '+%Y-%m-%d %H:%M:%S')"
-  echo "  Date: ${DATE}"
+  echo "  Publish Date: ${DATE}"
+  echo "  Content Date: ${CONTENT_DATE}（昨日 AI 圈）"
   echo "  PWD: $(pwd)"
   echo "  PATH: ${PATH}"
   echo "═════════════════════════════════════════"
@@ -43,7 +53,7 @@ mkdir -p "daily/${DATE}/digest"
 
 # ----- 跑 run.py --auto -----
 set +e
-python3 lines/digest/run.py "$DATE" --auto >> "$LOG" 2>&1
+python3 lines/digest/run.py "$DATE" --content-date "$CONTENT_DATE" --auto >> "$LOG" 2>&1
 EXIT=$?
 set -e
 

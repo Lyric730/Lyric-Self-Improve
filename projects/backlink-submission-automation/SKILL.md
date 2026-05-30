@@ -21,7 +21,7 @@ Never hardcode a product's positioning, URL, country, assets, or forbidden wordi
 
 ## Skill Folder Contract
 
-This skill must be usable from the folder alone. `SKILL.md` is the complete operating entrypoint. Files under `references/` are bundled internal manuals for deeper steps; they are not external prerequisites for the user to read before starting. Files under `scripts/` are the executable helpers.
+This skill must be usable from the folder alone. `SKILL.md` is the complete operating entrypoint. Files under `references/` are bundled internal manuals for deeper steps; they are not external prerequisites for the user to read before starting. Prefer Markdown procedures and SQL snippets for database work. Files under `scripts/` are only small helpers for profile bootstrapping, screenshot fallback, and static rel verification.
 
 Files under `candidate-packs/` are also bundled skill resources. When a user installs the skill from Git, a ZIP archive, or by copying the whole `backlink-submission-automation/` folder into `CODEX_HOME/skills`, the candidate CSVs and `candidate-packs/manifest.json` travel with the skill. Do not require a new user to have the original local SQLite database, LXX invite, or Ahrefs account if a prepared pack is already bundled.
 
@@ -111,13 +111,11 @@ python skills/backlink-submission-automation/scripts/init_campaign_profile.py \
   --answers-json path/to/structured-answers.json
 ```
 
-Then initialize the DB from the saved profile:
+Then initialize the DB from the saved profile using `references/sql-workflows.md`:
 
-```bash
-python skills/backlink-submission-automation/scripts/bootstrap_backlink_db.py \
-  --db campaigns/<campaign-slug>/data/backlinks.db \
-  --profile campaigns/<campaign-slug>/profile/profile.json
-```
+1. Run **Bootstrap Schema**.
+2. Run **Live Write Guards**.
+3. Run **Seed Profile Basics** with values from `campaigns/<campaign-slug>/profile/profile.json`.
 
 If images are missing, create screenshots automatically before first submissions:
 
@@ -142,25 +140,18 @@ Keep real passwords in the campaign database or an approved team vault, not in t
    - Ask the user to choose:
      1. import their own candidate source file/folder/database, or
      2. use bundled/team-prepared candidate packs and execute one by one.
-   - For imported sources, use `scripts/import_candidates.py`.
-   - For prepared packs, read `candidate-packs/manifest.json`, then import one or more CSVs from `candidate-packs/`.
+   - For imported sources, read `references/source-to-candidate.md`, then import with `references/sql-workflows.md`.
+   - For prepared packs, read `candidate-packs/manifest.json`, then import one or more CSVs from `candidate-packs/` with the **Import Candidate CSV** SQL workflow.
    - LXX is optional: users without an LXX invite/code cannot see the full list, so treat LXX as a prepared candidate pack once the team exports it.
    - Ahrefs-derived packs are research packs unless the row is clearly actionable, such as an awesome-list repository. Inspect the route in the browser before submitting.
    - Legacy 226 packs are review packs. Re-open every URL; do not trust old audit labels.
 
-Prepared-pack import example:
-
-```bash
-python skills/backlink-submission-automation/scripts/import_candidates.py \
-  --db campaigns/<campaign-slug>/data/backlinks.db \
-  --csv skills/backlink-submission-automation/candidate-packs/lxx-ai.csv \
-  --source lxx_ai
-```
+Prepared-pack import: use `references/sql-workflows.md` → **Import Candidate CSV** and replace the CSV path with the chosen pack path, such as `skills/backlink-submission-automation/candidate-packs/lxx-ai.csv`.
 
 3. **Ingest and score candidates**
    - Read `references/source-to-candidate.md` when importing LXX, Ahrefs, GitHub, Serper, legacy pools, or arbitrary CSVs.
-   - Import CSV candidates with `scripts/import_candidates.py`.
-   - Select the next batch with `scripts/next_candidates.py`; it combines DR, stored priority, product relevance, public-link evidence, friction, and manual-hold filters.
+   - Import CSV candidates with `references/sql-workflows.md` → **Import Candidate CSV**.
+   - Select the next batch with `references/sql-workflows.md` → **Select Next Candidates**; it combines DR, stored priority, product relevance, public-link evidence, friction, and manual-hold filters.
    - Hold high-effort flagship platforms for manual launch unless the user explicitly assigns them.
 
 4. **Preflight each site in the browser**
@@ -172,25 +163,25 @@ python skills/backlink-submission-automation/scripts/import_candidates.py \
 5. **Submit with bounded retries**
    - Read `references/submission-sop.md` for field mapping and site-type playbooks.
    - Each candidate/submission gets at most **3 attempts**.
-   - After each failed attempt, record an attempt row with `scripts/record_submission.py error`.
+   - After each failed attempt, record an attempt row with `references/sql-workflows.md` → **Record Failed Attempt And Escalation**.
    - If the same submission still fails after attempt 3, stop retrying that submission, record `failed`, and move to the next candidate.
    - If the same error signature occurs **3 times across the batch/campaign**, stop the task and optimize the workflow once.
    - If that one optimization does not fix the error, stop solving that error class; record it as `unresolved_high_priority` in `error_patterns` and continue around it.
 
 6. **Record immediately**
-   - Use `scripts/record_submission.py` for submissions, attempts, errors, and accounts.
+   - Use `references/sql-workflows.md` for submissions, attempts, errors, accounts, and reports.
    - Record failed, skipped, blocked, and pending items too. This prevents repeated dead-end work.
-   - Do not record `status=live` or `status=live_plain_text` until public evidence has been checked; the script requires `--verified`, `--evidence`, and `--live-url` for those states.
+   - Do not record `status=live` or `status=live_plain_text` until public evidence has been checked; the SQL live-write guards require `live_url` and `verification_evidence` for those states.
 
 7. **Verify public value**
    - Read `references/verification-and-reporting.md`.
-   - Use `scripts/verify_rel.py` for static public HTML and browser inspection for JS-rendered pages.
+   - Use `scripts/verify_rel.py` for static public HTML. Use browser inspection plus `references/sql-workflows.md` → **Record Live After Verification** for JS-rendered pages.
    - Count a link as dofollow only when public HTML/DOM contains an actual `<a href>` to the target and rel does not include `nofollow`, `ugc`, or `sponsored`.
    - `rel="me"` is `me_no_pagerank`; it is not KPI dofollow.
    - You cannot force dofollow by editing a third-party `href` in the browser; the public site controls rel.
 
 8. **Report**
-   - Run `scripts/report.py --db data/backlinks.db`.
+   - Run the reporting queries in `references/sql-workflows.md` → **Reports**.
    - Report true dofollow separately from live nofollow, live plain text, pending review, blocked CAPTCHA, failed, skipped, and high-priority unresolved errors.
 
 ## Retry And Error Escalation
@@ -245,6 +236,7 @@ Use these rel values consistently:
 
 - `references/environment.md`: portable setup, browser, credentials, assets, handoff.
 - `references/data-contract.md`: canonical schema, rel/status taxonomy, account and error storage.
+- `references/sql-workflows.md`: database schema, candidate import, scoring, submission recording, retry escalation, and report SQL.
 - `references/source-to-candidate.md`: candidate sourcing, CSV formats, DR/risk filters.
 - `references/submission-sop.md`: browser submission SOP by site type.
 - `references/verification-and-reporting.md`: rel verification, reporting, recheck cadence.
@@ -258,12 +250,7 @@ Use these rel values consistently:
 - `candidate-packs/legacy-226-review.csv`: old 226 blog-comment review pack; browser re-audit is mandatory.
 - `scripts/init_campaign_profile.py`: create/import a campaign profile folder from structured answers.
 - `scripts/capture_homepage_screenshot.py`: capture homepage screenshot when the user did not provide images.
-- `scripts/bootstrap_backlink_db.py`: initialize/extend SQLite campaign database.
-- `scripts/import_candidates.py`: import candidates from CSV.
-- `scripts/next_candidates.py`: select prioritized candidates.
-- `scripts/record_submission.py`: insert/update submissions, attempts, errors, and credentials.
-- `scripts/verify_rel.py`: classify public backlink rel from HTML.
-- `scripts/report.py`: summarize KPI, pending work, accounts, failures, and high-priority errors.
+- `scripts/verify_rel.py`: classify static public backlink rel from HTML and optionally update verified submission rows.
 
 ## Completion Checklist
 

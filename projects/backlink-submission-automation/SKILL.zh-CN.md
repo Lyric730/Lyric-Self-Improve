@@ -34,7 +34,8 @@ backlink-submission-automation/
     ahrefs-competitor-backlinks.csv
     legacy-226-review.csv
   references/
-  scripts/
+    sql-workflows.md
+  scripts/  # 只保留 profile、截图、静态 rel 验证小工具
 ```
 
 候选包是 Skill 文件夹的一部分。通过 Git clone、ZIP、或复制整个文件夹安装时，CSV 候选包一起交付。用户不需要拥有原始 SQLite、LXX 邀请码或 Ahrefs 账号才能使用已打包候选包。
@@ -69,30 +70,15 @@ python skills/backlink-submission-automation/scripts/init_campaign_profile.py \
   --answers-json path/to/structured-answers.json
 ```
 
-初始化数据库：
+初始化数据库：打开 `references/sql-workflows.md`，依次执行：
 
-```bash
-python skills/backlink-submission-automation/scripts/bootstrap_backlink_db.py \
-  --db campaigns/<campaign-slug>/data/backlinks.db \
-  --profile campaigns/<campaign-slug>/profile/profile.json
-```
+1. `Bootstrap Schema`
+2. `Live Write Guards`
+3. `Seed Profile Basics`
 
-导入候选包：
+导入候选包：用 `references/sql-workflows.md` 的 `Import Candidate CSV`，把 CSV 路径替换成要导入的候选包路径。
 
-```bash
-python skills/backlink-submission-automation/scripts/import_candidates.py \
-  --db campaigns/<campaign-slug>/data/backlinks.db \
-  --csv skills/backlink-submission-automation/candidate-packs/lxx-ai.csv \
-  --source lxx_ai
-```
-
-查看下一批：
-
-```bash
-python skills/backlink-submission-automation/scripts/next_candidates.py \
-  --db campaigns/<campaign-slug>/data/backlinks.db \
-  --limit 10
-```
+查看下一批：用 `references/sql-workflows.md` 的 `Select Next Candidates`。需要把 `profile_terms` 改成当前产品 profile 的关键词。
 
 ## 执行规则
 
@@ -116,7 +102,7 @@ python skills/backlink-submission-automation/scripts/next_candidates.py \
 
 ## 排序规则
 
-候选排序不只看 DR。`next_candidates.py` 会综合：
+候选排序不只看 DR。`references/sql-workflows.md` 的候选排序 SQL 会综合：
 
 - DR
 - 已存 `priority`
@@ -130,12 +116,11 @@ DR 低于 profile 阈值默认跳过。DR 20-39 只有高相关、低摩擦时�
 
 提交后先记录为 `submitted` 或 `pending_review`。不能因为看到成功页就标 `live`。
 
-`record_submission.py submission` 对 `status=live` / `status=live_plain_text` 强制要求：
+DB 写库规则对 `status=live` / `status=live_plain_text` 强制要求：
 
-- `--verified`
-- `--evidence`
-- `--live-url`
-- `--rel`，其中 `live` 不能是 `unknown`、`no_link_found`、`pending_expected_dofollow`、`live_plain_text`
+- `live_url`
+- `verification_evidence`
+- `rel_actual`，其中 `live` 不能是 `unknown`、`no_link_found`、`pending_expected_dofollow`、`live_plain_text`
 
 静态 HTML 可用：
 
@@ -147,18 +132,7 @@ python skills/backlink-submission-automation/scripts/verify_rel.py \
   --target-domain product.example
 ```
 
-JS 渲染页面需要用真实浏览器检查 DOM，再带证据写库：
-
-```bash
-python skills/backlink-submission-automation/scripts/record_submission.py submission \
-  --db campaigns/<campaign-slug>/data/backlinks.db \
-  --id 123 \
-  --status live \
-  --rel nofollow \
-  --live-url https://example.com/products/product-name \
-  --verified \
-  --evidence "logged-out DOM showed public anchor rel=nofollow"
-```
+JS 渲染页面需要用真实浏览器检查 DOM，再用 `references/sql-workflows.md` 的 `Record Live After Verification` 带证据写库。
 
 ## 状态值
 

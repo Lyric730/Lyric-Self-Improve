@@ -133,11 +133,18 @@ def verify(html_text: str, target_domain: str) -> dict:
 def update_db(db: str, submission_id: int, result: dict, live_url: str) -> None:
     conn = sqlite3.connect(db)
     cur = conn.cursor()
+    columns = {row[1] for row in cur.execute("PRAGMA table_info(submissions)").fetchall()}
+    if "verification_evidence" not in columns:
+        cur.execute("ALTER TABLE submissions ADD COLUMN verification_evidence TEXT")
+    if "verified_at" not in columns:
+        cur.execute("ALTER TABLE submissions ADD COLUMN verified_at TEXT")
     note = f"verify_rel.py: {result['reason']}; matches={len(result['matches'])}"
     cur.execute(
         """
         UPDATE submissions
         SET status=?, rel_actual=?, live_url=COALESCE(?, live_url),
+            verification_evidence=?,
+            verified_at=CURRENT_TIMESTAMP,
             notes=CASE
                 WHEN notes IS NULL OR notes='' THEN ?
                 ELSE notes || char(10) || ?
@@ -148,6 +155,7 @@ def update_db(db: str, submission_id: int, result: dict, live_url: str) -> None:
             result["status"],
             result["rel_actual"],
             live_url,
+            note,
             note,
             note,
             submission_id,

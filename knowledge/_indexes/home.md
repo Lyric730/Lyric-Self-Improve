@@ -6,21 +6,22 @@
 
 | 区域 | 入口 | 当前状态 |
 | --- | --- | --- |
-| AI 协作 | [AI Workflows](../ai-workflows/README.md) | 已新增 Codex + Obsidian SOP |
+| AI 协作 | [AI Workflows](../ai-workflows/README.md) | 已有 Codex + Obsidian SOP |
 | 求职/职业 | [Career](../career/README.md) | AI PM 材料已迁到项目区 |
 | 内容生产 | [Content Playbooks](../content-playbooks/README.md) | 已沉淀 Self-Media 多条产线和 Growth Engine SOP |
-| 增长打法 | [Growth Playbooks](../growth-playbooks/README.md) | 已有 Yolox SEO SOP 和 SEO skill |
+| 增长打法 | [Growth Playbooks](../growth-playbooks/README.md) | 已有 Yolox SEO SOP、SEO skill 和 Backlink Submission Automation SOP |
 | 长期判断 | [Insights](../insights/README.md) | 有入口，待补主题索引 |
 | 产品/运营 | [Product Playbooks](../product-playbooks/README.md) | 已沉淀 Taiqiu、Token Relay、Huoshanbei SOP |
-| 临时收集 | [00 Inbox](../00-inbox/README.md) | 新增，作为未整理材料入口 |
+| 临时收集 | [00 Inbox](../00-inbox/README.md) | 作为未整理材料入口 |
 
 ## 当前重点项目
 
-- [AI PM 求职项目](../../projects/AI%20PM/ai-pm-target-positioning.md)
+- [AI PM 求职项目](../../projects/AI PM/ai-pm-target-positioning.md)
 - [Yolox SEO 项目](../../projects/Yolox-SEO/README.md)
 - [Self-Media 项目](../../projects/Self-Media/README.md)
 - [台球小程序项目](../../projects/taiqiuxcx/AGENTS.md)
 - [Growth Engine Pipeline](../../projects/growth-engine-pipeline/README.md)
+- [Backlink Submission Automation](../../projects/backlink-submission-automation/SKILL.md)
 
 ## SOP 地图
 

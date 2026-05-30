@@ -7,6 +7,7 @@
 - [SEO / Yolox SEO SOP](seo/yolox-seo-sop.md)
 - [Practical SEO Execution Skill](seo/skills/practical-seo-execution/SKILL.md)
 - [Yolox SEO Project Workflows](seo/project-sops/yolox-seo/workflows/)
+- [Backlink Submission Automation SOP](seo/project-sops/backlink-submission-automation/README.md)
 
 ## 放什么
 

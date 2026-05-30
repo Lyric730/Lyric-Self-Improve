@@ -4,8 +4,8 @@ This is a bundled internal reference. The user does not need to read it before s
 
 ## Required Tools
 
-- Python 3.10+ with standard library `sqlite3`, `csv`, `json`, `urllib`.
-- SQLite database file for campaign state.
+- SQLite database file for campaign state. Use SQLite CLI when available; otherwise run the inline SQL through Python's standard `sqlite3` module as shown in `references/sql-workflows.md`.
+- Python 3.10+ only for the bundled helper scripts: profile folder creation/import, screenshot fallback, and static rel verification.
 - A real browser automation path:
   - Required for live submissions: an approved interactive browser controller connected to a real user browser/profile.
   - Examples: Codex Chrome Extension, Claude Code browser MCP/plugin, or another runtime-approved browser controller with cookies, OAuth, file upload, and human-verification handoff.
@@ -58,13 +58,13 @@ python skills/backlink-submission-automation/scripts/init_campaign_profile.py \
   --import-path /path/to/existing/profile-or-repo
 ```
 
-```bash
-python skills/backlink-submission-automation/scripts/bootstrap_backlink_db.py \
-  --db campaigns/<campaign-slug>/data/backlinks.db \
-  --profile campaigns/<campaign-slug>/profile/profile.json
-```
+Initialize `campaigns/<campaign-slug>/data/backlinks.db` with `references/sql-workflows.md`:
 
-Run this on every new database. It is idempotent.
+1. Run **Bootstrap Schema**.
+2. Run **Live Write Guards**.
+3. Run **Seed Profile Basics** from the saved `profile/profile.json`.
+
+Run these on every new database. They are idempotent except the migration block, where duplicate-column errors mean the column already exists.
 
 ## Candidate Import
 
@@ -75,23 +75,9 @@ domain,url,dr,category,source,notes
 example.com,https://example.com/submit,72,AI directory,lxx_ai,page 1
 ```
 
-Then run:
+Then import it with `references/sql-workflows.md` → **Import Candidate CSV**.
 
-```bash
-python skills/backlink-submission-automation/scripts/import_candidates.py \
-  --db data/backlinks.db \
-  --csv data/candidates.csv \
-  --source lxx_ai
-```
-
-Use a prepared candidate pack:
-
-```bash
-python skills/backlink-submission-automation/scripts/import_candidates.py \
-  --db campaigns/<campaign-slug>/data/backlinks.db \
-  --csv skills/backlink-submission-automation/candidate-packs/starter-pack.csv \
-  --source starter_pack
-```
+Use prepared candidate packs the same way by replacing the CSV path with a file under `candidate-packs/`.
 
 After the team exports the full LXX list, store it as `candidate-packs/lxx-ai.csv` and import it the same way. New users without LXX access should use the prepared pack instead of trying to log in.
 
@@ -179,9 +165,9 @@ If a submission form asks for a "Screenshot URL", use a stable public asset URL 
 
 ## Health Check
 
-```bash
-python skills/backlink-submission-automation/scripts/report.py --db data/backlinks.db
-python skills/backlink-submission-automation/scripts/next_candidates.py --db data/backlinks.db --limit 5
-```
+Use `references/sql-workflows.md`:
 
-The first command should show KPI counts. The second should return candidates or explain why the queue is empty.
+1. **Reports** → KPI and status breakdown.
+2. **Select Next Candidates** → next batch queue.
+
+The report should show KPI counts. Candidate selection should return rows or make the queue/filter reason obvious.

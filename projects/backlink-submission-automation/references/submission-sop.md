@@ -112,52 +112,18 @@ Keep only necessary handoff tabs open. Close all others.
 
 ## Account Recording
 
-After account creation, immediately run:
+After account creation, immediately record it with `references/sql-workflows.md` → **Record Account Credentials**.
 
-```bash
-python skills/backlink-submission-automation/scripts/record_submission.py account \
-  --db data/backlinks.db \
-  --platform example.com \
-  --email submit@example.com \
-  --username productname \
-  --password 'vault:Backlink/example.com' \
-  --auth-method email_password \
-  --credential-status confirmed \
-  --notes "Created during directory submission"
-```
-
-If the user wants direct password storage, put the password in `--password`. If a password manager is used, put the vault pointer there.
+If the user wants direct password storage, put the password in the SQL `password` value. If a password manager is used, put the vault pointer there.
 
 ## Submission Recording
 
-After each attempt:
+After each accepted submit/profile/PR action, record it with `references/sql-workflows.md` → **Record Submitted Or Pending**.
 
-```bash
-python skills/backlink-submission-automation/scripts/record_submission.py submission \
-  --db data/backlinks.db \
-  --platform example.com \
-  --submit-url https://example.com/submit \
-  --target-url https://product.example/ \
-  --status pending_review \
-  --rel unknown \
-  --live-url https://example.com/products/product-name \
-  --notes "Submitted free listing; waiting approval"
-```
+Keep `status='submitted'` or `status='pending_review'` until public evidence is checked.
 
 ## Retry Recording
 
-Each submission/candidate may be attempted at most three times. After each failed attempt, record it:
+Each submission/candidate may be attempted at most three times. After each failed attempt, record it with `references/sql-workflows.md` → **Record Failed Attempt And Escalation**.
 
-```bash
-python skills/backlink-submission-automation/scripts/record_submission.py error \
-  --db data/backlinks.db \
-  --platform example.com \
-  --source-table candidates \
-  --source-id 12 \
-  --attempt-no 1 \
-  --error-signature upload_button_timeout \
-  --error-message "Image upload button timed out after file chooser opened" \
-  --notes "Retry with smaller PNG"
-```
-
-If the same error signature reaches three occurrences, stop the batch and optimize once. If the same error occurs after that optimization, record it with `--after-optimization`; the script marks it `unresolved_high_priority` and the agent should route around it.
+If the same error signature reaches three occurrences, stop the batch and optimize once. If the same error occurs after that optimization, mark the pattern `unresolved_high_priority` and route around it.

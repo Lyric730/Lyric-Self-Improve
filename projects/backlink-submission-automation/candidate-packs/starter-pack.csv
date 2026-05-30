@@ -1,6 +1,6 @@
-domain,url,dr,category,source,submission_type,notes
-github.com,https://github.com/search?q=awesome+ai+tools&type=repositories,97,GitHub awesome lists,starter,github_pr,Search and choose maintained relevant lists; do not bulk PR blindly
-tailwindcss.com,https://tailwindcss.com/showcase,90,Showcase,starter,directory,Submit only if product site genuinely uses Tailwind and quality is high
-producthunt.com,https://www.producthunt.com/,92,Launch platform,starter,directory,Manual hold by default; do not automate launch submission
-saashub.com,https://www.saashub.com/,77,SaaS directory,starter,directory,Directory listing route; verify outbound rel after approval
-aiai.tools,https://aiai.tools/submit-ai-tool,31,AI directory,starter,directory,Example self-serve submit form
+id,source_id,source,domain,url,dr,traffic,category,submission_type,priority,notes
+1,starter-github-awesome,starter,github.com,https://github.com/search?q=awesome+ai+tools&type=repositories,97,,GitHub awesome lists,github_pr,130,Search and choose maintained relevant lists; do not bulk PR blindly
+2,starter-tailwind-showcase,starter,tailwindcss.com,https://tailwindcss.com/showcase,90,,Showcase,directory,110,Submit only if product site genuinely uses Tailwind and quality is high
+3,starter-producthunt,starter,producthunt.com,https://www.producthunt.com/,92,,Launch platform,directory,10,manual_hold=true; Manual hold by default; do not automate launch submission
+4,starter-saashub,starter,saashub.com,https://www.saashub.com/,77,,SaaS directory,directory,95,Directory listing route; verify outbound rel after approval
+5,starter-aiai,starter,aiai.tools,https://aiai.tools/submit-ai-tool,31,,AI directory,directory,60,Example self-serve submit form

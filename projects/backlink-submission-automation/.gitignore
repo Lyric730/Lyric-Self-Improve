@@ -1,0 +1,9 @@
+.local-script-archive/
+__pycache__/
+*.pyc
+*.pyo
+campaigns/
+outputs/
+*.db
+*.sqlite
+*.sqlite3

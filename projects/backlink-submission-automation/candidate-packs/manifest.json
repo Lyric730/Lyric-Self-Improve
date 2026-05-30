@@ -25,7 +25,7 @@
       "description": "Small safe starter pack for first-run smoke tests and users without their own source.",
       "import_source": "starter_pack",
       "notes": "Contains manual-hold examples; selection filters still apply.",
-      "import_command": "python skills/backlink-submission-automation/scripts/import_candidates.py --db campaigns/<campaign-slug>/data/backlinks.db --csv skills/backlink-submission-automation/candidate-packs/starter-pack.csv --source starter_pack"
+      "import_command": "Use references/sql-workflows.md#Import Candidate CSV with skills/backlink-submission-automation/candidate-packs/starter-pack.csv"
     },
     {
       "name": "lxx-ai",
@@ -35,7 +35,7 @@
       "description": "Chrome-exported LXX directory/profile/classified candidates bundled with the skill.",
       "import_source": "lxx_ai",
       "notes": "Raw page showed 3328 backlinks; bundled CSV is URL-normalized, deduped, filtered to DR>=20 when DR is known, with obvious spam domains removed. Manual-hold platforms are marked and deprioritized.",
-      "import_command": "python skills/backlink-submission-automation/scripts/import_candidates.py --db campaigns/<campaign-slug>/data/backlinks.db --csv skills/backlink-submission-automation/candidate-packs/lxx-ai.csv --source lxx_ai"
+      "import_command": "Use references/sql-workflows.md#Import Candidate CSV with skills/backlink-submission-automation/candidate-packs/lxx-ai.csv"
     },
     {
       "name": "ahrefs-competitor-backlinks",
@@ -45,7 +45,7 @@
       "description": "Competitor backlink reverse-engineering candidates; inspect route before submitting.",
       "import_source": "ahrefs",
       "notes": "Filtered to DR>=20 when DR is known; domain_seen_count boosts repeated platforms.",
-      "import_command": "python skills/backlink-submission-automation/scripts/import_candidates.py --db campaigns/<campaign-slug>/data/backlinks.db --csv skills/backlink-submission-automation/candidate-packs/ahrefs-competitor-backlinks.csv --source ahrefs"
+      "import_command": "Use references/sql-workflows.md#Import Candidate CSV with skills/backlink-submission-automation/candidate-packs/ahrefs-competitor-backlinks.csv"
     },
     {
       "name": "legacy-226-review",
@@ -55,7 +55,7 @@
       "description": "Legacy 226-pool blog-comment URLs with a prior URL field signal; must re-audit in browser.",
       "import_source": "legacy_226",
       "notes": "Review-only pack; DR is usually unknown and previous audit labels are not final.",
-      "import_command": "python skills/backlink-submission-automation/scripts/import_candidates.py --db campaigns/<campaign-slug>/data/backlinks.db --csv skills/backlink-submission-automation/candidate-packs/legacy-226-review.csv --source legacy_226"
+      "import_command": "Use references/sql-workflows.md#Import Candidate CSV with skills/backlink-submission-automation/candidate-packs/legacy-226-review.csv"
     }
   ]
 }

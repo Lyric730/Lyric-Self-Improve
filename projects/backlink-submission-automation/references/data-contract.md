@@ -28,7 +28,7 @@ Normalized candidate pool from LXX, Ahrefs, GitHub search, Serper, legacy pools,
 | `category` | directory/profile/comment/classified/github/showcase/etc. |
 | `submission_type` | `directory`, `profile`, `blog_comment`, `classified`, `github_pr`, `document`, `media`, `community`, `unknown` |
 | `priority` | higher = sooner |
-| `relevance_score` | product/profile relevance boost; can be stored or computed by `next_candidates.py` |
+| `relevance_score` | product/profile relevance boost; can be stored or computed by selection SQL |
 | `evidence_score` | route/evidence boost, such as known dofollow samples or visible submit route |
 | `status` | `new`, `queued`, `submitted`, `skipped`, `blocked`, `failed`, `live` |
 | `notes` | inspection notes |
@@ -48,6 +48,8 @@ Every actual attempt or verified result.
 | `status` | current execution status |
 | `rel_actual` | verified rel classification |
 | `live_url` | public page URL if known |
+| `verification_evidence` | public proof used before writing `live` or `live_plain_text` |
+| `verified_at` | timestamp for public verification |
 | `error_log` | exact failure or traceback |
 | `notes` | human-readable audit trail |
 
@@ -104,6 +106,7 @@ Operational account handoff. Store real passwords only if approved.
 |---|---|
 | `live` | public page exists and rel was verified |
 | `live_plain_text` | URL appears as text but no outbound `<a href>` |
+| `submitted` | form/action was accepted, but no public approval state is known yet |
 | `pending` | submitted or partially submitted, final public state unknown |
 | `pending_review` | explicit admin/moderation review |
 | `pending_email_confirmation` | email verification blocks completion |

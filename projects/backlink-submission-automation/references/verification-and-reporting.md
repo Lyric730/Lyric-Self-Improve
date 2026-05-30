@@ -65,19 +65,9 @@ python skills/backlink-submission-automation/scripts/verify_rel.py \
 
 If the site requires JS, use browser verification and then update manually:
 
-```bash
-python skills/backlink-submission-automation/scripts/record_submission.py submission \
-  --db data/backlinks.db \
-  --id 123 \
-  --status live \
-  --rel nofollow \
-  --live-url https://example.com/products/product-name \
-  --verified \
-  --evidence "logged-out browser DOM showed a[href*='product.example'] rel=nofollow" \
-  --notes "Browser DOM verified rel=nofollow"
-```
+Use `references/sql-workflows.md` → **Record Live After Verification** with `live_url`, `rel_actual`, and `verification_evidence`.
 
-`record_submission.py submission` refuses `status=live` or `status=live_plain_text` without `--verified`, `--evidence`, and `--live-url`. Pending/submitted rows may be recorded immediately, but live value must be verified first.
+The DB live-write guards refuse `status=live` or `status=live_plain_text` without `live_url` and `verification_evidence`. Pending/submitted rows may be recorded immediately, but live value must be verified first.
 
 ## Recheck Cadence
 

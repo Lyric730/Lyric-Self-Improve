@@ -21,7 +21,7 @@ aiai.tools,https://aiai.tools/submit-ai-tool,31,AI directory,lxx_ai,directory,40
 github.com,https://github.com/org/repo,97,awesome list,manual,github_pr,80,25,15,needs PR
 ```
 
-`relevance_score` and `evidence_score` are optional. If missing, `import_candidates.py` defaults them to 0 and `next_candidates.py` computes additional relevance from the campaign profile.
+`relevance_score` and `evidence_score` are optional. If missing, import SQL defaults them to 0 and the selection SQL computes additional relevance from the campaign profile terms.
 
 ## After Profile Completion
 
@@ -74,14 +74,7 @@ WHERE status IN ('new', 'queued')
 ORDER BY priority DESC, relevance_score DESC, evidence_score DESC, COALESCE(dr, 0) DESC;
 ```
 
-Import:
-
-```bash
-python skills/backlink-submission-automation/scripts/import_candidates.py \
-  --db data/backlinks.db \
-  --csv data/candidates.csv \
-  --source lxx_ai
-```
+Import with `references/sql-workflows.md` → **Import Candidate CSV**. The bundled packs use the normalized column order documented there.
 
 ## Filtering Rules
 
@@ -97,7 +90,7 @@ Default filters:
 
 ## Scoring Heuristic
 
-Assign priority using this rough model:
+Assign priority using this rough model, then use `references/sql-workflows.md` → **Select Next Candidates**:
 
 ```text
 priority =

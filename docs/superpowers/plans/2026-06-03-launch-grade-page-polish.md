@@ -170,12 +170,26 @@ Use DevTools preview and manually test:
 - [x] Boss page allows numeric parameters to be adjusted locally.
 - [x] TV screen is 16:9 and not based on cramped mobile layout.
 
+## Stage 8: 运营服务层兜底测试与云接入清单
+
+**Files:**
+- Create: `scripts/test-ops-services.js`
+- Create: `docs/cloud-function-cutover-checklist.md`
+- Modify: `docs/api-service-layer-contract.md`
+- Create: `docs/reviews/phase-38-ops-service-fallback-review.md`
+
+- [x] Add a repeatable Node test for DevTools local fallback.
+- [x] Cover owner config, staff due time, member exchange lookup, points deduction, abnormal voiding, member code fallback, and screen config propagation.
+- [x] Document cloud function cutover checklist for tomorrow's cloud environment work.
+- [x] Add the new test to standard verification.
+
 ## Standard Verification
 
 Run after each stage:
 
 ```powershell
 Get-ChildItem miniprogram -Recurse -Filter *.js | ForEach-Object { node --check $_.FullName }
+node scripts/test-ops-services.js
 node scripts/check-json-files.js
 node scripts/check-production-copy.js
 node scripts/check-player-flow-routes.js

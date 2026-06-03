@@ -15,9 +15,9 @@
 | `miniprogram/services/player-service.js` | 球友首页、房间、邀请、我的数据、排行榜、积分礼遇 | `ladder-data.js` | `/matches`、`/me/stats`、`/rankings`、`/points/perks` |
 | `miniprogram/services/member-service.js` | 会员码、会员资料读取与保存 | 云函数 + 本地缓存兜底 | `/member/code`、`/member/profile` |
 | `miniprogram/services/match-service.js` | 玩法模板、开局参数、当前比赛、结算结果 | `ladder-data.js` | `/matches/:id`、`/matches/:id/config`、`/matches/:id/settle/*` |
-| `miniprogram/services/staff-service.js` | 员工球桌、到点时间、积分核销、异常作废 | `ladder-data.js` + 本地操作日志入口 | `/staff/tables`、`/staff/points/deduct`、`/staff/matches/:id/void` |
-| `miniprogram/services/admin-service.js` | 老板配置读取与保存 | `ladder-data.js` + 本地操作日志入口 | `/admin/config/*` |
-| `miniprogram/services/screen-service.js` | 小程序大屏榜单数据 | `ladder-data.js` | `/screen/ranking`、`/screen/bounty` |
+| `miniprogram/services/staff-service.js` | 员工球桌、到点时间、积分核销、异常作废 | 云函数 + DevTools 本地缓存兜底 | `/staff/tables`、`/staff/points/deduct`、`/staff/matches/:id/void` |
+| `miniprogram/services/admin-service.js` | 老板配置读取与保存 | 云函数 + 本地配置缓存 | `/admin/config/*` |
+| `miniprogram/services/screen-service.js` | 小程序大屏榜单数据 | `ladder-data.js` + 老板端大屏配置 | `/screen/ranking`、`/screen/bounty` |
 
 ## 3. 页面调用规则
 
@@ -70,6 +70,8 @@ callCloud(moduleName, action, payload)
 
 注意：`admin-config-validator` 当前只在小程序端执行。正式云环境可用后，`admin.saveConfig` 云函数也必须复用同一套校验，不能只相信前端传参。
 
+当前为了保证微信开发者工具在无云环境时可继续预览，`member-service`、`staff-service`、`admin-service` 保留 DevTools 本地兜底。生产环境不能依赖这些兜底；云函数可用后，必须按 `docs/cloud-function-cutover-checklist.md` 做真实落库验证。
+
 云函数入口：`cloudfunctions/yunhanApi/index.js`。
 
 首个老板账号初始化见：`docs/cloud-init-runbook.md`。该流程通过 `auth.bootstrapOwner` 执行一次，不做成前端页面。
@@ -113,6 +115,7 @@ callCloud(moduleName, action, payload)
 后续每次新增页面或接口，必须满足：
 
 ```powershell
+node scripts/test-ops-services.js
 rg -n "ladder-data|operation-log" miniprogram/pages --glob "*.js"
 ```
 

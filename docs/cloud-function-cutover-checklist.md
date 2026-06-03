@@ -1,0 +1,64 @@
+# 云函数切换上线清单
+
+日期：2026-06-03
+
+## 1. 前置条件
+
+- 微信开发者工具已使用正式小程序 AppID：`wxe30b469d64636a2b`。
+- 已创建云开发环境，并拿到环境 ID。
+- 已按 `docs/cloud-init-runbook.md` 创建集合、索引、云函数环境变量和首个 owner。
+- 已部署 `cloudfunctions/yunhanApi`，并选择云端安装依赖。
+
+## 2. 必测接口
+
+| 模块 | action | 前端入口 | 必须验证 |
+| --- | --- | --- | --- |
+| `member` | `getCode` | 会员码页 | 返回真实可扫码二维码、当前积分、当前用户 OpenID 绑定账户 |
+| `member` | `saveProfile` | 我的页个人信息 | 只保存昵称、手机号、备注、头像，不允许前端改积分和段位 |
+| `staff` | `getMemberForExchange` | 前台扫码选择 | 扫码后能查到会员积分账户 |
+| `staff` | `deductMemberPoints` | 前台积分核销 | 扣减余额、写 `points_ledger`、余额不足时拒绝 |
+| `staff` | `updateTableDueTime` | 前台到点时间 | 写 `table_sessions`，再次进入前台能读回 |
+| `staff` | `voidAbnormalMatch` | 异常比赛 | 更新比赛状态，写操作日志 |
+| `admin` | `saveConfig` | 老板端参数 | 复用前端同一套校验，写 `admin_configs` |
+| `screen` | `getBoard` | 电视大屏 | 读取店内总榜、赏金猎人和老板端大屏配置 |
+| `match` | `settle` | 结算链路 | 服务端计算积分、随机奖励、星级，写结算和积分流水 |
+
+## 3. 本地兜底必须替换的点
+
+- `member-service.getMemberCode` 当前 DevTools 无云环境时显示本地视觉码；上线必须显示云函数真实二维码。
+- `staff-service` 当前 DevTools 无云环境时允许本地保存到点时间、核销积分、作废异常；上线必须由云函数真实落库。
+- `admin-service` 当前保存后写本地缓存；上线必须确认 `admin_configs` 云端写入和读取都成功。
+- `screen-service` 当前榜单数据仍来自本地数据；上线必须接真实排行榜数据。
+
+## 4. 上线前验证命令
+
+```powershell
+node scripts/test-ops-services.js
+node scripts/test-settlement-engine.js
+node scripts/test-admin-config-validator.js
+node scripts/test-member-profile.js
+node scripts/check-json-files.js
+node scripts/check-production-copy.js
+node scripts/check-player-flow-routes.js
+powershell -ExecutionPolicy Bypass -File scripts/check-ui-kit-asset-edges.ps1 -RequireAssets
+powershell -ExecutionPolicy Bypass -File scripts/check-wechat-cloud-readiness.ps1 -EnvId '你的云环境ID' -Deploy
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh preview --project 'F:\Making money\taiqiuxcx'
+```
+
+## 5. 人工走查顺序
+
+1. 我的页编辑昵称、手机号、备注、头像，保存后退出重进仍保留。
+2. 会员码页生成二维码，前台扫码能选择同一个会员。
+3. 前台扣除积分，会员积分减少，积分流水有记录。
+4. 前台设置球桌到点时间，退出重进后时间保持。
+5. 老板端修改底分、倍率、随机奖励、大屏标题，保存后退出重进仍保留。
+6. 大屏页显示老板端配置的主榜、副榜、刷新文案。
+7. 球友端完整走一场挑战，结算由云函数完成，重复点击不能重复结算。
+
+## 6. 不能上线的红线
+
+- 会员码不能被员工端扫码识别。
+- 前台核销只改页面、不写积分流水。
+- 老板端保存只在本地缓存成功、云端没有记录。
+- 结算仍由前端单独决定积分和段位。
+- 老板 / 员工权限只靠前端角色切换，不经过云函数角色校验。

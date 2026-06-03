@@ -1875,3 +1875,40 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-37-ops-screen-launch-polish-review.md`
 
+## 2026-06-03 Phase 38 运营服务层兜底测试与云接入清单
+
+本轮目的：把阶段 37 新增的 DevTools 本地兜底写成可复跑测试，并补一份云环境创建后的切换清单，避免明天接云函数时漏接口。
+
+代码变更：
+
+- 新增 `scripts/test-ops-services.js`：
+  - 模拟微信开发者工具环境、无 `wx.cloud`、有本地 storage。
+  - 验证老板配置保存 / 读取。
+  - 验证大屏读取老板端配置。
+  - 验证前台球桌到点时间保存。
+  - 验证会员扫码查询、积分核销、异常作废。
+  - 验证会员码本地视觉码兜底。
+
+文档变更：
+
+- 新增 `docs/cloud-function-cutover-checklist.md`，记录云函数切换前置条件、必测接口、本地兜底替换点、上线前命令、人工走查顺序和不能上线红线。
+- 更新 `docs/api-service-layer-contract.md`，同步运营服务层当前状态。
+- 更新 `docs/superpowers/plans/2026-06-03-launch-grade-page-polish.md`，新增 Stage 8，并把 `node scripts/test-ops-services.js` 加入标准验证。
+
+验证结果：
+
+- `node scripts\test-ops-services.js` 通过，输出 `Ops service fallback tests OK`。
+- `node scripts\test-settlement-engine.js` 通过。
+- `node scripts\test-admin-config-validator.js` 通过。
+- `node scripts\test-member-profile.js` 通过。
+- 全量 `miniprogram` JS `node --check` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `node scripts\check-player-flow-routes.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `747.4 KB` / `765348` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-38-ops-service-fallback-review.md`
+

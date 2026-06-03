@@ -2196,3 +2196,59 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-45-match-result-production-state-review.md`
 
+## 2026-06-03 Phase 46 结算确认页接入云端预览入口
+
+本轮目的：结算确认页不能只靠前端本地公式生成预览。正式环境进入结算确认页时，应先读取服务端预览；预览成功后才允许确认结算。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/match-settlement.js`：
+  - 新增 `buildSettlementPreview(payload)`。
+  - 复用 `buildSettlementWritePlan()` 的结算计算结果。
+  - 只返回结算结果、积分变化和段位变化，不生成写库动作。
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `match.previewSettlement` action。
+  - 抽出 `buildCloudSettlementPayload()` 和 `getMatchForSettlement()`，让预览和确认复用同一套比赛字段合并规则。
+  - `previewSettlement` 会检查比赛存在、未结算、双方积分账户和余额，但不写库。
+- 更新 `miniprogram/services/match-service.js`：
+  - 新增 `previewSettlement(params)`。
+  - 正式环境优先调用 `callCloud("match", "previewSettlement", payload)`。
+  - DevTools 无云环境时才使用本地结算兜底。
+- 更新 `miniprogram/pages/settlement/settlement.js`：
+  - 新增 `previewStatus / previewTitle / previewSubtitle / previewErrorText`。
+  - 预览成功后才允许确认结算和进入不服流程。
+  - 预览失败时支持重新计算和回首页。
+- 重写 `miniprogram/pages/settlement/settlement.wxml`：
+  - `ready` 展示结算预览。
+  - `loading` 展示服务端预览读取中。
+  - `error` 展示正式错误态。
+- 更新 `miniprogram/pages/settlement/settlement.wxss`：
+  - 新增加载/错误状态样式。
+- 更新 `scripts/test-cloud-contracts.js`：
+  - 验证 `buildSettlementPreview()` 与 `buildSettlementWritePlan()` 的结算结果一致。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `match.previewSettlement`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入预览接口必测项。
+- 更新 `docs/api-service-layer-contract.md`，明确预览、确认、结果读取三段的服务层入口。
+- 更新执行计划，新增 Stage 16。
+
+验证结果：
+
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check cloudfunctions\yunhanApi\match-settlement.js` 通过。
+- `node --check miniprogram\services\match-service.js` 通过。
+- `node --check miniprogram\pages\settlement\settlement.js` 通过。
+- `node scripts\test-cloud-contracts.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`，微信开发者工具预览包大小 `773.6 KB / 792134 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，仍未验证真实 `matches`、`member_points` 的读取、权限和余额不足路径。
+- 当前云函数写入还不是事务级；云环境可用后必须做重复点击和中途失败测试。
+
+审查归档：
+
+- `docs/reviews/phase-46-settlement-preview-cloud-entry-review.md`
+

@@ -6,7 +6,7 @@ const miniMember = require("../miniprogram/utils/member-profile");
 const cloudMember = require("../cloudfunctions/yunhanApi/member-profile");
 const miniSettlement = require("../miniprogram/utils/settlement-engine");
 const cloudSettlement = require("../cloudfunctions/yunhanApi/settlement-engine");
-const { buildSettlementWritePlan } = require("../cloudfunctions/yunhanApi/match-settlement");
+const { buildSettlementPreview, buildSettlementWritePlan } = require("../cloudfunctions/yunhanApi/match-settlement");
 const { adminConfig } = require("../miniprogram/utils/ladder-data");
 
 function clone(value) {
@@ -115,6 +115,14 @@ assert.deepStrictEqual(
 );
 assert.strictEqual(settlementPlan.rankChanges.a.deltaStars, 1);
 assert.strictEqual(settlementPlan.rankChanges.b.deltaStars, -1);
+
+const settlementPreview = buildSettlementPreview(settlementInput);
+assert.strictEqual(settlementPreview.ok, true);
+assert.strictEqual(settlementPreview.matchId, settlementPlan.matchId);
+assert.strictEqual(settlementPreview.settlement.winnerDelta, settlementPlan.settlement.winnerDelta);
+assert.strictEqual(settlementPreview.settlement.loserDelta, settlementPlan.settlement.loserDelta);
+assert.deepStrictEqual(settlementPreview.pointChanges, settlementPlan.pointChanges);
+assert.deepStrictEqual(settlementPreview.rankChanges, settlementPlan.rankChanges);
 
 const missingPlayerPlan = buildSettlementWritePlan({
   ...settlementInput,

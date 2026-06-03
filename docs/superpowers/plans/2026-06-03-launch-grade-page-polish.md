@@ -284,6 +284,28 @@ Use DevTools preview and manually test:
 - [x] DevTools preview may still render local settlement for no-cloud demo.
 - [x] Add loading state while reading server settlement.
 
+## Stage 16: 结算确认页接入云端预览入口
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/yunhanApi/match-settlement.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/match-service.js`
+- Modify: `miniprogram/pages/settlement/settlement.js`
+- Modify: `miniprogram/pages/settlement/settlement.wxml`
+- Modify: `miniprogram/pages/settlement/settlement.wxss`
+- Modify: `scripts/test-cloud-contracts.js`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Create: `docs/reviews/phase-46-settlement-preview-cloud-entry-review.md`
+
+- [x] Add cloud action `match.previewSettlement`.
+- [x] Preview action computes settlement and account balance preview without writing settlement, ledger, points, or match status.
+- [x] Add `match-service.previewSettlement()` as cloud-first preview service.
+- [x] Settlement confirmation page only enables confirm/refuse after preview is ready.
+- [x] Production preview failure shows a fixed error state with retry and home actions.
+- [x] DevTools preview may fallback locally while cloud environment is unavailable.
+- [x] Add contract test to ensure preview and write plan use the same settlement output.
+
 ## Standard Verification
 
 Run after each stage:

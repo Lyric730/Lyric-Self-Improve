@@ -111,6 +111,23 @@ function buildSettlementWritePlan(payload = {}) {
   };
 }
 
+function buildSettlementPreview(payload = {}) {
+  const plan = buildSettlementWritePlan(payload);
+
+  if (!plan.ok) {
+    return plan;
+  }
+
+  return {
+    ok: true,
+    matchId: plan.matchId,
+    settlement: plan.settlement,
+    pointChanges: plan.pointChanges,
+    rankChanges: plan.rankChanges
+  };
+}
+
 module.exports = {
+  buildSettlementPreview,
   buildSettlementWritePlan
 };

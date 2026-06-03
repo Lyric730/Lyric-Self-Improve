@@ -57,6 +57,28 @@ async function settleCurrentMatch(params = {}) {
   return calculateSettlement(params);
 }
 
+async function previewSettlement(params = {}) {
+  if (!params.matchId && !isDevtoolsPreview()) {
+    const error = new Error("缺少比赛 ID，无法读取结算预览");
+    error.code = "MATCH_ID_REQUIRED";
+    throw error;
+  }
+
+  const payload = buildSettlementPayload(params);
+
+  try {
+    const result = ensureOk(await callCloud("match", "previewSettlement", payload));
+
+    return success(mergeSettlementDisplay(params, result));
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  return calculateSettlement(params);
+}
+
 function mergeSettlementDisplay(params = {}, serverResult = {}) {
   const base = buildSettlement(params);
   const serverSettlement = serverResult.settlement || {};
@@ -120,5 +142,6 @@ module.exports = {
   getCurrentMatch,
   getMatchSetup,
   getModes,
+  previewSettlement,
   settleCurrentMatch
 };

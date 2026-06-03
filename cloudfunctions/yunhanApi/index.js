@@ -2,7 +2,7 @@ const cloud = require("wx-server-sdk");
 const QRCode = require("qrcode");
 const { assertValidAdminConfig } = require("./admin-config-validator");
 const { assertValidMemberProfile } = require("./member-profile");
-const { buildSettlementWritePlan } = require("./match-settlement");
+const { buildSettlementPreview, buildSettlementWritePlan } = require("./match-settlement");
 
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -518,7 +518,19 @@ async function applyPointAccountUpdates(rows, storeId, operatorOpenid) {
   return balances;
 }
 
-async function settleMatch(payload, storeId, operatorOpenid) {
+function buildCloudSettlementPayload(payload, match) {
+  return {
+    ...payload,
+    ...match,
+    matchId: payload.matchId,
+    playerAOpenid: match.hostOpenid || payload.playerAOpenid,
+    playerBOpenid: match.guestOpenid || payload.playerBOpenid,
+    selectedBase: match.base || payload.selectedBase || payload.base,
+    selectedMultiplier: match.multiplier || payload.selectedMultiplier || payload.multiplier
+  };
+}
+
+async function getMatchForSettlement(payload, storeId) {
   requirePayloadValue(payload, "matchId", "请选择要结算的比赛", "MATCH_ID_REQUIRED");
 
   const matchResult = await db.collection("matches")
@@ -538,6 +550,51 @@ async function settleMatch(payload, storeId, operatorOpenid) {
     return fail("比赛已结算，不能重复结算", "MATCH_ALREADY_SETTLED");
   }
 
+  return {
+    match
+  };
+}
+
+async function previewMatchSettlement(payload, storeId) {
+  const matchResult = await getMatchForSettlement(payload, storeId);
+
+  if (isFailureResult(matchResult)) {
+    return matchResult;
+  }
+
+  const preview = buildSettlementPreview(buildCloudSettlementPayload(payload, matchResult.match));
+
+  if (!preview.ok) {
+    return preview;
+  }
+
+  const accountUpdates = await preparePointAccountUpdates(preview.pointChanges, storeId);
+
+  if (isFailureResult(accountUpdates)) {
+    return accountUpdates;
+  }
+
+  return {
+    matchId: preview.matchId,
+    settlement: preview.settlement,
+    rankChanges: preview.rankChanges,
+    balancesPreview: accountUpdates.rows.map((row) => ({
+      openid: row.change.openid,
+      side: row.change.side,
+      result: row.change.result,
+      delta: row.change.delta,
+      balanceAfter: row.balanceAfter
+    }))
+  };
+}
+
+async function settleMatch(payload, storeId, operatorOpenid) {
+  const matchResult = await getMatchForSettlement(payload, storeId);
+
+  if (isFailureResult(matchResult)) {
+    return matchResult;
+  }
+
   const existingSettlementResult = await db.collection("settlements")
     .where({
       storeId,
@@ -553,15 +610,7 @@ async function settleMatch(payload, storeId, operatorOpenid) {
     return fail("比赛已存在结算记录", "MATCH_ALREADY_SETTLED");
   }
 
-  const plan = buildSettlementWritePlan({
-    ...payload,
-    ...match,
-    matchId: payload.matchId,
-    playerAOpenid: match.hostOpenid || payload.playerAOpenid,
-    playerBOpenid: match.guestOpenid || payload.playerBOpenid,
-    selectedBase: match.base || payload.selectedBase || payload.base,
-    selectedMultiplier: match.multiplier || payload.selectedMultiplier || payload.multiplier
-  });
+  const plan = buildSettlementWritePlan(buildCloudSettlementPayload(payload, matchResult.match));
 
   if (!plan.ok) {
     return plan;
@@ -606,7 +655,7 @@ async function settleMatch(payload, storeId, operatorOpenid) {
     }
   });
 
-  await db.collection("matches").doc(match._id).update({
+  await db.collection("matches").doc(matchResult.match._id).update({
     data: {
       status: "settled",
       settlementSummary: {
@@ -740,6 +789,21 @@ async function handleMatch(event) {
     return ok({
       matchId: event.matchId || "",
       status: "waiting"
+    });
+  }
+
+  if (event.action === "previewSettlement") {
+    await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const payload = event.payload || {};
+    const result = await previewMatchSettlement(payload, storeId);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
+
+    return ok({
+      action: event.action,
+      ...result
     });
   }
 

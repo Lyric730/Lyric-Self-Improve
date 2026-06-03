@@ -1,11 +1,11 @@
 <view class="flow-page flow-page--locked">
   <view class="flow-hero flow-hero--compact">
     <text class="flow-hero__eyebrow">SETTLEMENT</text>
-    <text class="flow-hero__title">结算确认</text>
-    <text class="flow-hero__subtitle">{{settlement.mode.name}} · {{settlement.scoreText}} · {{settlement.elapsedText}}</text>
+    <text class="flow-hero__title">{{previewTitle}}</text>
+    <text class="flow-hero__subtitle">{{previewSubtitle}}</text>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{previewStatus === 'ready' && settlement}}" class="flow-stack">
     <victory-banner subtitle="胜方 · {{settlement.winner.name}}" />
 
     <yh-panel title="本场积分" subtitle="随机奖励双方同享，确认后立即计入排行" marker="POINTS" tone="gold" raised>
@@ -48,7 +48,31 @@
 
     <view class="flow-actions">
       <yh-button text="服了，确认结算" size="lg" variant="success" block loading="{{settling}}" disabled="{{settling}}" bind:tap="confirm" />
-      <yh-button text="不服，暂不结算" variant="danger" block bind:tap="refuse" />
+      <yh-button text="不服，暂不结算" variant="danger" block disabled="{{settling}}" bind:tap="refuse" />
+    </view>
+  </view>
+
+  <view wx:elif="{{previewStatus === 'loading'}}" class="flow-stack">
+    <yh-panel title="正在计算预览" subtitle="请保持当前页面打开" marker="SYNC" tone="gold" raised>
+      <view class="settlement-state">
+        <view class="settlement-state__pulse"></view>
+        <text class="settlement-state__title">读取服务端结算预览</text>
+        <text class="settlement-state__text">确认前只展示预览，最终积分以确认后写入的结算单为准。</text>
+      </view>
+    </yh-panel>
+  </view>
+
+  <view wx:else class="flow-stack">
+    <yh-panel title="不能结算" subtitle="本场暂时无法生成有效预览" marker="CHECK" tone="warn" raised>
+      <view class="settlement-state settlement-state--error">
+        <text class="settlement-state__title">{{previewTitle}}</text>
+        <text class="settlement-state__text">{{previewErrorText}}</text>
+      </view>
+    </yh-panel>
+
+    <view class="flow-actions">
+      <yh-button text="重新计算" size="lg" variant="primary" block loading="{{previewing}}" disabled="{{previewing}}" bind:tap="retryPreview" />
+      <yh-button text="回到首页" variant="secondary" block bind:tap="goHome" />
     </view>
   </view>
 </view>

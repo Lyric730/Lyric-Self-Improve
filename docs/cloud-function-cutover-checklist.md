@@ -21,12 +21,14 @@
 | `staff` | `voidAbnormalMatch` | 异常比赛 | 更新比赛状态，写操作日志 |
 | `admin` | `saveConfig` | 老板端参数 | 复用前端同一套校验，写 `admin_configs` |
 | `screen` | `getBoard` | 电视大屏 | 读取店内总榜、赏金猎人和老板端大屏配置 |
+| `match` | `previewSettlement` | 结算确认页 | 服务端计算结算预览，不写结算单和积分流水 |
 | `match` | `settle` | 结算链路 | 服务端计算积分、随机奖励、星级，写结算和积分流水 |
 | `match` | `getSettlement` | 结果页 | 按 `matchId` 读取已结算记录，结果页显示云端结算单 |
 
 `match.settle` 当前已有云函数代码入口，但还没在真实云环境验证。上线前必须确认：
 
 - 真实 `matches` 文档存在时才能结算。
+- `match.previewSettlement` 只能读取和计算，不得写入 `settlements`、`points_ledger` 或修改 `member_points`。
 - 同一 `matchId` 不能重复写 `settlements` 或重复改积分。
 - 双方 `member_points` 账户必须存在。
 - 败方扣分后不能出现负余额。

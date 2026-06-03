@@ -17,15 +17,23 @@ Page({
     elapsedSeconds: 1,
     elapsedText: "00:00:01",
     remainingText: "",
-    timeReady: false
+    timeReady: false,
+    settlementLocked: false
   },
 
   onLoad(options) {
     const setup = ensureOk(getMatchSetup(options));
-    this.setData({ setup }, () => this.refreshTimeState());
+    const initialElapsed = Math.max(1, Number(options.elapsed || 1));
+
+    this.matchStartedAt = Date.now() - (initialElapsed - 1) * 1000;
+    this.setData({
+      setup,
+      elapsedSeconds: initialElapsed
+    }, () => this.refreshTimeState());
   },
 
   onShow() {
+    this.setData({ settlementLocked: false });
     this.startTimer();
   },
 
@@ -39,10 +47,12 @@ Page({
 
   startTimer() {
     this.stopTimer();
+    if (!this.matchStartedAt) {
+      this.matchStartedAt = Date.now() - (this.data.elapsedSeconds - 1) * 1000;
+    }
+    this.syncElapsedTime();
     this.timer = setInterval(() => {
-      this.setData({
-        elapsedSeconds: this.data.elapsedSeconds + 1
-      }, () => this.refreshTimeState());
+      this.syncElapsedTime();
     }, 1000);
   },
 
@@ -51,6 +61,12 @@ Page({
       clearInterval(this.timer);
       this.timer = null;
     }
+  },
+
+  syncElapsedTime() {
+    const elapsedSeconds = Math.max(1, Math.floor((Date.now() - this.matchStartedAt) / 1000) + 1);
+
+    this.setData({ elapsedSeconds }, () => this.refreshTimeState());
   },
 
   refreshTimeState() {
@@ -66,6 +82,10 @@ Page({
   },
 
   changeScore(event) {
+    if (this.data.settlementLocked) {
+      return;
+    }
+
     const side = event.currentTarget.dataset.side;
     const delta = Number(event.currentTarget.dataset.delta);
     const key = side === "a" ? "scoreA" : "scoreB";
@@ -74,6 +94,7 @@ Page({
 
     this.setData({ [key]: next }, () => {
       if (next >= targetWins) {
+        this.setData({ settlementLocked: true });
         this.handleTargetReached(side);
       }
     });

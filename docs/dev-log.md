@@ -1752,3 +1752,40 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-34-mode-risk-confirm-launch-polish-review.md`
 
+## 2026-06-03 Phase 35 计分、时间不足、结算链路上线化
+
+本轮目的：修正比赛计分页的时间累计方式，确保最低有效时间判断更接近正式上线逻辑，并避免快速连点导致重复跳转。
+
+问题根因：
+
+- 旧计时逻辑靠页面 `setInterval` 每秒加 1。进入“时间不足”页后计分页 `onHide` 会停止计时，返回后无法把停留在提示页的时间算进去。
+- 达到目标盘数后如果快速连点 `+`，可能重复触发时间不足或结算跳转。
+
+代码变更：
+
+- 更新 `miniprogram/pages/match-scoring/match-scoring.js`：
+  - 新增 `matchStartedAt`，用比赛开始时间计算 `elapsedSeconds`。
+  - 新增 `syncElapsedTime()`，页面显示时间从开始时间推导，不再只依赖累加器。
+  - 新增 `settlementLocked`，达到目标盘数后锁定跳转，避免重复进入结算链路。
+  - 从时间不足页返回后 `onShow` 自动解锁，允许继续计分。
+
+验证结果：
+
+- `node scripts\test-settlement-engine.js` 通过。
+- `node --check miniprogram\pages\match-scoring\match-scoring.js` 通过。
+- `node --check miniprogram\pages\time-insufficient\time-insufficient.js` 通过。
+- `node --check miniprogram\pages\settlement\settlement.js` 通过。
+- `node --check miniprogram\pages\refusal\refusal.js` 通过。
+- `node --check miniprogram\pages\match-result\match-result.js` 通过。
+- 全量 `miniprogram` JS `node --check` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `node scripts\check-player-flow-routes.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- `git diff --check` 通过，仅有既有 CRLF 提示，无阻断错误。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `740.3 KB` / `758050` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-35-scoring-settlement-launch-polish-review.md`
+

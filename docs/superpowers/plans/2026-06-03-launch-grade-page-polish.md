@@ -138,11 +138,11 @@ Use DevTools preview and manually test:
 - Modify: `miniprogram/pages/match-result/`
 - Create: `docs/reviews/phase-35-scoring-settlement-launch-polish-review.md`
 
-- [ ] Positive timer from `00:00:01`.
-- [ ] No settlement before minimum effective time.
-- [ ] Settlement uses `risk + random reward` and shared rank.
-- [ ] Refusal has only exit-no-settlement or rematch.
-- [ ] Add point/star feedback animation states.
+- [x] Positive timer from `00:00:01`.
+- [x] No settlement before minimum effective time.
+- [x] Settlement uses `risk + random reward` and shared rank.
+- [x] Refusal has only exit-no-settlement or rematch.
+- [x] Add point/star feedback animation states.
 
 ## Stage 6: 数据、排行榜、积分礼遇上线化
 

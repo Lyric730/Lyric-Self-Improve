@@ -1,4 +1,4 @@
-const { success } = require("./api-client");
+const { callCloud, ensureOk, success } = require("./api-client");
 const {
   challengeGate,
   friendRows,
@@ -10,6 +10,7 @@ const {
   roomState,
   sameRankRows
 } = require("../utils/ladder-data");
+const { isDevtoolsPreview } = require("../utils/dev-preview");
 
 function getChallengeHome() {
   return success({
@@ -26,14 +27,14 @@ function getIncomingChallenge() {
   return success(incomingChallenge);
 }
 
-function getPlayerProfile() {
+function getLocalPlayerProfile() {
   return success({
     match,
     playerStats
   });
 }
 
-function getRankingTabs() {
+function getLocalRankingTabs() {
   return success([
     { id: "store", label: "店内总榜", rows: rankingRows },
     { id: "sameRank", label: "同段位榜", rows: sameRankRows },
@@ -41,11 +42,53 @@ function getRankingTabs() {
   ]);
 }
 
-function getPointsPerks() {
+function getLocalPointsPerks() {
   return success({
     match,
     pointsPerks
   });
+}
+
+async function getPlayerProfile() {
+  try {
+    const result = ensureOk(await callCloud("player", "getProfile"));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  return getLocalPlayerProfile();
+}
+
+async function getRankingTabs() {
+  try {
+    const result = ensureOk(await callCloud("player", "getRankings"));
+
+    return success(result.tabs || []);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  return getLocalRankingTabs();
+}
+
+async function getPointsPerks() {
+  try {
+    const result = ensureOk(await callCloud("player", "getPointsPerks"));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  return getLocalPointsPerks();
 }
 
 module.exports = {

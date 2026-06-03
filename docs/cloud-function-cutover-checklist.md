@@ -13,6 +13,9 @@
 
 | 模块 | action | 前端入口 | 必须验证 |
 | --- | --- | --- | --- |
+| `player` | `getProfile` | 我的数据 / 我的 | 读取当前会员积分、段位和赛季表现 |
+| `player` | `getRankings` | 排行榜 | 读取店内总榜、同段位榜和微信好友榜；好友关系未接入时返回空榜 |
+| `player` | `getPointsPerks` | 积分礼遇 | 读取当前积分、开台赠分和兑换门槛 |
 | `member` | `getCode` | 会员码页 | 返回真实可扫码二维码、当前积分、当前用户 OpenID 绑定账户 |
 | `member` | `saveProfile` | 我的页个人信息 | 只保存昵称、手机号、备注、头像，不允许前端改积分和段位 |
 | `staff` | `getMemberForExchange` | 前台扫码选择 | 扫码后能查到会员积分账户 |
@@ -40,6 +43,7 @@
 - 开赛必须通过 `match.start` 写入 `matches.status = playing` 和服务端开赛时间，不能只靠页面本地计时。
 - 加减盘必须通过 `match.recordScore` 写入真实 `matches.scoreA / scoreB` 和 `match_score_events`，不能只改页面变量。
 - 结算用时必须优先由 `matches.startedAtMs` 计算，不能信任页面 query 里的 `elapsed`。
+- 球友端个人数据、排行榜和积分礼遇必须通过 `player` 云函数读取，正式环境不能直接展示本地 `ladder-data.js` 样例数据。
 - `match.previewSettlement` 只能读取和计算，不得写入 `settlements`、`points_ledger` 或修改 `member_points`。
 - 同一 `matchId` 不能重复写 `settlements` 或重复改积分。
 - 双方 `member_points` 账户必须存在。

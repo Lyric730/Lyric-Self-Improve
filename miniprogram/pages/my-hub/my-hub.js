@@ -3,11 +3,9 @@ const {
   getMemberProfile,
   saveMemberProfile
 } = require("../../services/member-service");
-const { getPlayerProfile } = require("../../services/player-service");
 const { isDevtoolsPreview, setPreviewRole } = require("../../utils/dev-preview");
 const { buildProfileDraft } = require("../../utils/member-profile");
 
-const profile = ensureOk(getPlayerProfile());
 const memberProfile = ensureOk(getMemberProfile());
 
 function getInitial(name) {
@@ -18,7 +16,6 @@ function getInitial(name) {
 
 Page({
   data: {
-    match: profile.match,
     memberProfile,
     profileDraft: buildProfileDraft(memberProfile),
     playerInitial: getInitial(memberProfile.name),

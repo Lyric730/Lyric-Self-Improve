@@ -5,7 +5,18 @@
     <text class="flow-hero__subtitle">本赛季表现 · 全部玩法共用一个段位</text>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{loading}}" class="flow-state">
+    <text class="flow-state__title">读取我的数据</text>
+    <text class="flow-state__text">正在同步会员积分、段位和赛季表现。</text>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="flow-state flow-state--error">
+    <text class="flow-state__title">数据读取失败</text>
+    <text class="flow-state__text">{{errorText}}</text>
+    <yh-button text="重试" variant="primary" size="md" bind:tap="retryLoad" />
+  </view>
+
+  <view wx:else class="flow-stack">
     <yh-panel title="当前段位" subtitle="胜场加星，黄金前不掉星" marker="RANK" tone="gold" raised>
       <rank-badge tier="gold" title="{{match.playerA.rankTitle}}" points="{{match.playerA.points}} / 3000" hint="再得 140 分升至走位黄金 II" featured />
       <view class="flow-actions">

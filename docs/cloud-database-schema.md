@@ -151,6 +151,7 @@
 
 ```js
 { storeId: 1, openid: 1 }
+{ storeId: 1, balance: -1 }
 ```
 
 ## 7. `table_sessions`

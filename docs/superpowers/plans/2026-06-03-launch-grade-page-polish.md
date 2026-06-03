@@ -418,6 +418,37 @@ Use DevTools preview and manually test:
 - [x] Keep DevTools local fallback while cloud environment is unavailable.
 - [x] Document that final settlement still needs real cloud environment verification.
 
+## Stage 22: 球友赛后展示数据服务化
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/player-service.js`
+- Modify: `miniprogram/pages/my-data/my-data.js`
+- Modify: `miniprogram/pages/my-data/my-data.wxml`
+- Modify: `miniprogram/pages/rankings/rankings.js`
+- Modify: `miniprogram/pages/rankings/rankings.wxml`
+- Modify: `miniprogram/pages/points-perks/points-perks.js`
+- Modify: `miniprogram/pages/points-perks/points-perks.wxml`
+- Modify: `miniprogram/pages/my-hub/my-hub.js`
+- Modify: `miniprogram/styles/player-flow.wxss`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Modify: `docs/cloud-database-schema.md`
+- Modify: `docs/cloud-init-runbook.md`
+- Create: `docs/reviews/phase-52-player-data-cloud-entry-review.md`
+
+- [x] Add cloud module `player`.
+- [x] Add `player.getProfile` for current member points, rank title, and season stats shell.
+- [x] Add `player.getRankings` for store ranking, same-rank ranking, and empty friends ranking when friend relation is unavailable.
+- [x] Add `player.getPointsPerks` for current points, table-open bonus, and exchange threshold.
+- [x] Add `member_points` balance index requirement for leaderboard sorting.
+- [x] Make `player-service` cloud-first with DevTools local fallback.
+- [x] Make `my-data` load asynchronously with loading and retryable error states.
+- [x] Make `rankings` load asynchronously with loading, retryable error, and empty ranking states.
+- [x] Make `points-perks` load asynchronously with loading and retryable error states.
+- [x] Remove unused synchronous `getPlayerProfile()` dependency from `my-hub`.
+- [x] Keep formal UI copy only; no mock/demo/internal wording in pages.
+
 ## Standard Verification
 
 Run after each stage:

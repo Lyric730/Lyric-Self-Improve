@@ -1,22 +1,57 @@
 const { ensureOk } = require("../../services/api-client");
 const { getRankingTabs } = require("../../services/player-service");
 
-const tabs = ensureOk(getRankingTabs());
-
 Page({
   data: {
-    tabs,
+    tabs: [],
     activeTab: "store",
-    activeRows: tabs[0].rows
+    activeRows: [],
+    activeRowsEmpty: true,
+    loading: true,
+    errorText: ""
+  },
+
+  onLoad() {
+    this.loadRankings();
+  },
+
+  async loadRankings() {
+    this.setData({
+      loading: true,
+      errorText: ""
+    });
+
+    try {
+      const tabs = ensureOk(await getRankingTabs());
+      const active = tabs[0] || { id: "store", rows: [] };
+
+      this.setData({
+        tabs,
+        activeTab: active.id,
+        activeRows: active.rows,
+        activeRowsEmpty: !active.rows || active.rows.length === 0,
+        loading: false
+      });
+    } catch (error) {
+      this.setData({
+        loading: false,
+        errorText: error.message || "排行榜读取失败，请稍后重试"
+      });
+    }
+  },
+
+  retryLoad() {
+    this.loadRankings();
   },
 
   switchTab(event) {
     const activeTab = event.currentTarget.dataset.tab;
-    const active = tabs.find((item) => item.id === activeTab) || tabs[0];
+    const active = this.data.tabs.find((item) => item.id === activeTab) || this.data.tabs[0] || { id: "store", rows: [] };
 
     this.setData({
       activeTab: active.id,
-      activeRows: active.rows
+      activeRows: active.rows,
+      activeRowsEmpty: !active.rows || active.rows.length === 0
     });
   },
 

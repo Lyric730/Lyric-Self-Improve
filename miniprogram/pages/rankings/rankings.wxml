@@ -5,7 +5,18 @@
     <text class="flow-hero__subtitle">店内总榜 · 同段位榜 · 微信好友榜</text>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{loading}}" class="flow-state">
+    <text class="flow-state__title">读取排行榜</text>
+    <text class="flow-state__text">正在同步店内总榜、同段位榜和好友榜。</text>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="flow-state flow-state--error">
+    <text class="flow-state__title">排行榜读取失败</text>
+    <text class="flow-state__text">{{errorText}}</text>
+    <yh-button text="重试" variant="primary" size="md" bind:tap="retryLoad" />
+  </view>
+
+  <view wx:else class="flow-stack">
     <yh-panel title="排行战报" subtitle="积分越高，排名越靠前" marker="TOP" tone="gold" raised>
       <view class="ranking-tabs">
         <text wx:for="{{tabs}}" wx:key="id" class="{{activeTab === item.id ? 'is-active' : ''}}" data-tab="{{item.id}}" bindtap="switchTab">{{item.label}}</text>
@@ -19,6 +30,9 @@
           </view>
           <text>{{item.points}}</text>
           <text>{{item.trend}}</text>
+        </view>
+        <view wx:if="{{activeRowsEmpty}}" class="flow-inline-empty">
+          <text>暂无榜单数据</text>
         </view>
       </view>
     </yh-panel>

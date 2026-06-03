@@ -83,6 +83,7 @@ cloud.init({
 
 // member_points
 { storeId: 1, openid: 1 }
+{ storeId: 1, balance: -1 }
 
 // table_sessions
 { storeId: 1, tableId: 1, status: 1 }

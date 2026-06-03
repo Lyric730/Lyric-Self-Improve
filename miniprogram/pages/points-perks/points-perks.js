@@ -1,12 +1,42 @@
 const { ensureOk } = require("../../services/api-client");
 const { getPointsPerks } = require("../../services/player-service");
 
-const perks = ensureOk(getPointsPerks());
-
 Page({
   data: {
-    match: perks.match,
-    pointsPerks: perks.pointsPerks
+    match: null,
+    pointsPerks: null,
+    loading: true,
+    errorText: ""
+  },
+
+  onLoad() {
+    this.loadPerks();
+  },
+
+  async loadPerks() {
+    this.setData({
+      loading: true,
+      errorText: ""
+    });
+
+    try {
+      const perks = ensureOk(await getPointsPerks());
+
+      this.setData({
+        match: perks.match,
+        pointsPerks: perks.pointsPerks,
+        loading: false
+      });
+    } catch (error) {
+      this.setData({
+        loading: false,
+        errorText: error.message || "积分礼遇读取失败，请稍后重试"
+      });
+    }
+  },
+
+  retryLoad() {
+    this.loadPerks();
   },
 
   goHome() {

@@ -12,7 +12,7 @@
 | 文件 | 职责 | 当前数据来源 | 未来替换接口 |
 | --- | --- | --- | --- |
 | `miniprogram/services/api-client.js` | 统一返回结构和错误处理 | 本地同步结果 | `wx.request` 或云函数调用 |
-| `miniprogram/services/player-service.js` | 球友首页、房间、邀请、我的数据、排行榜、积分礼遇 | `ladder-data.js` | `/matches`、`/me/stats`、`/rankings`、`/points/perks` |
+| `miniprogram/services/player-service.js` | 球友首页、房间、邀请、我的数据、排行榜、积分礼遇 | 云函数 + DevTools 本地兜底 | `/matches`、`/me/stats`、`/rankings`、`/points/perks` |
 | `miniprogram/services/member-service.js` | 会员码、会员资料读取与保存 | 云函数 + 本地缓存兜底 | `/member/code`、`/member/profile` |
 | `miniprogram/services/match-service.js` | 比赛房间、玩法模板、开局参数、开赛计分、当前比赛、结算结果 | 云函数 + DevTools 本地兜底 | `/matches/:id`、`/matches/:id/config`、`/matches/:id/start`、`/matches/:id/score`、`/matches/:id/settle/*` |
 | `miniprogram/services/staff-service.js` | 员工球桌、到点时间、积分核销、异常作废 | 云函数 + DevTools 本地缓存兜底 | `/staff/tables`、`/staff/points/deduct`、`/staff/matches/:id/void` |
@@ -78,7 +78,8 @@ callCloud(moduleName, action, payload)
 16. `match-result` 页已通过 `match-service.getSettlementResult()` 优先读取云函数 `match.getSettlement`；DevTools 云不可用时保留本地展示兜底，正式环境必须读到服务端结算单后才允许展示“结算已生效”。
 17. `match-result` 正式环境缺少 `matchId`、查不到结算单或云读取失败时，只能展示固定错误态和重试入口，不能渲染本地结算成功结果。
 18. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
-19. 最后替换榜单、个人数据和大屏数据读取。
+19. `my-data`、`rankings`、`points-perks` 已通过 `player-service` 优先调用 `player.getProfile`、`player.getRankings`、`player.getPointsPerks`；DevTools 云不可用时保留本地视觉兜底。
+20. 最后替换电视大屏和首页非比赛房间数据读取。
 
 注意：`admin-config-validator` 和 `member-profile` 当前在小程序端与云函数包内各保留一份。每次修改校验规则后必须运行 `node scripts/test-cloud-contracts.js`，确认前端和云函数口径一致。
 

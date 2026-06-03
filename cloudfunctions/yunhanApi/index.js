@@ -1310,6 +1310,161 @@ async function ensureMemberPointAccount(openid, storeId) {
   };
 }
 
+async function getPlayerIdentity(openid, storeId) {
+  const snapshot = await getMemberSnapshot(openid, storeId);
+  const account = await ensureMemberPointAccount(openid, storeId);
+
+  return {
+    openid,
+    name: snapshot.name,
+    shortName: snapshot.shortName,
+    rankTitle: snapshot.rankTitle,
+    points: account.balance
+  };
+}
+
+function buildEmptyPlayerStats() {
+  return {
+    seasonWinRate: "0%",
+    validMatches: 0,
+    winStreak: 0,
+    storeRank: "-",
+    sameRankRank: "-",
+    friendRank: "-",
+    bestStreak: 0
+  };
+}
+
+async function getRecentPlayerSettlements(openid, storeId) {
+  const result = await db.collection("settlements")
+    .where({
+      storeId,
+      status: "settled"
+    })
+    .limit(80)
+    .get();
+  const rows = result.data || [];
+
+  return rows.filter((settlement) => Array.isArray(settlement.pointChanges)
+    && settlement.pointChanges.some((change) => change.openid === openid));
+}
+
+function buildStatsFromSettlements(openid, settlements = {}) {
+  const rows = Array.isArray(settlements) ? settlements : [];
+  const validMatches = rows.length;
+  const wins = rows.filter((settlement) => {
+    const change = settlement.pointChanges.find((item) => item.openid === openid);
+
+    return change && change.result === "win";
+  }).length;
+
+  return {
+    ...buildEmptyPlayerStats(),
+    seasonWinRate: validMatches > 0 ? `${Math.round((wins / validMatches) * 100)}%` : "0%",
+    validMatches
+  };
+}
+
+async function getRankingRows(storeId, limit = 30) {
+  const result = await db.collection("member_points")
+    .where({ storeId })
+    .orderBy("balance", "desc")
+    .limit(limit)
+    .get();
+  const accounts = result.data || [];
+  const rows = [];
+
+  for (let index = 0; index < accounts.length; index += 1) {
+    const account = accounts[index];
+    const snapshot = await getMemberSnapshot(account.openid, storeId);
+
+    rows.push({
+      id: account.openid || account._id,
+      openid: account.openid || "",
+      no: index + 1,
+      name: snapshot.name,
+      rank: snapshot.rankTitle,
+      points: Number(account.balance || 0),
+      trend: "0"
+    });
+  }
+
+  return rows;
+}
+
+async function getPlayerProfileData(openid, storeId) {
+  const player = await getPlayerIdentity(openid, storeId);
+  const settlements = await getRecentPlayerSettlements(openid, storeId);
+  const rankingRows = await getRankingRows(storeId, 50);
+  const sameRankRows = rankingRows.filter((row) => row.rank === player.rankTitle);
+  const storeRankIndex = rankingRows.findIndex((row) => row.openid === openid);
+  const sameRankIndex = sameRankRows.findIndex((row) => row.openid === openid);
+
+  return {
+    match: {
+      playerA: player
+    },
+    playerStats: {
+      ...buildStatsFromSettlements(openid, settlements),
+      storeRank: storeRankIndex >= 0 ? storeRankIndex + 1 : "-",
+      sameRankRank: sameRankIndex >= 0 ? sameRankIndex + 1 : "-",
+      friendRank: "-"
+    }
+  };
+}
+
+async function getPlayerRankingsData(openid, storeId) {
+  const player = await getPlayerIdentity(openid, storeId);
+  const storeRows = await getRankingRows(storeId, 50);
+  const sameRankRows = storeRows.filter((row) => row.rank === player.rankTitle);
+
+  return [
+    { id: "store", label: "店内总榜", rows: storeRows },
+    { id: "sameRank", label: "同段位榜", rows: sameRankRows },
+    { id: "friends", label: "微信好友榜", rows: [] }
+  ];
+}
+
+async function getPlayerPointsPerksData(openid, storeId) {
+  const player = await getPlayerIdentity(openid, storeId);
+  const pointsConfig = await getStorePointsConfig(storeId);
+
+  return {
+    match: {
+      playerA: player
+    },
+    pointsPerks: {
+      exchangeThreshold: Number(pointsConfig.exchangeThreshold || DEFAULT_POINTS_CONFIG.exchangeThreshold),
+      tableOpenBonus: Number(pointsConfig.tableOpenBonus || DEFAULT_POINTS_CONFIG.tableOpenBonus),
+      nextRewardText: "当前积分可到前台兑换礼遇",
+      counterHint: "到前台出示会员码，工作人员核销积分后发放礼遇。"
+    }
+  };
+}
+
+async function handlePlayer(event) {
+  const wxContext = getWxContext();
+  const storeId = getStoreId(event);
+
+  await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+
+  if (event.action === "getProfile") {
+    return ok(await getPlayerProfileData(wxContext.OPENID, storeId));
+  }
+
+  if (event.action === "getRankings") {
+    return ok({
+      tabs: await getPlayerRankingsData(wxContext.OPENID, storeId)
+    });
+  }
+
+  if (event.action === "getPointsPerks") {
+    return ok(await getPlayerPointsPerksData(wxContext.OPENID, storeId));
+  }
+
+  return fail("暂不支持该球友端操作", "UNKNOWN_PLAYER_ACTION");
+}
+
 async function handleAuth(event) {
   const wxContext = getWxContext();
 
@@ -1691,6 +1846,10 @@ exports.main = async (event = {}) => {
 
     if (event.module === "match") {
       return handleMatch(event);
+    }
+
+    if (event.module === "player") {
+      return handlePlayer(event);
     }
 
     if (event.module === "staff") {

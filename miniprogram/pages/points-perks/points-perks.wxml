@@ -5,7 +5,18 @@
     <text class="flow-hero__subtitle">当前积分可到前台兑换礼遇</text>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{loading}}" class="flow-state">
+    <text class="flow-state__title">读取积分礼遇</text>
+    <text class="flow-state__text">正在同步当前积分和前台兑换门槛。</text>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="flow-state flow-state--error">
+    <text class="flow-state__title">积分礼遇读取失败</text>
+    <text class="flow-state__text">{{errorText}}</text>
+    <yh-button text="重试" variant="primary" size="md" bind:tap="retryLoad" />
+  </view>
+
+  <view wx:else class="flow-stack">
     <yh-panel title="当前积分" subtitle="{{pointsPerks.nextRewardText}}" marker="BALANCE" tone="gold" raised>
       <view class="metric-grid">
         <view class="metric-card">

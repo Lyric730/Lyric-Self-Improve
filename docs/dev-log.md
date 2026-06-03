@@ -2498,3 +2498,54 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-51-match-start-score-cloud-entry-review.md`
 
+## 2026-06-03 Phase 52 球友赛后展示数据服务化
+
+本轮目的：个人数据、排行榜和积分礼遇不能继续直接展示本地样例数据。正式链路需要通过球友端云函数读取积分账户、排行榜和店铺积分配置；DevTools 云环境不可用时才保留视觉兜底。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `player` module。
+  - 新增 `player.getProfile`，返回当前会员身份、积分、段位和赛季统计壳层。
+  - 新增 `player.getRankings`，返回店内总榜、同段位榜和微信好友榜空状态。
+  - 新增 `player.getPointsPerks`，返回当前积分、开台赠分、兑换门槛和前台兑换说明。
+  - 排行榜按 `member_points.balance` 降序生成，并用会员资料补齐昵称和段位。
+- 更新 `miniprogram/services/player-service.js`：
+  - `getPlayerProfile()`、`getRankingTabs()`、`getPointsPerks()` 改为云函数优先。
+  - DevTools 云环境不可用时保留本地视觉兜底。
+  - 正式环境云函数失败时返回错误，不静默展示样例数据。
+- 更新球友端页面：
+  - `my-data` 增加加载、失败和重试状态。
+  - `rankings` 增加加载、失败、重试和空榜状态。
+  - `points-perks` 增加加载、失败和重试状态。
+  - `my-hub` 移除对个人数据同步样例的无用依赖。
+- 更新 `miniprogram/styles/player-flow.wxss`，新增正式状态卡和空榜样式。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `player.getProfile`、`player.getRankings`、`player.getPointsPerks`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入球友端个人数据、排行榜和积分礼遇必测项。
+- 更新 `docs/api-service-layer-contract.md`，明确 `player-service` 的云函数优先边界。
+- 更新 `docs/cloud-database-schema.md` 和 `docs/cloud-init-runbook.md`，补充 `member_points` 排行榜索引。
+- 更新执行计划，新增 Stage 22。
+
+验证结果：
+
+- `git diff --check` 通过。
+- `node scripts\check-service-layer-boundary.js` 通过，输出 `Service layer boundary check OK`。
+- `node scripts\check-production-copy.js` 通过，输出 `Production copy check OK (21 files checked)`。
+- `node scripts\check-player-flow-routes.js` 通过，输出 `Player flow route check OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `821.0 KB / 840711 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，`player` 三个读取入口还未在真实集合权限和索引下验证。
+- `member_points` 需要创建 `{ storeId: 1, balance: -1 }` 索引，否则真实排行榜查询可能失败或变慢。
+- 赛季统计当前只做服务端壳层计算，后续需要补 `seasonId` 维度统计表或定时聚合。
+- 微信好友榜暂时没有好友关系模型，当前正式行为是空榜，不展示假好友数据。
+
+审查归档：
+
+- `docs/reviews/phase-52-player-data-cloud-entry-review.md`
+

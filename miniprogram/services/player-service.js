@@ -37,7 +37,7 @@ function getRankingTabs() {
   return success([
     { id: "store", label: "店内总榜", rows: rankingRows },
     { id: "sameRank", label: "同段位榜", rows: sameRankRows },
-    { id: "friends", label: "好友榜", rows: friendRows }
+    { id: "friends", label: "微信好友榜", rows: friendRows }
   ]);
 }
 

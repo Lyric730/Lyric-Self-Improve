@@ -152,9 +152,9 @@ Use DevTools preview and manually test:
 - Modify: `miniprogram/pages/points-perks/`
 - Create: `docs/reviews/phase-36-data-ranking-perks-launch-polish-review.md`
 
-- [ ] Ranking page includes store total, same-rank ranking, WeChat friend ranking.
-- [ ] Rank leaderboard is visible and clear.
-- [ ] Points perks page only shows front-desk redemption, no online mall.
+- [x] Ranking page includes store total, same-rank ranking, WeChat friend ranking.
+- [x] Rank leaderboard is visible and clear.
+- [x] Points perks page only shows front-desk redemption, no online mall.
 
 ## Stage 7: 我的、员工端、老板端、大屏上线化
 

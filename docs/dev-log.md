@@ -1789,3 +1789,35 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-35-scoring-settlement-launch-polish-review.md`
 
+## 2026-06-03 Phase 36 数据、排行榜、积分礼遇上线化
+
+本轮目的：检查个人数据、排行榜、积分礼遇是否符合上线级页面口径，并修正排行榜 Tab 文案。
+
+代码变更：
+
+- 更新 `miniprogram/services/player-service.js`：
+  - 排行榜第三个 Tab 从“好友榜”改为“微信好友榜”，与需求口径一致。
+
+验收结果：
+
+- 我的数据页已包含：当前段位、当前积分、星级进度、本赛季胜率、有效挑战数、连胜、店内/同段位/好友排名摘要。
+- 排行榜页已包含：店内总榜、同段位榜、微信好友榜。
+- 积分礼遇页仅展示前台兑换、当前积分、兑换门槛、开台赠分和会员码入口，没有线上商城或抽奖。
+
+验证结果：
+
+- `node --check miniprogram\services\player-service.js` 通过。
+- `node --check miniprogram\pages\my-data\my-data.js` 通过。
+- `node --check miniprogram\pages\rankings\rankings.js` 通过。
+- `node --check miniprogram\pages\points-perks\points-perks.js` 通过。
+- 全量 `miniprogram` JS `node --check` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `node scripts\check-player-flow-routes.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `740.3 KB` / `758056` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-36-data-ranking-perks-launch-polish-review.md`
+

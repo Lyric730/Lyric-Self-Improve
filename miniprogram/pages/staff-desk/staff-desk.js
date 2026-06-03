@@ -184,6 +184,15 @@ Page({
         points: deductPoints
       }));
 
+      const nextPoints = Math.max(0, Number(this.data.selectedMember.points || 0) - deductPoints);
+
+      this.setData({
+        "selectedMember.points": nextPoints,
+        selectedMemberText: `${this.data.selectedMember.name} · ${nextPoints} 积分`,
+        deductPointsInput: "",
+        deductPoints: 0
+      });
+
       wx.showToast({ title: "积分已核销", icon: "none" });
     } catch (error) {
       wx.showToast({ title: error.message || "核销失败", icon: "none" });
@@ -202,10 +211,14 @@ Page({
     this.setData({ voiding: true });
 
     try {
-      ensureOk(await voidAbnormalMatch({
+      const result = ensureOk(await voidAbnormalMatch({
         matchId: targetMatch ? targetMatch.id : "",
         tableNo: targetMatch ? targetMatch.tableNo : ""
       }));
+
+      this.setData({
+        abnormalMatches: this.data.abnormalMatches.filter((match) => match.id !== result.matchId)
+      });
 
       wx.showToast({ title: "已提交作废", icon: "none" });
     } catch (error) {

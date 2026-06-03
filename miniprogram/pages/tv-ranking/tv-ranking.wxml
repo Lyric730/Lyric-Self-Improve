@@ -1,51 +1,53 @@
 <view wx:if="{{accessReady}}" class="tv-page">
-  <view class="tv-header">
-    <view>
-      <text class="tv-eyebrow">YUNHAN BILLIARDS CLUB</text>
-      <text class="tv-title">{{match.clubName}}</text>
-      <text class="tv-subtitle">第一赛季 · 天梯排行榜</text>
-    </view>
-    <view class="tv-activity">
-      <text>今晚活动</text>
-      <text>22:30 前完成挑战，随机奖励提升</text>
-    </view>
-  </view>
-
-  <view class="tv-grid">
-    <view class="tv-podium">
-      <view wx:for="{{topRows}}" wx:key="id" class="tv-podium-card tv-podium-card--{{index}}">
-        <text>#{{item.no}}</text>
-        <text>{{item.name}}</text>
-        <text>{{item.rank}}</text>
-        <text>{{item.points}}</text>
+  <view class="tv-stage">
+    <view class="tv-header">
+      <view>
+        <text class="tv-eyebrow">YUNHAN BILLIARDS CLUB</text>
+        <text class="tv-title">{{match.clubName}}</text>
+        <text class="tv-subtitle">第一赛季 · 天梯排行榜</text>
+      </view>
+      <view class="tv-activity">
+        <text>今晚活动</text>
+        <text>22:30 前完成挑战，随机奖励提升</text>
       </view>
     </view>
 
-    <view class="tv-board">
-      <view class="tv-board__head">
-        <text>店内总榜</text>
-        <text>60 秒刷新</text>
+    <view class="tv-grid">
+      <view class="tv-podium">
+        <view wx:for="{{topRows}}" wx:key="id" class="tv-podium-card tv-podium-card--{{index}}">
+          <text>#{{item.no}}</text>
+          <text>{{item.name}}</text>
+          <text>{{item.rank}}</text>
+          <text>{{item.points}}</text>
+        </view>
       </view>
-      <view wx:for="{{rankingRows}}" wx:key="id" class="tv-row">
-        <text>#{{item.no}}</text>
-        <text>{{item.name}}</text>
-        <text>{{item.rank}}</text>
-        <text>{{item.points}}</text>
-        <text>{{item.trend}}</text>
-      </view>
-    </view>
 
-    <view class="tv-board">
-      <view class="tv-board__head">
-        <text>赏金猎人</text>
-        <text>本周期赢分榜</text>
+      <view class="tv-board">
+        <view class="tv-board__head">
+          <text>{{screenConfig.storeBoard}}</text>
+          <text>{{screenConfig.refreshText}}</text>
+        </view>
+        <view wx:for="{{rankingRows}}" wx:key="id" class="tv-row">
+          <text>#{{item.no}}</text>
+          <text>{{item.name}}</text>
+          <text>{{item.rank}}</text>
+          <text>{{item.points}}</text>
+          <text>{{item.trend}}</text>
+        </view>
       </view>
-      <view wx:for="{{bountyRows}}" wx:key="id" class="tv-row">
-        <text>#{{item.no}}</text>
-        <text>{{item.name}}</text>
-        <text>{{item.rank}}</text>
-        <text>{{item.points}}</text>
-        <text>{{item.trend}}</text>
+
+      <view class="tv-board">
+        <view class="tv-board__head">
+          <text>{{screenConfig.bountyBoard}}</text>
+          <text>本周期赢分榜</text>
+        </view>
+        <view wx:for="{{bountyRows}}" wx:key="id" class="tv-row">
+          <text>#{{item.no}}</text>
+          <text>{{item.name}}</text>
+          <text>{{item.rank}}</text>
+          <text>{{item.points}}</text>
+          <text>{{item.trend}}</text>
+        </view>
       </view>
     </view>
   </view>

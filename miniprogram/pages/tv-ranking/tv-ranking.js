@@ -8,6 +8,7 @@ Page({
   data: {
     accessReady: false,
     match: initialBoard.match,
+    screenConfig: initialBoard.screenConfig,
     topRows: initialBoard.topRows,
     rankingRows: initialBoard.rankingRows,
     bountyRows: initialBoard.bountyRows
@@ -31,6 +32,7 @@ Page({
 
       this.setData({
         match: board.match,
+        screenConfig: board.screenConfig,
         topRows: board.topRows,
         rankingRows: board.rankingRows,
         bountyRows: board.bountyRows

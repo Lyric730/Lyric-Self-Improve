@@ -1821,3 +1821,57 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-36-data-ranking-perks-launch-polish-review.md`
 
+## 2026-06-03 Phase 37 我的、员工端、老板端、大屏上线化
+
+本轮目的：把“我的 / 前台 / 老板 / 大屏”从可看页面推进到能支撑上线流程的运营入口，并在云环境未创建时保留本地预览兜底。
+
+代码变更：
+
+- 更新 `miniprogram/services/admin-service.js`：
+  - 老板端配置保存后写入本地缓存。
+  - 重新进入老板端时优先读取本地缓存，避免刷新后配置丢失。
+- 更新 `miniprogram/services/staff-service.js`：
+  - 前台球桌到点时间、异常比赛列表支持本地缓存。
+  - DevTools 无云环境时，本地兜底允许保存到点、核销积分、作废异常，生产环境仍要求云函数成功。
+- 更新 `miniprogram/pages/staff-desk/staff-desk.js`：
+  - 积分核销后即时扣减当前会员显示分，并清空扣分输入。
+  - 异常作废后从当前列表移除，减少员工误判。
+- 更新 `miniprogram/services/member-service.js` 与 `miniprogram/pages/member-code/`：
+  - 会员码优先使用云函数结果。
+  - DevTools 无云环境时显示本地视觉码和码值，避免会员码页面失败。
+- 更新 `miniprogram/services/screen-service.js` 与 `miniprogram/pages/tv-ranking/`：
+  - 大屏主榜、副榜、刷新文案读取老板端配置。
+  - 增加 `tv-stage` 横屏舞台层，电视宽屏使用三栏布局，手机模拟器仍可纵向查看。
+
+验收结果：
+
+- 我的页保留个人资料编辑、会员工具、员工 / 老板 / 大屏入口。
+- 前台页只保留三类高频动作：到点时间、积分核销、异常处理。
+- 老板页参数可编辑、可校验、可本地保存。
+- 大屏页不再只依赖窄屏手机布局，配置项能进入榜单标题和刷新文案。
+
+验证结果：
+
+- `node --check miniprogram\services\admin-service.js` 通过。
+- `node --check miniprogram\services\staff-service.js` 通过。
+- `node --check miniprogram\services\member-service.js` 通过。
+- `node --check miniprogram\services\screen-service.js` 通过。
+- `node --check miniprogram\pages\staff-desk\staff-desk.js` 通过。
+- `node --check miniprogram\pages\tv-ranking\tv-ranking.js` 通过。
+- `node --check miniprogram\pages\member-code\member-code.js` 通过。
+- 全量 `miniprogram` JS `node --check` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `node scripts\check-player-flow-routes.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `747.4 KB` / `765348` bytes。
+
+残余风险：
+
+- 当前没有 Git remote，阶段提交只能本地完成，无法推送远端。
+- 云环境尚未创建，本地兜底不能替代正式云函数；上线前必须补会员码、积分流水、球桌到点时间、异常比赛处理的真实落库。
+
+审查归档：
+
+- `docs/reviews/phase-37-ops-screen-launch-polish-review.md`
+

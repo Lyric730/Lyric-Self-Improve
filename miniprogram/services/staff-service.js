@@ -1,24 +1,85 @@
 const { callCloud, ensureOk, success } = require("./api-client");
-const { staffTables, abnormalMatches } = require("../utils/ladder-data");
+const { staffTables, abnormalMatches, staffExchangeUser } = require("../utils/ladder-data");
+const { isDevtoolsPreview } = require("../utils/dev-preview");
+
+const STAFF_TABLES_STORAGE_KEY = "yunhan_staff_tables";
+const ABNORMAL_MATCHES_STORAGE_KEY = "yunhan_abnormal_matches";
+
+let currentStaffTables = staffTables.map((table) => ({ ...table }));
+let currentAbnormalMatches = abnormalMatches.map((match) => ({ ...match }));
+
+function canUseStorage() {
+  return typeof wx !== "undefined" && wx && wx.getStorageSync && wx.setStorageSync;
+}
+
+function readStorage(key, fallback) {
+  if (!canUseStorage()) {
+    return fallback;
+  }
+
+  try {
+    const storedValue = wx.getStorageSync(key);
+
+    return Array.isArray(storedValue) ? storedValue : fallback;
+  } catch (error) {
+    return fallback;
+  }
+}
+
+function writeStorage(key, value) {
+  if (!canUseStorage()) {
+    return;
+  }
+
+  try {
+    wx.setStorageSync(key, value);
+  } catch (error) {
+    // Local preview storage should not block the front-desk workflow.
+  }
+}
+
+async function callStaffCloud(action, payload) {
+  const result = await callCloud("staff", action, payload);
+
+  if (!result.ok && isDevtoolsPreview()) {
+    return success({});
+  }
+
+  return result;
+}
 
 function getStaffDeskData() {
+  currentStaffTables = readStorage(STAFF_TABLES_STORAGE_KEY, currentStaffTables);
+  currentAbnormalMatches = readStorage(ABNORMAL_MATCHES_STORAGE_KEY, currentAbnormalMatches);
+
   return success({
-    staffTables,
-    abnormalMatches
+    staffTables: currentStaffTables,
+    abnormalMatches: currentAbnormalMatches
   });
 }
 
 async function getMemberForExchange(params) {
-  const member = ensureOk(await callCloud("staff", "getMemberForExchange", {
+  const result = await callCloud("staff", "getMemberForExchange", {
     openid: params.openid,
     storeId: params.storeId || "default"
-  }));
+  });
+
+  if (!result.ok && isDevtoolsPreview()) {
+    return success({
+      openid: params.openid,
+      name: staffExchangeUser.name,
+      points: staffExchangeUser.points,
+      lastVisit: staffExchangeUser.lastVisit
+    });
+  }
+
+  const member = ensureOk(result);
 
   return success(member);
 }
 
 async function updateTableDueTime(params) {
-  ensureOk(await callCloud("staff", "updateTableDueTime", {
+  ensureOk(await callStaffCloud("updateTableDueTime", {
     tableId: params.tableId,
     dueTime: params.dueTime,
     storeId: params.storeId || "default"
@@ -35,6 +96,9 @@ async function updateTableDueTime(params) {
     };
   });
 
+  currentStaffTables = nextTables;
+  writeStorage(STAFF_TABLES_STORAGE_KEY, nextTables);
+
   return success({
     staffTables: nextTables,
     selectedTable: nextTables.find((table) => table.id === params.tableId)
@@ -42,7 +106,7 @@ async function updateTableDueTime(params) {
 }
 
 async function deductMemberPoints(params) {
-  ensureOk(await callCloud("staff", "deductMemberPoints", {
+  ensureOk(await callStaffCloud("deductMemberPoints", {
     openid: params.openid || "",
     userName: params.userName,
     points: params.points,
@@ -55,11 +119,14 @@ async function deductMemberPoints(params) {
 }
 
 async function voidAbnormalMatch(params) {
-  ensureOk(await callCloud("staff", "voidAbnormalMatch", {
+  ensureOk(await callStaffCloud("voidAbnormalMatch", {
     matchId: params.matchId,
     tableNo: params.tableNo,
     storeId: params.storeId || "default"
   }));
+
+  currentAbnormalMatches = currentAbnormalMatches.filter((match) => match.id !== params.matchId);
+  writeStorage(ABNORMAL_MATCHES_STORAGE_KEY, currentAbnormalMatches);
 
   return success({
     matchId: params.matchId

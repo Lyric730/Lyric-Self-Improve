@@ -5,6 +5,8 @@ Page({
   data: {
     loading: true,
     qrCodeDataUrl: "",
+    codeText: "",
+    codeCells: [],
     errorText: "",
     pointsText: ""
   },
@@ -24,6 +26,8 @@ Page({
 
       this.setData({
         qrCodeDataUrl: code.qrCodeDataUrl,
+        codeText: code.codeText || "",
+        codeCells: Array.isArray(code.codeCells) ? code.codeCells : [],
         pointsText: `当前积分 ${code.points}`
       });
     } catch (error) {

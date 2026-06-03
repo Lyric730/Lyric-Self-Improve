@@ -4,6 +4,7 @@ const {
   validateMemberProfile
 } = require("../utils/member-profile");
 const { match } = require("../utils/ladder-data");
+const { isDevtoolsPreview } = require("../utils/dev-preview");
 
 const MEMBER_PROFILE_STORAGE_KEY = "yunhan_member_profile";
 
@@ -61,10 +62,48 @@ function getCurrentMemberProfile() {
   return currentMemberProfile;
 }
 
+function buildCodeCells(seedText) {
+  const text = String(seedText || "YUNHAN");
+  let hash = 0;
+
+  for (let index = 0; index < text.length; index += 1) {
+    hash = (hash * 31 + text.charCodeAt(index)) % 9973;
+  }
+
+  return Array.from({ length: 49 }).map((_, index) => {
+    const row = Math.floor(index / 7);
+    const col = index % 7;
+    const inCorner =
+      (row < 2 && col < 2) ||
+      (row < 2 && col > 4) ||
+      (row > 4 && col < 2);
+
+    return inCorner || ((hash + row * 7 + col * 11 + index) % 3 === 0);
+  });
+}
+
+function buildLocalMemberCode() {
+  const profile = getCurrentMemberProfile();
+  const codeText = `YH-${String(profile.name || "MEMBER").slice(-4)}-${profile.points}`;
+
+  return {
+    qrCodeDataUrl: "",
+    codeText,
+    codeCells: buildCodeCells(codeText),
+    points: profile.points
+  };
+}
+
 async function getMemberCode(params = {}) {
-  const code = ensureOk(await callCloud("member", "getCode", {
+  const result = await callCloud("member", "getCode", {
     storeId: params.storeId || "default"
-  }));
+  });
+
+  if (!result.ok && isDevtoolsPreview()) {
+    return success(buildLocalMemberCode());
+  }
+
+  const code = ensureOk(result);
 
   return success(code);
 }

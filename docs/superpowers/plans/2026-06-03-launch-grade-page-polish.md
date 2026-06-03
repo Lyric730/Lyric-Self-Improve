@@ -165,10 +165,10 @@ Use DevTools preview and manually test:
 - Modify: `miniprogram/pages/tv-ranking/`
 - Create: `docs/reviews/phase-37-ops-screen-launch-polish-review.md`
 
-- [ ] My page contains editable profile and role entries.
-- [ ] Staff page keeps only high-frequency actions.
-- [ ] Boss page allows numeric parameters to be adjusted locally.
-- [ ] TV screen is 16:9 and not based on cramped mobile layout.
+- [x] My page contains editable profile and role entries.
+- [x] Staff page keeps only high-frequency actions.
+- [x] Boss page allows numeric parameters to be adjusted locally.
+- [x] TV screen is 16:9 and not based on cramped mobile layout.
 
 ## Standard Verification
 

@@ -11,6 +11,12 @@
         <view wx:if="{{qrCodeDataUrl && !loading}}" class="member-code-card">
           <image src="{{qrCodeDataUrl}}" mode="aspectFit" />
         </view>
+        <view wx:elif="{{codeCells.length && !loading}}" class="member-code-card member-code-card--visual">
+          <view class="member-code-grid">
+            <text wx:for="{{codeCells}}" wx:key="index" class="{{item ? 'is-dark' : ''}}"></text>
+          </view>
+          <text class="member-code-token">{{codeText}}</text>
+        </view>
         <view wx:elif="{{loading}}" class="member-code-state">
           <text>生成中</text>
         </view>

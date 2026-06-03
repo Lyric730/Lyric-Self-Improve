@@ -1,8 +1,9 @@
 const { ensureOk } = require("../../services/api-client");
-const { calculateSettlement, getCurrentMatch } = require("../../services/match-service");
+const { calculateSettlement, getCurrentMatch, settleCurrentMatch } = require("../../services/match-service");
 
 function buildSettlementQuery(settlement) {
   return [
+    `matchId=${settlement.matchId || ""}`,
     `modeId=${settlement.mode.modeId}`,
     `base=${settlement.selectedBase}`,
     `multiplier=${settlement.selectedMultiplier}`,
@@ -20,7 +21,8 @@ Page({
   data: {
     match: ensureOk(getCurrentMatch()),
     settlement: ensureOk(calculateSettlement()),
-    nextQuery: ""
+    nextQuery: "",
+    settling: false
   },
 
   onLoad(options) {
@@ -28,6 +30,7 @@ Page({
       ...options,
       elapsedText: options.elapsedText ? decodeURIComponent(options.elapsedText) : ""
     }));
+    settlement.matchId = options.matchId || settlement.matchId || "";
 
     this.setData({
       settlement,
@@ -35,8 +38,28 @@ Page({
     });
   },
 
-  confirm() {
-    wx.navigateTo({ url: `/pages/match-result/match-result?${this.data.nextQuery}` });
+  async confirm() {
+    if (this.data.settling) {
+      return;
+    }
+
+    this.setData({ settling: true });
+
+    try {
+      const result = ensureOk(await settleCurrentMatch(this.data.settlement));
+      const settlement = result.settlement || result;
+      settlement.matchId = result.matchId || settlement.matchId || this.data.settlement.matchId || "";
+      const nextQuery = buildSettlementQuery(settlement);
+
+      wx.navigateTo({ url: `/pages/match-result/match-result?${nextQuery}` });
+    } catch (error) {
+      wx.showToast({
+        title: error.message || "结算失败",
+        icon: "none"
+      });
+    } finally {
+      this.setData({ settling: false });
+    }
   },
 
   refuse() {

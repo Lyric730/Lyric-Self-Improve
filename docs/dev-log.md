@@ -2072,3 +2072,44 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-42-cloud-match-settle-review.md`
 
+## 2026-06-03 Phase 43 结算确认按钮接入云函数入口
+
+本轮目的：在不一次性重构结算三页的前提下，先让“服了，确认结算”动作进入服务端结算入口，减少正式上线时前端单独决定结算结果的风险。
+
+代码变更：
+
+- 更新 `miniprogram/services/match-service.js`：
+  - 新增 `settleCurrentMatch(params)`。
+  - 优先调用 `callCloud("match", "settle", payload)`。
+  - DevTools 预览环境云不可用时，兜底返回本地 `calculateSettlement`。
+  - 非 DevTools 环境云结算失败时抛出错误，不静默本地结算。
+- 更新 `miniprogram/pages/match-scoring/match-scoring.js`：
+  - 跳转结算页时透传 `matchId`，正式数据可用后用于云端结算定位比赛。
+- 更新 `miniprogram/pages/settlement/settlement.js`：
+  - 确认按钮改为异步调用 `settleCurrentMatch`。
+  - 云函数返回 `{ matchId, settlement }` 时保留 `matchId` 并再跳结果页。
+  - 失败时 `wx.showToast` 提示，不进入结果页。
+- 更新 `miniprogram/pages/settlement/settlement.wxml`：
+  - “服了，确认结算”按钮增加 loading / disabled，避免重复点击。
+
+文档变更：
+
+- 更新 `docs/api-service-layer-contract.md`，说明确认动作已接云函数入口，但预览和结果页仍待继续迁移。
+- 更新执行计划，新增 Stage 13。
+
+验证结果：
+
+- `node --check miniprogram\services\match-service.js` 通过。
+- `node --check miniprogram\pages\settlement\settlement.js` 通过。
+- `node --check miniprogram\pages\match-scoring\match-scoring.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+
+残余风险：
+
+- 结算预览仍是本地公式展示，结果页仍通过 query 复算展示。
+- 本地占位比赛数据不是正式云端 `matches` 文档；真实云环境创建后必须用真实 matchId 和双方 OpenID 复测。
+
+审查归档：
+
+- `docs/reviews/phase-43-settlement-confirm-cloud-entry-review.md`
+

@@ -1,5 +1,6 @@
-const { success } = require("./api-client");
+const { callCloud, ensureOk, success } = require("./api-client");
 const { buildMatchSetup, buildSettlement, match, modes } = require("../utils/ladder-data");
+const { isDevtoolsPreview } = require("../utils/dev-preview");
 
 function getModes() {
   return success(modes);
@@ -17,9 +18,44 @@ function calculateSettlement(params = {}) {
   return success(buildSettlement(params));
 }
 
+function buildSettlementPayload(params = {}) {
+  return {
+    matchId: params.matchId || match.id || match.matchId || match.roomNo,
+    playerAOpenid: params.playerAOpenid || (match.playerA && match.playerA.openid),
+    playerBOpenid: params.playerBOpenid || (match.playerB && match.playerB.openid),
+    modeId: params.modeId || (match.selectedMode && match.selectedMode.modeId),
+    selectedBase: Number(params.selectedBase || params.base || match.selectedBase),
+    selectedMultiplier: Number(params.selectedMultiplier || params.multiplier || match.selectedMultiplier),
+    scoreA: Number(params.scoreA || match.scoreA),
+    scoreB: Number(params.scoreB || match.scoreB),
+    winnerSide: params.winnerSide || params.winner,
+    elapsedSeconds: Number(params.elapsedSeconds || params.elapsed || 0),
+    rewardValue: params.rewardValue !== undefined ? Number(params.rewardValue) : Number(params.reward || 0),
+    rankStateA: match.playerA && match.playerA.rankState,
+    rankStateB: match.playerB && match.playerB.rankState
+  };
+}
+
+async function settleCurrentMatch(params = {}) {
+  const payload = buildSettlementPayload(params);
+
+  try {
+    const result = ensureOk(await callCloud("match", "settle", payload));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  return calculateSettlement(params);
+}
+
 module.exports = {
   calculateSettlement,
   getCurrentMatch,
   getMatchSetup,
-  getModes
+  getModes,
+  settleCurrentMatch
 };

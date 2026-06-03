@@ -103,6 +103,7 @@ Page({
   handleTargetReached(winnerSide) {
     const { setup, elapsedSeconds, elapsedText, scoreA, scoreB } = this.data;
     const query = [
+      `matchId=${this.data.match.id || this.data.match.matchId || ""}`,
       `modeId=${setup.mode.modeId}`,
       `base=${setup.selectedBase}`,
       `multiplier=${setup.selectedMultiplier}`,

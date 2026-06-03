@@ -47,7 +47,7 @@
     <accept-stamp label="{{settlement.loser.name}} 确认后生效" />
 
     <view class="flow-actions">
-      <yh-button text="服了，确认结算" size="lg" variant="success" block bind:tap="confirm" />
+      <yh-button text="服了，确认结算" size="lg" variant="success" block loading="{{settling}}" disabled="{{settling}}" bind:tap="confirm" />
       <yh-button text="不服，暂不结算" variant="danger" block bind:tap="refuse" />
     </view>
   </view>

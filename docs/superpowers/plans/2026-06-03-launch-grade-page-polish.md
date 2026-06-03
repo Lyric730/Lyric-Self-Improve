@@ -238,6 +238,22 @@ Use DevTools preview and manually test:
 - [x] Keep frontend `match-service.calculateSettlement` unchanged until a separate async page-flow migration stage.
 - [x] Add cloud contract tests for settlement parity and write-plan shape.
 
+## Stage 13: 结算确认按钮接入服务端结算入口
+
+**Files:**
+- Modify: `miniprogram/services/match-service.js`
+- Modify: `miniprogram/pages/match-scoring/match-scoring.js`
+- Modify: `miniprogram/pages/settlement/settlement.js`
+- Modify: `miniprogram/pages/settlement/settlement.wxml`
+- Create: `docs/reviews/phase-43-settlement-confirm-cloud-entry-review.md`
+
+- [x] Add `match-service.settleCurrentMatch()` as the cloud-first settlement service.
+- [x] Keep `calculateSettlement()` for current settlement preview rendering.
+- [x] In DevTools preview, cloud failure falls back to local settlement.
+- [x] In non-DevTools production, cloud settlement failure is surfaced to the user.
+- [x] Settlement confirm button shows loading and blocks repeat taps.
+- [x] Pass `matchId` through the scoring-to-settlement query when available.
+
 ## Standard Verification
 
 Run after each stage:

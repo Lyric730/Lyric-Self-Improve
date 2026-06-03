@@ -34,6 +34,7 @@
 
 ```powershell
 node scripts/test-ops-services.js
+node scripts/test-cloud-contracts.js
 node scripts/test-settlement-engine.js
 node scripts/test-admin-config-validator.js
 node scripts/test-member-profile.js

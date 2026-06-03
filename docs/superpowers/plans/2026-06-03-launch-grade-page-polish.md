@@ -205,6 +205,23 @@ Use DevTools preview and manually test:
 - [x] Support optional WeChat DevTools preview with `-WithPreview`.
 - [x] Avoid literal Chinese default path encoding issues in PowerShell 5.
 
+## Stage 11: 云函数服务端校验与会员资料保存
+
+**Files:**
+- Create: `cloudfunctions/yunhanApi/admin-config-validator.js`
+- Create: `cloudfunctions/yunhanApi/member-profile.js`
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `miniprogram/services/member-service.js`
+- Create: `scripts/test-cloud-contracts.js`
+- Create: `docs/reviews/phase-41-cloud-validation-profile-review.md`
+
+- [x] Cloud `admin.saveConfig` validates config server-side before writing `admin_configs`.
+- [x] Cloud `member.saveProfile` saves only editable member profile fields.
+- [x] Saving profile must not overwrite existing owner/staff role.
+- [x] Saving profile must not create a `member_points` document without balance.
+- [x] Frontend member service calls cloud first and falls back locally only in DevTools.
+- [x] Add parity tests for mini-program and cloud validation rules.
+
 ## Standard Verification
 
 Run after each stage:
@@ -212,6 +229,7 @@ Run after each stage:
 ```powershell
 Get-ChildItem miniprogram -Recurse -Filter *.js | ForEach-Object { node --check $_.FullName }
 node scripts/test-ops-services.js
+node scripts/test-cloud-contracts.js
 node scripts/check-service-layer-boundary.js
 node scripts/check-json-files.js
 node scripts/check-production-copy.js

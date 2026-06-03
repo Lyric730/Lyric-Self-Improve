@@ -13,9 +13,9 @@
 - `auth`：读取微信 OpenID。
 - `auth.bootstrapOwner`：使用云函数环境变量完成首个 owner 初始化，仅允许无 owner 门店执行一次。
 - `match`：预留房间状态和服务端结算。
-- `member`：生成球友端会员码。
+- `member`：生成球友端会员码，保存会员昵称、手机号、备注和头像。
 - `staff`：处理员工写操作，写入 `table_sessions`、`member_points`、`points_ledger`、`matches`，并写入 `operation_logs`。
-- `admin`：处理老板配置保存，写入 `admin_configs`，并写入 `operation_logs`。
+- `admin`：处理老板配置保存，先做服务端参数校验，再写入 `admin_configs`，并写入 `operation_logs`。
 - `screen`：预留大屏数据和 `screenToken` 校验。
 
 正式上线前必须补齐：

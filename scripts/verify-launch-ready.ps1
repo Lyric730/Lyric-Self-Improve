@@ -53,6 +53,10 @@ Invoke-Check "Member profile tests" {
   node scripts\test-member-profile.js
 }
 
+Invoke-Check "Cloud contract tests" {
+  node scripts\test-cloud-contracts.js
+}
+
 Invoke-Check "Service layer boundary check" {
   node scripts\check-service-layer-boundary.js
 }
@@ -75,6 +79,12 @@ Invoke-Check "UI asset edge check" {
 
 Invoke-Check "Mini-program JS syntax check" {
   Get-ChildItem miniprogram -Recurse -Filter *.js | ForEach-Object {
+    node --check $_.FullName
+  }
+}
+
+Invoke-Check "Cloud function JS syntax check" {
+  Get-ChildItem cloudfunctions -Recurse -Filter *.js | ForEach-Object {
     node --check $_.FullName
   }
 }

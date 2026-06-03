@@ -117,7 +117,7 @@ function getMemberProfile() {
   });
 }
 
-function saveMemberProfile(profile = {}) {
+async function saveMemberProfile(profile = {}) {
   const validation = validateMemberProfile(profile);
 
   if (!validation.ok) {
@@ -127,6 +127,17 @@ function saveMemberProfile(profile = {}) {
       message: validation.errors[0],
       errors: validation.errors
     };
+  }
+
+  try {
+    ensureOk(await callCloud("member", "saveProfile", {
+      profile: validation.value,
+      storeId: "default"
+    }));
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
   }
 
   currentMemberProfile = {

@@ -1,5 +1,7 @@
 const cloud = require("wx-server-sdk");
 const QRCode = require("qrcode");
+const { assertValidAdminConfig } = require("./admin-config-validator");
+const { assertValidMemberProfile } = require("./member-profile");
 
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -345,13 +347,15 @@ async function voidAbnormalMatch(payload, storeId, operatorOpenid) {
 async function saveAdminConfig(payload, storeId, operatorOpenid) {
   requirePayloadValue(payload, "config", "缺少门店配置", "ADMIN_CONFIG_REQUIRED");
 
+  const config = assertValidAdminConfig(payload.config);
+
   const writeMode = await upsertOne(
     "admin_configs",
     {
       storeId
     },
     {
-      config: payload.config,
+      config,
       updatedBy: operatorOpenid
     }
   );
@@ -360,6 +364,69 @@ async function saveAdminConfig(payload, storeId, operatorOpenid) {
     storeId,
     writeMode
   };
+}
+
+async function saveMemberProfile(payload, storeId, openid) {
+  const profile = assertValidMemberProfile(payload.profile || payload);
+  const memberResult = await db.collection("store_members")
+    .where({
+      storeId,
+      openid
+    })
+    .limit(1)
+    .get();
+  const member = memberResult.data && memberResult.data.length > 0 ? memberResult.data[0] : null;
+
+  if (member) {
+    await db.collection("store_members").doc(member._id).update({
+      data: {
+        nickname: profile.name,
+        phone: profile.phone,
+        note: profile.note,
+        avatarUrl: profile.avatarUrl,
+        updatedAt: db.serverDate()
+      }
+    });
+  } else {
+    await db.collection("store_members").add({
+      data: {
+        storeId,
+        openid,
+        role: "player",
+        status: "active",
+        nickname: profile.name,
+        phone: profile.phone,
+        note: profile.note,
+        avatarUrl: profile.avatarUrl,
+        createdAt: db.serverDate(),
+        updatedAt: db.serverDate()
+      }
+    });
+  }
+
+  const pointsResult = await db.collection("member_points")
+    .where({
+      storeId,
+      openid
+    })
+    .limit(1)
+    .get();
+  const pointsAccount = pointsResult.data && pointsResult.data.length > 0 ? pointsResult.data[0] : null;
+
+  if (pointsAccount) {
+    await db.collection("member_points").doc(pointsAccount._id).update({
+      data: {
+        nickname: profile.name,
+        name: profile.name,
+        phone: profile.phone,
+        note: profile.note,
+        avatarUrl: profile.avatarUrl,
+        updatedAt: db.serverDate()
+      }
+    });
+  }
+
+  return profile;
 }
 
 async function getStorePointsConfig(storeId) {
@@ -537,6 +604,14 @@ async function handleAdmin(event) {
 async function handleMember(event) {
   const wxContext = getWxContext();
   const storeId = getStoreId(event);
+
+  if (event.action === "saveProfile") {
+    const profile = await saveMemberProfile(event.payload || {}, storeId, wxContext.OPENID);
+
+    return ok({
+      profile
+    });
+  }
 
   if (event.action !== "getCode") {
     return fail("暂不支持该会员操作", "UNKNOWN_MEMBER_ACTION");

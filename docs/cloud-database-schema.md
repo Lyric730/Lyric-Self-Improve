@@ -34,6 +34,9 @@
 | `role` | string | 是 | `player` / `staff` / `owner` / `screen` |
 | `status` | string | 是 | `active` / `disabled` |
 | `nickname` | string | 否 | 昵称 |
+| `phone` | string | 否 | 会员手机号 |
+| `note` | string | 否 | 前台备注 |
+| `avatarUrl` | string | 否 | 会员头像地址 |
 | `createdAt` | date | 是 | 创建时间 |
 | `updatedAt` | date | 是 | 更新时间 |
 
@@ -127,6 +130,9 @@
 | `openid` | string | 是 | 用户 OpenID |
 | `nickname` | string | 否 | 会员昵称 |
 | `name` | string | 否 | 会员备注名 |
+| `phone` | string | 否 | 会员手机号 |
+| `note` | string | 否 | 前台备注 |
+| `avatarUrl` | string | 否 | 会员头像地址 |
 | `balance` | number | 是 | 当前积分余额 |
 | `createdAt` | date | 是 | 创建时间 |
 | `updatedAt` | date | 是 | 更新时间 |

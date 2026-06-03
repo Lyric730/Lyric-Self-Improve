@@ -1970,3 +1970,54 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-40-launch-verification-script-review.md`
 
+## 2026-06-03 Phase 41 云函数服务端校验与会员资料保存
+
+本轮目的：把老板参数保存和球友个人资料保存从“前端本地可用”推进到“云函数可接入”，先把服务端校验、白名单写入和前后端校验一致性补齐。
+
+代码变更：
+
+- 新增 `cloudfunctions/yunhanApi/admin-config-validator.js`：
+  - 云函数侧复用老板配置校验规则。
+  - `admin.saveConfig` 写入 `admin_configs` 前先调用服务端校验。
+- 新增 `cloudfunctions/yunhanApi/member-profile.js`：
+  - 云函数侧复用会员资料校验规则。
+  - 只允许保存昵称、手机号、备注、头像。
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `member.saveProfile`。
+  - 已有 `store_members` 只更新资料字段，不改 `role` / `status`。
+  - 新会员资料保存只创建 `store_members` 球友身份。
+  - 已有 `member_points` 只同步资料字段，不创建缺少余额的积分账户。
+- 更新 `miniprogram/services/member-service.js`：
+  - 保存个人资料时优先调用云函数。
+  - 只有微信开发者工具预览环境允许本地 storage 兜底。
+- 新增 `scripts/test-cloud-contracts.js`：
+  - 校验小程序侧和云函数侧老板配置规则一致。
+  - 校验小程序侧和云函数侧会员资料规则一致。
+- 更新 `scripts/verify-launch-ready.ps1`：
+  - 加入云函数契约测试。
+  - 加入云函数 JS 语法检查。
+
+文档变更：
+
+- 更新 `docs/api-service-layer-contract.md`，记录云函数校验、会员资料云端保存和 DevTools 兜底边界。
+- 更新 `docs/cloud-database-schema.md`，补充 `store_members` / `member_points` 的会员资料字段。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入云函数契约测试。
+- 更新 `cloudfunctions/README.md`，同步 `member.saveProfile` 和 `admin.saveConfig` 当前职责。
+- 更新执行计划，新增 Stage 11。
+
+验证结果：
+
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- `node scripts\test-cloud-contracts.js` 已纳入统一脚本，输出 `Cloud contract tests OK`。
+- 云函数 JS 语法检查通过。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `748.8 KB` / `766759` bytes。
+
+残余风险：
+
+- 云环境尚未创建，真实云数据库权限、集合索引、云函数部署和线上调用还没有实测。
+- 云函数侧校验文件与小程序侧校验文件目前是复制保持一致，后续若改规则，必须同步跑 `node scripts/test-cloud-contracts.js`。
+
+审查归档：
+
+- `docs/reviews/phase-41-cloud-validation-profile-review.md`
+

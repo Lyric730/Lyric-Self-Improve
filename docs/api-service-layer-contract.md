@@ -62,13 +62,13 @@ callCloud(moduleName, action, payload)
 
 1. `staff-service` 的写操作已替换为 `callCloud("staff", action, payload)`。
 2. `admin-service` 的保存配置已替换为 `callCloud("admin", action, payload)`。
-3. `admin-service` 保存配置前已通过 `miniprogram/utils/admin-config-validator.js` 校验门店参数。
+3. `admin-service` 保存配置前已通过 `miniprogram/utils/admin-config-validator.js` 校验门店参数，云函数 `admin.saveConfig` 也已通过 `cloudfunctions/yunhanApi/admin-config-validator.js` 复用同一口径。
 4. 当前 `match-service.calculateSettlement` 已通过 `miniprogram/utils/settlement-engine.js` 计算本地结算展示。
 5. 下一步把 `match-service.calculateSettlement` 替换为 `callCloud("match", "settle", payload)`，云函数内部必须复用同一套规则口径，并写入 `settlements`、`points_ledger`、`rank_states`。
-6. `member-service.saveMemberProfile` 当前使用本地缓存兜底；云环境可用后替换为 `callCloud("member", "saveProfile", payload)`，只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分。
+6. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
 7. 最后替换榜单、个人数据和大屏数据读取。
 
-注意：`admin-config-validator` 当前只在小程序端执行。正式云环境可用后，`admin.saveConfig` 云函数也必须复用同一套校验，不能只相信前端传参。
+注意：`admin-config-validator` 和 `member-profile` 当前在小程序端与云函数包内各保留一份。每次修改校验规则后必须运行 `node scripts/test-cloud-contracts.js`，确认前端和云函数口径一致。
 
 当前为了保证微信开发者工具在无云环境时可继续预览，`member-service`、`staff-service`、`admin-service` 保留 DevTools 本地兜底。生产环境不能依赖这些兜底；云函数可用后，必须按 `docs/cloud-function-cutover-checklist.md` 做真实落库验证。
 
@@ -108,7 +108,8 @@ callCloud(moduleName, action, payload)
 - `operation-log.js` 仅保留历史开发背景；运营端写操作已改为服务端 `operation_logs` 入口。
 - `match-service.js` 的 `calculateSettlement` 替换为服务端结算接口，前端不再拥有结算公式。
 - `screen-service.js` 接入 `screenToken`。
-- `member-service.js` 的会员资料保存接入云函数和 `store_members` / `users` 持久化。
+- `screen-service.js` 的榜单数据接真实排行榜集合。
+- `member-service.js` 的会员资料保存已接云函数；真实云环境可用后要验证 `store_members` / `member_points` 写入。
 
 ## 7. 验收规则
 
@@ -116,6 +117,7 @@ callCloud(moduleName, action, payload)
 
 ```powershell
 node scripts/test-ops-services.js
+node scripts/test-cloud-contracts.js
 node scripts/check-service-layer-boundary.js
 ```
 

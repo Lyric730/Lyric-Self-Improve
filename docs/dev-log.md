@@ -2340,3 +2340,54 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-48-create-room-cloud-entry-review.md`
 
+## 2026-06-03 Phase 49 接受挑战加入房间接服务端入口
+
+本轮目的：接受挑战不能只是前端跳转玩法页。正式链路需要对手通过云函数加入真实房间，写入 `guestOpenid`，再带同一个 `matchId` 进入后续玩法选择。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `joinMatchRoom()`。
+  - 新增 `match.joinRoom` action。
+  - 加入时写入 `matches.guestOpenid`，并把 `matches.status` 改为 `joined`。
+  - 拒绝房主加入自己的房间。
+  - 拒绝不存在、已关闭、已被第三人占用的房间。
+  - 使用 `guestOpenid=""` 条件更新，降低两个对手同时扫码时后写覆盖风险。
+  - `formatRoomState()` 在未加入时返回 `guest: null`，避免前端显示空挑战方。
+- 更新 `miniprogram/services/match-service.js`：
+  - 新增 `joinChallengeRoom(params)`。
+  - DevTools 无云环境时保留本地房间加入预览兜底。
+- 更新 `miniprogram/pages/accept-challenge/`：
+  - 页面进入时按 `matchId` 读取房间状态。
+  - 点击接受挑战时调用 `joinChallengeRoom()`。
+  - 接受成功后带 `matchId` 进入玩法选择。
+  - 加入中按钮禁用，防止重复点击。
+  - 房间读取失败时显示正式错误态，不渲染空数据。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `match.joinRoom`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入接受挑战加入房间必测项。
+- 更新 `docs/api-service-layer-contract.md`，明确接受页读取房间和加入房间都走 `match-service`。
+- 更新 `docs/cloud-database-schema.md`，把房间状态补为 `waiting / joined / configured / ...`。
+- 更新执行计划，新增 Stage 19。
+
+验证结果：
+
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check miniprogram\services\match-service.js` 通过。
+- `node --check miniprogram\pages\accept-challenge\accept-challenge.js` 通过。
+- `node scripts\check-production-copy.js` 通过，输出 `Production copy check OK (21 files checked)`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `792.0 KB / 811001 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，`match.joinRoom` 尚未在真实 `matches` 集合中验证权限、条件更新结果和重复扫码路径。
+- 房间二维码 / 邀请链接生成链路尚未接入，本阶段只处理接受页拿到 `matchId` 后的加入动作。
+- 玩法、底分、倍率仍需后续写入 `matches`，避免后续计分页继续依赖 query 参数。
+
+审查归档：
+
+- `docs/reviews/phase-49-join-room-cloud-entry-review.md`
+

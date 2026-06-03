@@ -1,41 +1,69 @@
 <view class="flow-page flow-page--locked accept-page">
-  <view class="flow-hero flow-hero--compact">
+  <view wx:if="{{loadingInvite && !incomingChallenge}}" class="flow-hero flow-hero--compact">
     <text class="flow-hero__eyebrow">MATCH REQUEST</text>
     <text class="flow-hero__title">排位挑战邀请</text>
-    <text class="flow-hero__subtitle">{{incomingChallenge.tableNo}} · 到点 {{incomingChallenge.dueTime}}</text>
+    <text class="flow-hero__subtitle">正在读取房间状态</text>
   </view>
 
-  <view class="flow-stack">
-    <view class="invite-card">
-      <view class="invite-card__status">
-        <text>{{incomingChallenge.statusText}}</text>
-        <text>房间 {{incomingChallenge.roomNo}}</text>
+  <view wx:if="{{loadingInvite && !incomingChallenge}}" class="flow-stack">
+    <yh-panel title="读取邀请" subtitle="请保持当前页面打开" marker="SYNC" tone="gold" raised>
+      <view class="accept-note accept-note--loading">
+        <text>正在确认挑战房间</text>
       </view>
+    </yh-panel>
+  </view>
 
-      <view class="player-strip">
-        <view class="player-card">
-          <text class="avatar-token">{{incomingChallenge.host.shortName}}</text>
-          <text class="player-card__name">{{incomingChallenge.host.name}}</text>
-          <text class="player-card__meta">发起方</text>
-          <text class="player-card__rank">{{incomingChallenge.host.rankTitle}}</text>
-        </view>
-        <view class="player-card">
-          <text class="avatar-token avatar-token--blue">{{incomingChallenge.challenger.shortName}}</text>
-          <text class="player-card__name">{{incomingChallenge.challenger.name}}</text>
-          <text class="player-card__meta">挑战方</text>
-          <text class="player-card__rank">{{incomingChallenge.challenger.rankTitle}}</text>
-        </view>
+  <view wx:elif="{{inviteError && !incomingChallenge}}" class="flow-stack">
+    <yh-panel title="邀请读取失败" subtitle="请返回首页重新扫码" marker="ROOM" tone="orange" raised>
+      <view class="accept-note">
+        <text>{{inviteError}}</text>
       </view>
-    </view>
-
-    <view class="accept-note">
-      <text>{{incomingChallenge.acceptHint}}</text>
-      <text>{{incomingChallenge.rejectHint}}</text>
-    </view>
+    </yh-panel>
 
     <view class="flow-actions">
-      <yh-button text="接受挑战" size="lg" variant="primary" block bind:tap="accept" />
-      <yh-button text="拒绝邀请" variant="ghost" block bind:tap="reject" />
+      <yh-button text="返回首页" size="lg" variant="primary" block bind:tap="reject" />
     </view>
   </view>
+
+  <block wx:else>
+    <view class="flow-hero flow-hero--compact">
+      <text class="flow-hero__eyebrow">MATCH REQUEST</text>
+      <text class="flow-hero__title">排位挑战邀请</text>
+      <text class="flow-hero__subtitle">{{incomingChallenge.tableNo}} · 到点 {{incomingChallenge.dueTime}}</text>
+    </view>
+
+    <view class="flow-stack">
+      <view class="invite-card">
+        <view class="invite-card__status">
+          <text>{{incomingChallenge.statusText}}</text>
+          <text>房间 {{incomingChallenge.roomNo}}</text>
+        </view>
+
+        <view class="player-strip">
+          <view class="player-card">
+            <text class="avatar-token">{{incomingChallenge.host.shortName}}</text>
+            <text class="player-card__name">{{incomingChallenge.host.name}}</text>
+            <text class="player-card__meta">发起方</text>
+            <text class="player-card__rank">{{incomingChallenge.host.rankTitle}}</text>
+          </view>
+          <view class="player-card">
+            <text class="avatar-token avatar-token--blue">{{incomingChallenge.challenger.shortName}}</text>
+            <text class="player-card__name">{{incomingChallenge.challenger.name}}</text>
+            <text class="player-card__meta">挑战方</text>
+            <text class="player-card__rank">{{incomingChallenge.challenger.rankTitle}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="accept-note">
+        <text>{{incomingChallenge.acceptHint}}</text>
+        <text>{{incomingChallenge.rejectHint}}</text>
+      </view>
+
+      <view class="flow-actions">
+        <yh-button text="接受挑战" size="lg" variant="primary" block loading="{{joining}}" disabled="{{joining}}" bind:tap="accept" />
+        <yh-button text="拒绝邀请" variant="ghost" block disabled="{{joining}}" bind:tap="reject" />
+      </view>
+    </view>
+  </block>
 </view>

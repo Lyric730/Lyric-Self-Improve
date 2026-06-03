@@ -1,5 +1,5 @@
 const { callCloud, ensureOk, success } = require("./api-client");
-const { buildMatchSetup, buildSettlement, match, modes, roomState } = require("../utils/ladder-data");
+const { buildMatchSetup, buildSettlement, incomingChallenge, match, modes, roomState } = require("../utils/ladder-data");
 const { isDevtoolsPreview } = require("../utils/dev-preview");
 
 function getModes() {
@@ -19,11 +19,18 @@ function calculateSettlement(params = {}) {
 }
 
 function buildLocalRoomState(params = {}) {
+  const opponentJoined = Boolean(params.opponentJoined);
+
   return {
     ...roomState,
     matchId: params.matchId || roomState.matchId || roomState.roomNo,
     tableNo: params.tableNo || roomState.tableNo,
     dueTime: params.dueTime || roomState.dueTime || "",
+    status: opponentJoined ? "joined" : roomState.status,
+    statusText: opponentJoined ? "对手已加入" : roomState.statusText,
+    statusHint: opponentJoined ? "双方确认后进入玩法选择" : roomState.statusHint,
+    opponentJoined,
+    guest: opponentJoined ? incomingChallenge.challenger : null,
     localPreview: true
   };
 }
@@ -74,6 +81,32 @@ async function getWaitingRoomState(params = {}) {
   }
 
   return success(buildLocalRoomState(params));
+}
+
+async function joinChallengeRoom(params = {}) {
+  const payload = {
+    matchId: params.matchId || ""
+  };
+
+  try {
+    const result = ensureOk(await callCloud("match", "joinRoom", payload));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  const localRoomState = buildLocalRoomState({
+    ...params,
+    opponentJoined: true
+  });
+
+  return success({
+    matchId: localRoomState.matchId,
+    roomState: localRoomState
+  });
 }
 
 function buildSettlementPayload(params = {}) {
@@ -197,6 +230,7 @@ module.exports = {
   getMatchSetup,
   getModes,
   getWaitingRoomState,
+  joinChallengeRoom,
   previewSettlement,
   settleCurrentMatch
 };

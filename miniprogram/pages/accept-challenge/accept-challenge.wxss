@@ -48,3 +48,9 @@
   border: 1rpx solid rgba(255, 214, 145, 0.14);
   clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
 }
+
+.accept-note--loading {
+  min-height: 120rpx;
+  place-items: center;
+  color: var(--yh-color-gold);
+}

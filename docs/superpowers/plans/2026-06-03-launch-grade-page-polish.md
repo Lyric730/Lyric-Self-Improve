@@ -346,6 +346,28 @@ Use DevTools preview and manually test:
 - [x] Keep DevTools local fallback while cloud environment is unavailable.
 - [x] Document that opponent join is still a separate required stage.
 
+## Stage 19: 接受挑战加入房间接服务端入口
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/match-service.js`
+- Modify: `miniprogram/pages/accept-challenge/accept-challenge.js`
+- Modify: `miniprogram/pages/accept-challenge/accept-challenge.wxml`
+- Modify: `miniprogram/pages/accept-challenge/accept-challenge.wxss`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Modify: `docs/cloud-database-schema.md`
+- Create: `docs/reviews/phase-49-join-room-cloud-entry-review.md`
+
+- [x] Add cloud action `match.joinRoom`.
+- [x] Join action writes `guestOpenid` and changes room status to `joined`.
+- [x] Join action rejects host self-join, occupied rooms, missing rooms, and closed rooms.
+- [x] Add `match-service.joinChallengeRoom()`.
+- [x] Accept challenge page reads room state by `matchId`.
+- [x] Accept challenge page joins through service layer before navigating to mode selection.
+- [x] Keep DevTools local fallback while cloud environment is unavailable.
+- [x] Document that room scoring state machine is still a separate required stage.
+
 ## Standard Verification
 
 Run after each stage:

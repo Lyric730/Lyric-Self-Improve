@@ -90,7 +90,7 @@
 | `tableNo` | string | 是 | 球桌号 |
 | `dueTime` | string | 否 | 球桌到点时间，例：`22:30` |
 | `openedAt` | string | 否 | 员工设置的开台时间 |
-| `status` | string | 是 | `waiting` / `accepted` / `configured` / `playing` / `time_blocked` / `settlement_pending` / `settled` / `refused` / `voided` |
+| `status` | string | 是 | `waiting` / `joined` / `configured` / `playing` / `time_blocked` / `settlement_pending` / `settled` / `refused` / `voided` |
 | `hostOpenid` | string | 是 | 发起方 |
 | `guestOpenid` | string | 否 | 挑战方 |
 | `source` | string | 否 | 创建来源，第一版为 `miniapp` |

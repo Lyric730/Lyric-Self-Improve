@@ -566,7 +566,7 @@ async function getMemberSnapshot(openid, storeId) {
   }
 }
 
-function formatRoomState(match, hostSnapshot) {
+function formatRoomState(match, hostSnapshot, guestSnapshot) {
   const opponentJoined = Boolean(match.guestOpenid);
 
   return {
@@ -583,7 +583,12 @@ function formatRoomState(match, hostSnapshot) {
       name: "当前会员",
       shortName: "我",
       rankTitle: "会员"
-    }
+    },
+    guest: opponentJoined ? (guestSnapshot || {
+      name: opponentJoined ? "对手" : "",
+      shortName: opponentJoined ? "客" : "",
+      rankTitle: opponentJoined ? "会员" : ""
+    }) : null
   };
 }
 
@@ -636,10 +641,73 @@ async function getMatchRoom(payload, storeId) {
   }
 
   const hostSnapshot = await getMemberSnapshot(match.hostOpenid, storeId);
+  const guestSnapshot = match.guestOpenid ? await getMemberSnapshot(match.guestOpenid, storeId) : null;
 
   return {
     matchId: match._id,
-    roomState: formatRoomState(match, hostSnapshot)
+    roomState: formatRoomState(match, hostSnapshot, guestSnapshot)
+  };
+}
+
+async function joinMatchRoom(payload, storeId, guestOpenid) {
+  requirePayloadValue(payload, "matchId", "请选择比赛房间", "MATCH_ID_REQUIRED");
+
+  const result = await db.collection("matches")
+    .where({
+      _id: payload.matchId,
+      storeId
+    })
+    .limit(1)
+    .get();
+  const match = result.data && result.data.length > 0 ? result.data[0] : null;
+
+  if (!match) {
+    return fail("比赛房间不存在", "MATCH_NOT_FOUND");
+  }
+
+  if (match.status !== "waiting" && match.status !== "joined") {
+    return fail("比赛房间已不可加入", "MATCH_ROOM_CLOSED");
+  }
+
+  if (match.hostOpenid === guestOpenid) {
+    return fail("不能加入自己发起的房间", "HOST_CANNOT_JOIN");
+  }
+
+  if (match.guestOpenid && match.guestOpenid !== guestOpenid) {
+    return fail("本房间已有对手加入", "MATCH_ROOM_OCCUPIED");
+  }
+
+  if (!match.guestOpenid) {
+    const updateResult = await db.collection("matches")
+      .where({
+        _id: match._id,
+        storeId,
+        guestOpenid: ""
+      })
+      .update({
+        data: {
+          guestOpenid,
+          status: "joined",
+          updatedAt: db.serverDate()
+        }
+      });
+
+    if (!updateResult.stats || updateResult.stats.updated === 0) {
+      return fail("本房间已有对手加入", "MATCH_ROOM_OCCUPIED");
+    }
+  }
+
+  const joinedMatch = {
+    ...match,
+    guestOpenid,
+    status: "joined"
+  };
+  const hostSnapshot = await getMemberSnapshot(joinedMatch.hostOpenid, storeId);
+  const guestSnapshot = await getMemberSnapshot(guestOpenid, storeId);
+
+  return {
+    matchId: joinedMatch._id,
+    roomState: formatRoomState(joinedMatch, hostSnapshot, guestSnapshot)
   };
 }
 
@@ -951,6 +1019,33 @@ async function handleMatch(event) {
       payload: {
         tableNo: payload.tableNo,
         dueTime: payload.dueTime || ""
+      },
+      role,
+      storeId,
+      operatorOpenid: wxContext.OPENID
+    });
+
+    return ok({
+      action: event.action,
+      ...result
+    });
+  }
+
+  if (event.action === "joinRoom") {
+    const role = await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const payload = event.payload || {};
+    const result = await joinMatchRoom(payload, storeId, wxContext.OPENID);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
+
+    await writeOperationLog({
+      module: "match",
+      action: event.action,
+      payload: {
+        matchId: result.matchId,
+        roomNo: result.roomState.roomNo
       },
       role,
       storeId,

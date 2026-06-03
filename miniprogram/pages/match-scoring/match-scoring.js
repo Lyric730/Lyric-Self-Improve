@@ -18,7 +18,8 @@ Page({
     elapsedText: "00:00:01",
     remainingText: "",
     timeReady: false,
-    settlementLocked: false
+    settlementLocked: false,
+    matchId: ""
   },
 
   onLoad(options) {
@@ -28,7 +29,8 @@ Page({
     this.matchStartedAt = Date.now() - (initialElapsed - 1) * 1000;
     this.setData({
       setup,
-      elapsedSeconds: initialElapsed
+      elapsedSeconds: initialElapsed,
+      matchId: options.matchId ? decodeURIComponent(options.matchId) : ""
     }, () => this.refreshTimeState());
   },
 
@@ -103,7 +105,7 @@ Page({
   handleTargetReached(winnerSide) {
     const { setup, elapsedSeconds, elapsedText, scoreA, scoreB } = this.data;
     const query = [
-      `matchId=${this.data.match.id || this.data.match.matchId || ""}`,
+      `matchId=${encodeURIComponent(this.data.matchId || this.data.match.id || this.data.match.matchId || "")}`,
       `modeId=${setup.mode.modeId}`,
       `base=${setup.selectedBase}`,
       `multiplier=${setup.selectedMultiplier}`,

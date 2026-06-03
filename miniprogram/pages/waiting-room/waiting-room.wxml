@@ -2,10 +2,19 @@
   <view class="flow-hero flow-hero--compact">
     <text class="flow-hero__eyebrow">MATCH ROOM</text>
     <text class="flow-hero__title">等待对手加入</text>
-    <text class="flow-hero__subtitle">{{roomState.tableNo}} · 房间 {{roomState.roomNo}}</text>
+    <text class="flow-hero__subtitle">{{roomState.tableNo || '球桌'}} · 房间 {{roomState.roomNo || '读取中'}}</text>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{loadingRoom && !roomState}}" class="flow-stack">
+    <yh-panel title="正在创建房间" subtitle="请保持当前页面打开" marker="SYNC" tone="gold" raised>
+      <view class="room-loading">
+        <view class="room-loading__pulse"></view>
+        <text>正在读取挑战房间</text>
+      </view>
+    </yh-panel>
+  </view>
+
+  <view wx:else class="flow-stack">
     <view class="room-ticket">
       <view class="room-ticket__main">
         <text class="room-ticket__label">房间码</text>
@@ -38,7 +47,7 @@
 
     <view class="flow-actions">
       <yh-button wx:if="{{roomState.opponentJoined}}" text="选择玩法" size="lg" variant="primary" block bind:tap="continueMatch" />
-      <yh-button text="刷新状态" size="lg" variant="secondary" block bind:tap="refreshRoom" />
+      <yh-button text="刷新状态" size="lg" variant="secondary" block loading="{{loadingRoom}}" disabled="{{loadingRoom}}" bind:tap="refreshRoom" />
       <yh-button text="取消挑战" variant="ghost" block bind:tap="cancelRoom" />
     </view>
   </view>

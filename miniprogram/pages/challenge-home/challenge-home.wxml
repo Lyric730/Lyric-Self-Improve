@@ -47,7 +47,8 @@
           size="lg"
           variant="primary"
           block
-          disabled="{{!canStartChallenge}}"
+          loading="{{startingChallenge}}"
+          disabled="{{!canStartChallenge || startingChallenge}}"
           bind:tap="goWaitingRoom"
         />
         <text wx:if="{{!canStartChallenge}}" class="home-entry__hint">{{gateMessage}}</text>

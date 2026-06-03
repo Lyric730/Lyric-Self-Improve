@@ -1,5 +1,5 @@
 const { callCloud, ensureOk, success } = require("./api-client");
-const { buildMatchSetup, buildSettlement, match, modes } = require("../utils/ladder-data");
+const { buildMatchSetup, buildSettlement, match, modes, roomState } = require("../utils/ladder-data");
 const { isDevtoolsPreview } = require("../utils/dev-preview");
 
 function getModes() {
@@ -18,9 +18,62 @@ function calculateSettlement(params = {}) {
   return success(buildSettlement(params));
 }
 
+function buildLocalRoomState(params = {}) {
+  return {
+    ...roomState,
+    matchId: params.matchId || roomState.matchId || roomState.roomNo,
+    tableNo: params.tableNo || roomState.tableNo,
+    dueTime: params.dueTime || roomState.dueTime || "",
+    localPreview: true
+  };
+}
+
 function formatSignedPoints(value) {
   const numberValue = Number(value || 0);
   return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
+}
+
+async function createChallengeRoom(params = {}) {
+  const payload = {
+    tableNo: params.tableNo || match.tableNo || "T03",
+    dueTime: params.dueTime || match.dueTime || "",
+    openedAt: params.openedAt || ""
+  };
+
+  try {
+    const result = ensureOk(await callCloud("match", "createRoom", payload));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  const localRoomState = buildLocalRoomState(payload);
+
+  return success({
+    matchId: localRoomState.matchId,
+    roomState: localRoomState
+  });
+}
+
+async function getWaitingRoomState(params = {}) {
+  if (params.matchId) {
+    try {
+      const result = ensureOk(await callCloud("match", "get", {
+        matchId: params.matchId
+      }));
+
+      return success(result.roomState || result);
+    } catch (error) {
+      if (!isDevtoolsPreview()) {
+        throw error;
+      }
+    }
+  }
+
+  return success(buildLocalRoomState(params));
 }
 
 function buildSettlementPayload(params = {}) {
@@ -138,10 +191,12 @@ async function getSettlementResult(params = {}) {
 
 module.exports = {
   calculateSettlement,
+  createChallengeRoom,
   getSettlementResult,
   getCurrentMatch,
   getMatchSetup,
   getModes,
+  getWaitingRoomState,
   previewSettlement,
   settleCurrentMatch
 };

@@ -2281,3 +2281,62 @@ git push -u origin codex/launch-page-polish
 - 该 GitHub 仓库同时承载过 `Lyric-Self-Improve` 和台球小程序分支；当前只推送新分支，不改 `main`。
 - 后续阶段可直接 `git push`，不再需要手动指定 remote。
 
+## 2026-06-03 Phase 48 发起挑战房间接服务端入口
+
+本轮目的：球友端发起挑战不能只是前端跳转等待页。正式链路需要先创建真实比赛房间，拿到 `matchId` 后再进入等待、玩法、底分、计分和结算。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `match.createRoom`。
+  - 新增 `createMatchRoom()`，写入 `matches` 等待房间。
+  - 新增 `getMatchRoom()`，按 `matchId` 读取房间状态。
+  - 增强 `match.get`：有 `matchId` 时返回真实房间状态。
+- 更新 `miniprogram/services/match-service.js`：
+  - 新增 `createChallengeRoom(params)`。
+  - 新增 `getWaitingRoomState(params)`。
+  - DevTools 无云环境时返回本地房间预览。
+- 重写 `miniprogram/pages/challenge-home/challenge-home.js`：
+  - 点击发起挑战时先创建房间。
+  - 按钮增加 loading / disabled，避免重复开房。
+  - 创建成功后带 `matchId` 进入等待页。
+- 重写 `miniprogram/pages/waiting-room/waiting-room.js`：
+  - 进入页面时读取房间状态。
+  - 刷新按钮优先重新读取服务层状态。
+  - 本地预览模式下保留“刷新后对手加入”的演示兜底。
+- 重写 `miniprogram/pages/waiting-room/waiting-room.wxml`：
+  - 增加读取中状态。
+  - 房间信息只在状态可用后展示。
+- 更新 `miniprogram/pages/waiting-room/waiting-room.wxss`：
+  - 新增读取中动效样式。
+- 更新 `mode-select`、`points-select`、`match-confirm`、`match-scoring`：
+  - 透传 `matchId` 到后续结算链路。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `match.createRoom` 和 `match.get`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入开房和等待页读取必测项。
+- 更新 `docs/api-service-layer-contract.md`，明确开房、等待页读取和 `matchId` 透传要求。
+- 更新 `docs/cloud-database-schema.md`，补充 `matches.roomNo / dueTime / openedAt / source`。
+- 更新 `docs/cloud-init-runbook.md`，补充 `matches` 房间码索引。
+- 更新执行计划，新增 Stage 18。
+
+验证结果：
+
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check miniprogram\services\match-service.js` 通过。
+- `node --check miniprogram\pages\challenge-home\challenge-home.js` 通过。
+- `node --check miniprogram\pages\waiting-room\waiting-room.js` 通过。
+- `node scripts\check-service-layer-boundary.js` 通过，输出 `Service layer boundary check OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `783.7 KB / 802497 bytes`。
+
+残余风险：
+
+- `match.joinRoom` 尚未实现；真实双人加入流程仍未闭环。
+- 真实云环境尚未创建，`matches` 集合权限、字段和索引尚未实测。
+
+审查归档：
+
+- `docs/reviews/phase-48-create-room-cloud-entry-review.md`
+

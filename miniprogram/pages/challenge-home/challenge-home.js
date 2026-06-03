@@ -1,4 +1,5 @@
 const { ensureOk } = require("../../services/api-client");
+const { createChallengeRoom } = require("../../services/match-service");
 const { getChallengeHome } = require("../../services/player-service");
 
 const initialHome = ensureOk(getChallengeHome());
@@ -9,7 +10,8 @@ Page({
     challengeGate: initialHome.challengeGate,
     canStartChallenge: false,
     gateMessage: "",
-    playableStatusText: "排位可用"
+    playableStatusText: "排位可用",
+    startingChallenge: false
   },
 
   onLoad() {
@@ -32,16 +34,41 @@ Page({
     });
   },
 
-  goWaitingRoom() {
+  async goWaitingRoom() {
     if (!this.data.canStartChallenge) {
       wx.showToast({
-        title: this.data.gateMessage || "暂不能开始",
+        title: this.data.gateMessage || "暂时不能开始",
         icon: "none"
       });
       return;
     }
 
-    wx.navigateTo({ url: "/pages/waiting-room/waiting-room" });
+    if (this.data.startingChallenge) {
+      return;
+    }
+
+    this.setData({ startingChallenge: true });
+
+    try {
+      const tableSession = this.data.challengeGate.tableSession || {};
+      const result = ensureOk(await createChallengeRoom({
+        tableNo: tableSession.tableNo,
+        dueTime: tableSession.dueTime,
+        openedAt: tableSession.openedAt
+      }));
+      const matchId = result.matchId || (result.roomState && result.roomState.matchId) || "";
+
+      wx.navigateTo({
+        url: `/pages/waiting-room/waiting-room?matchId=${encodeURIComponent(matchId)}`
+      });
+    } catch (error) {
+      wx.showToast({
+        title: error.message || "发起挑战失败",
+        icon: "none"
+      });
+    } finally {
+      this.setData({ startingChallenge: false });
+    }
   },
 
   goData() {

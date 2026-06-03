@@ -518,6 +518,131 @@ async function applyPointAccountUpdates(rows, storeId, operatorOpenid) {
   return balances;
 }
 
+function buildRoomNo(tableNo) {
+  const safeTableNo = String(tableNo || "T00").replace(/\s+/g, "").toUpperCase();
+  const suffix = String(Date.now()).slice(-6);
+
+  return `YH-${safeTableNo}-${suffix}`;
+}
+
+function getShortName(name, fallback = "我") {
+  const value = String(name || "").trim();
+
+  return value ? value.slice(-1) : fallback;
+}
+
+async function getMemberSnapshot(openid, storeId) {
+  if (!openid) {
+    return {
+      name: "当前会员",
+      shortName: "我",
+      rankTitle: "会员"
+    };
+  }
+
+  try {
+    const result = await db.collection("store_members")
+      .where({
+        openid,
+        storeId,
+        status: "active"
+      })
+      .limit(1)
+      .get();
+    const member = result.data && result.data.length > 0 ? result.data[0] : null;
+    const name = member && (member.nickname || member.name) ? (member.nickname || member.name) : "当前会员";
+
+    return {
+      name,
+      shortName: getShortName(name),
+      rankTitle: member && member.rankTitle ? member.rankTitle : "会员"
+    };
+  } catch (error) {
+    return {
+      name: "当前会员",
+      shortName: "我",
+      rankTitle: "会员"
+    };
+  }
+}
+
+function formatRoomState(match, hostSnapshot) {
+  const opponentJoined = Boolean(match.guestOpenid);
+
+  return {
+    matchId: match._id || match.matchId || "",
+    roomNo: match.roomNo || match._id || "",
+    tableNo: match.tableNo || "",
+    dueTime: match.dueTime || "",
+    status: match.status || "waiting",
+    statusText: opponentJoined ? "对手已加入" : "等待对手加入",
+    statusHint: opponentJoined ? "双方确认后进入玩法选择" : "让对手扫描球桌码加入本场挑战",
+    expiresText: "房间 10 分钟内有效",
+    opponentJoined,
+    host: hostSnapshot || {
+      name: "当前会员",
+      shortName: "我",
+      rankTitle: "会员"
+    }
+  };
+}
+
+async function createMatchRoom(payload, storeId, hostOpenid) {
+  requirePayloadValue(payload, "tableNo", "请选择球桌", "TABLE_NO_REQUIRED");
+
+  const roomNo = buildRoomNo(payload.tableNo);
+  const matchData = {
+    storeId,
+    roomNo,
+    tableNo: payload.tableNo,
+    dueTime: payload.dueTime || "",
+    openedAt: payload.openedAt || "",
+    hostOpenid,
+    guestOpenid: "",
+    status: "waiting",
+    source: "miniapp",
+    createdAt: db.serverDate(),
+    updatedAt: db.serverDate()
+  };
+  const addResult = await db.collection("matches").add({
+    data: matchData
+  });
+  const hostSnapshot = await getMemberSnapshot(hostOpenid, storeId);
+  const match = {
+    _id: addResult._id,
+    ...matchData
+  };
+
+  return {
+    matchId: addResult._id,
+    roomState: formatRoomState(match, hostSnapshot)
+  };
+}
+
+async function getMatchRoom(payload, storeId) {
+  requirePayloadValue(payload, "matchId", "请选择比赛房间", "MATCH_ID_REQUIRED");
+
+  const result = await db.collection("matches")
+    .where({
+      _id: payload.matchId,
+      storeId
+    })
+    .limit(1)
+    .get();
+  const match = result.data && result.data.length > 0 ? result.data[0] : null;
+
+  if (!match) {
+    return fail("比赛房间不存在", "MATCH_NOT_FOUND");
+  }
+
+  const hostSnapshot = await getMemberSnapshot(match.hostOpenid, storeId);
+
+  return {
+    matchId: match._id,
+    roomState: formatRoomState(match, hostSnapshot)
+  };
+}
+
 function buildCloudSettlementPayload(payload, match) {
   return {
     ...payload,
@@ -786,9 +911,55 @@ async function handleMatch(event) {
   const storeId = getStoreId(event);
 
   if (event.action === "get") {
+    const payload = event.payload || {};
+
+    if (payload.matchId || event.matchId) {
+      await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+      const result = await getMatchRoom({
+        ...payload,
+        matchId: payload.matchId || event.matchId
+      }, storeId);
+
+      if (isFailureResult(result)) {
+        return result;
+      }
+
+      return ok({
+        action: event.action,
+        ...result
+      });
+    }
+
     return ok({
       matchId: event.matchId || "",
       status: "waiting"
+    });
+  }
+
+  if (event.action === "createRoom") {
+    const role = await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const payload = event.payload || {};
+    const result = await createMatchRoom(payload, storeId, wxContext.OPENID);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
+
+    await writeOperationLog({
+      module: "match",
+      action: event.action,
+      payload: {
+        tableNo: payload.tableNo,
+        dueTime: payload.dueTime || ""
+      },
+      role,
+      storeId,
+      operatorOpenid: wxContext.OPENID
+    });
+
+    return ok({
+      action: event.action,
+      ...result
     });
   }
 

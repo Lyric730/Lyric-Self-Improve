@@ -116,3 +116,29 @@
   font-size: var(--yh-text-xs);
   font-weight: 800;
 }
+
+.room-loading {
+  display: grid;
+  justify-items: center;
+  gap: 18rpx;
+  padding: 24rpx 12rpx;
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-sm);
+  font-weight: 900;
+}
+
+.room-loading__pulse {
+  width: 68rpx;
+  height: 68rpx;
+  border: 4rpx solid rgba(255, 203, 112, 0.22);
+  border-top-color: rgba(255, 126, 24, 0.95);
+  border-radius: 999rpx;
+  box-shadow: 0 0 36rpx rgba(255, 126, 24, 0.26);
+  animation: room-spin 920ms linear infinite;
+}
+
+@keyframes room-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

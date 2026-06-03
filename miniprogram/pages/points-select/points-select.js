@@ -3,12 +3,16 @@ const { getMatchSetup } = require("../../services/match-service");
 
 Page({
   data: {
-    ...ensureOk(getMatchSetup())
+    ...ensureOk(getMatchSetup()),
+    matchId: ""
   },
 
   onLoad(options) {
     const setup = ensureOk(getMatchSetup({ modeId: options.modeId }));
-    this.setData(setup);
+    this.setData({
+      ...setup,
+      matchId: options.matchId ? decodeURIComponent(options.matchId) : ""
+    });
   },
 
   chooseBase(event) {
@@ -27,8 +31,16 @@ Page({
 
   next() {
     const { mode, selectedBase, selectedMultiplier, riskPoints } = this.data;
+    const query = [
+      `matchId=${encodeURIComponent(this.data.matchId)}`,
+      `modeId=${mode.modeId}`,
+      `base=${selectedBase}`,
+      `multiplier=${selectedMultiplier}`,
+      `risk=${riskPoints}`
+    ].join("&");
+
     wx.navigateTo({
-      url: `/pages/match-confirm/match-confirm?modeId=${mode.modeId}&base=${selectedBase}&multiplier=${selectedMultiplier}&risk=${riskPoints}`
+      url: `/pages/match-confirm/match-confirm?${query}`
     });
   }
 });

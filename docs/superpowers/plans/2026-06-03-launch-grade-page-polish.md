@@ -317,6 +317,35 @@ Use DevTools preview and manually test:
 - [x] Push `codex/launch-page-polish` without touching `main`.
 - [x] Set upstream to `origin/codex/launch-page-polish`.
 
+## Stage 18: 发起挑战房间接服务端入口
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/match-service.js`
+- Modify: `miniprogram/pages/challenge-home/challenge-home.js`
+- Modify: `miniprogram/pages/challenge-home/challenge-home.wxml`
+- Modify: `miniprogram/pages/waiting-room/waiting-room.js`
+- Modify: `miniprogram/pages/waiting-room/waiting-room.wxml`
+- Modify: `miniprogram/pages/waiting-room/waiting-room.wxss`
+- Modify: `miniprogram/pages/mode-select/mode-select.js`
+- Modify: `miniprogram/pages/points-select/points-select.js`
+- Modify: `miniprogram/pages/match-confirm/match-confirm.js`
+- Modify: `miniprogram/pages/match-scoring/match-scoring.js`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Modify: `docs/cloud-database-schema.md`
+- Modify: `docs/cloud-init-runbook.md`
+- Create: `docs/reviews/phase-48-create-room-cloud-entry-review.md`
+
+- [x] Add cloud action `match.createRoom`.
+- [x] Enhance cloud action `match.get` to read a room by `matchId`.
+- [x] Add `match-service.createChallengeRoom()` and `getWaitingRoomState()`.
+- [x] Challenge home creates a room before navigating to waiting room.
+- [x] Waiting room reads room state through service layer.
+- [x] Propagate `matchId` through mode, points, confirm, scoring, and settlement query.
+- [x] Keep DevTools local fallback while cloud environment is unavailable.
+- [x] Document that opponent join is still a separate required stage.
+
 ## Standard Verification
 
 Run after each stage:

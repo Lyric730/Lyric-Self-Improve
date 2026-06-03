@@ -86,10 +86,14 @@
 | --- | --- | --- | --- |
 | `_id` | string | 是 | 比赛 ID |
 | `storeId` | string | 是 | 门店 ID |
+| `roomNo` | string | 是 | 房间码，展示给对手加入 |
 | `tableNo` | string | 是 | 球桌号 |
+| `dueTime` | string | 否 | 球桌到点时间，例：`22:30` |
+| `openedAt` | string | 否 | 员工设置的开台时间 |
 | `status` | string | 是 | `waiting` / `accepted` / `configured` / `playing` / `time_blocked` / `settlement_pending` / `settled` / `refused` / `voided` |
 | `hostOpenid` | string | 是 | 发起方 |
 | `guestOpenid` | string | 否 | 挑战方 |
+| `source` | string | 否 | 创建来源，第一版为 `miniapp` |
 | `modeId` | string | 否 | 玩法 |
 | `base` | number | 否 | 底分 |
 | `multiplier` | number | 否 | 倍率 |

@@ -4,7 +4,14 @@ const { getModes } = require("../../services/match-service");
 Page({
   data: {
     modes: ensureOk(getModes()),
-    selectedModeId: "race5"
+    selectedModeId: "race5",
+    matchId: ""
+  },
+
+  onLoad(options) {
+    this.setData({
+      matchId: options.matchId ? decodeURIComponent(options.matchId) : ""
+    });
   },
 
   handleModeSelect(event) {
@@ -22,6 +29,11 @@ Page({
       return;
     }
 
-    wx.navigateTo({ url: `/pages/points-select/points-select?modeId=${this.data.selectedModeId}` });
+    const query = [
+      `modeId=${this.data.selectedModeId}`,
+      `matchId=${encodeURIComponent(this.data.matchId)}`
+    ].join("&");
+
+    wx.navigateTo({ url: `/pages/points-select/points-select?${query}` });
   }
 });

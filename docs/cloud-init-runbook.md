@@ -76,6 +76,7 @@ cloud.init({
 
 // matches
 { storeId: 1, status: 1, updatedAt: -1 }
+{ storeId: 1, roomNo: 1 }
 
 // points_ledger
 { storeId: 1, openid: 1, createdAt: -1 }

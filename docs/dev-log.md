@@ -1947,3 +1947,26 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-39-service-boundary-review.md`
 
+## 2026-06-03 Phase 40 统一上线验证脚本
+
+本轮目的：把本地上线检查从多条散命令收口成一个统一入口，降低后续每次阶段提交前漏跑检查的概率。
+
+代码变更：
+
+- 新增 `scripts/verify-launch-ready.ps1`：
+  - 默认运行运营服务层兜底测试、结算规则测试、老板配置校验测试、会员资料测试。
+  - 运行服务层边界检查、JSON 检查、正式文案检查、球友流程路由检查、UI 资产边缘检查。
+  - 运行全量 `miniprogram` JS 语法检查。
+  - 传入 `-WithPreview` 后调用微信开发者工具 CLI 预览。
+  - 使用字符码组装默认微信 CLI 路径，避免 PowerShell 5 中文路径解码错误。
+
+验证结果：
+
+- 第一轮 `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 因中文默认路径乱码失败。
+- 修正后重跑通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `747.4 KB` / `765348` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-40-launch-verification-script-review.md`
+

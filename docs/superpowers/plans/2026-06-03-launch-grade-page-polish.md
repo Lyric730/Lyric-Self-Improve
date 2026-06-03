@@ -194,6 +194,17 @@ Use DevTools preview and manually test:
 - [x] Run the script and confirm current pages only go through service modules.
 - [x] Add the script to standard verification.
 
+## Stage 10: 统一上线验证脚本
+
+**Files:**
+- Create: `scripts/verify-launch-ready.ps1`
+- Create: `docs/reviews/phase-40-launch-verification-script-review.md`
+
+- [x] Add a single PowerShell entrypoint for local launch verification.
+- [x] Include service fallback tests, rule tests, JSON, production copy, route, asset, and full JS syntax checks.
+- [x] Support optional WeChat DevTools preview with `-WithPreview`.
+- [x] Avoid literal Chinese default path encoding issues in PowerShell 5.
+
 ## Standard Verification
 
 Run after each stage:
@@ -207,4 +218,10 @@ node scripts/check-production-copy.js
 node scripts/check-player-flow-routes.js
 powershell -ExecutionPolicy Bypass -File scripts/check-ui-kit-asset-edges.ps1 -RequireAssets
 & 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh preview --project 'F:\Making money\taiqiuxcx'
+```
+
+Or run the unified wrapper:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-launch-ready.ps1 -WithPreview -Port 30812
 ```

@@ -2,6 +2,7 @@ const cloud = require("wx-server-sdk");
 const QRCode = require("qrcode");
 const { assertValidAdminConfig } = require("./admin-config-validator");
 const { assertValidMemberProfile } = require("./member-profile");
+const { DEFAULT_MODES } = require("./settlement-engine");
 const { buildSettlementPreview, buildSettlementWritePlan } = require("./match-settlement");
 
 cloud.init({
@@ -579,6 +580,14 @@ function formatRoomState(match, hostSnapshot, guestSnapshot) {
     statusHint: opponentJoined ? "双方确认后进入玩法选择" : "让对手扫描球桌码加入本场挑战",
     expiresText: "房间 10 分钟内有效",
     opponentJoined,
+    setup: match.modeId ? {
+      modeId: match.modeId,
+      selectedBase: Number(match.base || 0),
+      selectedMultiplier: Number(match.multiplier || 0),
+      riskPoints: Number(match.riskPoints || 0),
+      targetWins: Number(match.targetWins || 0),
+      minimumMinutes: Number(match.minimumMinutes || 0)
+    } : null,
     host: hostSnapshot || {
       name: "当前会员",
       shortName: "我",
@@ -708,6 +717,136 @@ async function joinMatchRoom(payload, storeId, guestOpenid) {
   return {
     matchId: joinedMatch._id,
     roomState: formatRoomState(joinedMatch, hostSnapshot, guestSnapshot)
+  };
+}
+
+function normalizeConfigMode(mode = {}) {
+  return {
+    ...mode,
+    targetWins: Number(mode.targetWins || 0),
+    minimumMinutes: Number(mode.minimumMinutes || 0),
+    baseOptions: Array.isArray(mode.baseOptions) ? mode.baseOptions.map(Number) : [],
+    multipliers: Array.isArray(mode.multipliers) ? mode.multipliers.map(Number) : [],
+    starReward: Number(mode.starReward || 0),
+    enabled: mode.enabled !== false
+  };
+}
+
+async function getStoreModes(storeId) {
+  try {
+    const result = await db.collection("admin_configs")
+      .where({ storeId })
+      .limit(1)
+      .get();
+    const config = result.data && result.data.length > 0 ? result.data[0].config : null;
+
+    if (config && Array.isArray(config.modes) && config.modes.length > 0) {
+      return config.modes.map(normalizeConfigMode);
+    }
+  } catch (error) {
+    return DEFAULT_MODES.map(normalizeConfigMode);
+  }
+
+  return DEFAULT_MODES.map(normalizeConfigMode);
+}
+
+async function getConfigurableMode(modeId, storeId) {
+  const modeList = await getStoreModes(storeId);
+
+  return modeList.find((mode) => mode.modeId === modeId) || null;
+}
+
+async function configureMatchRoom(payload, storeId, operatorOpenid) {
+  requirePayloadValue(payload, "matchId", "请选择比赛房间", "MATCH_ID_REQUIRED");
+  requirePayloadValue(payload, "modeId", "请选择玩法", "MODE_REQUIRED");
+
+  const mode = await getConfigurableMode(payload.modeId, storeId);
+
+  if (!mode || mode.enabled === false) {
+    return fail("该玩法暂未开放", "MODE_NOT_ENABLED");
+  }
+
+  const selectedBase = Number(payload.selectedBase ?? payload.base);
+  const selectedMultiplier = Number(payload.selectedMultiplier ?? payload.multiplier);
+
+  if (!mode.baseOptions.includes(selectedBase)) {
+    return fail("挑战底分不在当前玩法范围内", "INVALID_BASE_POINTS");
+  }
+
+  if (!mode.multipliers.includes(selectedMultiplier)) {
+    return fail("积分倍率不在当前玩法范围内", "INVALID_MULTIPLIER");
+  }
+
+  const result = await db.collection("matches")
+    .where({
+      _id: payload.matchId,
+      storeId
+    })
+    .limit(1)
+    .get();
+  const match = result.data && result.data.length > 0 ? result.data[0] : null;
+
+  if (!match) {
+    return fail("比赛房间不存在", "MATCH_NOT_FOUND");
+  }
+
+  if (!match.hostOpenid || !match.guestOpenid) {
+    return fail("双方到齐后才能确认玩法", "MATCH_PLAYERS_NOT_READY");
+  }
+
+  if (match.status !== "joined" && match.status !== "configured") {
+    return fail("当前房间状态不能确认玩法", "MATCH_STATUS_INVALID");
+  }
+
+  if (operatorOpenid !== match.hostOpenid && operatorOpenid !== match.guestOpenid) {
+    return fail("只有本场双方可以确认玩法", "MATCH_PLAYER_REQUIRED");
+  }
+
+  const riskPoints = selectedBase * selectedMultiplier;
+  const setupData = {
+    modeId: mode.modeId,
+    base: selectedBase,
+    multiplier: selectedMultiplier,
+    riskPoints,
+    targetWins: mode.targetWins,
+    minimumMinutes: mode.minimumMinutes,
+    status: "configured",
+    configuredAt: db.serverDate(),
+    updatedAt: db.serverDate()
+  };
+  const updateResult = await db.collection("matches").doc(match._id).update({
+    data: setupData
+  });
+
+  if (!updateResult.stats || updateResult.stats.updated < 1) {
+    return fail("比赛参数保存失败", "MATCH_CONFIG_UPDATE_FAILED");
+  }
+
+  const configuredMatch = {
+    ...match,
+    ...setupData
+  };
+  const hostSnapshot = await getMemberSnapshot(configuredMatch.hostOpenid, storeId);
+  const guestSnapshot = await getMemberSnapshot(configuredMatch.guestOpenid, storeId);
+
+  return {
+    matchId: configuredMatch._id,
+    setup: {
+      modeId: mode.modeId,
+      selectedBase,
+      selectedMultiplier,
+      riskPoints,
+      mode: {
+        modeId: mode.modeId,
+        name: mode.name,
+        targetWins: mode.targetWins,
+        minimumMinutes: mode.minimumMinutes,
+        starReward: mode.starReward,
+        normalReward: mode.normalReward,
+        sprintReward: mode.sprintReward
+      }
+    },
+    roomState: formatRoomState(configuredMatch, hostSnapshot, guestSnapshot)
   };
 }
 
@@ -1046,6 +1185,36 @@ async function handleMatch(event) {
       payload: {
         matchId: result.matchId,
         roomNo: result.roomState.roomNo
+      },
+      role,
+      storeId,
+      operatorOpenid: wxContext.OPENID
+    });
+
+    return ok({
+      action: event.action,
+      ...result
+    });
+  }
+
+  if (event.action === "configure") {
+    const role = await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const payload = event.payload || {};
+    const result = await configureMatchRoom(payload, storeId, wxContext.OPENID);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
+
+    await writeOperationLog({
+      module: "match",
+      action: event.action,
+      payload: {
+        matchId: result.matchId,
+        modeId: result.setup.modeId,
+        base: result.setup.selectedBase,
+        multiplier: result.setup.selectedMultiplier,
+        riskPoints: result.setup.riskPoints
       },
       role,
       storeId,

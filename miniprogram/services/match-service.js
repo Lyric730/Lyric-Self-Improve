@@ -109,6 +109,47 @@ async function joinChallengeRoom(params = {}) {
   });
 }
 
+async function configureMatchSetup(params = {}) {
+  const payload = {
+    matchId: params.matchId || "",
+    modeId: params.modeId || (params.mode && params.mode.modeId) || "",
+    selectedBase: Number(params.selectedBase || params.base || 0),
+    selectedMultiplier: Number(params.selectedMultiplier || params.multiplier || 0)
+  };
+
+  try {
+    const result = ensureOk(await callCloud("match", "configure", payload));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  const setup = buildMatchSetup(payload);
+
+  return success({
+    matchId: payload.matchId,
+    setup,
+    roomState: {
+      ...buildLocalRoomState({
+        matchId: payload.matchId,
+        opponentJoined: true
+      }),
+      status: "configured",
+      setup: {
+        modeId: setup.mode.modeId,
+        selectedBase: setup.selectedBase,
+        selectedMultiplier: setup.selectedMultiplier,
+        riskPoints: setup.riskPoints,
+        targetWins: setup.mode.targetWins,
+        minimumMinutes: setup.mode.minimumMinutes
+      }
+    }
+  });
+}
+
 function buildSettlementPayload(params = {}) {
   return {
     matchId: params.matchId || match.id || match.matchId || match.roomNo,
@@ -224,6 +265,7 @@ async function getSettlementResult(params = {}) {
 
 module.exports = {
   calculateSettlement,
+  configureMatchSetup,
   createChallengeRoom,
   getSettlementResult,
   getCurrentMatch,

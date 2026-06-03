@@ -2391,3 +2391,55 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-49-join-room-cloud-entry-review.md`
 
+## 2026-06-03 Phase 50 开局参数写回比赛房间
+
+本轮目的：确认玩法、底分、倍率不能只停留在页面 query 参数里。正式链路需要在点击“开始比赛”前，把开局参数写回真实 `matches` 房间，后续计分和结算才能以服务端状态为准。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `match.configure` action。
+  - 新增老板端玩法配置读取逻辑，优先读取 `admin_configs.modes`，无配置时再使用默认玩法模板。
+  - 校验玩法是否启用。
+  - 校验底分和倍率是否在该玩法允许范围内。
+  - 要求房间内必须已有发起人和对手。
+  - 要求操作者必须是发起人或对手。
+  - 写入 `modeId / base / multiplier / riskPoints / targetWins / minimumMinutes / configuredAt`。
+  - 把房间状态改为 `configured`。
+  - `formatRoomState()` 返回 `setup`，便于后续页面读取已确认参数。
+- 更新 `miniprogram/services/match-service.js`：
+  - 新增 `configureMatchSetup(params)`。
+  - DevTools 无云环境时保留本地配置兜底。
+- 更新 `miniprogram/pages/match-confirm/`：
+  - 点击“开始比赛”时先调用 `configureMatchSetup()`。
+  - 配置保存成功后再进入计分页。
+  - 按钮增加 loading / disabled，避免重复提交。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `match.configure`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入开局参数写回房间必测项。
+- 更新 `docs/cloud-database-schema.md`，补充 `matches.riskPoints / targetWins / minimumMinutes / configuredAt`。
+- 更新 `docs/api-service-layer-contract.md`，明确 `match-confirm` 必须通过 `match-service.configureMatchSetup()` 写服务端。
+- 更新执行计划，新增 Stage 20。
+
+验证结果：
+
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check miniprogram\services\match-service.js` 通过。
+- `node --check miniprogram\pages\match-confirm\match-confirm.js` 通过。
+- `node scripts\check-production-copy.js` 通过，输出 `Production copy check OK (21 files checked)`。
+- `node scripts\test-cloud-contracts.js` 通过，输出 `Cloud contract tests OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `796.3 KB / 815426 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，`match.configure` 尚未在真实 `matches` 和 `admin_configs` 集合里验证权限、索引和并发状态。
+- 计分页仍需要后续阶段接入服务端开赛状态、计分事件和服务端计时。
+- 房间进入 `playing` 后应禁止继续改开局参数，本阶段先把参数落房间，锁定开赛状态放到下一阶段。
+
+审查归档：
+
+- `docs/reviews/phase-50-configure-match-cloud-entry-review.md`
+

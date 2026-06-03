@@ -42,7 +42,7 @@
     <reward-crate type="sprint" title="续时冲刺奖励" range="{{setup.mode.sprintReward}} 积分" subtitle="到点后继续打，奖励更高" />
 
     <view class="flow-actions">
-      <yh-button text="开始比赛" size="lg" variant="primary" block bind:tap="startMatch" />
+      <yh-button text="开始比赛" size="lg" variant="primary" block loading="{{configuring}}" disabled="{{configuring}}" bind:tap="startMatch" />
     </view>
   </view>
 </view>

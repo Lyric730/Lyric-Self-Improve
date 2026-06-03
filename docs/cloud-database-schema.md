@@ -97,8 +97,12 @@
 | `modeId` | string | 否 | 玩法 |
 | `base` | number | 否 | 底分 |
 | `multiplier` | number | 否 | 倍率 |
+| `riskPoints` | number | 否 | 风险积分，`base * multiplier` |
+| `targetWins` | number | 否 | 当前玩法胜利盘数 |
+| `minimumMinutes` | number | 否 | 当前玩法最低有效分钟数 |
 | `scoreA` | number | 是 | 发起方盘数 |
 | `scoreB` | number | 是 | 挑战方盘数 |
+| `configuredAt` | date | 否 | 玩法和风险参数确认时间 |
 | `startedAt` | date | 否 | 开赛时间 |
 | `tableDueAt` | date | 否 | 开台到点时间 |
 | `createdAt` | date | 是 | 创建时间 |

@@ -23,6 +23,7 @@
 | `screen` | `getBoard` | 电视大屏 | 读取店内总榜、赏金猎人和老板端大屏配置 |
 | `match` | `createRoom` | 发起挑战 | 创建 `matches` 等待房间，返回 `matchId` 和房间状态 |
 | `match` | `joinRoom` | 接受挑战 | 写入挑战方 OpenID，房间状态改为 `joined`，防止加入自己的房间和第三人抢占 |
+| `match` | `configure` | 确认开局 | 按老板端玩法配置校验底分和倍率，写入玩法、底分、倍率和风险积分，房间状态改为 `configured` |
 | `match` | `get` | 等待对手页 | 按 `matchId` 读取房间状态 |
 | `match` | `previewSettlement` | 结算确认页 | 服务端计算结算预览，不写结算单和积分流水 |
 | `match` | `settle` | 结算链路 | 服务端计算积分、随机奖励、星级，写结算和积分流水 |
@@ -33,6 +34,7 @@
 - 发起挑战必须先创建真实 `matches` 文档，并把 `matchId` 透传到后续玩法、底分、计分、结算页面。
 - 真实 `matches` 文档存在时才能结算。
 - 对手加入必须通过 `match.joinRoom` 写入真实 `matches.guestOpenid`，不能只靠前端刷新状态。
+- 玩法、底分、倍率必须通过 `match.configure` 写入真实 `matches` 文档，不能只依赖页面 query 参数。
 - `match.previewSettlement` 只能读取和计算，不得写入 `settlements`、`points_ledger` 或修改 `member_points`。
 - 同一 `matchId` 不能重复写 `settlements` 或重复改积分。
 - 双方 `member_points` 账户必须存在。

@@ -368,6 +368,28 @@ Use DevTools preview and manually test:
 - [x] Keep DevTools local fallback while cloud environment is unavailable.
 - [x] Document that room scoring state machine is still a separate required stage.
 
+## Stage 20: 开局参数写回比赛房间
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/match-service.js`
+- Modify: `miniprogram/pages/match-confirm/match-confirm.js`
+- Modify: `miniprogram/pages/match-confirm/match-confirm.wxml`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Modify: `docs/cloud-database-schema.md`
+- Create: `docs/reviews/phase-50-configure-match-cloud-entry-review.md`
+
+- [x] Add cloud action `match.configure`.
+- [x] Configure action validates mode enabled state.
+- [x] Configure action validates base points and multiplier against mode options.
+- [x] Configure action requires both host and guest to be present.
+- [x] Configure action writes `modeId`, `base`, `multiplier`, `riskPoints`, `targetWins`, and `minimumMinutes` into `matches`.
+- [x] Add `match-service.configureMatchSetup()`.
+- [x] Match confirm page saves setup before navigating to scoring.
+- [x] Keep DevTools local fallback while cloud environment is unavailable.
+- [x] Document that scoring events and service-side timer are still separate required stages.
+
 ## Standard Verification
 
 Run after each stage:

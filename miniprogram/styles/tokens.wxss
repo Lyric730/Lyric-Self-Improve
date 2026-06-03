@@ -1,29 +1,34 @@
 page,
 :host {
-  --yh-color-bg: #080705;
-  --yh-color-bg-2: #120e0a;
-  --yh-color-panel: #19140f;
-  --yh-color-panel-2: #241b13;
-  --yh-color-panel-raised: #2d2116;
-  --yh-color-felt: #07170f;
-  --yh-color-felt-2: #10291b;
-  --yh-color-rail-wood: #5a2d12;
-  --yh-color-metal: #2a2925;
-  --yh-color-orange: #ff7600;
-  --yh-color-orange-deep: #b84a00;
-  --yh-color-ember: #ff4b12;
-  --yh-color-gold: #d9a441;
-  --yh-color-gold-bright: #ffd36b;
-  --yh-color-success: #45c978;
+  --yh-color-bg: #0d0a07;
+  --yh-color-bg-2: #17100a;
+  --yh-color-bg-felt: #20130b;
+  --yh-color-panel: #211810;
+  --yh-color-panel-2: #2d2117;
+  --yh-color-panel-raised: #3a2818;
+  --yh-color-panel-soft: #30261d;
+  --yh-color-felt: #28180e;
+  --yh-color-felt-2: #3d2616;
+  --yh-color-rail-wood: #74401e;
+  --yh-color-rail-wood-dark: #3d1c0c;
+  --yh-color-metal: #3a3832;
+  --yh-color-metal-dark: #1f211e;
+  --yh-color-orange: #ff7a00;
+  --yh-color-orange-deep: #bd4a00;
+  --yh-color-ember: #ff4d16;
+  --yh-color-gold: #d9a43a;
+  --yh-color-gold-bright: #ffdb7a;
+  --yh-color-success: #f0bd58;
   --yh-color-warning: #f6b94a;
   --yh-color-danger: #ef4d32;
   --yh-color-info: #6a91c9;
-  --yh-color-text: #f6efe6;
-  --yh-color-text-muted: #b9a894;
-  --yh-color-text-faint: #766a5d;
-  --yh-color-disabled: #514942;
-  --yh-color-line: rgba(255, 214, 145, 0.16);
-  --yh-color-line-strong: rgba(255, 118, 0, 0.48);
+  --yh-color-text: #fff3e4;
+  --yh-color-text-muted: #cdb79b;
+  --yh-color-text-faint: #8c7a65;
+  --yh-color-disabled: #62584d;
+  --yh-color-line: rgba(255, 220, 164, 0.2);
+  --yh-color-line-strong: rgba(255, 122, 0, 0.52);
+  --yh-color-rail-line: rgba(255, 193, 99, 0.3);
 
   --yh-space-1: 8rpx;
   --yh-space-2: 16rpx;
@@ -49,15 +54,25 @@ page,
   --yh-text-hero: 72rpx;
   --yh-text-score: 96rpx;
 
-  --yh-shadow-panel: 0 16rpx 42rpx rgba(0, 0, 0, 0.36);
+  --yh-shadow-panel: 0 18rpx 42rpx rgba(0, 0, 0, 0.28);
   --yh-shadow-button: 0 12rpx 28rpx rgba(255, 118, 0, 0.28);
   --yh-shadow-reward: 0 18rpx 44rpx rgba(217, 164, 65, 0.24);
   --yh-glow-orange: 0 0 28rpx rgba(255, 118, 0, 0.42);
   --yh-glow-gold: 0 0 32rpx rgba(255, 211, 107, 0.36);
+  --yh-surface-table:
+    linear-gradient(132deg, rgba(116, 64, 30, 0.18) 0 18%, transparent 18% 100%),
+    linear-gradient(180deg, rgba(58, 40, 24, 0.96), rgba(25, 18, 12, 0.98));
+  --yh-surface-panel:
+    linear-gradient(145deg, rgba(58, 42, 27, 0.95), rgba(27, 20, 14, 0.98)),
+    repeating-linear-gradient(135deg, rgba(255, 239, 214, 0.035) 0 2rpx, transparent 2rpx 28rpx);
+  --yh-surface-felt:
+    radial-gradient(circle at 72% 12%, rgba(255, 122, 0, 0.14), transparent 240rpx),
+    linear-gradient(150deg, rgba(55, 33, 18, 0.9), rgba(18, 14, 10, 0.94) 52%, rgba(45, 24, 11, 0.82));
 
   --yh-motion-fast: 120ms;
   --yh-motion-base: 220ms;
   --yh-motion-slow: 420ms;
+  --yh-motion-ceremony: 680ms;
   --yh-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --yh-ease-pop: cubic-bezier(0.22, 1.42, 0.36, 1);
+  --yh-ease-pop: cubic-bezier(0.22, 1, 0.36, 1);
 }

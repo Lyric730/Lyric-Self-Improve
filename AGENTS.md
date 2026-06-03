@@ -72,16 +72,19 @@ node scripts/check-production-copy.js
 
 ## 美术资产硬约束
 
-复杂美术资源必须用图片资产，不用 WXML/WXSS 硬画：
+复杂美术资源原则上用图片资产，不用 WXML/WXSS 硬画：
 
 - 段位徽章
-- 星级状态
 - 奖励宝箱
 - 胜利横幅
 - 服了确认章
 - 积分币
 - 赛季徽章
 - 大屏榜单装饰资产
+
+星级状态当前是明确例外：星星 PNG 资产边缘不够干净，正式实现先使用字符星 `★ / ☆` + 固定五格布局。只有重新生成并通过透明边、脏边、完整性验收后，才允许把星星切回 PNG。
+
+当前视觉也不使用绿色成功态。确认、可结算、已完成统一使用金色 / 橙金反馈；`success` 只能作为代码语义名，不代表绿色。
 
 仍然用 WXML/WXSS 实现的部分：
 
@@ -150,13 +153,13 @@ Edge check OK
 本地项目目录：
 
 ```text
-F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx
+F:\Making money\taiqiuxcx
 ```
 
 微信开发者工具 CLI 当前约定：
 
 ```powershell
-& 'F:\微信web开发者工具\cli.bat' preview --project 'F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx'
+& 'F:\微信web开发者工具\cli.bat' preview --project 'F:\Making money\taiqiuxcx'
 ```
 
 如果端口或工具路径变化，更新 `docs/wechat-devtools-cli.md`。

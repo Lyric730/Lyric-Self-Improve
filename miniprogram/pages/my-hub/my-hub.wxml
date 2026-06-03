@@ -1,0 +1,135 @@
+<view class="flow-page my-hub-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">PROFILE</text>
+    <text class="flow-hero__title">我的</text>
+    <text class="flow-hero__subtitle">个人信息 · 会员工具 · 运营身份</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="个人信息" subtitle="{{editingProfile ? '编辑后保存会员资料' : '当前登录会员资料'}}" marker="PLAYER" tone="gold" raised>
+      <view class="profile-card">
+        <image wx:if="{{memberProfile.avatarUrl}}" class="profile-avatar" src="{{memberProfile.avatarUrl}}" mode="aspectFill" />
+        <view wx:else class="avatar-token">{{playerInitial}}</view>
+        <view>
+          <text>{{memberProfile.name}}</text>
+          <text>{{memberProfile.rankTitle}} · {{memberProfile.points}} 积分</text>
+        </view>
+        <view wx:if="{{!editingProfile}}" class="profile-inline-edit" aria-role="button" aria-label="编辑个人资料" bindtap="startEditProfile">
+          <view class="profile-inline-edit__glyph">
+            <view class="profile-pencil__body"></view>
+            <view class="profile-pencil__tip"></view>
+            <view class="profile-pencil__cap"></view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{!editingProfile}}" class="profile-meta">
+        <view>
+          <text>手机号</text>
+          <text>{{memberProfile.phone || '未填写'}}</text>
+        </view>
+        <view>
+          <text>备注</text>
+          <text>{{memberProfile.note || '未填写'}}</text>
+        </view>
+      </view>
+      <view wx:else class="profile-form">
+        <button class="profile-avatar-edit" open-type="chooseAvatar" bindchooseavatar="handleChooseAvatar">
+          <image wx:if="{{profileDraft.avatarUrl}}" class="profile-avatar profile-avatar--edit" src="{{profileDraft.avatarUrl}}" mode="aspectFill" />
+          <view wx:else class="avatar-token avatar-token--edit">{{profileDraftInitial}}</view>
+          <view>
+            <text>头像图片</text>
+            <text>点击更换会员头像</text>
+          </view>
+        </button>
+        <view class="profile-field">
+          <text>昵称</text>
+          <input
+            value="{{profileDraft.name}}"
+            maxlength="12"
+            placeholder="请输入昵称"
+            placeholder-class="profile-input__placeholder"
+            data-field="name"
+            bindinput="handleProfileInput"
+          />
+        </view>
+        <view class="profile-field">
+          <text>手机号</text>
+          <input
+            value="{{profileDraft.phone}}"
+            type="number"
+            maxlength="11"
+            placeholder="可选，用于前台确认身份"
+            placeholder-class="profile-input__placeholder"
+            data-field="phone"
+            bindinput="handleProfileInput"
+          />
+        </view>
+        <view class="profile-field profile-field--textarea">
+          <text>备注</text>
+          <textarea
+            value="{{profileDraft.note}}"
+            maxlength="80"
+            auto-height
+            placeholder="可选，例如常用球桌、称呼偏好"
+            placeholder-class="profile-input__placeholder"
+            data-field="note"
+            bindinput="handleProfileInput"
+          />
+        </view>
+        <view class="profile-actions">
+          <yh-button text="取消" variant="secondary" block bind:tap="cancelEditProfile" disabled="{{savingProfile}}" />
+          <yh-button text="保存资料" variant="success" block loading="{{savingProfile}}" bind:tap="saveProfile" />
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="常用工具" subtitle="比赛外的会员操作集中在这里" marker="TOOLS" tone="default">
+      <view class="tool-grid">
+        <view bindtap="goMemberCode">
+          <text>会员码</text>
+          <text>前台核销积分</text>
+        </view>
+        <view bindtap="goPerks">
+          <text>积分礼遇</text>
+          <text>查看兑换门槛</text>
+        </view>
+        <view bindtap="goData">
+          <text>我的数据</text>
+          <text>赛季表现</text>
+        </view>
+        <view bindtap="goRankings">
+          <text>排行榜</text>
+          <text>总榜与好友榜</text>
+        </view>
+      </view>
+    </yh-panel>
+
+    <yh-panel title="身份切换" subtitle="员工、老板和大屏入口统一放在这里" marker="ROLE" tone="orange">
+      <view class="role-list">
+        <view data-role="staff" data-url="/pages/staff-desk/staff-desk" bindtap="openRolePage">
+          <view>
+            <text>员工端</text>
+            <text>开台到点、积分核销、异常处理</text>
+          </view>
+          <text>进入</text>
+        </view>
+        <view data-role="owner" data-url="/pages/boss-config/boss-config" bindtap="openRolePage">
+          <view>
+            <text>老板端</text>
+            <text>玩法参数、积分规则、大屏配置</text>
+          </view>
+          <text>进入</text>
+        </view>
+        <view data-role="screen" data-url="/pages/tv-ranking/tv-ranking" bindtap="openRolePage">
+          <view>
+            <text>电视大屏</text>
+            <text>店内总榜与赏金猎人</text>
+          </view>
+          <text>进入</text>
+        </view>
+      </view>
+    </yh-panel>
+  </view>
+
+  <bottom-nav active="mine" />
+</view>

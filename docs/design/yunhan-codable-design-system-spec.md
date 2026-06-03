@@ -44,16 +44,16 @@ styles/motion.wxss
 
 ```css
 page {
-  --yh-color-bg: #080705;
-  --yh-color-bg-2: #120e0a;
-  --yh-color-panel: #19140f;
-  --yh-color-panel-2: #241b13;
-  --yh-color-panel-raised: #2d2116;
+  --yh-color-bg: #0d0a07;
+  --yh-color-bg-2: #17100a;
+  --yh-color-panel: #211810;
+  --yh-color-panel-2: #2d2117;
+  --yh-color-panel-raised: #3a2818;
 
-  --yh-color-felt: #07170f;
-  --yh-color-felt-2: #10291b;
-  --yh-color-rail-wood: #5a2d12;
-  --yh-color-metal: #2a2925;
+  --yh-color-felt: #28180e;
+  --yh-color-felt-2: #3d2616;
+  --yh-color-rail-wood: #74401e;
+  --yh-color-metal: #3a3832;
 
   --yh-color-orange: #ff7600;
   --yh-color-orange-deep: #b84a00;
@@ -61,7 +61,7 @@ page {
   --yh-color-gold: #d9a441;
   --yh-color-gold-bright: #ffd36b;
 
-  --yh-color-success: #45c978;
+  --yh-color-success: #f0bd58;
   --yh-color-warning: #f6b94a;
   --yh-color-danger: #ef4d32;
   --yh-color-info: #6a91c9;
@@ -80,7 +80,7 @@ page {
 - 主橙只用于主路径：开始挑战、选中、奖励、结算。
 - 金色只用于段位、星级、排名、奖励。
 - 红色只用于不服、扣分、时间不足、异常。
-- 绿色只用于可清算、已确认、成功。
+- 当前正式视觉不使用绿色成功态；可清算、已确认、成功统一使用金色 / 橙金反馈。
 - 背景不使用纯黑，文字不使用纯白。
 
 ### 2.2 Spacing Tokens
@@ -237,7 +237,7 @@ Props：
 
 - `primary`：橙色切角按钮，用于开始挑战、确认下一步。
 - `danger`：红色按钮，用于不服、退出本场。
-- `success`：绿色按钮，用于服了确认、可结算。
+- `success`：金色确认按钮，用于服了确认、可结算；这是代码语义名，不代表绿色。
 - `secondary`：深色金属面板，用于返回、演示、次级操作。
 - `ghost`：透明背景，用于取消、低优先级。
 
@@ -500,7 +500,7 @@ type PointOptionGridProps = {
 | --- | --- | --- |
 | running | 比赛中 | 橙色进度 |
 | belowMinimum | 已达胜盘但时间不足 | 红色提醒 |
-| canSettle | 胜盘 + 时间满足 | 绿色可结算 |
+| canSettle | 胜盘 + 时间满足 | 金色可结算 |
 | dueTimeReached | 到点 | 续时提醒 |
 
 ### 4.9 SettlementPanel
@@ -535,7 +535,7 @@ type PointOptionGridProps = {
 
 按钮：
 
-- `服了，确认结算`：绿色。
+- `服了，确认结算`：金色确认态。
 - `不服`：红色。
 
 不服路径：
@@ -565,7 +565,7 @@ type PointOptionGridProps = {
 实现：
 
 - 段位主体用图片资产。
-- 星星可用独立图片或 CSS + 图片混合。
+- 星星当前使用字符星 `★ / ☆` + 固定五格布局；已生成 PNG 因脏边不达标，重新验收前不得接入正式页面。
 - 文字和积分进度用代码渲染。
 
 ### 4.11 StarTrack
@@ -655,8 +655,8 @@ assets/
 | rank-gold | PNG | 256x256 | 黄金徽章 |
 | rank-platinum | PNG | 256x256 | 铂金徽章 |
 | rank-diamond | PNG | 256x256 | 钻石徽章 |
-| rank-star | PNG | 64x64 | 亮星 |
-| rank-star-empty | PNG | 64x64 | 空星 |
+| rank-star | 暂缓 | 64x64 | 当前不用 PNG，待干净透明资产重新验收 |
+| rank-star-empty | 暂缓 | 64x64 | 当前不用 PNG，待干净透明资产重新验收 |
 | reward-chest-normal | PNG | 320x240 | 普通随机奖励 |
 | reward-chest-sprint | PNG | 320x240 | 续时冲刺奖励 |
 | season-badge-s1 | PNG | 180x180 | 第一赛季 |

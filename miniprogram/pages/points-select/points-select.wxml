@@ -7,30 +7,34 @@
 
   <view class="flow-stack">
     <yh-panel title="挑战底分" subtitle="选择本场风险积分底数" marker="BASE" tone="orange" raised>
-      <view class="selector-block">
-        <view class="option-grid">
-          <button
+      <view class="points-choice-grid points-choice-grid--base">
+          <view
             wx:for="{{mode.baseOptions}}"
             wx:key="*this"
-            class="option-chip {{selectedBase === item ? 'is-active' : ''}}"
+            class="points-choice {{selectedBase === item ? 'is-active' : ''}}"
             data-value="{{item}}"
             bindtap="chooseBase"
-          >{{item}}</button>
-        </view>
+            hover-class="points-choice--hover"
+          >
+            <text class="points-choice__label">底分</text>
+            <text class="points-choice__value">{{item}}</text>
+          </view>
       </view>
     </yh-panel>
 
     <yh-panel title="积分倍率" subtitle="倍率越高，胜负积分变化越大" marker="ODDS" tone="default" raised>
-      <view class="selector-block">
-        <view class="option-grid">
-          <button
+      <view class="points-choice-grid points-choice-grid--odds">
+          <view
             wx:for="{{mode.multipliers}}"
             wx:key="*this"
-            class="option-chip {{selectedMultiplier === item ? 'is-active' : ''}}"
+            class="points-choice points-choice--odds {{selectedMultiplier === item ? 'is-active' : ''}}"
             data-value="{{item}}"
             bindtap="chooseMultiplier"
-          >x{{item}}</button>
-        </view>
+            hover-class="points-choice--hover"
+          >
+            <text class="points-choice__label">倍率</text>
+            <text class="points-choice__value">x{{item}}</text>
+          </view>
       </view>
     </yh-panel>
 
@@ -45,7 +49,7 @@
     </yh-panel>
 
     <view class="flow-actions">
-      <yh-button text="确认参数" size="lg" variant="primary" block bind:tap="next" />
+      <yh-button text="确认参数" size="md" variant="primary" block custom-class="points-confirm-button" bind:tap="next" />
     </view>
   </view>
 </view>

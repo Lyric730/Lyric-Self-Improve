@@ -49,14 +49,13 @@ Page({
   data: {
     accessReady: false,
     staffTables: initialDeskData.staffTables,
-    timeOptions: ["21:30", "22:00", "22:30", "23:00"],
     selectedTableId: initialDeskData.staffTables[0].id,
     selectedTime: initialDeskData.staffTables[0].dueTime,
     selectedTable: initialDeskData.staffTables[0],
     selectedMember: null,
     selectedMemberText: "扫码选择会员后核销",
-    deductOptions: [100, 200, 500],
-    selectedDeduct: 100,
+    deductPointsInput: "",
+    deductPoints: 0,
     abnormalMatches: initialDeskData.abnormalMatches,
     savingDue: false,
     scanningMember: false,
@@ -81,12 +80,18 @@ Page({
     });
   },
 
-  chooseTime(event) {
-    this.setData({ selectedTime: event.currentTarget.dataset.time });
+  chooseDueTime(event) {
+    this.setData({ selectedTime: event.detail.value });
   },
 
-  chooseDeduct(event) {
-    this.setData({ selectedDeduct: Number(event.currentTarget.dataset.value) });
+  handleDeductInput(event) {
+    const rawValue = String(event.detail.value || "").replace(/[^\d]/g, "");
+    const normalizedValue = rawValue.replace(/^0+(?=\d)/, "");
+
+    this.setData({
+      deductPointsInput: normalizedValue,
+      deductPoints: Number(normalizedValue || 0)
+    });
   },
 
   async scanMember() {
@@ -112,7 +117,7 @@ Page({
         selectedMemberText: `${member.name} · ${member.points} 积分`
       });
 
-      wx.showToast({ title: "已选择会员", icon: "success" });
+      wx.showToast({ title: "已选择会员", icon: "none" });
     } catch (error) {
       const isCancel = error && error.errMsg && error.errMsg.includes("cancel");
       wx.showToast({ title: isCancel ? "未选择会员" : error.message || "识别失败", icon: "none" });
@@ -140,7 +145,7 @@ Page({
         selectedTable: result.selectedTable
       });
 
-      wx.showToast({ title: "到点时间已更新", icon: "success" });
+      wx.showToast({ title: "到点时间已更新", icon: "none" });
     } catch (error) {
       wx.showToast({ title: error.message || "保存失败", icon: "none" });
     } finally {
@@ -158,16 +163,28 @@ Page({
       return;
     }
 
+    const deductPoints = Number(this.data.deductPoints);
+
+    if (!Number.isInteger(deductPoints) || deductPoints <= 0) {
+      wx.showToast({ title: "请输入扣除积分", icon: "none" });
+      return;
+    }
+
+    if (this.data.selectedMember.points && deductPoints > this.data.selectedMember.points) {
+      wx.showToast({ title: "扣除积分超过余额", icon: "none" });
+      return;
+    }
+
     this.setData({ deducting: true });
 
     try {
       ensureOk(await deductMemberPoints({
         openid: this.data.selectedMember.openid,
         userName: this.data.selectedMember.name,
-        points: this.data.selectedDeduct
+        points: deductPoints
       }));
 
-      wx.showToast({ title: "积分已核销", icon: "success" });
+      wx.showToast({ title: "积分已核销", icon: "none" });
     } catch (error) {
       wx.showToast({ title: error.message || "核销失败", icon: "none" });
     } finally {
@@ -190,7 +207,7 @@ Page({
         tableNo: targetMatch ? targetMatch.tableNo : ""
       }));
 
-      wx.showToast({ title: "已提交作废", icon: "success" });
+      wx.showToast({ title: "已提交作废", icon: "none" });
     } catch (error) {
       wx.showToast({ title: error.message || "提交失败", icon: "none" });
     } finally {

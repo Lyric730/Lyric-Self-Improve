@@ -1,7 +1,7 @@
 param(
-  [string]$Project = "F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx",
+  [string]$Project = "F:\Making money\taiqiuxcx",
   [string]$Cli = "",
-  [int]$Port = 55121,
+  [int]$Port = 49663,
   [string]$EnvId = "",
   [switch]$Deploy
 )

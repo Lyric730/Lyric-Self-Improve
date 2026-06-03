@@ -24,10 +24,5 @@
     </yh-panel>
   </view>
 
-  <view class="bottom-tabs">
-    <text bindtap="goHome">挑战</text>
-    <text bindtap="goData">数据</text>
-    <text class="is-active">排行</text>
-    <text bindtap="goPerks">积分</text>
-  </view>
+  <bottom-nav active="rankings" />
 </view>

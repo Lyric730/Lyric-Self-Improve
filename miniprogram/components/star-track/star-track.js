@@ -1,11 +1,3 @@
-const STAR_ASSETS = {
-  empty: "/assets/ui-kit/star-empty.png",
-  earned: "/assets/ui-kit/star-earned.png",
-  new: "/assets/ui-kit/star-new.png",
-  protected: "/assets/ui-kit/star-protected.png",
-  lost: "/assets/ui-kit/star-lost.png"
-};
-
 Component({
   properties: {
     value: {
@@ -59,7 +51,7 @@ Component({
         return {
           id: `star-${position}`,
           state,
-          src: STAR_ASSETS[state]
+          label: state === "empty" ? "☆" : "★"
         };
       });
 

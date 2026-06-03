@@ -1,22 +1,63 @@
 @import "../../styles/tokens.wxss";
+@import "../../styles/motion.wxss";
 
 .star-track {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 52rpx);
   align-items: center;
-  gap: 8rpx;
+  justify-content: start;
+  gap: 16rpx;
+  min-height: 62rpx;
 }
 
 .star-track__star {
-  width: 54rpx;
-  height: 54rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52rpx;
+  height: 52rpx;
+  overflow: visible;
+  color: rgba(255, 219, 122, 0.28);
+  font-family: var(--yh-font-number);
+  font-size: 48rpx;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.star-track__star text {
+  display: block;
+  width: 52rpx;
+  height: 52rpx;
+  line-height: 52rpx;
 }
 
 .star-track__star--new {
-  width: 64rpx;
-  height: 64rpx;
-  filter: drop-shadow(0 0 18rpx rgba(255, 211, 107, 0.5));
+  animation: yh-star-light var(--yh-motion-ceremony) var(--yh-ease-out) both;
+}
+
+.star-track__star--earned,
+.star-track__star--new,
+.star-track__star--protected {
+  color: var(--yh-color-gold-bright);
+  text-shadow:
+    0 0 12rpx rgba(255, 219, 122, 0.42),
+    0 3rpx 0 rgba(92, 38, 0, 0.55);
+}
+
+.star-track__star--new {
+  color: #ffb33f;
+  text-shadow:
+    0 0 16rpx rgba(255, 122, 0, 0.46),
+    0 3rpx 0 rgba(92, 38, 0, 0.55);
 }
 
 .star-track__star--lost {
-  opacity: 0.74;
+  color: rgba(239, 77, 50, 0.72);
+  text-shadow: 0 0 10rpx rgba(239, 77, 50, 0.24);
+}
+
+.star-track__star--empty {
+  color: rgba(255, 219, 122, 0.26);
 }

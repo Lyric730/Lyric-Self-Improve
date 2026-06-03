@@ -394,6 +394,24 @@
 - 积分账户创建幂等强化。
 - 真实云环境和真机扫码闭环验证。
 
+## 19.1 Phase 17A：会员资料读取与编辑
+
+本阶段先在小程序端做出正式交互，云环境可用后接入真实持久化：
+
+- `member-service.getMemberProfile`
+  - 返回当前会员昵称、手机号、备注、段位、积分。
+  - 页面只展示段位和积分，不允许用户编辑。
+- `member-service.saveMemberProfile`
+  - 当前使用本地缓存兜底，方便开发者工具预览和刷新后保留。
+  - 后续替换为 `callCloud("member", "saveProfile", payload)`。
+  - 云函数只接受 `name`、`phone`、`note`、`avatarUrl`。
+  - 头像图片正式上线时应先上传到云存储，`avatarUrl` 保存云文件地址；当前开发者工具阶段可使用微信临时头像路径预览。
+  - 云函数必须拒绝前端传入的 `points`、`rankTitle`、`rankState` 等比赛资产字段。
+- 数据落点建议：
+  - `users`：微信用户基础资料。
+  - `store_members`：门店会员资料、昵称、手机号、备注、头像地址、角色与状态。
+  - `member_points`：积分余额继续独立保存，不能由资料编辑接口改动。
+
 ## 20. Phase 18：真实云环境部署前检查
 
 本阶段不继续堆比赛结算逻辑，先确认云开发链路能不能跑。
@@ -427,3 +445,68 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId '你的云环境ID' -Deploy
 ```
+
+## 21. Phase 19：结算规则纯函数与本地测试
+
+云环境暂时不可用时，先推进不依赖云的核心规则。
+
+已完成：
+
+- 新增 `miniprogram/utils/settlement-engine.js`。
+- 新增 `scripts/test-settlement-engine.js`。
+- `ladder-data.buildSettlement` 已接入 `calculateMatchSettlement`，前端结算展示和规则测试同源。
+
+当前规则覆盖：
+
+- 挑战底分和积分倍率必须来自玩法模板。
+- 风险积分 = 挑战底分 × 积分倍率。
+- 胜方积分变化 = 风险积分 + 系统随机奖励。
+- 败方积分变化 = -风险积分 + 系统随机奖励。
+- 抢 5 / 抢 7 / 抢 10 最低有效时间校验。
+- 第 4 大局或强制冲刺使用续时冲刺奖励区间。
+- 全部玩法共用同一个段位账户。
+- 抢 5 胜方 +1 星，抢 7 胜方 +2 星，抢 10 预留 +3 星。
+- 青铜到黄金掉星保护；铂金及以上失败 -1 星。
+
+本地验证：
+
+```powershell
+node scripts\test-settlement-engine.js
+```
+
+仍未完成：
+
+- 云函数 `match.settle` 尚未启用。
+- 结算结果尚未写入 `settlements`。
+- 积分变动尚未写入 `points_ledger(type=match_win/match_loss/reward)`。
+- 段位变动尚未写入 `rank_states` 和 `rank_snapshots`。
+- 真实并发、重复结算、服/不服状态机仍需云环境后验证。
+
+## 22. Phase 20：老板端参数校验
+
+云环境暂时不可用时，继续推进不依赖云的上线前护栏。老板端可以控制底分、倍率、随机奖励、积分补给、防刷分和大屏参数，但保存前必须先校验，避免错误配置写入云端。
+
+已完成：
+
+- 新增 `miniprogram/utils/admin-config-validator.js`。
+- 新增 `scripts/test-admin-config-validator.js`。
+- `admin-service.saveAdminConfig` 保存前会执行 `assertValidAdminConfig`。
+- 老板端页面保存前会执行 `validateAdminConfig`，失败时弹出正式用户提示，不进入保存 loading。
+
+当前校验覆盖：
+
+- 至少需要一个玩法模板，且至少启用一个玩法。
+- 抢 9 当前不开放，不能加入玩法模板。
+- 玩法目标盘数、最低有效时间、胜方加星必须为正整数。
+- 底分列表、倍率列表不能为空，且必须为正整数，不能重复。
+- 普通随机奖励、续时冲刺奖励必须是合法区间，最小值不能大于最大值。
+- 新用户初始积分、到店登录积分、开台赠分不能小于 0。
+- 积分兑换门槛必须大于 0。
+- 店内定位范围必须大于 0 米。
+- 大屏主榜、副榜不能为空，刷新间隔不能低于 10 秒。
+
+仍未完成：
+
+- 老板端暂时只是展示配置，没有做完整表单编辑器。
+- 云函数 `admin.saveConfig` 还需要复用同一套校验口径，不能只依赖前端。
+- 真实云环境创建后，需要用非法配置请求直接打云函数，验证后端会拒绝。

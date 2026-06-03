@@ -23,19 +23,17 @@
     </yh-panel>
 
     <yh-panel title="{{selectedTable.name}} 到点时间" subtitle="只需要和开台软件到点时间保持一致" marker="DUE TIME" tone="gold">
-      <view class="option-grid">
-        <button
-          wx:for="{{timeOptions}}"
-          wx:key="*this"
-          class="option-chip {{selectedTime === item ? 'is-active' : ''}}"
-          data-time="{{item}}"
-          bindtap="chooseTime"
-        >
-          {{item}}
-        </button>
-      </view>
+      <picker mode="time" value="{{selectedTime}}" start="00:00" end="23:59" bindchange="chooseDueTime">
+        <view class="due-time-picker" hover-class="due-time-picker--hover">
+          <view>
+            <text>24 小时制</text>
+            <text>选择几点几分</text>
+          </view>
+          <text>{{selectedTime}}</text>
+        </view>
+      </picker>
       <view class="flow-actions">
-        <yh-button text="保存到点时间" size="lg" variant="primary" block loading="{{savingDue}}" bind:tap="saveDueTime" />
+        <yh-button text="保存到点时间" size="sm" variant="primary" block custom-class="staff-primary-action" loading="{{savingDue}}" bind:tap="saveDueTime" />
       </view>
     </yh-panel>
 
@@ -45,21 +43,29 @@
           <text>{{selectedMember ? selectedMember.name : '未选择会员'}}</text>
           <text>{{selectedMember ? '积分账户已匹配' : '扫描会员码后核销积分'}}</text>
         </view>
-        <yh-button text="扫码选择" variant="secondary" loading="{{scanningMember}}" bind:tap="scanMember" />
+        <yh-button text="扫码选择" size="sm" variant="secondary" custom-class="staff-scan-button" loading="{{scanningMember}}" bind:tap="scanMember" />
       </view>
-      <view class="option-grid">
-        <button
-          wx:for="{{deductOptions}}"
-          wx:key="*this"
-          class="option-chip {{selectedDeduct === item ? 'is-active' : ''}}"
-          data-value="{{item}}"
-          bindtap="chooseDeduct"
-        >
-          -{{item}}
-        </button>
+      <view class="deduct-input-card">
+        <view>
+          <text>扣除积分</text>
+          <text>{{selectedMember ? '输入本次前台兑换要扣除的分数' : '先扫码选择会员，再填写扣除分数'}}</text>
+        </view>
+        <view class="deduct-input-box">
+          <text>-</text>
+          <input
+            class="deduct-input"
+            type="number"
+            value="{{deductPointsInput}}"
+            placeholder="0"
+            placeholder-class="deduct-input__placeholder"
+            maxlength="6"
+            bindinput="handleDeductInput"
+          />
+          <text>分</text>
+        </view>
       </view>
       <view class="flow-actions">
-        <yh-button text="确认核销" variant="success" block disabled="{{!selectedMember}}" loading="{{deducting}}" bind:tap="confirmDeduct" />
+        <yh-button text="确认核销" size="sm" variant="success" block custom-class="staff-primary-action" disabled="{{!selectedMember || !deductPoints}}" loading="{{deducting}}" bind:tap="confirmDeduct" />
       </view>
     </yh-panel>
 
@@ -72,7 +78,7 @@
         <text>{{item.time}}</text>
       </view>
       <view class="flow-actions">
-        <yh-button text="作废当前异常" variant="danger" block loading="{{voiding}}" bind:tap="voidMatch" />
+        <yh-button text="作废当前异常" size="sm" variant="danger" block custom-class="staff-primary-action" loading="{{voiding}}" bind:tap="voidMatch" />
       </view>
     </yh-panel>
   </view>

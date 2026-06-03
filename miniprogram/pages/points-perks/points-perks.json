@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "积分礼遇",
   "usingComponents": {
+    "bottom-nav": "../../components/bottom-nav/bottom-nav",
     "yh-panel": "../../components/yh-panel/yh-panel",
     "yh-button": "../../components/yh-button/yh-button"
   }

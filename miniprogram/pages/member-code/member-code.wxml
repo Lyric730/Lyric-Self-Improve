@@ -25,7 +25,5 @@
     </yh-panel>
   </view>
 
-  <view class="bottom-tabs">
-    <text bindtap="goBack">返回</text>
-  </view>
+  <bottom-nav active="mine" />
 </view>

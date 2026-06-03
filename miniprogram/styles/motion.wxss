@@ -9,7 +9,23 @@
 }
 
 .yh-number-pop {
-  animation: yh-number-pop var(--yh-motion-base) var(--yh-ease-pop);
+  animation: yh-number-pop var(--yh-motion-base) var(--yh-ease-out);
+}
+
+.yh-flow-enter {
+  animation: yh-flow-enter var(--yh-motion-slow) var(--yh-ease-out) both;
+}
+
+.yh-reward-float {
+  animation: yh-reward-float 1800ms var(--yh-ease-out) infinite alternate;
+}
+
+.yh-star-light {
+  animation: yh-star-light var(--yh-motion-ceremony) var(--yh-ease-out) both;
+}
+
+.yh-score-flash {
+  animation: yh-score-flash var(--yh-motion-slow) var(--yh-ease-out) both;
 }
 
 @keyframes yh-number-pop {
@@ -25,5 +41,74 @@
 
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes yh-flow-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(18rpx);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes yh-reward-float {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-8rpx);
+  }
+}
+
+@keyframes yh-star-light {
+  0% {
+    opacity: 0.18;
+    transform: scale(0.72) rotate(-8deg);
+  }
+
+  54% {
+    opacity: 1;
+    transform: scale(1.16) rotate(0deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes yh-score-flash {
+  0% {
+    filter: brightness(0.82);
+    transform: scale(0.96);
+  }
+
+  60% {
+    filter: brightness(1.25);
+    transform: scale(1.04);
+  }
+
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yh-pressable,
+  .yh-number-pop,
+  .yh-flow-enter,
+  .yh-reward-float,
+  .yh-star-light,
+  .yh-score-flash {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+    transition-duration: 1ms;
   }
 }

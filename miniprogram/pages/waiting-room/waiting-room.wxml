@@ -32,11 +32,12 @@
       <text class="room-status__dot {{roomState.opponentJoined ? 'is-ready' : ''}}"></text>
       <view>
         <text>{{roomState.statusText}}</text>
-        <text>对手加入后，将进入玩法选择。</text>
+        <text>{{roomState.opponentJoined ? '双方到齐后，可以进入玩法选择。' : '对手加入后，将进入玩法选择。'}}</text>
       </view>
     </view>
 
     <view class="flow-actions">
+      <yh-button wx:if="{{roomState.opponentJoined}}" text="选择玩法" size="lg" variant="primary" block bind:tap="continueMatch" />
       <yh-button text="刷新状态" size="lg" variant="secondary" block bind:tap="refreshRoom" />
       <yh-button text="取消挑战" variant="ghost" block bind:tap="cancelRoom" />
     </view>

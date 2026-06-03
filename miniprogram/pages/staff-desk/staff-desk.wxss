@@ -3,16 +3,26 @@
 .staff-table-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14rpx;
+  gap: 12rpx;
 }
 
 .staff-table {
   display: grid;
-  gap: 8rpx;
-  padding: 20rpx;
+  gap: 6rpx;
+  min-height: 116rpx;
+  padding: 18rpx;
   background: rgba(8, 7, 6, 0.62);
   border: 1rpx solid rgba(255, 214, 145, 0.14);
-  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+  clip-path: polygon(
+    14rpx 0,
+    calc(100% - 14rpx) 0,
+    100% 14rpx,
+    100% calc(100% - 14rpx),
+    calc(100% - 14rpx) 100%,
+    14rpx 100%,
+    0 calc(100% - 14rpx),
+    0 14rpx
+  );
 }
 
 .staff-table.is-active {
@@ -69,25 +79,36 @@
 
 .member-select {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 180rpx;
-  gap: 16rpx;
+  grid-template-columns: minmax(0, 1fr) 156rpx;
+  gap: 12rpx;
   align-items: stretch;
-  margin-bottom: 18rpx;
+  margin-bottom: 16rpx;
 }
 
 .member-card {
   display: grid;
-  gap: 8rpx;
+  gap: 6rpx;
   min-width: 0;
-  padding: 18rpx 20rpx;
+  padding: 16rpx 18rpx;
   background: rgba(8, 7, 6, 0.68);
   border: 1rpx solid rgba(255, 214, 145, 0.12);
-  clip-path: polygon(12rpx 0, 100% 0, 100% calc(100% - 12rpx), calc(100% - 12rpx) 100%, 0 100%, 0 12rpx);
+  clip-path: polygon(
+    12rpx 0,
+    calc(100% - 12rpx) 0,
+    100% 12rpx,
+    100% calc(100% - 12rpx),
+    calc(100% - 12rpx) 100%,
+    12rpx 100%,
+    0 calc(100% - 12rpx),
+    0 12rpx
+  );
 }
 
 .member-card.is-active {
-  border-color: rgba(59, 214, 123, 0.62);
-  box-shadow: 0 0 26rpx rgba(59, 214, 123, 0.12);
+  border-color: rgba(255, 211, 107, 0.62);
+  box-shadow:
+    0 0 26rpx rgba(255, 122, 0, 0.16),
+    inset 0 0 0 1rpx rgba(255, 219, 122, 0.18);
 }
 
 .member-card text:first-child {
@@ -103,4 +124,142 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.staff-primary-action {
+  min-height: 78rpx;
+  max-width: 360rpx;
+  margin: 0 auto;
+}
+
+.staff-scan-button {
+  width: 156rpx;
+  min-height: 72rpx;
+  padding: 0 12rpx;
+  font-size: 24rpx;
+}
+
+.due-time-picker {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160rpx;
+  align-items: center;
+  min-height: 104rpx;
+  padding: 18rpx 22rpx;
+  color: var(--yh-color-text);
+  background:
+    linear-gradient(180deg, rgba(34, 25, 18, 0.94), rgba(8, 7, 6, 0.98)),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.035) 0 2rpx, transparent 2rpx 20rpx);
+  border: 1rpx solid rgba(255, 214, 145, 0.16);
+  box-sizing: border-box;
+  clip-path: polygon(
+    16rpx 0,
+    calc(100% - 16rpx) 0,
+    100% 16rpx,
+    100% calc(100% - 16rpx),
+    calc(100% - 16rpx) 100%,
+    16rpx 100%,
+    0 calc(100% - 16rpx),
+    0 16rpx
+  );
+}
+
+.due-time-picker--hover {
+  opacity: 0.9;
+}
+
+.due-time-picker view {
+  display: grid;
+  gap: 8rpx;
+  min-width: 0;
+}
+
+.due-time-picker view text:first-child {
+  color: var(--yh-color-gold-bright);
+  font-size: 28rpx;
+  font-weight: 900;
+}
+
+.due-time-picker view text:last-child {
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+}
+
+.due-time-picker > text {
+  color: var(--yh-color-orange);
+  font-family: var(--yh-font-number);
+  font-size: 38rpx;
+  font-weight: 900;
+  text-align: right;
+}
+
+.deduct-input-card {
+  display: grid;
+  gap: 16rpx;
+  padding: 20rpx;
+  background:
+    linear-gradient(180deg, rgba(34, 25, 18, 0.92), rgba(8, 7, 6, 0.98)),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.032) 0 2rpx, transparent 2rpx 20rpx);
+  border: 1rpx solid rgba(255, 214, 145, 0.14);
+  box-sizing: border-box;
+  clip-path: polygon(
+    16rpx 0,
+    calc(100% - 16rpx) 0,
+    100% 16rpx,
+    100% calc(100% - 16rpx),
+    calc(100% - 16rpx) 100%,
+    16rpx 100%,
+    0 calc(100% - 16rpx),
+    0 16rpx
+  );
+}
+
+.deduct-input-card > view:first-child {
+  display: grid;
+  gap: 8rpx;
+}
+
+.deduct-input-card > view:first-child text:first-child {
+  color: var(--yh-color-gold-bright);
+  font-size: 28rpx;
+  font-weight: 900;
+}
+
+.deduct-input-card > view:first-child text:last-child {
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+}
+
+.deduct-input-box {
+  display: grid;
+  grid-template-columns: 36rpx minmax(0, 1fr) 44rpx;
+  align-items: center;
+  min-height: 84rpx;
+  padding: 0 20rpx;
+  background: rgba(8, 7, 6, 0.74);
+  border: 1rpx solid rgba(255, 118, 0, 0.32);
+  box-sizing: border-box;
+  clip-path: polygon(12rpx 0, 100% 0, 100% calc(100% - 12rpx), calc(100% - 12rpx) 100%, 0 100%, 0 12rpx);
+}
+
+.deduct-input-box text {
+  color: var(--yh-color-orange);
+  font-size: 32rpx;
+  font-weight: 900;
+  text-align: center;
+}
+
+.deduct-input {
+  width: 100%;
+  min-height: 76rpx;
+  color: var(--yh-color-text);
+  font-family: var(--yh-font-number);
+  font-size: 42rpx;
+  font-weight: 900;
+  text-align: right;
+}
+
+.deduct-input__placeholder {
+  color: rgba(246, 239, 230, 0.28);
 }

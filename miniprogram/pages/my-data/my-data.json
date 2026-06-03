@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "我的数据",
   "usingComponents": {
+    "bottom-nav": "../../components/bottom-nav/bottom-nav",
     "yh-panel": "../../components/yh-panel/yh-panel",
     "rank-badge": "../../components/rank-badge/rank-badge",
     "star-track": "../../components/star-track/star-track"

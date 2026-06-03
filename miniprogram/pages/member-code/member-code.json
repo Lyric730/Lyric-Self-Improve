@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "bottom-nav": "/components/bottom-nav/bottom-nav",
     "yh-button": "/components/yh-button/yh-button",
     "yh-panel": "/components/yh-panel/yh-panel"
   },

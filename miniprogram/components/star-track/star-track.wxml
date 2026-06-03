@@ -1,9 +1,9 @@
 <view class="star-track">
-  <image
+  <view
     wx:for="{{stars}}"
     wx:key="id"
     class="star-track__star star-track__star--{{item.state}}"
-    src="{{item.src}}"
-    mode="aspectFit"
-  />
+  >
+    <text>{{item.label}}</text>
+  </view>
 </view>

@@ -1,9 +1,12 @@
 # 微信开发者工具 CLI 使用记录
 
-版本：v0.2  
-项目目录：`F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx`  
-工具路径：`F:\微信web开发者工具\cli.bat`  
-当前服务端口：`55121`
+版本：v0.3
+
+项目目录：`F:\Making money\taiqiuxcx`
+
+工具路径：`F:\微信web开发者工具\cli.bat`
+当前服务端口：`30812`
+当前 AppID：`wxe30b469d64636a2b`
 
 ## 1. 官方文档结论
 
@@ -26,14 +29,15 @@ F:\微信web开发者工具\cli.bat
 已确认：
 
 ```text
-HTTP 服务地址：http://127.0.0.1:55121
-当前项目目录：F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx
+HTTP 服务地址：http://127.0.0.1:30812
+当前项目目录：F:\Making money\taiqiuxcx
+当前 AppID：wxe30b469d64636a2b
 ```
 
 已执行：
 
 ```powershell
-& 'F:\微信web开发者工具\cli.bat' --port 55121 --lang zh islogin
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh islogin
 ```
 
 结果：
@@ -49,31 +53,31 @@ HTTP 服务地址：http://127.0.0.1:55121
 检查登录态：
 
 ```powershell
-& 'F:\微信web开发者工具\cli.bat' --port 55121 --lang zh islogin
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh islogin
 ```
 
 打开当前项目并触发编译刷新：
 
 ```powershell
-& 'F:\微信web开发者工具\cli.bat' --port 55121 --lang zh open --project 'F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx'
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh open --project 'F:\Making money\taiqiuxcx'
 ```
 
 重建文件监听：
 
 ```powershell
-& 'F:\微信web开发者工具\cli.bat' --port 55121 --lang zh reset-fileutils --project 'F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx'
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh reset-fileutils --project 'F:\Making money\taiqiuxcx'
 ```
 
 预览：
 
 ```powershell
-& 'F:\微信web开发者工具\cli.bat' --port 55121 --lang zh preview --project 'F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx'
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh preview --project 'F:\Making money\taiqiuxcx'
 ```
 
 上传代码：
 
 ```powershell
-& 'F:\微信web开发者工具\cli.bat' --port 55121 --lang zh upload --project 'F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx' -v 0.1.0 -d 'UI Kit scaffold'
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh upload --project 'F:\Making money\taiqiuxcx' -v 0.1.0 -d 'UI Kit scaffold'
 ```
 
 上传命令只在明确要发体验版 / 提审前使用，日常扣组件不要随便上传。
@@ -108,12 +112,12 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 注意：`-Deploy` 会写入云端，只有确认云环境 ID 正确时执行。
 
-## 5. 当前阻塞
+## 5. 当前云开发状态
 
 2026-05-27 执行：
 
 ```powershell
-& 'F:\微信web开发者工具\cli.bat' --port 55121 --lang zh cloud env list --project 'F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx'
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh cloud env list --project 'F:\Making money\taiqiuxcx'
 ```
 
 返回：
@@ -122,7 +126,41 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 测试号不能使用云服务
 ```
 
-含义：当前导入的 AppID 仍被微信开发者工具识别为测试号，测试号不能使用云开发。要做真实云函数部署、数据库集合、会员码扫码闭环，必须先把项目切到已注册的小程序 AppID，并在开发者工具里开通云开发环境。
+历史含义：旧 AppID 被微信开发者工具识别为测试号，测试号不能使用云开发。
+
+当前处理：`project.config.json` 已切换到正式 AppID `wxe30b469d64636a2b`。后续需要用 CLI 打开当前项目，并重新执行云开发检查。
+
+2026-05-31 更新：
+
+```powershell
+& 'F:\微信web开发者工具\cli.bat' preview --project 'F:\Making money\taiqiuxcx' --port 55121 --lang zh
+```
+
+结果：
+
+```text
+使用 AppID: wxe30b469d64636a2b
+preview
+```
+
+说明：项目身份已切换到正式 AppID。
+
+2026-06-03 更新：开发者工具当前实际监听端口变为 `30812`。继续用旧端口会提示需要重启工具，因此后续 CLI 命令默认使用 `30812`。
+
+继续执行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1
+```
+
+结果：
+
+```text
+ret:1000
+errmsg:"system error."
+```
+
+说明：已经不是测试号阻塞。下一步需要在微信开发者工具 UI 里打开“云开发”，确认是否已创建云环境，以及当前登录微信号是否有云开发权限。
 
 ## 6. 后续使用纪律
 

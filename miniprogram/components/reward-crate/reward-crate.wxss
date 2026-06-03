@@ -1,20 +1,39 @@
 @import "../../styles/tokens.wxss";
+@import "../../styles/motion.wxss";
 
 .reward-crate {
   position: relative;
   min-height: 220rpx;
-  padding: 24rpx 24rpx 22rpx;
+  padding: 26rpx 26rpx 24rpx;
   overflow: hidden;
-  border: 1rpx solid rgba(255, 118, 0, 0.34);
+  border: 1rpx solid rgba(255, 211, 107, 0.42);
   background:
-    radial-gradient(circle at 78% 18%, rgba(255, 211, 107, 0.2), transparent 190rpx),
-    linear-gradient(135deg, rgba(255, 118, 0, 0.12), rgba(12, 9, 7, 0.94));
+    radial-gradient(circle at 78% 18%, rgba(255, 211, 107, 0.3), transparent 190rpx),
+    linear-gradient(135deg, rgba(84, 47, 22, 0.72), rgba(18, 13, 9, 0.9)),
+    repeating-linear-gradient(135deg, rgba(255, 239, 214, 0.035) 0 2rpx, transparent 2rpx 22rpx);
   clip-path: polygon(0 20rpx, 20rpx 0, 100% 0, 100% calc(100% - 20rpx), calc(100% - 20rpx) 100%, 0 100%);
+  box-shadow: var(--yh-shadow-reward);
+  animation: yh-flow-enter var(--yh-motion-slow) var(--yh-ease-out) both;
+}
+
+.reward-crate::before {
+  content: "";
+  position: absolute;
+  left: 18rpx;
+  right: 18rpx;
+  top: 12rpx;
+  height: 2rpx;
+  background: linear-gradient(90deg, transparent, rgba(255, 219, 122, 0.72), transparent);
+  pointer-events: none;
 }
 
 .reward-crate--sprint {
-  border-color: rgba(255, 211, 107, 0.5);
-  box-shadow: 0 0 28rpx rgba(255, 118, 0, 0.16);
+  border-color: rgba(255, 219, 122, 0.62);
+  background:
+    radial-gradient(circle at 78% 18%, rgba(255, 219, 122, 0.36), transparent 210rpx),
+    linear-gradient(135deg, rgba(107, 59, 23, 0.82), rgba(22, 13, 8, 0.92)),
+    repeating-linear-gradient(135deg, rgba(255, 122, 0, 0.055) 0 2rpx, transparent 2rpx 22rpx);
+  box-shadow: 0 0 34rpx rgba(255, 122, 0, 0.22);
 }
 
 .reward-crate__copy {
@@ -32,6 +51,7 @@
   color: var(--yh-color-gold-bright);
   font-size: 26rpx;
   font-weight: 900;
+  letter-spacing: 0.04em;
 }
 
 .reward-crate__range {
@@ -50,9 +70,10 @@
 
 .reward-crate__asset {
   position: absolute;
-  top: 38rpx;
-  right: 18rpx;
-  width: 170rpx;
-  height: 142rpx;
-  filter: drop-shadow(0 14rpx 24rpx rgba(0, 0, 0, 0.5));
+  top: 26rpx;
+  right: 10rpx;
+  width: 196rpx;
+  height: 164rpx;
+  filter: drop-shadow(0 16rpx 24rpx rgba(0, 0, 0, 0.42));
+  animation: yh-reward-float 1800ms var(--yh-ease-out) infinite alternate;
 }

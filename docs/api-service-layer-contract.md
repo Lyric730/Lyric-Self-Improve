@@ -13,6 +13,7 @@
 | --- | --- | --- | --- |
 | `miniprogram/services/api-client.js` | 统一返回结构和错误处理 | 本地同步结果 | `wx.request` 或云函数调用 |
 | `miniprogram/services/player-service.js` | 球友首页、房间、邀请、我的数据、排行榜、积分礼遇 | `ladder-data.js` | `/matches`、`/me/stats`、`/rankings`、`/points/perks` |
+| `miniprogram/services/member-service.js` | 会员码、会员资料读取与保存 | 云函数 + 本地缓存兜底 | `/member/code`、`/member/profile` |
 | `miniprogram/services/match-service.js` | 玩法模板、开局参数、当前比赛、结算结果 | `ladder-data.js` | `/matches/:id`、`/matches/:id/config`、`/matches/:id/settle/*` |
 | `miniprogram/services/staff-service.js` | 员工球桌、到点时间、积分核销、异常作废 | `ladder-data.js` + 本地操作日志入口 | `/staff/tables`、`/staff/points/deduct`、`/staff/matches/:id/void` |
 | `miniprogram/services/admin-service.js` | 老板配置读取与保存 | `ladder-data.js` + 本地操作日志入口 | `/admin/config/*` |
@@ -61,8 +62,13 @@ callCloud(moduleName, action, payload)
 
 1. `staff-service` 的写操作已替换为 `callCloud("staff", action, payload)`。
 2. `admin-service` 的保存配置已替换为 `callCloud("admin", action, payload)`。
-3. 下一步把 `match-service.calculateSettlement` 替换为 `callCloud("match", "settle", payload)`。
-4. 最后替换榜单、个人数据和大屏数据读取。
+3. `admin-service` 保存配置前已通过 `miniprogram/utils/admin-config-validator.js` 校验门店参数。
+4. 当前 `match-service.calculateSettlement` 已通过 `miniprogram/utils/settlement-engine.js` 计算本地结算展示。
+5. 下一步把 `match-service.calculateSettlement` 替换为 `callCloud("match", "settle", payload)`，云函数内部必须复用同一套规则口径，并写入 `settlements`、`points_ledger`、`rank_states`。
+6. `member-service.saveMemberProfile` 当前使用本地缓存兜底；云环境可用后替换为 `callCloud("member", "saveProfile", payload)`，只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分。
+7. 最后替换榜单、个人数据和大屏数据读取。
+
+注意：`admin-config-validator` 当前只在小程序端执行。正式云环境可用后，`admin.saveConfig` 云函数也必须复用同一套校验，不能只相信前端传参。
 
 云函数入口：`cloudfunctions/yunhanApi/index.js`。
 
@@ -100,6 +106,7 @@ callCloud(moduleName, action, payload)
 - `operation-log.js` 仅保留历史开发背景；运营端写操作已改为服务端 `operation_logs` 入口。
 - `match-service.js` 的 `calculateSettlement` 替换为服务端结算接口，前端不再拥有结算公式。
 - `screen-service.js` 接入 `screenToken`。
+- `member-service.js` 的会员资料保存接入云函数和 `store_members` / `users` 持久化。
 
 ## 7. 验收规则
 

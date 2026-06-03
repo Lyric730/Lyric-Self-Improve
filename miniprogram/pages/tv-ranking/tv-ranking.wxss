@@ -2,7 +2,9 @@
 
 .tv-page {
   min-height: 100vh;
-  padding: 34rpx;
+  padding: 28rpx;
+  box-sizing: border-box;
+  overflow-x: hidden;
   color: var(--yh-color-text);
   background:
     radial-gradient(circle at 18% 8%, rgba(255, 118, 0, 0.18), transparent 360rpx),
@@ -11,8 +13,8 @@
 
 .tv-header {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 420rpx;
-  gap: 34rpx;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22rpx;
   align-items: stretch;
 }
 
@@ -25,27 +27,29 @@
 
 .tv-eyebrow {
   color: var(--yh-color-orange);
-  font-size: 28rpx;
+  font-size: 24rpx;
   font-weight: 900;
   letter-spacing: 0.18em;
 }
 
 .tv-title {
   margin-top: 12rpx;
-  font-size: 72rpx;
+  max-width: 100%;
+  font-size: 58rpx;
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.03;
+  word-break: break-all;
 }
 
 .tv-subtitle {
   margin-top: 18rpx;
   color: var(--yh-color-gold-bright);
-  font-size: 30rpx;
+  font-size: 28rpx;
   font-weight: 900;
 }
 
 .tv-activity {
-  padding: 28rpx;
+  padding: 24rpx;
   background: linear-gradient(135deg, rgba(255, 118, 0, 0.34), rgba(20, 11, 5, 0.96));
   border: 1rpx solid rgba(255, 118, 0, 0.42);
   clip-path: polygon(26rpx 0, 100% 0, 100% calc(100% - 26rpx), calc(100% - 26rpx) 100%, 0 100%, 0 26rpx);
@@ -53,7 +57,7 @@
 
 .tv-activity text:first-child {
   color: var(--yh-color-gold-bright);
-  font-size: 32rpx;
+  font-size: 30rpx;
   font-weight: 900;
 }
 
@@ -67,15 +71,16 @@
 
 .tv-grid {
   display: grid;
-  grid-template-columns: 1.1fr 1fr 1fr;
-  gap: 28rpx;
-  margin-top: 34rpx;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22rpx;
+  margin-top: 26rpx;
 }
 
 .tv-podium,
 .tv-board {
-  min-height: 680rpx;
-  padding: 28rpx;
+  min-width: 0;
+  min-height: auto;
+  padding: 22rpx;
   background: linear-gradient(145deg, rgba(45, 33, 22, 0.96), rgba(11, 8, 6, 0.98));
   border: 1rpx solid rgba(255, 118, 0, 0.34);
   clip-path: polygon(28rpx 0, calc(100% - 28rpx) 0, 100% 28rpx, 100% 100%, 0 100%, 0 28rpx);
@@ -86,54 +91,61 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: end;
-  gap: 18rpx;
+  gap: 12rpx;
 }
 
 .tv-podium-card {
   display: grid;
-  gap: 14rpx;
+  gap: 10rpx;
   align-content: center;
-  min-height: 420rpx;
-  padding: 24rpx;
+  min-width: 0;
+  min-height: 238rpx;
+  padding: 18rpx 10rpx;
   text-align: center;
   background: radial-gradient(circle at 50% 10%, rgba(255, 211, 107, 0.24), transparent 180rpx), rgba(7, 6, 5, 0.72);
   border: 1rpx solid rgba(255, 214, 145, 0.18);
 }
 
 .tv-podium-card--0 {
-  min-height: 560rpx;
+  min-height: 292rpx;
   border-color: rgba(255, 211, 107, 0.72);
   box-shadow: var(--yh-glow-gold);
 }
 
 .tv-podium-card--1 {
-  min-height: 470rpx;
+  min-height: 252rpx;
 }
 
 .tv-podium-card text:first-child {
   color: var(--yh-color-gold-bright);
   font-family: var(--yh-font-number);
-  font-size: 64rpx;
+  font-size: 42rpx;
   font-weight: 900;
 }
 
 .tv-podium-card text:nth-child(2) {
   color: var(--yh-color-text);
-  font-size: 34rpx;
+  font-size: 24rpx;
   font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tv-podium-card text:nth-child(3),
 .tv-podium-card text:last-child {
   color: var(--yh-color-text-muted);
-  font-size: 24rpx;
+  font-size: 20rpx;
   font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tv-podium-card text:last-child {
   color: var(--yh-color-orange);
   font-family: var(--yh-font-number);
-  font-size: 46rpx;
+  font-size: 34rpx;
   font-weight: 900;
 }
 
@@ -146,32 +158,32 @@
 .tv-board__head,
 .tv-row {
   display: grid;
-  grid-template-columns: 74rpx minmax(0, 1fr) 150rpx 96rpx 72rpx;
+  grid-template-columns: 52rpx minmax(0, 1fr) 92rpx 72rpx 48rpx;
   align-items: center;
-  gap: 12rpx;
+  gap: 8rpx;
 }
 
 .tv-board__head {
-  grid-template-columns: minmax(0, 1fr) 140rpx;
+  grid-template-columns: minmax(0, 1fr) 116rpx;
   margin-bottom: 8rpx;
 }
 
 .tv-board__head text:first-child {
   color: var(--yh-color-gold-bright);
-  font-size: 38rpx;
+  font-size: 32rpx;
   font-weight: 900;
 }
 
 .tv-board__head text:last-child {
   color: var(--yh-color-text-muted);
-  font-size: 22rpx;
+  font-size: 20rpx;
   font-weight: 800;
   text-align: right;
 }
 
 .tv-row {
-  min-height: 82rpx;
-  padding: 0 16rpx;
+  min-height: 70rpx;
+  padding: 0 10rpx;
   background: rgba(8, 7, 6, 0.64);
   border: 1rpx solid rgba(255, 214, 145, 0.1);
 }
@@ -179,7 +191,7 @@
 .tv-row text {
   min-width: 0;
   color: var(--yh-color-text-muted);
-  font-size: 23rpx;
+  font-size: 20rpx;
   font-weight: 900;
   white-space: nowrap;
   overflow: hidden;
@@ -188,7 +200,7 @@
 
 .tv-row text:nth-child(2) {
   color: var(--yh-color-text);
-  font-size: 28rpx;
+  font-size: 24rpx;
 }
 
 .tv-row text:nth-child(4),
@@ -196,4 +208,98 @@
   color: var(--yh-color-gold-bright);
   font-family: var(--yh-font-number);
   text-align: right;
+}
+
+@media (min-width: 900px) {
+  .tv-page {
+    padding: 34rpx;
+  }
+
+  .tv-header {
+    grid-template-columns: minmax(0, 1fr) 420rpx;
+    gap: 34rpx;
+  }
+
+  .tv-title {
+    font-size: 72rpx;
+    line-height: 1;
+    word-break: normal;
+  }
+
+  .tv-grid {
+    grid-template-columns: 1.1fr 1fr 1fr;
+    gap: 28rpx;
+    margin-top: 34rpx;
+  }
+
+  .tv-podium,
+  .tv-board {
+    min-height: 680rpx;
+    padding: 28rpx;
+  }
+
+  .tv-podium {
+    gap: 18rpx;
+  }
+
+  .tv-podium-card {
+    min-height: 420rpx;
+    padding: 24rpx;
+  }
+
+  .tv-podium-card--0 {
+    min-height: 560rpx;
+  }
+
+  .tv-podium-card--1 {
+    min-height: 470rpx;
+  }
+
+  .tv-podium-card text:first-child {
+    font-size: 64rpx;
+  }
+
+  .tv-podium-card text:nth-child(2) {
+    font-size: 34rpx;
+  }
+
+  .tv-podium-card text:nth-child(3),
+  .tv-podium-card text:last-child {
+    font-size: 24rpx;
+  }
+
+  .tv-podium-card text:last-child {
+    font-size: 46rpx;
+  }
+
+  .tv-board__head,
+  .tv-row {
+    grid-template-columns: 74rpx minmax(0, 1fr) 150rpx 96rpx 72rpx;
+    gap: 12rpx;
+  }
+
+  .tv-board__head {
+    grid-template-columns: minmax(0, 1fr) 140rpx;
+  }
+
+  .tv-board__head text:first-child {
+    font-size: 38rpx;
+  }
+
+  .tv-board__head text:last-child {
+    font-size: 22rpx;
+  }
+
+  .tv-row {
+    min-height: 82rpx;
+    padding: 0 16rpx;
+  }
+
+  .tv-row text {
+    font-size: 23rpx;
+  }
+
+  .tv-row text:nth-child(2) {
+    font-size: 28rpx;
+  }
 }

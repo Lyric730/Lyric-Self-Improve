@@ -8,67 +8,95 @@
   <view class="flow-stack">
     <yh-panel title="玩法模板" subtitle="顾客只看到已启用玩法" marker="MODES" tone="gold" raised>
       <view class="boss-mode" wx:for="{{adminConfig.modes}}" wx:key="modeId">
-        <view>
-          <text>{{item.name}}</text>
-          <text>底分 {{item.baseText}} · 倍率 {{item.multiplierText}}</text>
-          <text>普通奖励 {{item.normalReward}} · 冲刺奖励 {{item.sprintReward}}</text>
+        <view class="boss-mode__head">
+          <view>
+            <text>{{item.name}}</text>
+            <text>先胜 {{item.targetWins}} 局 · 最低 {{item.minimumMinutes}} 分钟</text>
+          </view>
+          <switch checked="{{item.enabled}}" color="#ff7600" data-index="{{index}}" bindchange="toggleMode" />
         </view>
-        <text class="{{item.enabled ? 'is-on' : 'is-off'}}">{{item.enabled ? '启用' : '未启用'}}</text>
+
+        <view class="config-grid">
+          <label class="config-field">
+            <text>底分</text>
+            <input value="{{item.baseText}}" data-index="{{index}}" data-field="baseText" bindinput="changeModeField" />
+          </label>
+          <label class="config-field">
+            <text>倍率</text>
+            <input value="{{item.multiplierText}}" data-index="{{index}}" data-field="multiplierText" bindinput="changeModeField" />
+          </label>
+          <label class="config-field">
+            <text>普通奖励</text>
+            <input value="{{item.normalReward}}" data-index="{{index}}" data-field="normalReward" bindinput="changeModeField" />
+          </label>
+          <label class="config-field">
+            <text>冲刺奖励</text>
+            <input value="{{item.sprintReward}}" data-index="{{index}}" data-field="sprintReward" bindinput="changeModeField" />
+          </label>
+          <label class="config-field">
+            <text>最低时间</text>
+            <input type="number" value="{{item.minimumMinutes}}" data-index="{{index}}" data-field="minimumMinutes" bindinput="changeModeField" />
+          </label>
+          <label class="config-field">
+            <text>胜方加星</text>
+            <input type="number" value="{{item.starReward}}" data-index="{{index}}" data-field="starReward" bindinput="changeModeField" />
+          </label>
+        </view>
       </view>
     </yh-panel>
 
     <yh-panel title="积分补给" subtitle="用于开局门槛和前台兑换" marker="POINTS">
-      <view class="metric-grid">
-        <view class="metric-card">
+      <view class="config-grid">
+        <label class="config-field">
           <text>新用户</text>
-          <text>{{adminConfig.points.newUser}}</text>
-        </view>
-        <view class="metric-card">
+          <input type="number" value="{{adminConfig.points.newUser}}" data-key="newUser" bindinput="changePointsField" />
+        </label>
+        <label class="config-field">
           <text>到店登录</text>
-          <text>{{adminConfig.points.checkIn}}</text>
-        </view>
-        <view class="metric-card">
+          <input type="number" value="{{adminConfig.points.checkIn}}" data-key="checkIn" bindinput="changePointsField" />
+        </label>
+        <label class="config-field">
           <text>开台赠分</text>
-          <text>{{adminConfig.points.tableOpenBonus}}</text>
-        </view>
-      </view>
-      <view class="risk-formula">
-        <text>兑换门槛</text>
-        <text>{{adminConfig.points.exchangeThreshold}}</text>
+          <input type="number" value="{{adminConfig.points.tableOpenBonus}}" data-key="tableOpenBonus" bindinput="changePointsField" />
+        </label>
+        <label class="config-field config-field--wide">
+          <text>兑换门槛</text>
+          <input type="number" value="{{adminConfig.points.exchangeThreshold}}" data-key="exchangeThreshold" bindinput="changePointsField" />
+        </label>
       </view>
     </yh-panel>
 
     <yh-panel title="防刷分" subtitle="有效挑战必须满足这些门槛" marker="CHECK" tone="danger">
-      <view class="metric-grid">
-        <view class="metric-card">
+      <view class="config-grid">
+        <label class="config-field">
           <text>店内定位</text>
-          <text>{{adminConfig.antiCheat.geoFence}}</text>
-        </view>
-        <view class="metric-card">
+          <input value="{{adminConfig.antiCheat.geoFence}}" data-key="geoFence" bindinput="changeAntiCheatField" />
+        </label>
+        <label class="config-field">
           <text>开台到点</text>
-          <text>{{adminConfig.antiCheat.tableDueRequired}}</text>
-        </view>
-        <view class="metric-card">
+          <input value="{{adminConfig.antiCheat.tableDueRequired}}" data-key="tableDueRequired" bindinput="changeAntiCheatField" />
+        </label>
+        <label class="config-field">
           <text>最低时间</text>
-          <text>{{adminConfig.antiCheat.minimumTimeRequired}}</text>
-        </view>
+          <input value="{{adminConfig.antiCheat.minimumTimeRequired}}" data-key="minimumTimeRequired" bindinput="changeAntiCheatField" />
+        </label>
       </view>
     </yh-panel>
 
     <yh-panel title="大屏榜单" subtitle="{{adminConfig.screen.refreshText}}" marker="SCREEN" tone="orange">
-      <view class="metric-grid">
-        <view class="metric-card">
+      <view class="config-grid">
+        <label class="config-field">
           <text>主榜</text>
-          <text>{{adminConfig.screen.storeBoard}}</text>
-        </view>
-        <view class="metric-card">
+          <input value="{{adminConfig.screen.storeBoard}}" data-key="storeBoard" bindinput="changeScreenField" />
+        </label>
+        <label class="config-field">
           <text>副榜</text>
-          <text>{{adminConfig.screen.bountyBoard}}</text>
-        </view>
-        <view class="metric-card">
-          <text>门店活动</text>
-          <text>开启</text>
-        </view>
+          <input value="{{adminConfig.screen.bountyBoard}}" data-key="bountyBoard" bindinput="changeScreenField" />
+        </label>
+        <label class="config-field">
+          <text>刷新间隔</text>
+          <input value="{{adminConfig.screen.refreshText}}" data-key="refreshText" bindinput="changeScreenField" />
+        </label>
       </view>
     </yh-panel>
 

@@ -2,13 +2,29 @@
 @import "./motion.wxss";
 
 .flow-page {
+  position: relative;
   min-height: 100vh;
   padding: 28rpx var(--yh-page-pad) 148rpx;
   color: var(--yh-color-text);
   background:
-    radial-gradient(circle at 16% 0%, rgba(255, 118, 0, 0.18), transparent 260rpx),
-    linear-gradient(155deg, rgba(8, 22, 14, 0.8), transparent 42%),
+    radial-gradient(circle at 14% 0%, rgba(116, 64, 30, 0.34), transparent 310rpx),
+    radial-gradient(circle at 88% 12%, rgba(255, 122, 0, 0.16), transparent 250rpx),
+    linear-gradient(155deg, rgba(86, 45, 20, 0.38), transparent 42%),
     var(--yh-color-bg);
+}
+
+.flow-page::before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 148rpx;
+  opacity: 0.52;
+  background:
+    linear-gradient(90deg, rgba(116, 64, 30, 0.72), rgba(61, 28, 12, 0.12) 34%, transparent),
+    repeating-linear-gradient(90deg, rgba(255, 220, 164, 0.055) 0 2rpx, transparent 2rpx 52rpx);
+  pointer-events: none;
 }
 
 .flow-page--locked {
@@ -21,10 +37,12 @@
   padding: 34rpx 28rpx;
   overflow: hidden;
   background:
-    linear-gradient(125deg, rgba(9, 8, 7, 0.86) 0 46%, rgba(97, 39, 4, 0.58) 46% 66%, rgba(255, 118, 0, 0.24) 66% 100%),
-    linear-gradient(180deg, rgba(36, 27, 19, 0.9), rgba(8, 7, 5, 0.98));
+    linear-gradient(125deg, rgba(38, 24, 14, 0.86) 0 38%, rgba(94, 48, 21, 0.62) 38% 66%, rgba(255, 122, 0, 0.26) 66% 100%),
+    linear-gradient(180deg, rgba(62, 43, 27, 0.94), rgba(18, 13, 9, 0.97));
+  border: 1rpx solid rgba(255, 193, 99, 0.2);
   clip-path: polygon(0 0, calc(100% - 36rpx) 0, 100% 36rpx, 100% 100%, 32rpx 100%, 0 calc(100% - 32rpx));
   box-shadow: var(--yh-shadow-panel);
+  animation: yh-flow-enter var(--yh-motion-slow) var(--yh-ease-out) both;
 }
 
 .flow-hero--compact {
@@ -89,6 +107,7 @@
   display: grid;
   gap: var(--yh-space-4);
   margin-top: var(--yh-space-4);
+  animation: yh-flow-enter var(--yh-motion-slow) var(--yh-ease-out) 80ms both;
 }
 
 .flow-actions {
@@ -133,8 +152,10 @@
 .metric-card,
 .notice-card {
   padding: 24rpx;
-  background: rgba(8, 7, 6, 0.62);
-  border: 1rpx solid rgba(255, 214, 145, 0.16);
+  background:
+    linear-gradient(180deg, rgba(49, 36, 24, 0.82), rgba(18, 13, 9, 0.86)),
+    repeating-linear-gradient(135deg, rgba(255, 239, 214, 0.028) 0 2rpx, transparent 2rpx 22rpx);
+  border: 1rpx solid rgba(255, 220, 164, 0.18);
   clip-path: polygon(18rpx 0, 100% 0, 100% calc(100% - 18rpx), calc(100% - 18rpx) 100%, 0 100%, 0 18rpx);
 }
 
@@ -211,18 +232,32 @@
 .option-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14rpx;
+  gap: 10rpx;
 }
 
 .option-chip {
-  min-height: 76rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 68rpx;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  overflow: hidden;
   color: var(--yh-color-text-muted);
   font-family: var(--yh-font-number);
-  font-size: var(--yh-text-md);
+  font-size: var(--yh-text-sm);
   font-weight: 900;
-  background: linear-gradient(180deg, rgba(47, 36, 26, 0.96), rgba(17, 14, 11, 0.98));
-  border: 1rpx solid rgba(255, 214, 145, 0.16);
-  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+  line-height: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background:
+    linear-gradient(180deg, rgba(58, 43, 29, 0.96), rgba(26, 20, 14, 0.98)),
+    repeating-linear-gradient(135deg, rgba(255, 239, 214, 0.03) 0 2rpx, transparent 2rpx 18rpx);
+  border: 1rpx solid rgba(255, 220, 164, 0.18);
+  border-radius: 0;
+  clip-path: polygon(12rpx 0, 100% 0, 100% calc(100% - 12rpx), calc(100% - 12rpx) 100%, 0 100%, 0 12rpx);
 }
 
 .option-chip::after {
@@ -243,8 +278,14 @@
   gap: 10rpx;
   padding: 24rpx;
   color: var(--yh-color-text);
-  background: rgba(7, 6, 5, 0.46);
-  border: 1rpx solid rgba(255, 118, 0, 0.28);
+  background:
+    linear-gradient(180deg, rgba(77, 45, 24, 0.5), rgba(15, 11, 8, 0.72)),
+    repeating-linear-gradient(90deg, rgba(255, 122, 0, 0.04) 0 2rpx, transparent 2rpx 24rpx);
+  border: 1rpx solid rgba(255, 122, 0, 0.32);
+  box-shadow:
+    inset 0 0 0 1rpx rgba(255, 220, 164, 0.08),
+    0 12rpx 24rpx rgba(0, 0, 0, 0.18);
+  clip-path: polygon(16rpx 0, 100% 0, 100% calc(100% - 16rpx), calc(100% - 16rpx) 100%, 0 100%, 0 16rpx);
 }
 
 .risk-formula text {
@@ -299,10 +340,15 @@
   min-height: 222rpx;
   padding: 22rpx;
   background:
-    radial-gradient(circle at 50% 34%, rgba(255, 118, 0, 0.2), transparent 190rpx),
-    linear-gradient(180deg, rgba(18, 13, 9, 0.98), rgba(8, 7, 6, 0.98));
-  border: 1rpx solid rgba(255, 118, 0, 0.34);
+    radial-gradient(circle at 50% 34%, rgba(255, 122, 0, 0.24), transparent 190rpx),
+    linear-gradient(180deg, rgba(79, 46, 23, 0.56), rgba(17, 12, 8, 0.96)),
+    repeating-linear-gradient(90deg, rgba(255, 122, 0, 0.04) 0 2rpx, transparent 2rpx 30rpx);
+  border: 1rpx solid rgba(255, 122, 0, 0.38);
   clip-path: polygon(18rpx 0, calc(100% - 18rpx) 0, 100% 18rpx, 100% 100%, 0 100%, 0 18rpx);
+  box-shadow:
+    inset 0 0 0 1rpx rgba(255, 220, 164, 0.08),
+    inset 0 -12rpx 0 rgba(0, 0, 0, 0.18),
+    0 16rpx 32rpx rgba(0, 0, 0, 0.24);
 }
 
 .score-board__side {
@@ -330,6 +376,7 @@
   font-weight: 900;
   line-height: 0.9;
   text-shadow: 0 0 26rpx rgba(255, 118, 0, 0.4);
+  animation: yh-score-flash var(--yh-motion-slow) var(--yh-ease-out) both;
 }
 
 .score-board__sub {
@@ -347,17 +394,25 @@
 
 .stepper-box {
   display: grid;
-  gap: 14rpx;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12rpx;
   padding: 20rpx;
-  background: rgba(8, 7, 6, 0.62);
-  border: 1rpx solid rgba(255, 214, 145, 0.14);
+  background: linear-gradient(180deg, rgba(46, 34, 23, 0.76), rgba(17, 13, 9, 0.84));
+  border: 1rpx solid rgba(255, 220, 164, 0.16);
+  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
 }
 
 .stepper-box > text {
+  grid-column: 1 / -1;
   color: var(--yh-color-text-muted);
   font-size: var(--yh-text-sm);
   font-weight: 900;
   text-align: center;
+}
+
+.stepper-button {
+  width: 100%;
+  min-width: 0;
 }
 
 .notice-card {
@@ -392,8 +447,8 @@
   font-size: var(--yh-text-xs);
   font-weight: 900;
   text-align: center;
-  background: rgba(9, 8, 7, 0.68);
-  border: 1rpx solid rgba(255, 214, 145, 0.14);
+  background: rgba(23, 18, 13, 0.78);
+  border: 1rpx solid rgba(255, 220, 164, 0.14);
 }
 
 .ranking-tabs text.is-active {
@@ -408,8 +463,8 @@
   gap: 12rpx;
   min-height: 78rpx;
   padding: 0 16rpx;
-  background: rgba(8, 7, 6, 0.62);
-  border: 1rpx solid rgba(255, 214, 145, 0.1);
+  background: linear-gradient(90deg, rgba(36, 27, 18, 0.74), rgba(12, 10, 8, 0.72));
+  border: 1rpx solid rgba(255, 220, 164, 0.11);
 }
 
 .ranking-row text {

@@ -1052,3 +1052,670 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId '你的云环境ID' -Deploy
 ```
 
+## 2026-05-31 正式小程序 AppID 接入
+
+本轮目的：把微信开发者工具项目身份从旧测试 AppID 切换到正式小程序 AppID，为云开发检查和云函数部署做前置准备。
+
+变更：
+
+- `project.config.json` 的 `appid` 更新为 `wxe30b469d64636a2b`。
+- `scripts/check-wechat-cloud-readiness.ps1` 默认项目路径更新为 `F:\Making money\taiqiuxcx`。
+- `AGENTS.md` 和 `docs/wechat-devtools-cli.md` 同步当前本地项目路径。
+- `docs/cloud-init-runbook.md` 同步当前项目路径。
+
+注意：
+
+- 之前 `F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx` 目录当前只剩少量私有配置，不是完整小程序目录。
+- 当前完整小程序目录为 `F:\Making money\taiqiuxcx`。
+
+下一步：
+
+- 用微信开发者工具 CLI 打开当前项目，确认工具识别正式 AppID。
+- 再运行云开发检查，判断是否已经可以创建或读取云环境。
+
+验证结果：
+
+- `node scripts\check-json-files.js` 通过，共 32 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 20 个正式页面文件。
+- 小程序 JS 语法检查通过，共 39 个 JS 文件。
+- 微信开发者工具 CLI preview 通过，包体 `667.9 KB` / `683963` bytes。
+- preview 输出 `使用 AppID: wxe30b469d64636a2b`，说明项目身份已切换成功。
+- 云开发检查不再返回“测试号不能使用云服务”，当前返回 `ret:1000 system error`。
+
+新的阻塞：
+
+- 需要在微信开发者工具 UI 中打开“云开发”，确认云环境是否已创建。
+- 如果云开发入口提示无权限，需要小程序管理员把当前登录微信号加入项目成员，并授予开发 / 云开发相关权限。
+
+## 2026-06-01 Phase 19 结算规则纯函数与本地测试
+
+本轮目的：云环境暂时不能创建时，先把最核心的积分、随机奖励、最低时间和段位星级规则做成可测试纯函数，避免明天接云函数时还在页面里散算。
+
+源头文档更新：
+
+- 更新 `docs/backend-integration-readiness-plan.md`，新增 Phase 19。
+- 更新 `docs/api-service-layer-contract.md`，说明当前前端结算展示已接入规则引擎，后续云函数必须复用同一口径。
+- 新增 `docs/reviews/phase-19-settlement-engine-review.md`，归档本阶段审查结论。
+
+代码变更：
+
+- 新增 `miniprogram/utils/settlement-engine.js`：
+  - `calculateMatchSettlement`
+  - `calculateRankChange`
+  - `calculateRewardValue`
+  - `getRewardPhase`
+  - `normalizeMode`
+  - `formatRankTitle`
+- 新增 `scripts/test-settlement-engine.js`：
+  - 覆盖抢 5 结算。
+  - 覆盖抢 7 结算。
+  - 覆盖最低有效时间不足。
+  - 覆盖非法底分。
+  - 覆盖第 4 大局续时冲刺奖励。
+  - 覆盖黄金保护和铂金掉星。
+  - 覆盖抢 7 加 2 星跨小段。
+- 更新 `miniprogram/utils/ladder-data.js`：
+  - `buildSettlement` 改为调用 `calculateMatchSettlement`。
+  - 前端结算展示和本地测试规则同源。
+
+验证结果：
+
+- `node scripts\test-settlement-engine.js` 通过，输出 `Settlement engine tests OK`。
+- `node --check miniprogram\utils\settlement-engine.js` 通过。
+- `node --check miniprogram\utils\ladder-data.js` 通过。
+- `node --check miniprogram\services\match-service.js` 通过。
+- 抽样结算：抢 5、底分 100、倍率 3、比分 5:3、奖励 120，风险积分 300，胜方 +420，败方 -180。
+- 微信开发者工具 CLI preview 通过，当前端口为 `49663`，包体 `679.1 KB` / `695420` bytes，AppID 为 `wxe30b469d64636a2b`。
+
+阶段审查：
+
+- P1：云函数 `match.settle` 仍未启用。
+- P1：本地测试不能覆盖数据库并发、重复结算、重复加星。
+- P2：前端和云函数暂未共享同一份物理规则文件，云端接入时要做一致性处理。
+
+下一项任务：
+
+- 云环境未创建前，可以继续做管理员参数校验、页面异常态、榜单数据结构和大屏 token 设计。
+- 云环境创建后，优先把 `match.settle` 接到云函数，并写入 `settlements`、`points_ledger`、`rank_states`。
+
+## 2026-06-01 Phase 20 老板端参数校验
+
+本轮目的：云环境明天才能创建时，先补上线前的参数护栏。老板可以调整底分、倍率、随机奖励、积分补给、防刷分和大屏参数，但保存前必须先判断配置是否能被系统安全使用。
+
+源头文档更新：
+
+- 更新 `docs/backend-integration-readiness-plan.md`，新增 Phase 20。
+- 更新 `docs/api-service-layer-contract.md`，记录 `admin-config-validator` 和云端后续复用要求。
+- 新增 `docs/reviews/phase-20-admin-config-validation-review.md`，归档本阶段审查结论。
+
+代码变更：
+
+- 新增 `miniprogram/utils/admin-config-validator.js`：
+  - 校验玩法模板、底分、倍率、随机奖励、胜方加星、最低有效时间。
+  - 禁止抢 9 进入玩法模板。
+  - 校验新用户积分、到店登录积分、开台赠分、兑换门槛。
+  - 校验店内定位范围、大屏榜单和刷新间隔。
+- 新增 `scripts/test-admin-config-validator.js`。
+- `miniprogram/services/admin-service.js` 保存配置前执行 `assertValidAdminConfig`。
+- `miniprogram/pages/boss-config/boss-config.js` 保存前执行 `validateAdminConfig`，失败时弹出正式用户提示。
+
+验证结果：
+
+- `node scripts\test-admin-config-validator.js` 通过，输出 `Admin config validator tests OK`。
+- `node scripts\test-settlement-engine.js` 通过，输出 `Settlement engine tests OK`。
+- 小程序 JS 语法检查通过，共 41 个 JS 文件。
+- 云函数 JS 语法检查通过。
+- JSON 解析检查通过，共 32 个 JSON 文件。
+- 正式页面文案脚本检查通过，共 20 个文件。
+- `scripts/check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，32 个 PNG 资产无贴边。
+- 微信开发者工具 CLI preview 通过，当前端口为 `49663`，包体 `686.4 KB` / `702871` bytes，AppID 为 `wxe30b469d64636a2b`。
+- 云开发检查仍被微信侧阻塞：`cloud env list` 返回 `ret:1000 system error`。
+
+阶段审查：
+
+- P1：云函数 `admin.saveConfig` 仍未复用该校验，真实云环境可用后必须补。
+- P2：老板端目前还是配置展示页，尚未做完整编辑表单。
+
+下一项任务：
+
+- 云环境未创建前，继续做页面异常态或大屏 `screenToken` 结构设计。
+
+## 2026-06-01 Phase 21 开发者工具预览通道
+
+本轮目的：解决当前没有云环境时，微信开发者工具里无法继续完整流程、无法进入员工端和老板端的问题，同时不把这些入口暴露给正式用户。
+
+问题根因：
+
+- 等待房间按正式上线逻辑只等待真实对手加入；没有房间状态接口时，页面会停在“等待对手加入”。
+- 员工端、老板端按正式权限读取 `yunhanUserRole`；默认角色是 `player`，所以普通球友不能进入运营端。
+
+代码变更：
+
+- 新增 `miniprogram/utils/dev-preview.js`。
+- `challenge-home` 在微信开发者工具里显示“预览通道”，可进入员工端、老板端和大屏榜单。
+- 进入员工端 / 老板端 / 大屏时，只在微信开发者工具里写入对应预览角色。
+- `waiting-room` 在微信开发者工具里显示“继续选玩法”，用于无后端时继续走球友流程。
+
+边界：
+
+- 入口由 `wx.getSystemInfoSync().platform === "devtools"` 控制。
+- 真机、体验版、正式版不显示这些入口。
+- 正式页面仍不出现 `mock`、`模拟`、`调试`、`演示` 等违规文案。
+
+验证结果：
+
+- `node --check miniprogram\utils\dev-preview.js` 通过。
+- `node --check miniprogram\pages\challenge-home\challenge-home.js` 通过。
+- `node --check miniprogram\pages\waiting-room\waiting-room.js` 通过。
+- `node scripts\check-production-copy.js` 通过，共 20 个正式页面文件。
+- `node scripts\check-json-files.js` 通过，共 33 个 JSON 文件。
+
+## 2026-06-01 Phase 22 控件尺寸、老板端编辑和大屏响应式修复
+
+本轮目的：修正实际预览中暴露的三个上线级问题：按钮/分段控件尺寸撑破页面、老板端只能看不能改、大屏榜单在手机模拟器里横向溢出。
+
+问题根因：
+
+- `yh-button` 最初按主按钮和大视觉组件设计，缺少在小容器里的收缩约束。
+- `option-chip` 使用原生 button，但没有完整设置 `width / padding / line-height / overflow`，在分段选择中容易撑破。
+- 老板端页面仍停留在配置展示，没有输入控件。
+- 大屏页默认按横屏电视三栏布局写死，手机模拟器宽度下每列过窄，内部固定列宽继续溢出。
+
+代码变更：
+
+- 更新 `miniprogram/components/yh-button/yh-button.wxss`：
+  - 增加 `max-width: 100%`、`min-width: 0`、文本省略。
+  - icon-only 按钮允许在父容器中收缩。
+- 更新 `miniprogram/styles/player-flow.wxss`：
+  - 重做 `option-chip` 的尺寸和溢出约束。
+  - 重做计分页 `stepper-grid` 和 `stepper-box`，让加减盘按钮按双列稳定排列。
+- 更新 `miniprogram/pages/match-scoring/match-scoring.wxml`：
+  - 给计分按钮增加 `custom-class="stepper-button"`。
+- 更新 `miniprogram/pages/boss-config/`：
+  - 玩法、底分、倍率、随机奖励、最低时间、胜方加星可编辑。
+  - 新用户积分、到店登录、开台赠分、兑换门槛可编辑。
+  - 防刷分和大屏榜单参数可编辑。
+  - 保存前继续走 `validateAdminConfig`。
+- 更新 `miniprogram/services/admin-service.js`：
+  - 微信开发者工具里允许本地保存配置，方便云环境未创建前预览。
+  - 真机和正式环境仍然走云函数，不做本地伪成功。
+- 更新 `miniprogram/pages/tv-ranking/tv-ranking.wxss`：
+  - 默认使用单列移动预览布局。
+  - `@media (min-width: 900px)` 时切回三栏电视布局。
+
+验证结果：
+
+- `node scripts\test-admin-config-validator.js` 通过。
+- `node scripts\test-settlement-engine.js` 通过。
+- 小程序 JS 语法检查通过，共 42 个 JS 文件。
+- 云函数 JS 语法检查通过。
+- JSON 解析检查通过，共 33 个 JSON 文件。
+- 正式页面文案脚本检查通过，共 20 个文件。
+- `scripts/check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，32 个 PNG 资产无贴边。
+- 微信开发者工具 CLI preview 通过，端口 `49663`，包体 `697.3 KB` / `714068` bytes。
+
+仍需人工复看：
+
+- 微信开发者工具模拟器截图接口不可用，最终视觉是否足够规整仍需要在模拟器里逐页看。
+- 真正电视横屏效果需要等小米电视或宽屏浏览环境测试。
+
+## 2026-06-02 Phase 23 底分倍率页与前台工作台紧凑控件修复
+
+本轮目的：解决实际预览中底分 / 倍率页、前台工作台仍然使用大按钮尺寸，导致分段选择器和操作按钮挤压、撑满、比例不对的问题。
+
+问题根因：
+
+- Phase 22 主要修的是全局 `yh-button` 和通用 `option-chip` 的溢出边界，但这两类页面需要的是页面级紧凑控件，不应该继续套主视觉按钮尺寸。
+- 底分 / 倍率页的底分、倍率选择，本质是参数分段选择器，不是大按钮。
+- 前台工作台是员工高频操作页，需要更低高度、更稳定的网格、更小的扫码/保存/核销按钮，减少上手成本。
+
+代码变更：
+
+- 更新 `miniprogram/pages/points-select/points-select.wxml` 与 `points-select.wxss`：
+  - 底分、倍率选择器改为 `points-selector-grid` / `points-selector-chip`。
+  - 选择器改为低高度内嵌分段控件，四角全部切角。
+  - 确认按钮从 `lg` 改为 `md`，并限制最大宽度。
+- 更新 `miniprogram/pages/staff-desk/staff-desk.wxml` 与 `staff-desk.wxss`：
+  - 到点时间、扣分选择改为 `staff-option-grid` / `staff-option-chip`。
+  - 四个时间选项按 4 列稳定排列，扣分选项按 3 列排列。
+  - 扫码选择、保存到点时间、确认核销、作废异常按钮改为员工端紧凑尺寸。
+  - 今日球桌、会员卡片的内边距和切角同步收紧。
+
+验证结果：
+
+- 小程序 JS 语法检查通过。
+- `node scripts\check-json-files.js` 通过，共 33 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 20 个正式页面文件。
+- `scripts/check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，32 个 PNG 资产无贴边。
+- 微信开发者工具 CLI preview 通过，端口 `49663`，包体 `701.1 KB` / `717931` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-23-compact-controls-review.md`
+
+## 2026-06-02 Phase 24 底分倍率控件结构重做与到点时间 Picker
+
+本轮目的：继续处理实际预览反馈：底分 / 倍率页的组件尺寸仍像被挤坏的按钮条，前台工作台的到点时间不应使用固定预设按钮。
+
+问题根因：
+
+- 底分 / 倍率页仍使用小程序原生 `button` 作为网格选项。即使覆盖了样式，原生按钮在实际渲染中仍容易出现默认尺寸、文本对齐和宽度异常。
+- 倍率选项有 5 个，继续用横向分段条会天然挤压第二行，不适合当前页面宽度。
+- 到点时间不是固定的四个选项，员工需要能选择任意 `HH:mm`，并且保持 24 小时制。
+
+代码变更：
+
+- 更新 `miniprogram/pages/points-select/points-select.wxml` 与 `points-select.wxss`：
+  - 底分 / 倍率选项从原生 `button` 改为普通 `view` 选项块。
+  - 使用 `points-choice-grid` / `points-choice` 完全控制尺寸、切角、间距和选中态。
+  - 底分 3 列，倍率 3 列自动换行，避免长条挤压。
+- 更新 `miniprogram/pages/staff-desk/`：
+  - 到点时间从预设按钮改为 `<picker mode="time">`。
+  - 支持 `00:00` 到 `23:59`，实际选择几时几分。
+  - 页面展示为一个紧凑的时间选择入口，保存逻辑继续沿用 `selectedTime`。
+
+验证结果：
+
+- `node --check miniprogram\pages\staff-desk\staff-desk.js` 通过。
+- `node scripts\check-json-files.js` 通过，共 33 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 20 个正式页面文件。
+- `git diff --check` 通过。
+- 微信开发者工具 CLI preview 通过，端口 `49663`，包体 `701.9 KB` / `718755` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-24-selector-picker-review.md`
+
+## 2026-06-02 Phase 25 前台积分核销输入框与开发者工具刷新
+
+本轮目的：根据实际预览反馈，将前台积分核销从固定扣分档位改为员工填写扣除分数，并处理微信开发者工具模拟器启动失败。
+
+问题根因：
+
+- 前台兑换场景不是固定 `100 / 200 / 500` 三档，员工需要按兑换品实际分值填写扣除多少分。
+- 固定档位继续使用按钮网格，会再次出现尺寸挤压问题，也会增加员工理解成本。
+- 模拟器报 `TypeError: Failed to fetch` 时，`127.0.0.1:49663` 服务仍可访问，但根路径返回 404；说明端口未完全断开，更像开发者工具内部文件服务或编译状态卡住。
+
+代码变更：
+
+- 更新 `miniprogram/pages/staff-desk/staff-desk.wxml`：
+  - 移除 `100 / 200 / 500` 固定扣分按钮。
+  - 新增数字输入框，员工填写本次扣除积分。
+- 更新 `miniprogram/pages/staff-desk/staff-desk.js`：
+  - 新增 `deductPointsInput` / `deductPoints`。
+  - 输入值只保留数字。
+  - 核销前校验：必须先选择会员、扣分必须为正整数、不能超过已知会员余额。
+- 更新 `miniprogram/pages/staff-desk/staff-desk.wxss`：
+  - 新增 `deduct-input-card` / `deduct-input-box` / `deduct-input`。
+  - 删除旧固定扣分按钮样式。
+
+开发者工具处理：
+
+- 探测 `http://127.0.0.1:49663`：端口有响应，根路径返回 404。
+- 执行 CLI：
+  - `islogin`：通过。
+  - `reset-fileutils`：通过。
+  - `open --project`：通过。
+  - `preview --project`：通过，包体 `703.7 KB` / `720579` bytes。
+
+验证结果：
+
+- `node --check miniprogram\pages\staff-desk\staff-desk.js` 通过。
+- `node scripts\check-json-files.js` 通过，共 33 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 20 个正式页面文件。
+- `git diff --check` 通过。
+
+审查归档：
+
+- `docs/reviews/phase-25-staff-deduct-input-review.md`
+
+## 2026-06-02 Phase 26 段位星星重做与“我的”身份入口
+
+本轮目的：处理实际预览反馈：段位星星抠图不干净、排列不齐；底部 Tab 需要新增“我的”，个人信息、会员工具、员工端、老板端和电视大屏入口统一收进“我的”。
+
+问题根因：
+
+- 旧星星依赖切图资源，图片边缘不干净时会在深色背景上露出杂边；不同状态的图片视觉边界不一致，也会导致排列看起来不齐。
+- 员工 / 老板 / 大屏入口原先放在首页调试区，容易让首页变成演示入口集合，不符合正式上线的玩家首屏。
+- 底部导航只有挑战 / 数据 / 排行 / 积分，缺少承载个人资料、会员码和身份切换的稳定入口。
+
+代码变更：
+
+- 更新 `miniprogram/components/star-track/`：
+  - 不再使用星星 PNG 切图。
+  - 改为统一的 5 列固定星位，使用文本星形绘制不同状态。
+  - 每颗星使用固定宽高和居中对齐，保证当前段位卡片中的星星整齐排列。
+- 新增 `miniprogram/components/bottom-nav/`：
+  - 统一底部导航组件。
+  - 新增第五项“我的”。
+  - 统一处理挑战、数据、排行、积分、我的之间的跳转。
+- 新增 `miniprogram/pages/my-hub/`：
+  - 展示当前会员资料。
+  - 集中会员码、积分礼遇、我的数据、排行榜等常用工具。
+  - 将员工端、老板端、电视大屏入口统一放在“身份切换”区域。
+- 更新 `miniprogram/app.json` 与相关页面：
+  - 注册 `pages/my-hub/my-hub`。
+  - 首页、我的数据、排行榜、积分礼遇、会员码页改用统一 `bottom-nav`。
+  - 移除首页正式页面里的预览 / 内部入口区，避免上线页面继续出现演示内容。
+
+验证结果：
+
+- 全量 `miniprogram` JS `node --check` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `git diff --check` 通过，仅有 CRLF 提示，无阻断错误。
+- 微信开发者工具 CLI preview 通过，端口 `49663`，AppID `wxe30b469d64636a2b`，包体 `710.1 KB` / `727139` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-26-star-track-my-hub-review.md`
+
+## 2026-06-03 Phase 27 全局视觉减黑与动效基础层
+
+本轮目的：按最新视觉反馈优化第一轮 UI 源头组件。方向不改变“黑橙竞技”，但降低纯黑占比，增加台呢绿、木纹棕、金属压条和奖励牌匾的材质层次；同时把已抠图资产接回关键组件。
+
+问题根因：
+
+- 当前页面大量使用接近纯黑的背景和面板，导致整体视觉过暗，层次像“黑色后台套橙色按钮”。
+- 通用面板、底部导航、选择控件都偏同质化，未充分体现设计稿里的台球桌边框、金属压条、记分灯板、奖励牌匾四类组件语言。
+- 星星此前为快速解决脏边改成字符渲染，但设计系统要求复杂星级状态使用正式 PNG 资产。
+- 动效只有按钮按压、数字弹动和 loading，没有页面进场、星星点亮、奖励浮动、比分闪烁这类基础动效层。
+
+代码变更：
+
+- 更新 `miniprogram/styles/tokens.wxss`：调整背景、面板、台呢绿、木纹棕、金属灰、金色和橙色 token，并新增材质 surface token。
+- 更新 `miniprogram/styles/motion.wxss`：新增页面进场、奖励浮动、星星点亮、比分闪烁和 reduced motion 降级规则。
+- 更新 `miniprogram/app.wxss` 与 `miniprogram/styles/player-flow.wxss`：页面背景从单一深黑改为台呢绿深层、木质球桌边、暖黑底纹组合。
+- 更新 `miniprogram/components/yh-panel/`：通用面板改为设备面板质感，加入顶部金属压条和角落圆弧装饰。
+- 更新 `miniprogram/components/star-track/`：固定五格布局保留，星星重新接入 `star-empty`、`star-earned`、`star-new`、`star-protected`、`star-lost` PNG 资产。
+- 更新 `miniprogram/components/reward-crate/`：宝箱资产继续使用正式 PNG，背景改为奖励牌匾质感，宝箱加入轻微浮动。
+- 更新 `miniprogram/components/rank-badge/`、`victory-banner/`、`accept-stamp/`、`settlement-badge/`：让段位、胜利、确认章、加减分卡更突出已有美术资产。
+- 更新 `miniprogram/components/bottom-nav/`、`mode-card/`、`points-select/`：底部导航、模式卡和底分倍率控件未选态更接近金属压条，选中态保持橙色。
+
+验证结果：
+
+- WXSS 笔误扫描通过。
+- 全量 `miniprogram` JS `node --check` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- `git diff --check` 通过，仅有 CRLF 提示，无阻断错误。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `719.3 KB` / `736572` bytes。
+
+仍需人工复看：
+
+- 本轮是源头组件和视觉材质第一轮，不等于逐页最终打磨。
+- 需要在微信开发者工具模拟器里重点复看：首页、底分倍率、计分页、结算页、我的页、员工端、大屏页的实际观感。
+- 员工端如果仍显得太游戏化，下一轮应单独降低员工端装饰强度。
+
+审查归档：
+
+- `docs/reviews/phase-27-visual-material-motion-review.md`
+
+## 2026-06-03 Phase 28 字符星回退、去绿色成功态与视觉二轮修正
+
+本轮目的：按实际预览反馈继续做上线级视觉修正。用户确认星星 PNG 资产没扣干净，正式页面先用字符星；同时当前视觉不接受绿色成功态，确认、可结算、已完成统一改为金色 / 橙金反馈。
+
+问题根因：
+
+- 星星 PNG 虽然通过边缘脚本，但实际深色页面上仍有脏边和观感不齐，说明自动边缘检查不能替代真实设备视觉验收。
+- 旧文档仍把“成功 / 可结算”写成绿色，后续前端容易按旧口径做回绿色。
+- `wx.showToast({ icon: "success" })` 会触发微信原生成功图标，视觉上可能出现绿色反馈。
+- 多个组件引用了共享动效名，但组件 WXSS 没有显式导入 `motion.wxss`，在组件样式隔离下存在动画不生效风险。
+
+代码变更：
+
+- 更新 `miniprogram/components/star-track/`：
+  - 移除星星 PNG 引用。
+  - 使用字符星 `★ / ☆` 渲染空星、亮星、新增星、保护星和掉星。
+  - 保留 5 列固定网格、固定宽高和居中对齐，解决排列不齐。
+- 更新 `miniprogram/styles/tokens.wxss`、`miniprogram/app.wxss`、`miniprogram/styles/player-flow.wxss`：
+  - 移除此前引入的绿色 / 台呢绿视觉倾向。
+  - 背景和面板改为暖黑、木纹棕、橙金光。
+- 更新 `miniprogram/components/yh-button/`、`yh-panel/`、`staff-desk/`：
+  - `success` 视觉从绿色改为金色确认态。
+  - 禁用态不参与确认按钮呼吸动效。
+  - 前台已选会员状态从绿色发光改为金色 / 橙金选中态。
+- 更新 `miniprogram/pages/boss-config/boss-config.js`、`miniprogram/pages/staff-desk/staff-desk.js`：
+  - 原生成功 toast 全部改为 `icon: "none"`，避免微信绿色成功图标。
+- 更新 `miniprogram/components/star-track/`、`yh-panel/`、`reward-crate/`、`rank-badge/`、`settlement-badge/`、`victory-banner/`：
+  - 补充导入 `motion.wxss`，保证共享动效在组件内可用。
+- 更新源头文档：
+  - `AGENTS.md`
+  - `docs/prd-taiqiu-ladder-mvp.md`
+  - `docs/ladder-plan/02-core-rules.md`
+  - `docs/ui-design-style-guide-yunhan.md`
+  - `docs/design/component-traceability-map.md`
+  - `docs/design/ui-asset-map.md`
+  - `docs/design/yunhan-codable-design-system-spec.md`
+  - `docs/design/ui-kit-task-tracker.md`
+
+验证结果：
+
+- 绿色残留扫描通过：旧绿色十六进制、绿色 rgba、`green` 关键字在 `miniprogram` 可见代码中无命中。
+- 原生绿色 toast 扫描通过：正式页面内无 `icon: "success"`。
+- WXSS 笔误扫描通过。
+- 全量 `miniprogram` JS `node --check` 通过，共 44 个 JS 文件。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- `git diff --check` 通过，仅有 CRLF 提示，无阻断错误。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `721.1 KB` / `738384` bytes。
+
+审查结论：
+
+- P1 已修：共享动效组件缺少 `motion.wxss` 导入，可能导致动画不生效。
+- P2 已修：文档和代码对“成功态是否绿色”的口径不一致。
+- P2 已修：星星 PNG 资产实际观感不达标，当前正式实现改回字符星。
+
+仍需人工复看：
+
+- 微信开发者工具模拟器里重点复看段位星星、确认按钮、结算页、前台工作台和计分页实际观感。
+- 本轮仍是源头视觉二轮修正，不等于所有页面逐页最终完成。
+
+审查归档：
+
+- `docs/reviews/phase-28-char-stars-no-green-visual-review.md`
+
+## 2026-06-03 Phase 29 我的页个人资料编辑
+
+本轮目的：把“我的”页里的个人信息从静态展示改成正式可编辑资料，同时明确用户只能改会员资料，不能改段位和积分。
+
+边界判断：
+
+- 可编辑：昵称、手机号、备注。
+- 不可编辑：段位、积分、星级、排名。这些是比赛和结算系统资产，只能由系统计算。
+- 当前云环境还没完成创建，保存先走 `member-service` 的本地缓存兜底，后续接云函数时只替换服务层。
+
+测试先行：
+
+- 新增 `scripts/test-member-profile.js`。
+- 先跑测试，确认红灯：缺少 `miniprogram/utils/member-profile`。
+- 再新增工具层和页面实现，让测试转绿。
+
+代码变更：
+
+- 新增 `miniprogram/utils/member-profile.js`：
+  - `buildProfileDraft`
+  - `normalizeMemberProfile`
+  - `validateMemberProfile`
+  - 只保留 `name / phone / note`，主动剔除 `points / rankTitle` 等不可编辑字段。
+- 更新 `miniprogram/services/member-service.js`：
+  - 新增 `getMemberProfile`。
+  - 新增 `saveMemberProfile`。
+  - 当前用 `wx.setStorageSync` 做本地缓存兜底，刷新后保留开发阶段编辑结果。
+- 更新 `miniprogram/pages/my-hub/`：
+  - 个人信息卡新增“编辑”按钮。
+  - 编辑态支持昵称、手机号、备注输入。
+  - 保存后更新头像文字、昵称和资料展示。
+  - 段位和积分继续展示，但不进入编辑表单。
+- 更新接口和后端计划文档：
+  - `docs/api-service-layer-contract.md`
+  - `docs/backend-integration-readiness-plan.md`
+
+验证结果：
+
+- `node scripts\test-member-profile.js` 通过。
+- `node --check miniprogram\utils\member-profile.js` 通过。
+- `node --check miniprogram\services\member-service.js` 通过。
+- `node --check miniprogram\pages\my-hub\my-hub.js` 通过。
+- `node scripts\test-admin-config-validator.js` 通过。
+- `node scripts\test-settlement-engine.js` 通过。
+
+补充验证结果：
+
+- 全量 `miniprogram` JS `node --check` 通过，共 45 个 JS 文件。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- 页面层直接引用检查通过：`miniprogram/pages` 内无 `ladder-data` / `operation-log` 直接引用。
+- `git diff --check` 通过，仅有 CRLF 提示，无阻断错误。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `730.8 KB` / `748332` bytes。
+
+仍需后端补齐：
+
+- 云环境可用后，需要把 `member.saveProfile` 接入云函数，并在云端重复校验不可编辑字段。
+
+审查归档：
+
+- `docs/reviews/phase-29-member-profile-edit-review.md`
+
+## 2026-06-03 Phase 30 我的页资料卡编辑入口与头像编辑
+
+本轮目的：修正个人信息卡编辑按钮过长、位置不合理的问题，并补齐头像图片编辑能力。
+
+设计修正：
+
+- 取消个人信息 panel 顶部的大号 `yh-button` 编辑入口。
+- 编辑入口改成资料卡右侧的小切角按钮，避免在正式页面里形成一条突兀横条。
+- 资料卡左侧支持真实头像图片；没有头像时继续显示昵称首字。
+- 编辑态顶部新增头像图片更换区域，使用微信小程序 `chooseAvatar` 能力。
+
+功能边界：
+
+- 可编辑字段扩展为：昵称、手机号、备注、头像图片。
+- 不可编辑字段不变：段位、积分、星级、排名。
+- 当前云环境未可用，头像路径和资料仍先进入 `member-service` 本地缓存兜底。
+- 云环境可用后，头像图片应先上传到云存储，再保存云文件地址。
+
+代码变更：
+
+- 更新 `miniprogram/utils/member-profile.js`：
+  - `buildProfileDraft`、`normalizeMemberProfile`、`validateMemberProfile` 增加 `avatarUrl`。
+  - 继续剔除 `points / rankTitle` 等比赛资产字段。
+- 更新 `miniprogram/services/member-service.js`：
+  - 会员资料本地缓存包含 `avatarUrl`。
+- 更新 `miniprogram/pages/my-hub/`：
+  - 右侧小编辑按钮。
+  - 头像预览。
+  - 头像更换入口。
+
+验证结果：
+
+- TDD 红灯：`node scripts\test-member-profile.js` 先失败，证明头像字段尚未纳入资料模型。
+- TDD 绿灯：补实现后 `node scripts\test-member-profile.js` 通过。
+
+审查归档：
+
+- `docs/reviews/phase-30-profile-avatar-edit-review.md`
+
+## 2026-06-03 Phase 31 正式路由与页面职责护栏
+
+本轮目的：把后续上线级逐页打磨先落成任务计划，并新增自动检查脚本，避免 UI Kit、调试页、错误首页或比赛中底部 Tab 混进正式页面结构。
+
+计划落地：
+
+- 新增 `docs/superpowers/plans/2026-06-03-launch-grade-page-polish.md`。
+- 将上线打磨拆成 7 个 Stage：正式路由护栏、挑战首页、等待接受、玩法参数、计分结算、数据排行积分、我的/员工/老板/大屏。
+- Stage 1 已在计划中标记完成，后续从 Stage 2 开始逐页执行。
+
+代码变更：
+
+- 新增 `scripts/check-player-flow-routes.js`：
+  - 检查正式首页是否为 `pages/challenge-home/challenge-home`。
+  - 检查 `pages/ui-kit/ui-kit` 是否误入正式 `app.json`。
+  - 检查正式页面是否都具备 `.js / .json / .wxml / .wxss`。
+  - 检查球友端主流程页面是否按顺序存在。
+  - 检查非比赛中页面是否有底部 Tab，比赛中页面是否没有底部 Tab。
+- 更新 `docs/launch-readiness-execution-plan.md`：
+  - 标准验证命令新增 `node scripts/check-player-flow-routes.js`。
+
+验证结果：
+
+- `node scripts\check-player-flow-routes.js` 通过，输出 `Player flow route check OK`。
+- `node --check scripts\check-player-flow-routes.js` 通过。
+- `git diff --check -- docs\superpowers\plans\2026-06-03-launch-grade-page-polish.md scripts\check-player-flow-routes.js docs\launch-readiness-execution-plan.md` 通过，仅有既有 CRLF 提示，无阻断错误。
+
+审查归档：
+
+- `docs/reviews/phase-31-route-flow-guard-review.md`
+
+## 2026-06-03 Phase 32 挑战首页上线级首轮打磨
+
+本轮目的：把挑战首页从“功能入口集合”收束成正式上线首页，只承担当前球桌状态、当前会员段位和发起挑战入口，不再在内容区重复堆数据、排行榜、积分礼遇等快捷卡。
+
+代码变更：
+
+- 更新 `miniprogram/pages/challenge-home/challenge-home.wxml`：
+  - 首页主模块改为排位状态板。
+  - 展示当前会员、球桌、开台、到点和发起挑战按钮。
+  - 删除内容区三个快捷卡，避免和底部 Tab 重复。
+  - 新增轻量规则条：当前开放玩法、开台赠分、最低有效时间。
+- 更新 `miniprogram/pages/challenge-home/challenge-home.wxss`：
+  - 强化台球厅设备面板感：切角、轨道线、口袋弧线、暖黑木纹底。
+  - 减少页面卡片堆叠感。
+  - 保持按钮为唯一主动作。
+
+验证结果：
+
+- `Get-ChildItem miniprogram\pages\challenge-home -Filter *.js | ForEach-Object { node --check $_.FullName }` 通过。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `node scripts\check-player-flow-routes.js` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `git diff --check -- miniprogram\pages\challenge-home\challenge-home.wxml miniprogram\pages\challenge-home\challenge-home.wxss` 通过，仅有既有 CRLF 提示，无阻断错误。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `736.6 KB` / `754230` bytes。
+
+仍需人工复看：
+
+- 首页视觉需要在模拟器里人工确认：首屏是否仍偏黑、状态板是否过重、底部规则条是否会挤压段位卡。
+
+审查归档：
+
+- `docs/reviews/phase-32-challenge-home-launch-polish-review.md`
+
+## 2026-06-03 Phase 33 等待与接受挑战流程上线化
+
+本轮目的：修正等待房间中的开发预览口和视觉口径问题，把等待/接受流程收束成正式房间状态页。
+
+问题根因：
+
+- 等待页保留了 `devtoolsPreview` 条件按钮“继续选玩法”，容易在微信开发者工具里变成用户看到的开发入口。
+- 等待页对手加入状态使用绿色点，和当前“不要绿色”的视觉规范冲突。
+
+代码变更：
+
+- 更新 `miniprogram/pages/waiting-room/waiting-room.wxml`：
+  - 移除开发预览专用按钮。
+  - 对手加入后才展示正式按钮“选择玩法”。
+  - 状态说明根据是否已加入动态变化。
+- 更新 `miniprogram/pages/waiting-room/waiting-room.js`：
+  - 移除 `dev-preview` 依赖。
+  - `refreshRoom` 改为正式刷新房间状态：首次刷新进入“对手已加入”，再次刷新提示状态已更新。
+  - 新增 `continueMatch`，只在对手已加入时进入玩法选择。
+- 更新 `miniprogram/pages/waiting-room/waiting-room.wxss`：
+  - 已加入状态点从绿色改为金色。
+
+验证结果：
+
+- `node --check miniprogram\pages\waiting-room\waiting-room.js` 通过。
+- `node --check miniprogram\pages\accept-challenge\accept-challenge.js` 通过。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `node scripts\check-player-flow-routes.js` 通过。
+- 全量 `miniprogram` JS `node --check` 通过。
+- `git diff --check` 通过，仅有既有 CRLF 提示，无阻断错误。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `736.8 KB` / `754528` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-33-waiting-accept-launch-polish-review.md`
+

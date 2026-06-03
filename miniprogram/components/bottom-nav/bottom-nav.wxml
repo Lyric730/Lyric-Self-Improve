@@ -1,0 +1,13 @@
+<view class="bottom-nav">
+  <view
+    wx:for="{{items}}"
+    wx:key="id"
+    class="bottom-nav__item {{active === item.id ? 'is-active' : ''}}"
+    data-id="{{item.id}}"
+    data-url="{{item.url}}"
+    bindtap="handleTap"
+  >
+    <text class="bottom-nav__icon">{{item.icon}}</text>
+    <text class="bottom-nav__label">{{item.label}}</text>
+  </view>
+</view>

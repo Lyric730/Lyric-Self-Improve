@@ -66,6 +66,12 @@ node scripts/check-production-copy.js
 用于扫描正式 `app.json` 页面列表和电视大屏 HTML，确保页面可见内容不出现内部校验、PM 说明、演示状态、mock、模拟、调试、临时、占位等痕迹。
 
 ```powershell
+node scripts/check-player-flow-routes.js
+```
+
+用于检查正式首页、球友端主流程页面顺序、UI Kit 是否误入正式页面列表，以及比赛中页面是否误放底部 Tab。
+
+```powershell
 powershell -ExecutionPolicy Bypass -File scripts/check-ui-kit-asset-edges.ps1 -RequireAssets
 ```
 

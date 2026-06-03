@@ -1,0 +1,303 @@
+@import "../../styles/player-flow.wxss";
+
+.profile-card {
+  display: grid;
+  grid-template-columns: 88rpx minmax(0, 1fr) 60px;
+  gap: 14rpx;
+  align-items: center;
+  padding: 18rpx;
+  background: rgba(8, 7, 6, 0.62);
+  border: 1rpx solid rgba(255, 214, 145, 0.14);
+  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+}
+
+.profile-card > view:nth-child(2) {
+  min-width: 0;
+}
+
+.profile-card > view:nth-child(2) text {
+  display: block;
+}
+
+.profile-card > view:nth-child(2) text:first-child {
+  color: var(--yh-color-text);
+  font-size: 32rpx;
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-card > view:nth-child(2) text:last-child {
+  margin-top: 8rpx;
+  color: var(--yh-color-gold-bright);
+  font-size: var(--yh-text-sm);
+  font-weight: 900;
+  white-space: normal;
+}
+
+.profile-avatar {
+  display: block;
+  width: 86rpx;
+  height: 86rpx;
+  border: 3rpx solid var(--yh-color-orange);
+  border-radius: 999rpx;
+  box-sizing: border-box;
+  box-shadow:
+    0 0 0 2rpx rgba(255, 221, 155, 0.1),
+    0 10rpx 18rpx rgba(0, 0, 0, 0.28);
+}
+
+.profile-avatar--edit {
+  width: 96rpx;
+  height: 96rpx;
+}
+
+.avatar-token--edit {
+  width: 96rpx;
+  height: 96rpx;
+}
+
+.profile-inline-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: rgba(246, 201, 130, 0.88);
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+  background: transparent;
+  box-shadow: none;
+  clip-path: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.profile-inline-edit__glyph {
+  position: relative;
+  width: 38rpx;
+  height: 38rpx;
+  transform: rotate(-38deg);
+}
+
+.profile-pencil__body,
+.profile-pencil__tip,
+.profile-pencil__cap {
+  position: absolute;
+  display: block;
+}
+
+.profile-pencil__body {
+  left: 11rpx;
+  top: 6rpx;
+  width: 15rpx;
+  height: 25rpx;
+  background: linear-gradient(90deg, #ffdc8b 0 35%, #f6a642 35% 64%, #ffe3a8 64% 100%);
+  border-radius: 3rpx;
+  box-shadow: 0 0 10rpx rgba(246, 201, 130, 0.42);
+}
+
+.profile-pencil__tip {
+  left: 10rpx;
+  top: 29rpx;
+  width: 0;
+  height: 0;
+  border-left: 8rpx solid transparent;
+  border-right: 8rpx solid transparent;
+  border-top: 10rpx solid #f2c27a;
+}
+
+.profile-pencil__cap {
+  left: 10rpx;
+  top: 1rpx;
+  width: 17rpx;
+  height: 7rpx;
+  background: #7a5130;
+  border-radius: 2rpx;
+}
+
+.profile-inline-edit::after,
+.profile-avatar-edit::after {
+  border: 0;
+  background: transparent;
+}
+
+.profile-meta,
+.profile-form {
+  display: grid;
+  gap: 12rpx;
+  margin-top: 16rpx;
+}
+
+.profile-meta > view,
+.profile-field {
+  display: grid;
+  gap: 8rpx;
+  min-width: 0;
+  padding: 18rpx;
+  background:
+    linear-gradient(180deg, rgba(34, 25, 18, 0.86), rgba(8, 7, 6, 0.88)),
+    repeating-linear-gradient(135deg, rgba(255, 239, 214, 0.03) 0 2rpx, transparent 2rpx 18rpx);
+  border: 1rpx solid rgba(255, 214, 145, 0.12);
+  box-sizing: border-box;
+  clip-path: polygon(12rpx 0, 100% 0, 100% calc(100% - 12rpx), calc(100% - 12rpx) 100%, 0 100%, 0 12rpx);
+}
+
+.profile-meta text,
+.profile-field > text {
+  display: block;
+}
+
+.profile-meta text:first-child,
+.profile-field > text {
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 900;
+}
+
+.profile-meta text:last-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-sm);
+  font-weight: 900;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-field input,
+.profile-field textarea {
+  width: 100%;
+  min-height: 58rpx;
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-md);
+  font-weight: 900;
+}
+
+.profile-field--textarea textarea {
+  min-height: 104rpx;
+  line-height: 1.45;
+}
+
+.profile-input__placeholder {
+  color: rgba(246, 239, 230, 0.32);
+  font-weight: 800;
+}
+
+.profile-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12rpx;
+}
+
+.profile-avatar-edit {
+  display: grid;
+  grid-template-columns: 96rpx minmax(0, 1fr);
+  align-items: center;
+  gap: 18rpx;
+  width: 100%;
+  min-height: 128rpx;
+  padding: 18rpx;
+  border: 0;
+  border-radius: 0;
+  color: var(--yh-color-text);
+  text-align: left;
+  line-height: 1.2;
+  background:
+    linear-gradient(180deg, rgba(37, 27, 18, 0.92), rgba(9, 8, 6, 0.9)),
+    repeating-linear-gradient(135deg, rgba(255, 239, 214, 0.035) 0 2rpx, transparent 2rpx 18rpx);
+  box-sizing: border-box;
+  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+}
+
+.profile-avatar-edit > view:last-child {
+  min-width: 0;
+}
+
+.profile-avatar-edit text {
+  display: block;
+}
+
+.profile-avatar-edit text:first-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-md);
+  font-weight: 900;
+}
+
+.profile-avatar-edit text:last-child {
+  margin-top: 8rpx;
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12rpx;
+}
+
+.tool-grid > view,
+.role-list > view {
+  min-width: 0;
+  background: rgba(8, 7, 6, 0.62);
+  border: 1rpx solid rgba(255, 214, 145, 0.12);
+  box-sizing: border-box;
+  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+}
+
+.tool-grid > view {
+  padding: 20rpx 18rpx;
+}
+
+.tool-grid text,
+.role-list text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tool-grid text:first-child,
+.role-list view view text:first-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-md);
+  font-weight: 900;
+}
+
+.tool-grid text:last-child,
+.role-list view view text:last-child {
+  margin-top: 8rpx;
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+}
+
+.role-list {
+  display: grid;
+  gap: 12rpx;
+}
+
+.role-list > view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 74rpx;
+  align-items: center;
+  gap: 12rpx;
+  padding: 20rpx 18rpx;
+}
+
+.role-list > view > view {
+  min-width: 0;
+}
+
+.role-list > view > text {
+  color: var(--yh-color-orange);
+  font-size: var(--yh-text-sm);
+  font-weight: 900;
+  text-align: right;
+}

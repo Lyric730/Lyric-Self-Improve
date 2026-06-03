@@ -1,1 +1,93 @@
 @import "../../styles/player-flow.wxss";
+
+.points-choice-grid {
+  display: grid;
+  gap: 12rpx;
+}
+
+.points-choice-grid--base {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.points-choice-grid--odds {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.points-choice {
+  position: relative;
+  display: grid;
+  align-content: center;
+  min-width: 0;
+  min-height: 82rpx;
+  padding: 12rpx 14rpx;
+  overflow: hidden;
+  color: rgba(246, 239, 230, 0.74);
+  background:
+    linear-gradient(180deg, rgba(55, 40, 27, 0.9), rgba(20, 15, 10, 0.94)),
+    repeating-linear-gradient(135deg, rgba(255, 239, 214, 0.032) 0 2rpx, transparent 2rpx 18rpx);
+  border: 1rpx solid rgba(255, 220, 164, 0.16);
+  box-sizing: border-box;
+  clip-path: polygon(
+    14rpx 0,
+    calc(100% - 12rpx) 0,
+    100% 12rpx,
+    100% calc(100% - 14rpx),
+    calc(100% - 14rpx) 100%,
+    12rpx 100%,
+    0 calc(100% - 12rpx),
+    0 14rpx
+  );
+}
+
+.points-choice--hover {
+  opacity: 0.9;
+}
+
+.points-choice__label,
+.points-choice__value {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.points-choice__label {
+  color: rgba(246, 239, 230, 0.46);
+  font-size: 20rpx;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.points-choice__value {
+  margin-top: 8rpx;
+  color: inherit;
+  font-family: var(--yh-font-number);
+  font-size: 32rpx;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.points-choice.is-active {
+  color: #170a03;
+  background:
+    linear-gradient(180deg, #ffd27b 0%, #ff8619 50%, #bd4300 100%),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0 2rpx, transparent 2rpx 16rpx);
+  border-color: rgba(255, 224, 139, 0.58);
+  box-shadow:
+    0 12rpx 24rpx rgba(255, 118, 0, 0.18),
+    inset 0 -6rpx 0 rgba(101, 31, 0, 0.28);
+}
+
+.points-choice.is-active .points-choice__label {
+  color: rgba(30, 11, 2, 0.66);
+}
+
+.risk-formula {
+  padding: 20rpx 22rpx;
+}
+
+.points-confirm-button {
+  min-height: 84rpx;
+  max-width: 380rpx;
+  margin: 0 auto;
+}

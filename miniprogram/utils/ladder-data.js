@@ -1,3 +1,7 @@
+const {
+  calculateMatchSettlement
+} = require("./settlement-engine");
+
 const modes = [
   {
     modeId: "race5",
@@ -65,23 +69,6 @@ function formatSignedPoints(value) {
   return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
 }
 
-function parseRewardRange(rangeText) {
-  const values = String(rangeText || "")
-    .match(/\d+/g)
-    ?.map((value) => Number(value)) || [0, 0];
-  const min = values[0] || 0;
-  const max = values[1] || min;
-
-  return { min, max };
-}
-
-function calculateRewardValue(rangeText, seed = 0) {
-  const { min, max } = parseRewardRange(rangeText);
-  const span = Math.max(max - min + 1, 1);
-
-  return min + (Math.abs(Number(seed || 0)) % span);
-}
-
 function buildSettlement(params = {}) {
   const setup = buildMatchSetup(params);
   const winnerSide = params.winner === "b" ? "b" : "a";
@@ -90,14 +77,23 @@ function buildSettlement(params = {}) {
   const scoreA = Number(params.scoreA || (winnerSide === "a" ? setup.mode.targetWins : match.scoreA));
   const scoreB = Number(params.scoreB || (winnerSide === "b" ? setup.mode.targetWins : match.scoreB));
   const elapsedSeconds = Number(params.elapsed || setup.mode.minimumMinutes * 60);
-  const rewardSeed = elapsedSeconds + setup.selectedBase + setup.selectedMultiplier + scoreA + scoreB;
-  const rewardValue = Number(params.reward || calculateRewardValue(setup.mode.normalReward, rewardSeed));
-  const winnerDelta = setup.riskPoints + rewardValue;
-  const loserDelta = rewardValue - setup.riskPoints;
+  const settlement = calculateMatchSettlement({
+    mode: setup.mode,
+    selectedBase: setup.selectedBase,
+    selectedMultiplier: setup.selectedMultiplier,
+    scoreA,
+    scoreB,
+    winnerSide,
+    elapsedSeconds,
+    rewardValue: params.reward
+  });
+  const rewardValue = settlement.ok ? settlement.rewardValue : 0;
+  const winnerDelta = settlement.ok ? settlement.winnerDelta : 0;
+  const loserDelta = settlement.ok ? settlement.loserDelta : 0;
   const winnerAfterPoints = winner.points + winnerDelta;
   const loserAfterPoints = loser.points + loserDelta;
   const starBefore = 3;
-  const starAfter = Math.min(5, starBefore + setup.mode.starReward);
+  const starAfter = Math.min(5, starBefore + (settlement.ok ? settlement.starReward : 0));
 
   return {
     ...setup,
@@ -110,7 +106,8 @@ function buildSettlement(params = {}) {
     elapsedSeconds,
     elapsedText: params.elapsedText || match.elapsedText,
     rewardValue,
-    rewardRange: setup.mode.normalReward,
+    rewardRange: settlement.ok ? settlement.rewardRange : setup.mode.normalReward,
+    rewardPhase: settlement.ok ? settlement.rewardPhase : "normal",
     winnerDelta,
     loserDelta,
     winnerDeltaText: formatSignedPoints(winnerDelta),
@@ -120,7 +117,7 @@ function buildSettlement(params = {}) {
     loserAfterPoints,
     starBefore,
     starAfter,
-    starRewardText: `+${setup.mode.starReward}星`
+    starRewardText: `+${settlement.ok ? settlement.starReward : setup.mode.starReward}星`
   };
 }
 

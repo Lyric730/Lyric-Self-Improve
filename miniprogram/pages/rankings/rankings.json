@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "排行榜",
   "usingComponents": {
+    "bottom-nav": "../../components/bottom-nav/bottom-nav",
     "yh-panel": "../../components/yh-panel/yh-panel"
   }
 }

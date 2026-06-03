@@ -24,13 +24,13 @@
     <view class="stepper-grid">
       <view class="stepper-box">
         <text>我方盘数</text>
-        <yh-button icon="+" icon-only variant="primary" data-side="a" data-delta="{{1}}" bind:tap="changeScore" />
-        <yh-button icon="-" icon-only variant="secondary" data-side="a" data-delta="{{-1}}" bind:tap="changeScore" />
+        <yh-button custom-class="stepper-button" icon="+" icon-only variant="primary" data-side="a" data-delta="{{1}}" bind:tap="changeScore" />
+        <yh-button custom-class="stepper-button" icon="-" icon-only variant="secondary" data-side="a" data-delta="{{-1}}" bind:tap="changeScore" />
       </view>
       <view class="stepper-box">
         <text>对手盘数</text>
-        <yh-button icon="+" icon-only variant="primary" data-side="b" data-delta="{{1}}" bind:tap="changeScore" />
-        <yh-button icon="-" icon-only variant="secondary" data-side="b" data-delta="{{-1}}" bind:tap="changeScore" />
+        <yh-button custom-class="stepper-button" icon="+" icon-only variant="primary" data-side="b" data-delta="{{1}}" bind:tap="changeScore" />
+        <yh-button custom-class="stepper-button" icon="-" icon-only variant="secondary" data-side="b" data-delta="{{-1}}" bind:tap="changeScore" />
       </view>
     </view>
 

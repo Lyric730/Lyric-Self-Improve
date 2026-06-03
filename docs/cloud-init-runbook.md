@@ -15,7 +15,7 @@
 ## 2. 前置条件
 
 - 微信开发者工具已经打开本项目。
-- 项目目录：`F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx`
+- 项目目录：`F:\Making money\taiqiuxcx`
 - 云函数根目录：`cloudfunctions/`
 - 统一云函数：`cloudfunctions/yunhanApi`
 
@@ -101,7 +101,7 @@ cloud.init({
 如果工具提示依赖未安装，进入云函数目录安装：
 
 ```powershell
-cd "F:\Making money\Lyric-Self-Improve\projects\taiqiuxcx\cloudfunctions\yunhanApi"
+cd "F:\Making money\taiqiuxcx\cloudfunctions\yunhanApi"
 npm install
 ```
 

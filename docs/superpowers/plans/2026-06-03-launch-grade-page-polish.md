@@ -497,6 +497,30 @@ Use DevTools preview and manually test:
 - [x] Document `table_sessions` active status index.
 - [x] Keep formal UI copy only; no mock/demo/internal wording in pages.
 
+## Stage 25: 玩法与底分倍率配置服务化
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/match-service.js`
+- Modify: `miniprogram/pages/mode-select/mode-select.js`
+- Modify: `miniprogram/pages/mode-select/mode-select.wxml`
+- Modify: `miniprogram/pages/points-select/points-select.js`
+- Modify: `miniprogram/pages/points-select/points-select.wxml`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Create: `docs/reviews/phase-55-mode-points-cloud-config-review.md`
+
+- [x] Add cloud action `match.getModes`.
+- [x] `match.getModes` reads `admin_configs.config.modes` and falls back to default modes only on server-side config absence.
+- [x] Add cloud action `match.getSetup`.
+- [x] `match.getSetup` returns selected mode, base, multiplier, risk points, and reward ranges.
+- [x] Make `match-service.getAvailableModes()` cloud-first with DevTools local fallback.
+- [x] Make `match-service.getConfigurableMatchSetup()` cloud-first with DevTools local fallback.
+- [x] DevTools fallback reads locally saved boss config before default modes.
+- [x] Make `mode-select` load asynchronously with loading, retryable error, and empty states.
+- [x] Make `points-select` load asynchronously with loading and retryable error states.
+- [x] Keep formal UI copy only; no mock/demo/internal wording in pages.
+
 ## Standard Verification
 
 Run after each stage:

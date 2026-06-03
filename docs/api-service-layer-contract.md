@@ -64,23 +64,25 @@ callCloud(moduleName, action, payload)
 2. `admin-service` 的保存配置已替换为 `callCloud("admin", action, payload)`。
 3. `admin-service` 保存配置前已通过 `miniprogram/utils/admin-config-validator.js` 校验门店参数，云函数 `admin.saveConfig` 也已通过 `cloudfunctions/yunhanApi/admin-config-validator.js` 复用同一口径。
 4. `challenge-home` 进入页面时会调用 `player-service.getChallengeHome()`，优先调用 `player.getChallengeHome` 读取当前会员和球桌开局检查；点击发起挑战时会调用 `match-service.createChallengeRoom()`，优先调用 `callCloud("match", "createRoom", payload)`，创建真实 `matches` 房间。
-5. `waiting-room` 会调用 `match-service.getWaitingRoomState()`，优先调用 `callCloud("match", "get", { matchId })` 读取房间状态。
-6. `accept-challenge` 会调用 `match-service.getWaitingRoomState()` 读取邀请房间，并通过 `match-service.joinChallengeRoom()` 调用 `callCloud("match", "joinRoom", { matchId })` 加入房间。
-7. `match-confirm` 点击开始比赛时会调用 `match-service.configureMatchSetup()`，优先调用 `callCloud("match", "configure", payload)`，把玩法、底分、倍率和风险积分写回 `matches`。
-8. `match-scoring` 进入页面时会调用 `match-service.startConfiguredMatch()`，优先调用 `callCloud("match", "start", { matchId })`，把房间状态改为 `playing` 并写入服务端开赛时间。
-9. `match-scoring` 加减盘时会调用 `match-service.recordMatchScore()`，优先调用 `callCloud("match", "recordScore", payload)`，把盘数写回 `matches` 并记录 `match_score_events`。
-10. `matchId` 已从等待页 / 接受页透传到玩法选择、底分倍率、确认、计分和结算链路。
-11. 当前 `match-service.calculateSettlement` 仍通过 `miniprogram/utils/settlement-engine.js` 计算本地结算展示。
-12. `settlement` 页进入时会调用 `match-service.previewSettlement()`，该服务优先调用 `callCloud("match", "previewSettlement", payload)`，只读取服务端预览结果，不写库；云函数结算用时优先由 `matches.startedAtMs` 计算，不信任页面 query 里的 `elapsed`。
-13. `settlement` 页点击“服了，确认结算”时会调用 `match-service.settleCurrentMatch()`，该服务优先调用 `callCloud("match", "settle", payload)`。
-14. 微信开发者工具预览环境下，云函数不可用时允许本地结算兜底；正式环境云函数失败必须提示失败，不能静默本地结算。
-15. 云函数 `match.previewSettlement` 和 `match.settle` 已接入 `cloudfunctions/yunhanApi/settlement-engine.js` 和 `match-settlement.js`；预览只返回结算结果，确认才写入 `settlements`、`points_ledger`、`member_points`、`matches.status`。
-16. `match-result` 页已通过 `match-service.getSettlementResult()` 优先读取云函数 `match.getSettlement`；DevTools 云不可用时保留本地展示兜底，正式环境必须读到服务端结算单后才允许展示“结算已生效”。
-17. `match-result` 正式环境缺少 `matchId`、查不到结算单或云读取失败时，只能展示固定错误态和重试入口，不能渲染本地结算成功结果。
-18. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
-19. `my-data`、`rankings`、`points-perks` 已通过 `player-service` 优先调用 `player.getProfile`、`player.getRankings`、`player.getPointsPerks`；DevTools 云不可用时保留本地视觉兜底。
-20. `tv-ranking` 已通过 `screen-service` 优先调用 `screen.getBoard`；DevTools 云不可用时保留本地视觉兜底，正式环境必须读取云函数返回的店内总榜、赏金猎人和老板端大屏配置。
-21. `challenge-home` 已通过 `player-service` 优先调用 `player.getChallengeHome` 读取会员身份和球桌到点时间；DevTools 云不可用时保留本地视觉兜底。
+5. `mode-select` 进入页面时会调用 `match-service.getAvailableModes()`，优先调用 `callCloud("match", "getModes")` 读取老板端玩法配置。
+6. `points-select` 进入页面时会调用 `match-service.getConfigurableMatchSetup()`，优先调用 `callCloud("match", "getSetup", payload)` 读取所选玩法的底分、倍率和随机奖励。
+7. `waiting-room` 会调用 `match-service.getWaitingRoomState()`，优先调用 `callCloud("match", "get", { matchId })` 读取房间状态。
+8. `accept-challenge` 会调用 `match-service.getWaitingRoomState()` 读取邀请房间，并通过 `match-service.joinChallengeRoom()` 调用 `callCloud("match", "joinRoom", { matchId })` 加入房间。
+9. `match-confirm` 点击开始比赛时会调用 `match-service.configureMatchSetup()`，优先调用 `callCloud("match", "configure", payload)`，把玩法、底分、倍率和风险积分写回 `matches`。
+10. `match-scoring` 进入页面时会调用 `match-service.startConfiguredMatch()`，优先调用 `callCloud("match", "start", { matchId })`，把房间状态改为 `playing` 并写入服务端开赛时间。
+11. `match-scoring` 加减盘时会调用 `match-service.recordMatchScore()`，优先调用 `callCloud("match", "recordScore", payload)`，把盘数写回 `matches` 并记录 `match_score_events`。
+12. `matchId` 已从等待页 / 接受页透传到玩法选择、底分倍率、确认、计分和结算链路。
+13. 当前 `match-service.calculateSettlement` 仍通过 `miniprogram/utils/settlement-engine.js` 计算本地结算展示。
+14. `settlement` 页进入时会调用 `match-service.previewSettlement()`，该服务优先调用 `callCloud("match", "previewSettlement", payload)`，只读取服务端预览结果，不写库；云函数结算用时优先由 `matches.startedAtMs` 计算，不信任页面 query 里的 `elapsed`。
+15. `settlement` 页点击“服了，确认结算”时会调用 `match-service.settleCurrentMatch()`，该服务优先调用 `callCloud("match", "settle", payload)`。
+16. 微信开发者工具预览环境下，云函数不可用时允许本地结算兜底；正式环境云函数失败必须提示失败，不能静默本地结算。
+17. 云函数 `match.previewSettlement` 和 `match.settle` 已接入 `cloudfunctions/yunhanApi/settlement-engine.js` 和 `match-settlement.js`；预览只返回结算结果，确认才写入 `settlements`、`points_ledger`、`member_points`、`matches.status`。
+18. `match-result` 页已通过 `match-service.getSettlementResult()` 优先读取云函数 `match.getSettlement`；DevTools 云不可用时保留本地展示兜底，正式环境必须读到服务端结算单后才允许展示“结算已生效”。
+19. `match-result` 正式环境缺少 `matchId`、查不到结算单或云读取失败时，只能展示固定错误态和重试入口，不能渲染本地结算成功结果。
+20. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
+21. `my-data`、`rankings`、`points-perks` 已通过 `player-service` 优先调用 `player.getProfile`、`player.getRankings`、`player.getPointsPerks`；DevTools 云不可用时保留本地视觉兜底。
+22. `tv-ranking` 已通过 `screen-service` 优先调用 `screen.getBoard`；DevTools 云不可用时保留本地视觉兜底，正式环境必须读取云函数返回的店内总榜、赏金猎人和老板端大屏配置。
+23. `challenge-home` 已通过 `player-service` 优先调用 `player.getChallengeHome` 读取会员身份和球桌到点时间；DevTools 云不可用时保留本地视觉兜底。
 
 注意：`admin-config-validator` 和 `member-profile` 当前在小程序端与云函数包内各保留一份。每次修改校验规则后必须运行 `node scripts/test-cloud-contracts.js`，确认前端和云函数口径一致。
 
@@ -120,7 +122,7 @@ callCloud(moduleName, action, payload)
 - `api-client.js` 替换为真实 `wx.request` 或云函数调用。
 - `access-control.js` 的角色来源替换为登录态接口。
 - `operation-log.js` 仅保留历史开发背景；运营端写操作已改为服务端 `operation_logs` 入口。
-- `match-service.js` 已新增 `createChallengeRoom`、`getWaitingRoomState`、`joinChallengeRoom`、`configureMatchSetup`、`previewSettlement`、`settleCurrentMatch`、`getSettlementResult`，分别对应开房、等待页读取、接受加入、开局参数写入、结算预览、确认写入和结果读取。
+- `match-service.js` 已新增 `getAvailableModes`、`getConfigurableMatchSetup`、`createChallengeRoom`、`getWaitingRoomState`、`joinChallengeRoom`、`configureMatchSetup`、`previewSettlement`、`settleCurrentMatch`、`getSettlementResult`，分别对应玩法读取、底分倍率读取、开房、等待页读取、接受加入、开局参数写入、结算预览、确认写入和结果读取。
 - `match.settle` 已有云函数入口，但真实云环境尚未验证；上线前必须测试重复结算、余额不足、比赛不存在、最低时间不足、双方身份缺失。
 - `screen-service.js` 的浏览器静态大屏接入 HTTP 化 `screenToken`。
 - `member-service.js` 的会员资料保存已接云函数；真实云环境可用后要验证 `store_members` / `member_points` 写入。

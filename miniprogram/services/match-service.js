@@ -1,9 +1,10 @@
 const { callCloud, ensureOk, success } = require("./api-client");
 const { buildMatchSetup, buildSettlement, incomingChallenge, match, modes, roomState } = require("../utils/ladder-data");
 const { isDevtoolsPreview } = require("../utils/dev-preview");
+const { getAdminConfig } = require("./admin-service");
 
 function getModes() {
-  return success(modes);
+  return success(getLocalModes());
 }
 
 function getCurrentMatch() {
@@ -11,7 +12,96 @@ function getCurrentMatch() {
 }
 
 function getMatchSetup(params = {}) {
-  return success(buildMatchSetup(params));
+  return success(buildLocalMatchSetup(params));
+}
+
+function getLocalModes() {
+  try {
+    const config = ensureOk(getAdminConfig());
+
+    if (config && Array.isArray(config.modes) && config.modes.length > 0) {
+      return config.modes;
+    }
+  } catch (error) {
+    // Keep local fallback available for development preview and Node-based checks.
+  }
+
+  return modes;
+}
+
+function buildLocalMatchSetup(params = {}) {
+  const modeList = getLocalModes();
+  const mode = params.modeId
+    ? modeList.find((item) => item.modeId === params.modeId)
+    : modeList.find((item) => item.enabled !== false) || modeList[0];
+
+  if (!mode) {
+    return buildMatchSetup(params);
+  }
+
+  const requestedBase = Number(params.selectedBase || params.base || 0);
+  const requestedMultiplier = Number(params.selectedMultiplier || params.multiplier || 0);
+  const baseOptions = Array.isArray(mode.baseOptions) ? mode.baseOptions.map(Number) : [];
+  const multipliers = Array.isArray(mode.multipliers) ? mode.multipliers.map(Number) : [];
+  const selectedBase = baseOptions.includes(requestedBase)
+    ? requestedBase
+    : Number(baseOptions[1] || baseOptions[0] || 0);
+  const selectedMultiplier = multipliers.includes(requestedMultiplier)
+    ? requestedMultiplier
+    : Number(multipliers[0] || 1);
+
+  return {
+    mode: {
+      ...mode,
+      baseOptions,
+      multipliers,
+      targetWins: Number(mode.targetWins || 0),
+      minimumMinutes: Number(mode.minimumMinutes || 0),
+      starReward: Number(mode.starReward || 0),
+      enabled: mode.enabled !== false
+    },
+    selectedBase,
+    selectedMultiplier,
+    riskPoints: selectedBase * selectedMultiplier
+  };
+}
+
+async function getAvailableModes(params = {}) {
+  try {
+    const result = ensureOk(await callCloud("match", "getModes", {
+      storeId: params.storeId || "default"
+    }));
+
+    return success(Array.isArray(result.modes) ? result.modes : []);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  return getModes();
+}
+
+async function getConfigurableMatchSetup(params = {}) {
+  const payload = {
+    matchId: params.matchId || "",
+    modeId: params.modeId || "",
+    selectedBase: Number(params.selectedBase || params.base || 0),
+    selectedMultiplier: Number(params.selectedMultiplier || params.multiplier || 0),
+    storeId: params.storeId || "default"
+  };
+
+  try {
+    const result = ensureOk(await callCloud("match", "getSetup", payload));
+
+    return success(result.setup || result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  return getMatchSetup(payload);
 }
 
 function calculateSettlement(params = {}) {
@@ -377,6 +467,8 @@ module.exports = {
   calculateSettlement,
   configureMatchSetup,
   createChallengeRoom,
+  getAvailableModes,
+  getConfigurableMatchSetup,
   getSettlementResult,
   getCurrentMatch,
   getMatchSetup,

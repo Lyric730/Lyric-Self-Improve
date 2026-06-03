@@ -787,10 +787,46 @@ async function getStoreModes(storeId) {
       return config.modes.map(normalizeConfigMode);
     }
   } catch (error) {
-    return DEFAULT_MODES.map(normalizeConfigMode);
+    const configError = new Error("玩法配置读取失败，请稍后重试");
+    configError.code = "MODE_CONFIG_READ_FAILED";
+    throw configError;
   }
 
   return DEFAULT_MODES.map(normalizeConfigMode);
+}
+
+function buildModeSetup(mode, payload = {}) {
+  const requestedBase = Number(payload.selectedBase ?? payload.base);
+  const requestedMultiplier = Number(payload.selectedMultiplier ?? payload.multiplier);
+  const selectedBase = mode.baseOptions.includes(requestedBase)
+    ? requestedBase
+    : Number(mode.baseOptions[1] || mode.baseOptions[0] || 0);
+  const selectedMultiplier = mode.multipliers.includes(requestedMultiplier)
+    ? requestedMultiplier
+    : Number(mode.multipliers[0] || 1);
+
+  return {
+    mode,
+    selectedBase,
+    selectedMultiplier,
+    riskPoints: selectedBase * selectedMultiplier
+  };
+}
+
+async function getStoreModeSetup(payload, storeId) {
+  const modeList = await getStoreModes(storeId);
+  const selectedMode = payload.modeId
+    ? modeList.find((mode) => mode.modeId === payload.modeId)
+    : modeList.find((mode) => mode.enabled !== false) || modeList[0];
+
+  if (!selectedMode) {
+    return fail("当前门店暂未配置可用玩法", "MODE_CONFIG_EMPTY");
+  }
+
+  return {
+    modes: modeList,
+    setup: buildModeSetup(selectedMode, payload)
+  };
 }
 
 async function getConfigurableMode(modeId, storeId) {
@@ -1666,6 +1702,25 @@ async function handleAuth(event) {
 async function handleMatch(event) {
   const wxContext = getWxContext();
   const storeId = getStoreId(event);
+
+  if (event.action === "getModes") {
+    await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+
+    return ok({
+      modes: await getStoreModes(storeId)
+    });
+  }
+
+  if (event.action === "getSetup") {
+    await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const result = await getStoreModeSetup(event.payload || {}, storeId);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
+
+    return ok(result);
+  }
 
   if (event.action === "get") {
     const payload = event.payload || {};

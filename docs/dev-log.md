@@ -2651,3 +2651,54 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-54-challenge-home-cloud-entry-review.md`
 
+## 2026-06-03 Phase 55 玩法与底分倍率配置服务化
+
+本轮目的：玩法选择和底分倍率不能继续只读本地写死参数。正式链路需要读取老板端配置；如果云端配置读取失败，页面必须显示正式失败状态，不能静默展示默认参数。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `match.getModes`，读取 `admin_configs.config.modes`。
+  - 新增 `match.getSetup`，返回所选玩法、底分、倍率、风险积分和随机奖励。
+  - 修正 `getStoreModes()`：没有配置文档时才用默认玩法；数据库读取异常返回 `MODE_CONFIG_READ_FAILED`。
+- 更新 `miniprogram/services/match-service.js`：
+  - 新增 `getAvailableModes()`。
+  - 新增 `getConfigurableMatchSetup()`。
+  - DevTools 本地兜底优先读取老板端本地保存配置。
+- 更新 `miniprogram/pages/mode-select/`：
+  - 页面进入后异步读取玩法配置。
+  - 增加加载、失败重试和空玩法状态。
+- 更新 `miniprogram/pages/points-select/`：
+  - 页面进入后异步读取底分、倍率和奖励规则。
+  - 增加加载和失败重试状态。
+- 更新 `scripts/test-ops-services.js`：
+  - 增加老板端配置联动回归，确认玩法选择和底分倍率读取同一份本地保存配置。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `match.getModes` 和 `match.getSetup`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入玩法配置读取和底分倍率读取必测项。
+- 更新 `docs/api-service-layer-contract.md`，明确 `mode-select` / `points-select` 的服务边界。
+- 更新执行计划，新增 Stage 25。
+
+验证结果：
+
+- `git diff --check` 通过。
+- `node scripts\test-ops-services.js` 通过，输出 `Ops service fallback tests OK`。
+- `node scripts\test-cloud-contracts.js` 通过，输出 `Cloud contract tests OK`。
+- `node scripts\check-service-layer-boundary.js` 通过，输出 `Service layer boundary check OK`。
+- `node scripts\check-production-copy.js` 通过，输出 `Production copy check OK (21 files checked)`。
+- `node scripts\check-player-flow-routes.js` 通过，输出 `Player flow route check OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `841.3 KB / 861465 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，`match.getModes` / `match.getSetup` 还未在真实 `admin_configs` 集合、角色权限和索引下验证。
+- `points-select` 当前只读取并传递参数；最终写入仍发生在 `match-confirm` 的 `match.configure`。
+- 本地结算展示入口仍存在，后续要继续把正式页面的结算结果收口到云函数返回。
+
+审查归档：
+
+- `docs/reviews/phase-55-mode-points-cloud-config-review.md`
+

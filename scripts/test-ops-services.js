@@ -17,6 +17,7 @@ global.wx = {
 const { ensureOk } = require("../miniprogram/services/api-client");
 const { getAdminConfig, saveAdminConfig } = require("../miniprogram/services/admin-service");
 const { getMemberCode } = require("../miniprogram/services/member-service");
+const { getAvailableModes, getConfigurableMatchSetup } = require("../miniprogram/services/match-service");
 const {
   deductMemberPoints,
   getMemberForExchange,
@@ -30,12 +31,22 @@ async function main() {
   const adminConfig = ensureOk(getAdminConfig());
   adminConfig.points.tableOpenBonus = 45;
   adminConfig.screen.storeBoard = "门店天梯榜";
+  adminConfig.modes[0].baseOptions = [25, 50, 75];
+  adminConfig.modes[0].multipliers = [1, 2, 4];
 
   ensureOk(await saveAdminConfig(adminConfig));
 
   const savedConfig = ensureOk(getAdminConfig());
   assert.strictEqual(savedConfig.points.tableOpenBonus, 45);
   assert.strictEqual(savedConfig.screen.storeBoard, "门店天梯榜");
+
+  const availableModes = ensureOk(await getAvailableModes());
+  assert.deepStrictEqual(availableModes[0].baseOptions, [25, 50, 75]);
+
+  const configurableSetup = ensureOk(await getConfigurableMatchSetup({ modeId: "race5" }));
+  assert.strictEqual(configurableSetup.selectedBase, 50);
+  assert.strictEqual(configurableSetup.selectedMultiplier, 1);
+  assert.strictEqual(configurableSetup.riskPoints, 50);
 
   const screenBoard = ensureOk(await getScreenBoard());
   assert.strictEqual(screenBoard.screenConfig.storeBoard, "门店天梯榜");

@@ -5,7 +5,18 @@
     <text class="flow-hero__subtitle">{{mode.name}} · 先胜 {{mode.targetWins}} 局 · 最低 {{mode.minimumMinutes}} 分钟</text>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{loading}}" class="flow-state">
+    <text class="flow-state__title">读取挑战参数</text>
+    <text class="flow-state__text">正在同步底分、倍率和随机奖励规则</text>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="flow-state flow-state--error">
+    <text class="flow-state__title">挑战参数读取失败</text>
+    <text class="flow-state__text">{{errorText}}</text>
+    <yh-button text="重新读取" variant="secondary" block bind:tap="retryLoad" />
+  </view>
+
+  <view wx:else class="flow-stack">
     <yh-panel title="挑战底分" subtitle="选择本场风险积分底数" marker="BASE" tone="orange" raised>
       <view class="points-choice-grid points-choice-grid--base">
           <view

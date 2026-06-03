@@ -5,7 +5,18 @@
     <text class="flow-hero__subtitle">抢 5 稳定开局，抢 7 加星更快</text>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{loading}}" class="flow-state">
+    <text class="flow-state__title">读取玩法配置</text>
+    <text class="flow-state__text">正在同步当前门店可用玩法</text>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="flow-state flow-state--error">
+    <text class="flow-state__title">玩法配置读取失败</text>
+    <text class="flow-state__text">{{errorText}}</text>
+    <yh-button text="重新读取" variant="secondary" block bind:tap="retryLoad" />
+  </view>
+
+  <view wx:else class="flow-stack">
     <view class="mode-stack">
       <mode-card
         wx:for="{{modes}}"
@@ -20,6 +31,11 @@
         tag="{{item.tag}}"
         bind:select="handleModeSelect"
       />
+    </view>
+
+    <view wx:if="{{!modes.length}}" class="flow-state flow-state--error">
+      <text class="flow-state__title">暂无可用玩法</text>
+      <text class="flow-state__text">请联系门店确认玩法配置后再发起挑战</text>
     </view>
 
     <yh-panel title="段位收益" subtitle="全部玩法共用一个段位" marker="RANK" tone="default">

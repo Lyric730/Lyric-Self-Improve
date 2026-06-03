@@ -25,6 +25,8 @@
 | `staff` | `voidAbnormalMatch` | 异常比赛 | 更新比赛状态，写操作日志 |
 | `admin` | `saveConfig` | 老板端参数 | 复用前端同一套校验，写 `admin_configs` |
 | `screen` | `getBoard` | 电视大屏 | 读取店内总榜、赏金猎人和老板端大屏配置 |
+| `match` | `getModes` | 玩法选择 | 读取老板端当前玩法配置，抢 10 关闭时仍展示为不可选 |
+| `match` | `getSetup` | 底分倍率 | 按所选玩法读取底分、倍率、普通随机奖励和续时冲刺奖励 |
 | `match` | `createRoom` | 发起挑战 | 创建 `matches` 等待房间，返回 `matchId` 和房间状态 |
 | `match` | `joinRoom` | 接受挑战 | 写入挑战方 OpenID，房间状态改为 `joined`，防止加入自己的房间和第三人抢占 |
 | `match` | `configure` | 确认开局 | 按老板端玩法配置校验底分和倍率，写入玩法、底分、倍率和风险积分，房间状态改为 `configured` |
@@ -46,6 +48,7 @@
 - 结算用时必须优先由 `matches.startedAtMs` 计算，不能信任页面 query 里的 `elapsed`。
 - 球友端个人数据、排行榜和积分礼遇必须通过 `player` 云函数读取，正式环境不能直接展示本地 `ladder-data.js` 样例数据。
 - 挑战首页必须通过 `player.getChallengeHome` 读取会员身份和球桌开局检查，不能用本地固定 `challengeGate` 判断能否开局。
+- 玩法选择和底分倍率必须通过 `match.getModes` / `match.getSetup` 读取老板端配置，不能只展示本地写死参数。
 - `match.previewSettlement` 只能读取和计算，不得写入 `settlements`、`points_ledger` 或修改 `member_points`。
 - 同一 `matchId` 不能重复写 `settlements` 或重复改积分。
 - 双方 `member_points` 账户必须存在。
@@ -83,8 +86,9 @@ powershell -ExecutionPolicy Bypass -File scripts/check-wechat-cloud-readiness.ps
 3. 前台扣除积分，会员积分减少，积分流水有记录。
 4. 前台设置球桌到点时间，退出重进后时间保持。
 5. 老板端修改底分、倍率、随机奖励、大屏标题，保存后退出重进仍保留。
-6. 大屏页显示老板端配置的主榜、副榜、刷新文案。
-7. 球友端完整走一场挑战，结算由云函数完成，重复点击不能重复结算。
+6. 玩法选择和底分倍率页显示老板端配置的玩法、底分、倍率和随机奖励。
+7. 大屏页显示老板端配置的主榜、副榜、刷新文案。
+8. 球友端完整走一场挑战，结算由云函数完成，重复点击不能重复结算。
 
 ## 6. 不能上线的红线
 

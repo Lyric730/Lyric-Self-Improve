@@ -1,18 +1,61 @@
 const { ensureOk } = require("../../services/api-client");
-const { getMatchSetup } = require("../../services/match-service");
+const { getConfigurableMatchSetup } = require("../../services/match-service");
 
 Page({
   data: {
-    ...ensureOk(getMatchSetup()),
-    matchId: ""
+    mode: {
+      modeId: "",
+      name: "",
+      targetWins: 0,
+      minimumMinutes: 0,
+      baseOptions: [],
+      multipliers: [],
+      normalReward: "",
+      sprintReward: ""
+    },
+    selectedBase: 0,
+    selectedMultiplier: 1,
+    riskPoints: 0,
+    matchId: "",
+    loading: true,
+    errorText: ""
   },
 
   onLoad(options) {
-    const setup = ensureOk(getMatchSetup({ modeId: options.modeId }));
+    this.routeOptions = {
+      matchId: options.matchId ? decodeURIComponent(options.matchId) : "",
+      modeId: options.modeId || ""
+    };
+
     this.setData({
-      ...setup,
-      matchId: options.matchId ? decodeURIComponent(options.matchId) : ""
+      matchId: this.routeOptions.matchId
     });
+    this.loadSetup();
+  },
+
+  async loadSetup() {
+    this.setData({
+      loading: true,
+      errorText: ""
+    });
+
+    try {
+      const setup = ensureOk(await getConfigurableMatchSetup(this.routeOptions));
+
+      this.setData({
+        ...setup,
+        loading: false
+      });
+    } catch (error) {
+      this.setData({
+        loading: false,
+        errorText: error.message || "底分倍率读取失败，请稍后重试"
+      });
+    }
+  },
+
+  retryLoad() {
+    this.loadSetup();
   },
 
   chooseBase(event) {
@@ -31,6 +74,15 @@ Page({
 
   next() {
     const { mode, selectedBase, selectedMultiplier, riskPoints } = this.data;
+
+    if (!mode.modeId || !selectedBase || !selectedMultiplier) {
+      wx.showToast({
+        title: "请先确认底分和倍率",
+        icon: "none"
+      });
+      return;
+    }
+
     const query = [
       `matchId=${encodeURIComponent(this.data.matchId)}`,
       `modeId=${mode.modeId}`,

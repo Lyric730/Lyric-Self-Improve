@@ -1912,3 +1912,38 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-38-ops-service-fallback-review.md`
 
+## 2026-06-03 Phase 39 页面服务层依赖护栏
+
+本轮目的：把“页面只能调用 service，不能直接读本地数据或写操作日志”的规则变成脚本，避免后续新增页面绕过接口层。
+
+代码变更：
+
+- 新增 `scripts/check-service-layer-boundary.js`：
+  - 扫描 `miniprogram/pages/**/*.js`。
+  - 禁止页面直接 `require` `ladder-data`。
+  - 禁止页面直接 `require` `operation-log`。
+  - 禁止页面直接 `require` `settlement-engine`。
+
+文档变更：
+
+- 更新 `docs/api-service-layer-contract.md`，把手动 `rg` 检查替换为脚本检查。
+- 更新 `docs/superpowers/plans/2026-06-03-launch-grade-page-polish.md`，新增 Stage 9，并加入标准验证。
+
+验证结果：
+
+- `node scripts\check-service-layer-boundary.js` 通过，输出 `Service layer boundary check OK`。
+- `node scripts\test-ops-services.js` 通过。
+- `node scripts\test-settlement-engine.js` 通过。
+- `node scripts\test-admin-config-validator.js` 通过。
+- `node scripts\test-member-profile.js` 通过。
+- 全量 `miniprogram` JS `node --check` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `node scripts\check-player-flow-routes.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `747.4 KB` / `765348` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-39-service-boundary-review.md`
+

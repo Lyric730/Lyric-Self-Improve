@@ -183,6 +183,17 @@ Use DevTools preview and manually test:
 - [x] Document cloud function cutover checklist for tomorrow's cloud environment work.
 - [x] Add the new test to standard verification.
 
+## Stage 9: 页面服务层依赖护栏
+
+**Files:**
+- Create: `scripts/check-service-layer-boundary.js`
+- Modify: `docs/api-service-layer-contract.md`
+- Create: `docs/reviews/phase-39-service-boundary-review.md`
+
+- [x] Add a script that fails when formal pages directly import `ladder-data`, `operation-log`, or `settlement-engine`.
+- [x] Run the script and confirm current pages only go through service modules.
+- [x] Add the script to standard verification.
+
 ## Standard Verification
 
 Run after each stage:
@@ -190,6 +201,7 @@ Run after each stage:
 ```powershell
 Get-ChildItem miniprogram -Recurse -Filter *.js | ForEach-Object { node --check $_.FullName }
 node scripts/test-ops-services.js
+node scripts/check-service-layer-boundary.js
 node scripts/check-json-files.js
 node scripts/check-production-copy.js
 node scripts/check-player-flow-routes.js

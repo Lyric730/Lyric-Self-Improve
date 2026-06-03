@@ -116,7 +116,7 @@ callCloud(moduleName, action, payload)
 
 ```powershell
 node scripts/test-ops-services.js
-rg -n "ladder-data|operation-log" miniprogram/pages --glob "*.js"
+node scripts/check-service-layer-boundary.js
 ```
 
-结果应无页面直接引用。若有命中，除非是明确的开发验收页，否则不能归档。
+结果应通过。若页面直接引用本地数据、操作日志或结算引擎，除非是明确的开发验收页，否则不能归档。

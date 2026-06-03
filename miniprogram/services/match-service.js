@@ -35,6 +35,29 @@ function buildLocalRoomState(params = {}) {
   };
 }
 
+function buildLocalPlayState(params = {}) {
+  const startedAtMs = Number(params.startedAtMs || Date.now());
+  const elapsedSeconds = Math.max(1, Math.floor((Date.now() - startedAtMs) / 1000) + 1);
+  const targetWins = Number(params.targetWins || (params.mode && params.mode.targetWins) || 5);
+  const minimumMinutes = Number(params.minimumMinutes || (params.mode && params.mode.minimumMinutes) || 40);
+  const scoreA = Number(params.scoreA || 0);
+  const scoreB = Number(params.scoreB || 0);
+  const winnerSide = params.winnerSide || (targetWins > 0 && scoreA >= targetWins ? "a" : targetWins > 0 && scoreB >= targetWins ? "b" : "");
+
+  return {
+    matchId: params.matchId || "",
+    status: winnerSide ? "settlement_pending" : "playing",
+    scoreA,
+    scoreB,
+    startedAtMs,
+    elapsedSeconds,
+    targetWins,
+    minimumMinutes,
+    timeReady: minimumMinutes > 0 ? elapsedSeconds >= minimumMinutes * 60 : false,
+    winnerSide
+  };
+}
+
 function formatSignedPoints(value) {
   const numberValue = Number(value || 0);
   return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
@@ -127,7 +150,11 @@ async function configureMatchSetup(params = {}) {
     }
   }
 
-  const setup = buildMatchSetup(payload);
+  const setup = buildMatchSetup({
+    ...payload,
+    base: payload.selectedBase,
+    multiplier: payload.selectedMultiplier
+  });
 
   return success({
     matchId: payload.matchId,
@@ -147,6 +174,89 @@ async function configureMatchSetup(params = {}) {
         minimumMinutes: setup.mode.minimumMinutes
       }
     }
+  });
+}
+
+async function startConfiguredMatch(params = {}) {
+  const payload = {
+    matchId: params.matchId || ""
+  };
+
+  try {
+    const result = ensureOk(await callCloud("match", "start", payload));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  const setup = buildMatchSetup({
+    ...params,
+    base: params.selectedBase || params.base,
+    multiplier: params.selectedMultiplier || params.multiplier
+  });
+  const playState = buildLocalPlayState({
+    ...params,
+    targetWins: setup.mode.targetWins,
+    minimumMinutes: setup.mode.minimumMinutes
+  });
+
+  return success({
+    matchId: payload.matchId,
+    playState,
+    roomState: {
+      ...buildLocalRoomState({
+        matchId: payload.matchId,
+        opponentJoined: true
+      }),
+      status: "playing",
+      setup: {
+        modeId: setup.mode.modeId,
+        selectedBase: setup.selectedBase,
+        selectedMultiplier: setup.selectedMultiplier,
+        riskPoints: setup.riskPoints,
+        targetWins: setup.mode.targetWins,
+        minimumMinutes: setup.mode.minimumMinutes
+      },
+      playState
+    }
+  });
+}
+
+async function recordMatchScore(params = {}) {
+  const payload = {
+    matchId: params.matchId || "",
+    side: params.side === "b" ? "b" : "a",
+    delta: Number(params.delta || 0)
+  };
+
+  try {
+    const result = ensureOk(await callCloud("match", "recordScore", payload));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  const targetWins = Number(params.targetWins || 5);
+  const currentScoreA = Number(params.scoreA || 0);
+  const currentScoreB = Number(params.scoreB || 0);
+  const scoreA = payload.side === "a" ? Math.max(0, Math.min(targetWins, currentScoreA + payload.delta)) : currentScoreA;
+  const scoreB = payload.side === "b" ? Math.max(0, Math.min(targetWins, currentScoreB + payload.delta)) : currentScoreB;
+  const playState = buildLocalPlayState({
+    ...params,
+    scoreA,
+    scoreB,
+    targetWins
+  });
+
+  return success({
+    matchId: payload.matchId,
+    playState
   });
 }
 
@@ -274,5 +384,7 @@ module.exports = {
   getWaitingRoomState,
   joinChallengeRoom,
   previewSettlement,
-  settleCurrentMatch
+  recordMatchScore,
+  settleCurrentMatch,
+  startConfiguredMatch
 };

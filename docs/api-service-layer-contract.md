@@ -14,7 +14,7 @@
 | `miniprogram/services/api-client.js` | 统一返回结构和错误处理 | 本地同步结果 | `wx.request` 或云函数调用 |
 | `miniprogram/services/player-service.js` | 球友首页、房间、邀请、我的数据、排行榜、积分礼遇 | `ladder-data.js` | `/matches`、`/me/stats`、`/rankings`、`/points/perks` |
 | `miniprogram/services/member-service.js` | 会员码、会员资料读取与保存 | 云函数 + 本地缓存兜底 | `/member/code`、`/member/profile` |
-| `miniprogram/services/match-service.js` | 比赛房间、玩法模板、开局参数、当前比赛、结算结果 | 云函数 + DevTools 本地兜底 | `/matches/:id`、`/matches/:id/config`、`/matches/:id/settle/*` |
+| `miniprogram/services/match-service.js` | 比赛房间、玩法模板、开局参数、开赛计分、当前比赛、结算结果 | 云函数 + DevTools 本地兜底 | `/matches/:id`、`/matches/:id/config`、`/matches/:id/start`、`/matches/:id/score`、`/matches/:id/settle/*` |
 | `miniprogram/services/staff-service.js` | 员工球桌、到点时间、积分核销、异常作废 | 云函数 + DevTools 本地缓存兜底 | `/staff/tables`、`/staff/points/deduct`、`/staff/matches/:id/void` |
 | `miniprogram/services/admin-service.js` | 老板配置读取与保存 | 云函数 + 本地配置缓存 | `/admin/config/*` |
 | `miniprogram/services/screen-service.js` | 小程序大屏榜单数据 | `ladder-data.js` + 老板端大屏配置 | `/screen/ranking`、`/screen/bounty` |
@@ -67,16 +67,18 @@ callCloud(moduleName, action, payload)
 5. `waiting-room` 会调用 `match-service.getWaitingRoomState()`，优先调用 `callCloud("match", "get", { matchId })` 读取房间状态。
 6. `accept-challenge` 会调用 `match-service.getWaitingRoomState()` 读取邀请房间，并通过 `match-service.joinChallengeRoom()` 调用 `callCloud("match", "joinRoom", { matchId })` 加入房间。
 7. `match-confirm` 点击开始比赛时会调用 `match-service.configureMatchSetup()`，优先调用 `callCloud("match", "configure", payload)`，把玩法、底分、倍率和风险积分写回 `matches`。
-8. `matchId` 已从等待页 / 接受页透传到玩法选择、底分倍率、确认、计分和结算链路。
-9. 当前 `match-service.calculateSettlement` 仍通过 `miniprogram/utils/settlement-engine.js` 计算本地结算展示。
-10. `settlement` 页进入时会调用 `match-service.previewSettlement()`，该服务优先调用 `callCloud("match", "previewSettlement", payload)`，只读取服务端预览结果，不写库。
-11. `settlement` 页点击“服了，确认结算”时会调用 `match-service.settleCurrentMatch()`，该服务优先调用 `callCloud("match", "settle", payload)`。
-12. 微信开发者工具预览环境下，云函数不可用时允许本地结算兜底；正式环境云函数失败必须提示失败，不能静默本地结算。
-13. 云函数 `match.previewSettlement` 和 `match.settle` 已接入 `cloudfunctions/yunhanApi/settlement-engine.js` 和 `match-settlement.js`；预览只返回结算结果，确认才写入 `settlements`、`points_ledger`、`member_points`、`matches.status`。
-14. `match-result` 页已通过 `match-service.getSettlementResult()` 优先读取云函数 `match.getSettlement`；DevTools 云不可用时保留本地展示兜底，正式环境必须读到服务端结算单后才允许展示“结算已生效”。
-15. `match-result` 正式环境缺少 `matchId`、查不到结算单或云读取失败时，只能展示固定错误态和重试入口，不能渲染本地结算成功结果。
-16. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
-17. 最后替换榜单、个人数据和大屏数据读取。
+8. `match-scoring` 进入页面时会调用 `match-service.startConfiguredMatch()`，优先调用 `callCloud("match", "start", { matchId })`，把房间状态改为 `playing` 并写入服务端开赛时间。
+9. `match-scoring` 加减盘时会调用 `match-service.recordMatchScore()`，优先调用 `callCloud("match", "recordScore", payload)`，把盘数写回 `matches` 并记录 `match_score_events`。
+10. `matchId` 已从等待页 / 接受页透传到玩法选择、底分倍率、确认、计分和结算链路。
+11. 当前 `match-service.calculateSettlement` 仍通过 `miniprogram/utils/settlement-engine.js` 计算本地结算展示。
+12. `settlement` 页进入时会调用 `match-service.previewSettlement()`，该服务优先调用 `callCloud("match", "previewSettlement", payload)`，只读取服务端预览结果，不写库；云函数结算用时优先由 `matches.startedAtMs` 计算，不信任页面 query 里的 `elapsed`。
+13. `settlement` 页点击“服了，确认结算”时会调用 `match-service.settleCurrentMatch()`，该服务优先调用 `callCloud("match", "settle", payload)`。
+14. 微信开发者工具预览环境下，云函数不可用时允许本地结算兜底；正式环境云函数失败必须提示失败，不能静默本地结算。
+15. 云函数 `match.previewSettlement` 和 `match.settle` 已接入 `cloudfunctions/yunhanApi/settlement-engine.js` 和 `match-settlement.js`；预览只返回结算结果，确认才写入 `settlements`、`points_ledger`、`member_points`、`matches.status`。
+16. `match-result` 页已通过 `match-service.getSettlementResult()` 优先读取云函数 `match.getSettlement`；DevTools 云不可用时保留本地展示兜底，正式环境必须读到服务端结算单后才允许展示“结算已生效”。
+17. `match-result` 正式环境缺少 `matchId`、查不到结算单或云读取失败时，只能展示固定错误态和重试入口，不能渲染本地结算成功结果。
+18. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
+19. 最后替换榜单、个人数据和大屏数据读取。
 
 注意：`admin-config-validator` 和 `member-profile` 当前在小程序端与云函数包内各保留一份。每次修改校验规则后必须运行 `node scripts/test-cloud-contracts.js`，确认前端和云函数口径一致。
 

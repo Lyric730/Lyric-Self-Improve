@@ -5,7 +5,16 @@
     <text class="flow-hero__subtitle">{{setup.mode.name}} · 先胜 {{setup.mode.targetWins}} 局 · 风险 {{setup.riskPoints}} 分</text>
   </view>
 
-  <view class="flow-stack score-arena">
+  <view wx:if="{{startError}}" class="scoring-state scoring-state--error">
+    <text class="scoring-state__title">无法进入比赛</text>
+    <text class="scoring-state__text">{{startError}}</text>
+    <view class="scoring-state__actions">
+      <yh-button text="重试" size="md" variant="primary" bind:tap="retryStart" />
+      <yh-button text="返回挑战" size="md" variant="secondary" bind:tap="goBackHome" />
+    </view>
+  </view>
+
+  <view wx:else class="flow-stack score-arena">
     <view class="score-board">
       <view class="score-board__side">
         <text class="avatar-token">{{match.playerA.shortName}}</text>
@@ -13,7 +22,7 @@
       </view>
       <view class="score-board__core">
         <text class="score-board__number">{{scoreA}}:{{scoreB}}</text>
-        <text class="score-board__sub">已进行 {{elapsedText}}</text>
+        <text class="score-board__sub">{{starting ? '正在同步比赛状态' : '已进行 ' + elapsedText}}</text>
       </view>
       <view class="score-board__side">
         <text class="avatar-token avatar-token--blue">{{match.playerB.shortName}}</text>
@@ -24,13 +33,13 @@
     <view class="stepper-grid">
       <view class="stepper-box">
         <text>我方盘数</text>
-        <yh-button custom-class="stepper-button" icon="+" icon-only variant="primary" data-side="a" data-delta="{{1}}" bind:tap="changeScore" />
-        <yh-button custom-class="stepper-button" icon="-" icon-only variant="secondary" data-side="a" data-delta="{{-1}}" bind:tap="changeScore" />
+        <yh-button custom-class="stepper-button" icon="+" icon-only variant="primary" disabled="{{starting || scoreUpdating || settlementLocked}}" data-side="a" data-delta="{{1}}" bind:tap="changeScore" />
+        <yh-button custom-class="stepper-button" icon="-" icon-only variant="secondary" disabled="{{starting || scoreUpdating || settlementLocked}}" data-side="a" data-delta="{{-1}}" bind:tap="changeScore" />
       </view>
       <view class="stepper-box">
         <text>对手盘数</text>
-        <yh-button custom-class="stepper-button" icon="+" icon-only variant="primary" data-side="b" data-delta="{{1}}" bind:tap="changeScore" />
-        <yh-button custom-class="stepper-button" icon="-" icon-only variant="secondary" data-side="b" data-delta="{{-1}}" bind:tap="changeScore" />
+        <yh-button custom-class="stepper-button" icon="+" icon-only variant="primary" disabled="{{starting || scoreUpdating || settlementLocked}}" data-side="b" data-delta="{{1}}" bind:tap="changeScore" />
+        <yh-button custom-class="stepper-button" icon="-" icon-only variant="secondary" disabled="{{starting || scoreUpdating || settlementLocked}}" data-side="b" data-delta="{{-1}}" bind:tap="changeScore" />
       </view>
     </view>
 

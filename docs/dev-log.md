@@ -2443,3 +2443,58 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-50-configure-match-cloud-entry-review.md`
 
+## 2026-06-03 Phase 51 开赛状态与计分事件接服务端入口
+
+本轮目的：计分页不能只靠本地计时和本地盘数自增。正式链路需要进入计分页时写入服务端开赛状态，加减盘时写入服务端比分和计分事件，结算用时也要优先以服务端开赛时间为准。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `match.start` action。
+  - 新增 `startMatchRoom()`，校验房间已配置、双方到齐、玩法参数已确认。
+  - `match.start` 写入 `matches.status = playing`、`startedAt`、`startedAtMs`、`scoreA`、`scoreB`。
+  - 新增 `match.recordScore` action。
+  - 新增 `recordMatchScore()`，只允许本场双方修改盘数。
+  - 盘数单次只能 `+1 / -1`，并限制在 `0` 到 `targetWins`。
+  - 每次计分写入 `match_score_events`。
+  - 达到目标盘数后把房间状态改为 `settlement_pending`。
+  - `buildCloudSettlementPayload()` 优先用 `matches.startedAtMs` 计算 `elapsedSeconds`，不信任页面 query 里的用时。
+- 更新 `miniprogram/services/match-service.js`：
+  - 新增 `startConfiguredMatch(params)`。
+  - 新增 `recordMatchScore(params)`。
+  - DevTools 无云环境时保留本地开赛和计分兜底。
+- 更新 `miniprogram/pages/match-scoring/`：
+  - 页面进入时先调用服务层开赛。
+  - 开赛成功后才启用加减盘按钮。
+  - 加减盘通过服务层写入，不再只改本地状态。
+  - 开赛同步失败时显示正式错误态和重试入口。
+  - 已用时间基于服务端开赛时间展示。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `match.start` 和 `match.recordScore`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入开赛、计分事件和服务端计时必测项。
+- 更新 `docs/cloud-database-schema.md`，补充 `winnerSide`、`startedAtMs`，并修正 `scoreA / scoreB` 为开赛后写入。
+- 更新 `docs/api-service-layer-contract.md`，明确计分页的开赛和计分服务边界。
+- 更新执行计划，新增 Stage 21。
+
+验证结果：
+
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check miniprogram\services\match-service.js` 通过。
+- `node --check miniprogram\pages\match-scoring\match-scoring.js` 通过。
+- `node scripts\test-cloud-contracts.js` 通过，输出 `Cloud contract tests OK`。
+- `node scripts\check-service-layer-boundary.js` 通过，输出 `Service layer boundary check OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `810.1 KB / 829564 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，`match.start`、`match.recordScore`、`match.previewSettlement`、`match.settle` 的连续链路还未在真实集合权限、索引和并发路径下验证。
+- 当前计分更新和 `match_score_events` 写入不是事务，真实云环境需要补失败重试或一致性巡检。
+- 双方同时快速点击加减盘时仍可能出现后写覆盖，后续需要按云数据库能力补条件更新或版本号。
+
+审查归档：
+
+- `docs/reviews/phase-51-match-start-score-cloud-entry-review.md`
+

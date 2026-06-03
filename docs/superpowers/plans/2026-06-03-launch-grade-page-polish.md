@@ -390,6 +390,34 @@ Use DevTools preview and manually test:
 - [x] Keep DevTools local fallback while cloud environment is unavailable.
 - [x] Document that scoring events and service-side timer are still separate required stages.
 
+## Stage 21: 开赛状态与计分事件接服务端入口
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/match-service.js`
+- Modify: `miniprogram/pages/match-scoring/match-scoring.js`
+- Modify: `miniprogram/pages/match-scoring/match-scoring.wxml`
+- Modify: `miniprogram/pages/match-scoring/match-scoring.wxss`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Modify: `docs/cloud-database-schema.md`
+- Create: `docs/reviews/phase-51-match-start-score-cloud-entry-review.md`
+
+- [x] Add cloud action `match.start`.
+- [x] `match.start` requires configured room, both players, and confirmed setup.
+- [x] `match.start` writes `status = playing`, `startedAt`, `startedAtMs`, `scoreA`, and `scoreB`.
+- [x] Add cloud action `match.recordScore`.
+- [x] `match.recordScore` only allows host or guest to change the score.
+- [x] `match.recordScore` clamps score between `0` and `targetWins`.
+- [x] `match.recordScore` writes `match_score_events`.
+- [x] Reaching target wins changes room status to `settlement_pending`.
+- [x] Add `match-service.startConfiguredMatch()` and `recordMatchScore()`.
+- [x] Match scoring page starts the match through service layer before enabling score buttons.
+- [x] Match scoring page changes score through service layer instead of local-only state.
+- [x] Match scoring page derives elapsed display from service-side start time.
+- [x] Keep DevTools local fallback while cloud environment is unavailable.
+- [x] Document that final settlement still needs real cloud environment verification.
+
 ## Standard Verification
 
 Run after each stage:

@@ -569,6 +569,8 @@ async function getMemberSnapshot(openid, storeId) {
 
 function formatRoomState(match, hostSnapshot, guestSnapshot) {
   const opponentJoined = Boolean(match.guestOpenid);
+  const startedAtMs = Number(match.startedAtMs || 0);
+  const elapsedSeconds = startedAtMs > 0 ? Math.max(1, Math.floor((Date.now() - startedAtMs) / 1000) + 1) : 0;
 
   return {
     matchId: match._id || match.matchId || "",
@@ -588,6 +590,16 @@ function formatRoomState(match, hostSnapshot, guestSnapshot) {
       targetWins: Number(match.targetWins || 0),
       minimumMinutes: Number(match.minimumMinutes || 0)
     } : null,
+    playState: match.status === "playing" || match.status === "settlement_pending" || startedAtMs > 0 ? {
+      scoreA: Number(match.scoreA || 0),
+      scoreB: Number(match.scoreB || 0),
+      startedAtMs,
+      elapsedSeconds,
+      targetWins: Number(match.targetWins || 0),
+      minimumMinutes: Number(match.minimumMinutes || 0),
+      timeReady: Number(match.minimumMinutes || 0) > 0 ? elapsedSeconds >= Number(match.minimumMinutes || 0) * 60 : false,
+      winnerSide: match.winnerSide || ""
+    } : null,
     host: hostSnapshot || {
       name: "当前会员",
       shortName: "我",
@@ -598,6 +610,29 @@ function formatRoomState(match, hostSnapshot, guestSnapshot) {
       shortName: opponentJoined ? "客" : "",
       rankTitle: opponentJoined ? "会员" : ""
     }) : null
+  };
+}
+
+function buildPlayState(match) {
+  const startedAtMs = Number(match.startedAtMs || Date.now());
+  const elapsedSeconds = Math.max(1, Math.floor((Date.now() - startedAtMs) / 1000) + 1);
+  const minimumMinutes = Number(match.minimumMinutes || 0);
+  const targetWins = Number(match.targetWins || 0);
+  const scoreA = Number(match.scoreA || 0);
+  const scoreB = Number(match.scoreB || 0);
+  const winnerSide = match.winnerSide || (targetWins > 0 && scoreA >= targetWins ? "a" : targetWins > 0 && scoreB >= targetWins ? "b" : "");
+
+  return {
+    matchId: match._id || match.matchId || "",
+    status: match.status || "playing",
+    scoreA,
+    scoreB,
+    startedAtMs,
+    elapsedSeconds,
+    targetWins,
+    minimumMinutes,
+    timeReady: minimumMinutes > 0 ? elapsedSeconds >= minimumMinutes * 60 : false,
+    winnerSide
   };
 }
 
@@ -850,7 +885,187 @@ async function configureMatchRoom(payload, storeId, operatorOpenid) {
   };
 }
 
+async function startMatchRoom(payload, storeId, operatorOpenid) {
+  requirePayloadValue(payload, "matchId", "请选择比赛房间", "MATCH_ID_REQUIRED");
+
+  const result = await db.collection("matches")
+    .where({
+      _id: payload.matchId,
+      storeId
+    })
+    .limit(1)
+    .get();
+  const match = result.data && result.data.length > 0 ? result.data[0] : null;
+
+  if (!match) {
+    return fail("比赛房间不存在", "MATCH_NOT_FOUND");
+  }
+
+  if (operatorOpenid !== match.hostOpenid && operatorOpenid !== match.guestOpenid) {
+    return fail("只有本场双方可以开始比赛", "MATCH_PLAYER_REQUIRED");
+  }
+
+  if (!match.hostOpenid || !match.guestOpenid) {
+    return fail("双方到齐后才能开始比赛", "MATCH_PLAYERS_NOT_READY");
+  }
+
+  if (!match.modeId || !match.base || !match.multiplier || !match.targetWins || !match.minimumMinutes) {
+    return fail("请先确认玩法和风险积分", "MATCH_SETUP_REQUIRED");
+  }
+
+  if (match.status === "playing" || match.status === "settlement_pending") {
+    return {
+      matchId: match._id,
+      playState: buildPlayState(match),
+      roomState: formatRoomState(
+        match,
+        await getMemberSnapshot(match.hostOpenid, storeId),
+        await getMemberSnapshot(match.guestOpenid, storeId)
+      )
+    };
+  }
+
+  if (match.status !== "configured") {
+    return fail("当前房间状态不能开始比赛", "MATCH_STATUS_INVALID");
+  }
+
+  const startedAtMs = Date.now();
+  const startData = {
+    status: "playing",
+    scoreA: Number(match.scoreA || 0),
+    scoreB: Number(match.scoreB || 0),
+    winnerSide: "",
+    startedAt: db.serverDate(),
+    startedAtMs,
+    updatedAt: db.serverDate()
+  };
+  const updateResult = await db.collection("matches")
+    .where({
+      _id: match._id,
+      storeId,
+      status: "configured"
+    })
+    .update({
+      data: startData
+    });
+
+  if (!updateResult.stats || updateResult.stats.updated < 1) {
+    const refreshed = await db.collection("matches").doc(match._id).get();
+    const refreshedMatch = refreshed.data;
+
+    if (refreshedMatch && (refreshedMatch.status === "playing" || refreshedMatch.status === "settlement_pending")) {
+      return {
+        matchId: refreshedMatch._id,
+        playState: buildPlayState(refreshedMatch),
+        roomState: formatRoomState(
+          refreshedMatch,
+          await getMemberSnapshot(refreshedMatch.hostOpenid, storeId),
+          await getMemberSnapshot(refreshedMatch.guestOpenid, storeId)
+        )
+      };
+    }
+
+    return fail("比赛开始失败，请重试", "MATCH_START_FAILED");
+  }
+
+  const startedMatch = {
+    ...match,
+    ...startData
+  };
+  const hostSnapshot = await getMemberSnapshot(startedMatch.hostOpenid, storeId);
+  const guestSnapshot = await getMemberSnapshot(startedMatch.guestOpenid, storeId);
+
+  return {
+    matchId: startedMatch._id,
+    playState: buildPlayState(startedMatch),
+    roomState: formatRoomState(startedMatch, hostSnapshot, guestSnapshot)
+  };
+}
+
+async function recordMatchScore(payload, storeId, operatorOpenid) {
+  requirePayloadValue(payload, "matchId", "请选择比赛房间", "MATCH_ID_REQUIRED");
+  requirePayloadValue(payload, "side", "请选择计分方", "MATCH_SCORE_SIDE_REQUIRED");
+
+  const side = payload.side === "b" ? "b" : "a";
+  const delta = Number(payload.delta || 0);
+
+  if (delta !== 1 && delta !== -1) {
+    return fail("盘数只能单次加一或减一", "MATCH_SCORE_DELTA_INVALID");
+  }
+
+  const result = await db.collection("matches")
+    .where({
+      _id: payload.matchId,
+      storeId
+    })
+    .limit(1)
+    .get();
+  const match = result.data && result.data.length > 0 ? result.data[0] : null;
+
+  if (!match) {
+    return fail("比赛房间不存在", "MATCH_NOT_FOUND");
+  }
+
+  if (operatorOpenid !== match.hostOpenid && operatorOpenid !== match.guestOpenid) {
+    return fail("只有本场双方可以修改盘数", "MATCH_PLAYER_REQUIRED");
+  }
+
+  if (match.status !== "playing" && match.status !== "settlement_pending") {
+    return fail("比赛尚未开始，不能计分", "MATCH_NOT_PLAYING");
+  }
+
+  const targetWins = Number(match.targetWins || 0);
+  const currentScoreA = Number(match.scoreA || 0);
+  const currentScoreB = Number(match.scoreB || 0);
+  const nextScoreA = side === "a" ? Math.max(0, Math.min(targetWins, currentScoreA + delta)) : currentScoreA;
+  const nextScoreB = side === "b" ? Math.max(0, Math.min(targetWins, currentScoreB + delta)) : currentScoreB;
+  const winnerSide = targetWins > 0 && nextScoreA >= targetWins ? "a" : targetWins > 0 && nextScoreB >= targetWins ? "b" : "";
+  const nextStatus = winnerSide ? "settlement_pending" : "playing";
+  const updateData = {
+    scoreA: nextScoreA,
+    scoreB: nextScoreB,
+    winnerSide,
+    status: nextStatus,
+    updatedAt: db.serverDate()
+  };
+  const updateResult = await db.collection("matches").doc(match._id).update({
+    data: updateData
+  });
+
+  if (!updateResult.stats || updateResult.stats.updated < 1) {
+    return fail("盘数保存失败，请重试", "MATCH_SCORE_UPDATE_FAILED");
+  }
+
+  await db.collection("match_score_events").add({
+    data: {
+      storeId,
+      matchId: match._id,
+      operatorOpenid,
+      side,
+      delta,
+      scoreA: nextScoreA,
+      scoreB: nextScoreB,
+      createdAt: db.serverDate()
+    }
+  });
+
+  const nextMatch = {
+    ...match,
+    ...updateData
+  };
+
+  return {
+    matchId: nextMatch._id,
+    playState: buildPlayState(nextMatch)
+  };
+}
+
 function buildCloudSettlementPayload(payload, match) {
+  const startedAtMs = Number(match.startedAtMs || 0);
+  const elapsedSeconds = startedAtMs > 0
+    ? Math.max(1, Math.floor((Date.now() - startedAtMs) / 1000) + 1)
+    : Number(payload.elapsedSeconds || payload.elapsed || 0);
+
   return {
     ...payload,
     ...match,
@@ -858,7 +1073,8 @@ function buildCloudSettlementPayload(payload, match) {
     playerAOpenid: match.hostOpenid || payload.playerAOpenid,
     playerBOpenid: match.guestOpenid || payload.playerBOpenid,
     selectedBase: match.base || payload.selectedBase || payload.base,
-    selectedMultiplier: match.multiplier || payload.selectedMultiplier || payload.multiplier
+    selectedMultiplier: match.multiplier || payload.selectedMultiplier || payload.multiplier,
+    elapsedSeconds
   };
 }
 
@@ -1215,6 +1431,66 @@ async function handleMatch(event) {
         base: result.setup.selectedBase,
         multiplier: result.setup.selectedMultiplier,
         riskPoints: result.setup.riskPoints
+      },
+      role,
+      storeId,
+      operatorOpenid: wxContext.OPENID
+    });
+
+    return ok({
+      action: event.action,
+      ...result
+    });
+  }
+
+  if (event.action === "start") {
+    const role = await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const payload = event.payload || {};
+    const result = await startMatchRoom(payload, storeId, wxContext.OPENID);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
+
+    await writeOperationLog({
+      module: "match",
+      action: event.action,
+      payload: {
+        matchId: result.matchId,
+        status: result.playState.status,
+        scoreA: result.playState.scoreA,
+        scoreB: result.playState.scoreB
+      },
+      role,
+      storeId,
+      operatorOpenid: wxContext.OPENID
+    });
+
+    return ok({
+      action: event.action,
+      ...result
+    });
+  }
+
+  if (event.action === "recordScore") {
+    const role = await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const payload = event.payload || {};
+    const result = await recordMatchScore(payload, storeId, wxContext.OPENID);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
+
+    await writeOperationLog({
+      module: "match",
+      action: event.action,
+      payload: {
+        matchId: result.matchId,
+        side: payload.side,
+        delta: payload.delta,
+        scoreA: result.playState.scoreA,
+        scoreB: result.playState.scoreB,
+        winnerSide: result.playState.winnerSide
       },
       role,
       storeId,

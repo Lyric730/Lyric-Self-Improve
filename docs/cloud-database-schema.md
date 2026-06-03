@@ -100,10 +100,12 @@
 | `riskPoints` | number | 否 | 风险积分，`base * multiplier` |
 | `targetWins` | number | 否 | 当前玩法胜利盘数 |
 | `minimumMinutes` | number | 否 | 当前玩法最低有效分钟数 |
-| `scoreA` | number | 是 | 发起方盘数 |
-| `scoreB` | number | 是 | 挑战方盘数 |
+| `scoreA` | number | 否 | 发起方盘数，开赛后写入 |
+| `scoreB` | number | 否 | 挑战方盘数，开赛后写入 |
+| `winnerSide` | string | 否 | 达到目标盘数后写入，`a` / `b` |
 | `configuredAt` | date | 否 | 玩法和风险参数确认时间 |
 | `startedAt` | date | 否 | 开赛时间 |
+| `startedAtMs` | number | 否 | 开赛时间毫秒数，用于小程序端按服务端开始点计算已用时间 |
 | `tableDueAt` | date | 否 | 开台到点时间 |
 | `createdAt` | date | 是 | 创建时间 |
 | `updatedAt` | date | 是 | 更新时间 |

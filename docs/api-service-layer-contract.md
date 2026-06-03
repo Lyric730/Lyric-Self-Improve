@@ -67,8 +67,9 @@ callCloud(moduleName, action, payload)
 5. `settlement` 页点击“服了，确认结算”时会调用 `match-service.settleCurrentMatch()`，该服务优先调用 `callCloud("match", "settle", payload)`。
 6. 微信开发者工具预览环境下，云函数不可用时允许本地结算兜底；正式环境云函数失败必须提示失败，不能静默本地结算。
 7. 云函数 `match.settle` 已接入 `cloudfunctions/yunhanApi/settlement-engine.js` 和 `match-settlement.js`，会服务端计算积分、随机奖励和段位变化，并写入 `settlements`、`points_ledger`、`member_points`、`matches.status`。
-8. `match-result` 页已通过 `match-service.getSettlementResult()` 优先读取云函数 `match.getSettlement`，DevTools 云不可用时保留本地展示兜底。
-9. 下一步把结算预览页也切换为真实云端结算单；前端切换前，正式页面仍不能绕过 `match-service`。
+8. `match-result` 页已通过 `match-service.getSettlementResult()` 优先读取云函数 `match.getSettlement`；DevTools 云不可用时保留本地展示兜底，正式环境必须读到服务端结算单后才允许展示“结算已生效”。
+9. `match-result` 正式环境缺少 `matchId`、查不到结算单或云读取失败时，只能展示固定错误态和重试入口，不能渲染本地结算成功结果。
+10. 下一步把结算预览页也切换为真实云端结算单；前端切换前，正式页面仍不能绕过 `match-service`。
 6. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
 7. 最后替换榜单、个人数据和大屏数据读取。
 

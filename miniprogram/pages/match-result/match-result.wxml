@@ -1,11 +1,11 @@
 <view class="flow-page flow-page--locked">
   <view class="flow-hero flow-hero--compact">
     <text class="flow-hero__eyebrow">RESULT</text>
-    <text class="flow-hero__title">结算已生效</text>
-    <text class="flow-hero__subtitle">{{settlement.winner.name}} 胜 · {{settlement.winnerDeltaText}} 积分</text>
+    <text class="flow-hero__title">{{resultTitle}}</text>
+    <text class="flow-hero__subtitle">{{resultSubtitle}}</text>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{resultStatus === 'ready' && settlement}}" class="flow-stack">
     <yh-panel title="段位与星级" subtitle="{{settlement.mode.name}} 胜利 {{settlement.starRewardText}}" marker="RANK UP" tone="gold" raised>
       <rank-badge tier="gold" title="{{settlement.winner.rankTitle}}" points="{{settlement.winnerAfterPoints}} / 3000" hint="全部玩法共用一个段位" featured />
       <view class="flow-actions">
@@ -38,6 +38,30 @@
 
     <view class="flow-actions">
       <yh-button text="再来一局" size="lg" variant="primary" block bind:tap="replay" />
+      <yh-button text="回到首页" variant="secondary" block bind:tap="goHome" />
+    </view>
+  </view>
+
+  <view wx:elif="{{resultStatus === 'loading'}}" class="flow-stack">
+    <yh-panel title="正在同步结算" subtitle="请保持当前页面打开" marker="SYNC" tone="gold" raised>
+      <view class="result-state">
+        <view class="result-state__pulse"></view>
+        <text class="result-state__title">读取服务端结算单</text>
+        <text class="result-state__text">积分、星级和排行榜更新以服务端记录为准。</text>
+      </view>
+    </yh-panel>
+  </view>
+
+  <view wx:else class="flow-stack">
+    <yh-panel title="无法显示结算" subtitle="未读取到有效服务端记录" marker="CHECK" tone="warn" raised>
+      <view class="result-state result-state--error">
+        <text class="result-state__title">{{resultTitle}}</text>
+        <text class="result-state__text">{{errorText}}</text>
+      </view>
+    </yh-panel>
+
+    <view class="flow-actions">
+      <yh-button text="重新读取" size="lg" variant="primary" block loading="{{loadingSettlement}}" disabled="{{loadingSettlement}}" bind:tap="retrySettlement" />
       <yh-button text="回到首页" variant="secondary" block bind:tap="goHome" />
     </view>
   </view>

@@ -1,1 +1,56 @@
 @import "../../styles/player-flow.wxss";
+
+.result-state {
+  display: grid;
+  justify-items: center;
+  gap: 18rpx;
+  padding: 24rpx 12rpx 12rpx;
+  text-align: center;
+}
+
+.result-state__pulse {
+  width: 72rpx;
+  height: 72rpx;
+  border: 4rpx solid rgba(255, 203, 112, 0.22);
+  border-top-color: rgba(255, 126, 24, 0.95);
+  border-radius: 999rpx;
+  box-shadow: 0 0 36rpx rgba(255, 126, 24, 0.26);
+  animation: result-spin 920ms linear infinite;
+}
+
+.result-state__title,
+.result-state__text {
+  display: block;
+  max-width: 100%;
+}
+
+.result-state__title {
+  color: var(--yh-color-text);
+  font-size: 36rpx;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.result-state__text {
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-sm);
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.result-state--error {
+  justify-items: stretch;
+  padding: 24rpx;
+  text-align: left;
+  background:
+    linear-gradient(135deg, rgba(95, 28, 17, 0.38), rgba(17, 10, 7, 0.88)),
+    repeating-linear-gradient(135deg, rgba(255, 220, 164, 0.035) 0 2rpx, transparent 2rpx 22rpx);
+  border: 1rpx solid rgba(255, 126, 24, 0.28);
+  clip-path: polygon(18rpx 0, 100% 0, 100% calc(100% - 18rpx), calc(100% - 18rpx) 100%, 0 100%, 0 18rpx);
+}
+
+@keyframes result-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

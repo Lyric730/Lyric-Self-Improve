@@ -2157,3 +2157,42 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-44-match-result-cloud-read-review.md`
 
+## 2026-06-03 Phase 45 结算结果页生产态禁止本地伪成功
+
+本轮目的：正式上线时，结算结果页不能在没有服务端结算单的情况下展示本地计算出的“结算已生效”。DevTools 可以为了调试保留本地预览，但生产环境必须以云端结算记录为准。
+
+代码变更：
+
+- 更新 `miniprogram/pages/match-result/match-result.js`：
+  - 新增 `resultStatus / resultTitle / resultSubtitle / errorText` 状态。
+  - DevTools 环境允许先展示本地预览。
+  - 非 DevTools 环境不再默认渲染本地结算。
+  - 缺少 `matchId`、查不到结算单、云端读取失败时进入固定错误态。
+  - 新增 `retrySettlement()`，错误态可重新读取服务端结算单。
+- 重写 `miniprogram/pages/match-result/match-result.wxml`：
+  - `ready` 状态才展示段位、积分、比赛记录和“结算已生效”内容。
+  - `loading` 状态展示同步结算单页面。
+  - `error` 状态展示不可结算说明、重试和回首页。
+- 更新 `miniprogram/pages/match-result/match-result.wxss`：
+  - 新增加载/错误状态面板样式。
+  - 不引入绿色，保持黑橙金风格。
+
+文档变更：
+
+- 更新 `docs/api-service-layer-contract.md`，明确生产环境必须读到服务端结算单后才允许显示结算成功。
+- 更新执行计划，新增 Stage 15。
+
+验证结果：
+
+- `node --check miniprogram\pages\match-result\match-result.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`，微信开发者工具预览包大小 `765.0 KB / 783339 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，仍未验证真实 `match.getSettlement` 的集合权限、延迟和字段完整性。
+- 结算确认页仍需要继续拆分“预览展示”和“服务端落库结果”。
+
+审查归档：
+
+- `docs/reviews/phase-45-match-result-production-state-review.md`
+

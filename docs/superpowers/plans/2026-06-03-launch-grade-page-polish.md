@@ -306,6 +306,17 @@ Use DevTools preview and manually test:
 - [x] DevTools preview may fallback locally while cloud environment is unavailable.
 - [x] Add contract test to ensure preview and write plan use the same settlement output.
 
+## Stage 17: 远端同步链路恢复
+**Files:**
+- Modify: `docs/dev-log.md`
+- Modify: `docs/superpowers/plans/2026-06-03-launch-grade-page-polish.md`
+
+- [x] Confirm active project repository is `F:\Making money\taiqiuxcx`.
+- [x] Confirm previous push failures were caused by missing `remote.origin`.
+- [x] Reuse sibling project remote `https://github.com/Lyric730/Lyric-Self-Improve.git`.
+- [x] Push `codex/launch-page-polish` without touching `main`.
+- [x] Set upstream to `origin/codex/launch-page-polish`.
+
 ## Standard Verification
 
 Run after each stage:

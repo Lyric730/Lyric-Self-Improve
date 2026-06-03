@@ -2252,3 +2252,32 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-46-settlement-preview-cloud-entry-review.md`
 
+## 2026-06-03 Phase 47 远端同步链路恢复
+
+本轮目的：用户要求每个阶段完成后直接提交到远端，保证出错时可以回退。此前真实开发仓库 `F:\Making money\taiqiuxcx` 没有配置 `remote.origin`，导致 `git push` 一直失败。
+
+核验结果：
+
+- 当前真实开发仓库：`F:\Making money\taiqiuxcx`
+- 当前分支：`codex/launch-page-polish`
+- sibling 仓库 `F:\Making money\taiqiuxcx-wechat` 的 remote：`https://github.com/Lyric730/Lyric-Self-Improve.git`
+- 当前分支已推送到：`origin/codex/launch-page-polish`
+- upstream 已设置为：`origin/codex/launch-page-polish`
+
+执行命令：
+
+```powershell
+git remote add origin https://github.com/Lyric730/Lyric-Self-Improve.git
+git push -u origin codex/launch-page-polish
+```
+
+验证结果：
+
+- `git push -u origin codex/launch-page-polish` 成功。
+- GitHub 返回 PR 创建地址：`https://github.com/Lyric730/Lyric-Self-Improve/pull/new/codex/launch-page-polish`
+
+残余风险：
+
+- 该 GitHub 仓库同时承载过 `Lyric-Self-Improve` 和台球小程序分支；当前只推送新分支，不改 `main`。
+- 后续阶段可直接 `git push`，不再需要手动指定 remote。
+

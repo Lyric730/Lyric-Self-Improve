@@ -2113,3 +2113,47 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-43-settlement-confirm-cloud-entry-review.md`
 
+## 2026-06-03 Phase 44 结算结果页读取服务端结算单
+
+本轮目的：让结果页不再只能依赖 URL 参数复算展示，而是优先读取服务端已写入的结算单。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `getSettlement(payload, storeId)`。
+  - 新增 `match.getSettlement` action。
+  - 必须传 `matchId`。
+  - 查不到 `settlements` 时返回 `SETTLEMENT_NOT_FOUND`。
+- 更新 `miniprogram/services/match-service.js`：
+  - 新增 `getSettlementResult(params)`。
+  - 有 `matchId` 时优先调用 `callCloud("match", "getSettlement", { matchId })`。
+  - 把云端结算单核心字段合并为结果页现有展示结构。
+  - DevTools 预览环境云失败时使用本地结算展示兜底。
+- 更新 `miniprogram/pages/match-result/match-result.js`：
+  - 先展示本地预览结果，避免白屏。
+  - 再异步读取服务端结算单并替换展示。
+  - 读取失败时提示，不强行进入“已同步”状态。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `match.getSettlement`。
+- 更新 `docs/api-service-layer-contract.md`，说明结果页已接云端读取，结算预览页仍待迁移。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入 `match.getSettlement` 必测项。
+- 更新执行计划，新增 Stage 14。
+
+验证结果：
+
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check miniprogram\services\match-service.js` 通过。
+- `node --check miniprogram\pages\match-result\match-result.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+
+残余风险：
+
+- 未在真实云环境验证 `settlements` 读取、集合权限和真实字段。
+- 结算确认页仍是本地预览，后续要继续切服务端结算单。
+
+审查归档：
+
+- `docs/reviews/phase-44-match-result-cloud-read-review.md`
+

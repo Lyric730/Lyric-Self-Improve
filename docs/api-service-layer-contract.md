@@ -67,7 +67,8 @@ callCloud(moduleName, action, payload)
 5. `settlement` 页点击“服了，确认结算”时会调用 `match-service.settleCurrentMatch()`，该服务优先调用 `callCloud("match", "settle", payload)`。
 6. 微信开发者工具预览环境下，云函数不可用时允许本地结算兜底；正式环境云函数失败必须提示失败，不能静默本地结算。
 7. 云函数 `match.settle` 已接入 `cloudfunctions/yunhanApi/settlement-engine.js` 和 `match-settlement.js`，会服务端计算积分、随机奖励和段位变化，并写入 `settlements`、`points_ledger`、`member_points`、`matches.status`。
-8. 下一步把结算预览和结果页读取也切换为真实云端结算单；前端切换前，正式页面仍不能绕过 `match-service`。
+8. `match-result` 页已通过 `match-service.getSettlementResult()` 优先读取云函数 `match.getSettlement`，DevTools 云不可用时保留本地展示兜底。
+9. 下一步把结算预览页也切换为真实云端结算单；前端切换前，正式页面仍不能绕过 `match-service`。
 6. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
 7. 最后替换榜单、个人数据和大屏数据读取。
 
@@ -109,7 +110,7 @@ callCloud(moduleName, action, payload)
 - `api-client.js` 替换为真实 `wx.request` 或云函数调用。
 - `access-control.js` 的角色来源替换为登录态接口。
 - `operation-log.js` 仅保留历史开发背景；运营端写操作已改为服务端 `operation_logs` 入口。
-- `match-service.js` 已新增 `settleCurrentMatch` 服务端结算入口；仍需继续把结算预览和结果页读取替换为服务端结算单。
+- `match-service.js` 已新增 `settleCurrentMatch` 服务端结算入口，并新增 `getSettlementResult` 读取服务端结算单；仍需继续把结算预览页切换为服务端结算单。
 - `match.settle` 已有云函数入口，但真实云环境尚未验证；上线前必须测试重复结算、余额不足、比赛不存在、最低时间不足、双方身份缺失。
 - `screen-service.js` 接入 `screenToken`。
 - `screen-service.js` 的榜单数据接真实排行榜集合。

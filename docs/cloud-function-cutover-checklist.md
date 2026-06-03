@@ -22,6 +22,7 @@
 | `admin` | `saveConfig` | 老板端参数 | 复用前端同一套校验，写 `admin_configs` |
 | `screen` | `getBoard` | 电视大屏 | 读取店内总榜、赏金猎人和老板端大屏配置 |
 | `match` | `settle` | 结算链路 | 服务端计算积分、随机奖励、星级，写结算和积分流水 |
+| `match` | `getSettlement` | 结果页 | 按 `matchId` 读取已结算记录，结果页显示云端结算单 |
 
 `match.settle` 当前已有云函数代码入口，但还没在真实云环境验证。上线前必须确认：
 

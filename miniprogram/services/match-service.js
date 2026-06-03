@@ -18,6 +18,11 @@ function calculateSettlement(params = {}) {
   return success(buildSettlement(params));
 }
 
+function formatSignedPoints(value) {
+  const numberValue = Number(value || 0);
+  return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
+}
+
 function buildSettlementPayload(params = {}) {
   return {
     matchId: params.matchId || match.id || match.matchId || match.roomNo,
@@ -52,8 +57,66 @@ async function settleCurrentMatch(params = {}) {
   return calculateSettlement(params);
 }
 
+function mergeSettlementDisplay(params = {}, serverResult = {}) {
+  const base = buildSettlement(params);
+  const serverSettlement = serverResult.settlement || {};
+  const matchId = serverResult.matchId || serverSettlement.matchId || params.matchId || "";
+  const winnerDelta = Number(serverSettlement.winnerDelta ?? base.winnerDelta);
+  const loserDelta = Number(serverSettlement.loserDelta ?? base.loserDelta);
+  const rewardValue = Number(serverSettlement.rewardValue ?? base.rewardValue);
+  const riskPoints = Number(serverSettlement.riskPoints ?? base.riskPoints);
+  const scoreA = Number(serverSettlement.scoreA ?? base.scoreA);
+  const scoreB = Number(serverSettlement.scoreB ?? base.scoreB);
+  const winnerAfterPoints = base.winner.points + winnerDelta;
+  const loserAfterPoints = base.loser.points + loserDelta;
+
+  return {
+    ...base,
+    matchId,
+    scoreA,
+    scoreB,
+    scoreText: `${scoreA}:${scoreB}`,
+    riskPoints,
+    rewardValue,
+    rewardPhase: serverSettlement.rewardPhase || base.rewardPhase,
+    winnerDelta,
+    loserDelta,
+    winnerDeltaText: formatSignedPoints(winnerDelta),
+    loserDeltaText: formatSignedPoints(loserDelta),
+    loserDeltaVariant: loserDelta < 0 ? "minus" : "reward",
+    winnerAfterPoints,
+    loserAfterPoints,
+    serverStatus: serverSettlement.status || ""
+  };
+}
+
+async function getSettlementResult(params = {}) {
+  if (!params.matchId && !isDevtoolsPreview()) {
+    const error = new Error("缺少比赛 ID，无法读取结算记录");
+    error.code = "MATCH_ID_REQUIRED";
+    throw error;
+  }
+
+  if (params.matchId) {
+    try {
+      const result = ensureOk(await callCloud("match", "getSettlement", {
+        matchId: params.matchId
+      }));
+
+      return success(mergeSettlementDisplay(params, result));
+    } catch (error) {
+      if (!isDevtoolsPreview()) {
+        throw error;
+      }
+    }
+  }
+
+  return calculateSettlement(params);
+}
+
 module.exports = {
   calculateSettlement,
+  getSettlementResult,
   getCurrentMatch,
   getMatchSetup,
   getModes,

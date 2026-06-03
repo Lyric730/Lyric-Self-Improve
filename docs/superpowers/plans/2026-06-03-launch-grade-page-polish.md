@@ -254,6 +254,22 @@ Use DevTools preview and manually test:
 - [x] Settlement confirm button shows loading and blocks repeat taps.
 - [x] Pass `matchId` through the scoring-to-settlement query when available.
 
+## Stage 14: 结算结果页读取服务端结算单
+
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/match-service.js`
+- Modify: `miniprogram/pages/match-result/match-result.js`
+- Create: `docs/reviews/phase-44-match-result-cloud-read-review.md`
+
+- [x] Add cloud action `match.getSettlement`.
+- [x] `match.getSettlement` requires `matchId` and returns `SETTLEMENT_NOT_FOUND` when absent.
+- [x] Add `match-service.getSettlementResult()` as cloud-first read service.
+- [x] Match result page keeps local preview first, then replaces with cloud settlement when available.
+- [x] DevTools preview may fallback locally; production cloud read failure is surfaced.
+- [x] Document that settlement preview page still needs a later server-read migration.
+
 ## Standard Verification
 
 Run after each stage:

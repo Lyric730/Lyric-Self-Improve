@@ -627,6 +627,28 @@ async function settleMatch(payload, storeId, operatorOpenid) {
   };
 }
 
+async function getSettlement(payload, storeId) {
+  requirePayloadValue(payload, "matchId", "请选择要查看的结算记录", "MATCH_ID_REQUIRED");
+
+  const settlementResult = await db.collection("settlements")
+    .where({
+      storeId,
+      matchId: payload.matchId
+    })
+    .limit(1)
+    .get();
+  const settlement = settlementResult.data && settlementResult.data.length > 0 ? settlementResult.data[0] : null;
+
+  if (!settlement) {
+    return fail("结算记录不存在", "SETTLEMENT_NOT_FOUND");
+  }
+
+  return {
+    matchId: payload.matchId,
+    settlement
+  };
+}
+
 async function getStorePointsConfig(storeId) {
   const configResult = await db.collection("admin_configs")
     .where({
@@ -740,6 +762,21 @@ async function handleMatch(event) {
       storeId,
       operatorOpenid: wxContext.OPENID
     });
+
+    return ok({
+      action: event.action,
+      ...result
+    });
+  }
+
+  if (event.action === "getSettlement") {
+    await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const payload = event.payload || {};
+    const result = await getSettlement(payload, storeId);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
 
     return ok({
       action: event.action,

@@ -222,6 +222,22 @@ Use DevTools preview and manually test:
 - [x] Frontend member service calls cloud first and falls back locally only in DevTools.
 - [x] Add parity tests for mini-program and cloud validation rules.
 
+## Stage 12: 云函数比赛结算链路准备
+
+**Files:**
+- Create: `cloudfunctions/yunhanApi/settlement-engine.js`
+- Create: `cloudfunctions/yunhanApi/match-settlement.js`
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `scripts/test-cloud-contracts.js`
+- Create: `docs/reviews/phase-42-cloud-match-settle-review.md`
+
+- [x] Copy settlement rule engine into the cloud function package.
+- [x] Add a pure write-plan builder for cloud settlement.
+- [x] `match.settle` rejects missing match, duplicate settlement, missing player accounts, and insufficient point balance.
+- [x] `match.settle` writes `settlements`, `points_ledger`, `member_points`, and `matches.status`.
+- [x] Keep frontend `match-service.calculateSettlement` unchanged until a separate async page-flow migration stage.
+- [x] Add cloud contract tests for settlement parity and write-plan shape.
+
 ## Standard Verification
 
 Run after each stage:

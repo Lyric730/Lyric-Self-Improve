@@ -2,6 +2,7 @@ const cloud = require("wx-server-sdk");
 const QRCode = require("qrcode");
 const { assertValidAdminConfig } = require("./admin-config-validator");
 const { assertValidMemberProfile } = require("./member-profile");
+const { buildSettlementWritePlan } = require("./match-settlement");
 
 cloud.init({
   env: cloud.DYNAMIC_CURRENT_ENV
@@ -429,6 +430,203 @@ async function saveMemberProfile(payload, storeId, openid) {
   return profile;
 }
 
+async function getPointAccountDoc(openid, storeId) {
+  const accountResult = await db.collection("member_points")
+    .where({
+      storeId,
+      openid
+    })
+    .limit(1)
+    .get();
+
+  return accountResult.data && accountResult.data.length > 0 ? accountResult.data[0] : null;
+}
+
+async function preparePointAccountUpdates(pointChanges, storeId) {
+  const rows = [];
+
+  for (const change of pointChanges) {
+    const account = await getPointAccountDoc(change.openid, storeId);
+
+    if (!account) {
+      return fail("积分账户不存在", "POINT_ACCOUNT_NOT_FOUND", {
+        openid: change.openid
+      });
+    }
+
+    const currentBalance = Number(account.balance || 0);
+    const balanceAfter = currentBalance + Number(change.delta || 0);
+
+    if (balanceAfter < 0) {
+      return fail("积分余额不足，无法结算", "POINT_BALANCE_NOT_ENOUGH", {
+        openid: change.openid,
+        currentBalance,
+        delta: change.delta
+      });
+    }
+
+    rows.push({
+      account,
+      change,
+      currentBalance,
+      balanceAfter
+    });
+  }
+
+  return {
+    ok: true,
+    rows
+  };
+}
+
+async function applyPointAccountUpdates(rows, storeId, operatorOpenid) {
+  const balances = [];
+
+  for (const row of rows) {
+    await db.collection("member_points").doc(row.account._id).update({
+      data: {
+        balance: row.balanceAfter,
+        updatedAt: db.serverDate()
+      }
+    });
+
+    await db.collection("points_ledger").add({
+      data: {
+        storeId,
+        openid: row.change.openid,
+        matchId: row.change.matchId,
+        type: row.change.type,
+        delta: row.change.delta,
+        balanceAfter: row.balanceAfter,
+        riskPoints: row.change.riskPoints,
+        rewardValue: row.change.rewardValue,
+        rewardPhase: row.change.rewardPhase,
+        operatorOpenid,
+        createdAt: db.serverDate()
+      }
+    });
+
+    balances.push({
+      openid: row.change.openid,
+      side: row.change.side,
+      result: row.change.result,
+      delta: row.change.delta,
+      balanceAfter: row.balanceAfter
+    });
+  }
+
+  return balances;
+}
+
+async function settleMatch(payload, storeId, operatorOpenid) {
+  requirePayloadValue(payload, "matchId", "请选择要结算的比赛", "MATCH_ID_REQUIRED");
+
+  const matchResult = await db.collection("matches")
+    .where({
+      _id: payload.matchId,
+      storeId
+    })
+    .limit(1)
+    .get();
+  const match = matchResult.data && matchResult.data.length > 0 ? matchResult.data[0] : null;
+
+  if (!match) {
+    return fail("比赛不存在或已无法结算", "MATCH_NOT_FOUND");
+  }
+
+  if (match.status === "settled") {
+    return fail("比赛已结算，不能重复结算", "MATCH_ALREADY_SETTLED");
+  }
+
+  const existingSettlementResult = await db.collection("settlements")
+    .where({
+      storeId,
+      matchId: payload.matchId
+    })
+    .limit(1)
+    .get();
+  const existingSettlement = existingSettlementResult.data && existingSettlementResult.data.length > 0
+    ? existingSettlementResult.data[0]
+    : null;
+
+  if (existingSettlement) {
+    return fail("比赛已存在结算记录", "MATCH_ALREADY_SETTLED");
+  }
+
+  const plan = buildSettlementWritePlan({
+    ...payload,
+    ...match,
+    matchId: payload.matchId,
+    playerAOpenid: match.hostOpenid || payload.playerAOpenid,
+    playerBOpenid: match.guestOpenid || payload.playerBOpenid,
+    selectedBase: match.base || payload.selectedBase || payload.base,
+    selectedMultiplier: match.multiplier || payload.selectedMultiplier || payload.multiplier
+  });
+
+  if (!plan.ok) {
+    return plan;
+  }
+
+  const accountUpdates = await preparePointAccountUpdates(plan.pointChanges, storeId);
+
+  if (isFailureResult(accountUpdates)) {
+    return accountUpdates;
+  }
+
+  const settlementAddResult = await db.collection("settlements").add({
+    data: {
+      storeId,
+      matchId: plan.matchId,
+      status: "settling",
+      winnerSide: plan.settlement.winnerSide,
+      loserSide: plan.settlement.loserSide,
+      riskPoints: plan.settlement.riskPoints,
+      rewardValue: plan.settlement.rewardValue,
+      rewardPhase: plan.settlement.rewardPhase,
+      winnerDelta: plan.settlement.winnerDelta,
+      loserDelta: plan.settlement.loserDelta,
+      scoreA: plan.settlement.scoreA,
+      scoreB: plan.settlement.scoreB,
+      elapsedSeconds: plan.settlement.elapsedSeconds,
+      pointChanges: plan.pointChanges,
+      rankChanges: plan.rankChanges,
+      settledBy: operatorOpenid,
+      createdAt: db.serverDate(),
+      updatedAt: db.serverDate()
+    }
+  });
+  const settlementDocId = settlementAddResult._id;
+  const balances = await applyPointAccountUpdates(accountUpdates.rows, storeId, operatorOpenid);
+
+  await db.collection("settlements").doc(settlementDocId).update({
+    data: {
+      status: "settled",
+      balances,
+      updatedAt: db.serverDate()
+    }
+  });
+
+  await db.collection("matches").doc(match._id).update({
+    data: {
+      status: "settled",
+      settlementSummary: {
+        winnerSide: plan.settlement.winnerSide,
+        winnerDelta: plan.settlement.winnerDelta,
+        loserDelta: plan.settlement.loserDelta,
+        rewardValue: plan.settlement.rewardValue
+      },
+      updatedAt: db.serverDate()
+    }
+  });
+
+  return {
+    matchId: plan.matchId,
+    settlement: plan.settlement,
+    balances,
+    rankChanges: plan.rankChanges
+  };
+}
+
 async function getStorePointsConfig(storeId) {
   const configResult = await db.collection("admin_configs")
     .where({
@@ -524,8 +722,29 @@ async function handleMatch(event) {
   }
 
   if (event.action === "settle") {
-    await assertRole(wxContext, ["player", "staff", "owner"], storeId);
-    return fail("服务端结算规则尚未启用", "SETTLEMENT_NOT_READY");
+    const role = await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+    const payload = event.payload || {};
+    const result = await settleMatch(payload, storeId, wxContext.OPENID);
+
+    if (isFailureResult(result)) {
+      return result;
+    }
+
+    await writeOperationLog({
+      module: "match",
+      action: event.action,
+      payload: {
+        matchId: payload.matchId
+      },
+      role,
+      storeId,
+      operatorOpenid: wxContext.OPENID
+    });
+
+    return ok({
+      action: event.action,
+      ...result
+    });
   }
 
   return fail("暂不支持该比赛操作", "UNKNOWN_MATCH_ACTION");

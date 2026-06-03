@@ -23,6 +23,15 @@
 | `screen` | `getBoard` | 电视大屏 | 读取店内总榜、赏金猎人和老板端大屏配置 |
 | `match` | `settle` | 结算链路 | 服务端计算积分、随机奖励、星级，写结算和积分流水 |
 
+`match.settle` 当前已有云函数代码入口，但还没在真实云环境验证。上线前必须确认：
+
+- 真实 `matches` 文档存在时才能结算。
+- 同一 `matchId` 不能重复写 `settlements` 或重复改积分。
+- 双方 `member_points` 账户必须存在。
+- 败方扣分后不能出现负余额。
+- `points_ledger` 中胜方为 `match_win`，败方为 `match_loss`。
+- 当前实现不是事务级写入，只是先写 `settlements.status = settling` 作为结算锁；云环境可用后必须做中途失败和重复点击测试。
+
 ## 3. 本地兜底必须替换的点
 
 - `member-service.getMemberCode` 当前 DevTools 无云环境时显示本地视觉码；上线必须显示云函数真实二维码。

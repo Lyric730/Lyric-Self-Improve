@@ -2021,3 +2021,54 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-41-cloud-validation-profile-review.md`
 
+## 2026-06-03 Phase 42 云函数比赛结算链路准备
+
+本轮目的：在云环境还没创建前，先把核心结算能力放进云函数包，避免上线前仍由前端单独决定积分和段位。
+
+代码变更：
+
+- 新增 `cloudfunctions/yunhanApi/settlement-engine.js`：
+  - 从小程序侧结算规则引擎机械复制到云函数包内。
+  - 云函数部署包不依赖 `miniprogram` 目录。
+- 新增 `cloudfunctions/yunhanApi/match-settlement.js`：
+  - 生成结算写库计划。
+  - 校验 `matchId`、双方 OpenID、同一用户不能同时作为双方。
+  - 拆出胜方 `match_win`、败方 `match_loss` 两条积分流水。
+  - 生成胜负双方段位变化。
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - `match.settle` 不再返回 `SETTLEMENT_NOT_READY`。
+  - 读取真实 `matches` 文档，不存在则拒绝。
+  - 已结算或已有 `settlements` 记录时拒绝重复结算。
+  - 双方 `member_points` 账户必须存在。
+  - 败方扣分后不能出现负余额。
+  - 先写 `settlements.status = settling` 作为结算锁，再写积分和流水，最后改为 `settled`。
+  - 更新 `matches.status = settled`。
+- 更新 `scripts/test-cloud-contracts.js`：
+  - 增加小程序 / 云函数结算公式一致性检查。
+  - 增加结算写库计划检查。
+  - 增加缺少对手身份的拒绝检查。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，说明 `match.settle` 当前职责。
+- 更新 `docs/api-service-layer-contract.md`，说明云函数结算已准备，但前端尚未切换。
+- 更新 `docs/cloud-function-cutover-checklist.md`，补充 `match.settle` 真云验证要点。
+- 更新执行计划，新增 Stage 12。
+
+验证结果：
+
+- `node scripts\test-cloud-contracts.js` 通过，输出 `Cloud contract tests OK`。
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `748.8 KB` / `766759` bytes。
+
+残余风险：
+
+- `match.settle` 仍未在真实云环境验证。
+- 当前不是事务级写入。虽然已有 `settling` 结算锁，但云函数并发、网络中断、数据库写入中途失败仍要真云压测。
+- 前端结算页仍使用同步本地展示链路；切换到云函数需要单独改 `match-service` 和相关页面生命周期。
+
+审查归档：
+
+- `docs/reviews/phase-42-cloud-match-settle-review.md`
+

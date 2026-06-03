@@ -4,6 +4,9 @@ const miniAdmin = require("../miniprogram/utils/admin-config-validator");
 const cloudAdmin = require("../cloudfunctions/yunhanApi/admin-config-validator");
 const miniMember = require("../miniprogram/utils/member-profile");
 const cloudMember = require("../cloudfunctions/yunhanApi/member-profile");
+const miniSettlement = require("../miniprogram/utils/settlement-engine");
+const cloudSettlement = require("../cloudfunctions/yunhanApi/settlement-engine");
+const { buildSettlementWritePlan } = require("../cloudfunctions/yunhanApi/match-settlement");
 const { adminConfig } = require("../miniprogram/utils/ladder-data");
 
 function clone(value) {
@@ -67,5 +70,57 @@ assertSameValidation(
   miniMember.validateMemberProfile(invalidProfile),
   cloudMember.validateMemberProfile(invalidProfile)
 );
+
+const settlementInput = {
+  matchId: "match_001",
+  playerAOpenid: "player_a",
+  playerBOpenid: "player_b",
+  modeId: "race5",
+  selectedBase: 100,
+  selectedMultiplier: 3,
+  scoreA: 5,
+  scoreB: 2,
+  winnerSide: "a",
+  elapsedSeconds: 40 * 60,
+  rewardValue: 60,
+  rankStateA: {
+    tier: "gold",
+    division: 3,
+    stars: 2
+  },
+  rankStateB: {
+    tier: "platinum",
+    division: 2,
+    stars: 1
+  }
+};
+const miniSettlementResult = miniSettlement.calculateMatchSettlement(settlementInput);
+const cloudSettlementResult = cloudSettlement.calculateMatchSettlement(settlementInput);
+assert.strictEqual(cloudSettlementResult.ok, miniSettlementResult.ok);
+assert.strictEqual(cloudSettlementResult.riskPoints, miniSettlementResult.riskPoints);
+assert.strictEqual(cloudSettlementResult.rewardValue, miniSettlementResult.rewardValue);
+assert.strictEqual(cloudSettlementResult.winnerDelta, miniSettlementResult.winnerDelta);
+assert.strictEqual(cloudSettlementResult.loserDelta, miniSettlementResult.loserDelta);
+assert.strictEqual(cloudSettlementResult.starReward, miniSettlementResult.starReward);
+
+const settlementPlan = buildSettlementWritePlan(settlementInput);
+assert.strictEqual(settlementPlan.ok, true);
+assert.strictEqual(settlementPlan.pointChanges.length, 2);
+assert.deepStrictEqual(
+  settlementPlan.pointChanges.map((item) => [item.openid, item.type, item.delta]),
+  [
+    ["player_a", "match_win", 360],
+    ["player_b", "match_loss", -240]
+  ]
+);
+assert.strictEqual(settlementPlan.rankChanges.a.deltaStars, 1);
+assert.strictEqual(settlementPlan.rankChanges.b.deltaStars, -1);
+
+const missingPlayerPlan = buildSettlementWritePlan({
+  ...settlementInput,
+  playerBOpenid: ""
+});
+assert.strictEqual(missingPlayerPlan.ok, false);
+assert.strictEqual(missingPlayerPlan.code, "MATCH_PLAYER_REQUIRED");
 
 console.log("Cloud contract tests OK");

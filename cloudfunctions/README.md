@@ -17,14 +17,14 @@
 - `member`：生成球友端会员码，保存会员昵称、手机号、备注和头像。
 - `staff`：处理员工写操作，写入 `table_sessions`、`member_points`、`points_ledger`、`matches`，并写入 `operation_logs`。
 - `admin`：处理老板配置保存，先做服务端参数校验，再写入 `admin_configs`，并写入 `operation_logs`。
-- `screen`：预留大屏数据和 `screenToken` 校验。
+- `screen`：处理大屏榜单读取；`getBoard` 返回店内总榜、赏金猎人和老板端大屏配置，支持小程序内角色访问或 `screenToken` 访问。
 
 正式上线前必须补齐：
 
 - 真实云环境验证 `match.start`、`match.recordScore`、`match.previewSettlement`、`match.settle` 的连续链路。
 - 真实云环境验证 `player.getProfile`、`player.getRankings`、`player.getPointsPerks` 的只读链路和排行榜索引。
 - 前端结算链路切换到 `match.previewSettlement`、`match.settle`、`match.getSettlement`。
-- `screen_tokens` 大屏凭证。
+- 真实云环境验证 `screen.getBoard` 的店内总榜、赏金猎人聚合、老板端大屏配置和 `screen_tokens` 凭证。
 
 初始化步骤见：
 

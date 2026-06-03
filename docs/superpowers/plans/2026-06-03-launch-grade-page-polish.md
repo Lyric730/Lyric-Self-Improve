@@ -449,6 +449,32 @@ Use DevTools preview and manually test:
 - [x] Remove unused synchronous `getPlayerProfile()` dependency from `my-hub`.
 - [x] Keep formal UI copy only; no mock/demo/internal wording in pages.
 
+## Stage 23: 小程序大屏榜单数据服务化
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/screen-service.js`
+- Modify: `miniprogram/pages/tv-ranking/tv-ranking.js`
+- Modify: `miniprogram/pages/tv-ranking/tv-ranking.wxml`
+- Modify: `miniprogram/pages/tv-ranking/tv-ranking.wxss`
+- Modify: `scripts/test-ops-services.js`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Modify: `docs/cloud-database-schema.md`
+- Modify: `docs/cloud-init-runbook.md`
+- Create: `docs/reviews/phase-53-screen-board-cloud-entry-review.md`
+
+- [x] Add cloud action `screen.getBoard`.
+- [x] `screen.getBoard` returns store ranking from `member_points`.
+- [x] `screen.getBoard` returns bounty hunter rows by aggregating settled match win point changes.
+- [x] `screen.getBoard` reads owner screen config from `admin_configs`.
+- [x] Allow small-program screen page access by `staff` / `owner` / `screen` role.
+- [x] Keep `screenToken` validation path for future browser TV page.
+- [x] Make `screen-service` cloud-first with DevTools local fallback.
+- [x] Make `tv-ranking` load asynchronously with loading, retryable error, and empty board states.
+- [x] Document `screen_tokens` token index.
+- [x] Keep formal UI copy only; no mock/demo/internal wording in pages.
+
 ## Standard Verification
 
 Run after each stage:

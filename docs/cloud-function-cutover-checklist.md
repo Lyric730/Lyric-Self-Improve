@@ -56,7 +56,7 @@
 - `member-service.getMemberCode` 当前 DevTools 无云环境时显示本地视觉码；上线必须显示云函数真实二维码。
 - `staff-service` 当前 DevTools 无云环境时允许本地保存到点时间、核销积分、作废异常；上线必须由云函数真实落库。
 - `admin-service` 当前保存后写本地缓存；上线必须确认 `admin_configs` 云端写入和读取都成功。
-- `screen-service` 当前榜单数据仍来自本地数据；上线必须接真实排行榜数据。
+- 小程序内大屏页必须通过 `screen.getBoard` 读取店内总榜、赏金猎人和老板端大屏配置；浏览器静态大屏后续还需要接 HTTP 化 `screenToken`。
 
 ## 4. 上线前验证命令
 

@@ -2549,3 +2549,56 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-52-player-data-cloud-entry-review.md`
 
+## 2026-06-03 Phase 53 小程序大屏榜单数据服务化
+
+本轮目的：小程序内大屏不能继续显示本地样例榜单。正式链路需要通过 `screen.getBoard` 读取店内总榜、赏金猎人和老板端大屏配置；云读取失败时展示正式错误态，不静默展示假榜单。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增默认大屏配置。
+  - 新增 `screen.getBoard` 正式读取入口。
+  - 店内总榜读取 `member_points`，按 `balance` 降序。
+  - 赏金猎人读取 `settlements`，按胜方积分变化聚合。
+  - 大屏配置读取 `admin_configs.config.screen`。
+  - 小程序内允许 `staff` / `owner` / `screen` 角色访问。
+  - 浏览器静态大屏保留 `screenToken` 校验路径。
+- 更新 `miniprogram/services/screen-service.js`：
+  - `getScreenBoard()` 改为云函数优先。
+  - DevTools 云环境不可用时保留本地视觉兜底。
+  - 正式环境云函数失败时返回错误，不展示本地样例榜单。
+- 更新 `miniprogram/pages/tv-ranking/`：
+  - 页面进入后异步读取大屏数据。
+  - 增加加载、失败、重试和空榜状态。
+  - 自动刷新仍保持 60 秒节奏。
+- 更新 `scripts/test-ops-services.js`，适配 `getScreenBoard()` 异步返回。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `screen.getBoard`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，明确小程序内大屏必须走 `screen.getBoard`。
+- 更新 `docs/api-service-layer-contract.md`，把 `screen-service` 数据源改为云函数优先。
+- 更新 `docs/cloud-database-schema.md` 和 `docs/cloud-init-runbook.md`，补充 `screen_tokens` token 索引。
+- 更新执行计划，新增 Stage 23。
+
+验证结果：
+
+- `git diff --check` 通过。
+- `node scripts\test-ops-services.js` 通过，输出 `Ops service fallback tests OK`。
+- `node scripts\check-service-layer-boundary.js` 通过，输出 `Service layer boundary check OK`。
+- `node scripts\check-production-copy.js` 通过，输出 `Production copy check OK (21 files checked)`。
+- `node scripts\check-player-flow-routes.js` 通过，输出 `Player flow route check OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `827.1 KB / 846943 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，`screen.getBoard` 还未在真实权限、集合和索引下验证。
+- `screen_tokens` 需要创建 `{ storeId: 1, token: 1, status: 1 }` 索引。
+- 赏金猎人当前实时扫描最近结算记录聚合，后续真实运营建议改为周期榜单快照。
+- `screen/yunhan-tv-ranking.html` 静态电视网页仍需要后续接 HTTP 化大屏接口和 token。
+
+审查归档：
+
+- `docs/reviews/phase-53-screen-board-cloud-entry-review.md`
+

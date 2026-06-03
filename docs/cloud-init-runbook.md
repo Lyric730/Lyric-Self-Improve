@@ -90,6 +90,9 @@ cloud.init({
 
 // admin_configs
 { storeId: 1 }
+
+// screen_tokens
+{ storeId: 1, token: 1, status: 1 }
 ```
 
 ## 6. 部署 `yunhanApi`

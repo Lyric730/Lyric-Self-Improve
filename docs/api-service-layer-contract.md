@@ -17,7 +17,7 @@
 | `miniprogram/services/match-service.js` | 比赛房间、玩法模板、开局参数、开赛计分、当前比赛、结算结果 | 云函数 + DevTools 本地兜底 | `/matches/:id`、`/matches/:id/config`、`/matches/:id/start`、`/matches/:id/score`、`/matches/:id/settle/*` |
 | `miniprogram/services/staff-service.js` | 员工球桌、到点时间、积分核销、异常作废 | 云函数 + DevTools 本地缓存兜底 | `/staff/tables`、`/staff/points/deduct`、`/staff/matches/:id/void` |
 | `miniprogram/services/admin-service.js` | 老板配置读取与保存 | 云函数 + 本地配置缓存 | `/admin/config/*` |
-| `miniprogram/services/screen-service.js` | 小程序大屏榜单数据 | `ladder-data.js` + 老板端大屏配置 | `/screen/ranking`、`/screen/bounty` |
+| `miniprogram/services/screen-service.js` | 小程序大屏榜单数据 | 云函数 + DevTools 本地兜底 | `/screen/ranking`、`/screen/bounty` |
 
 ## 3. 页面调用规则
 
@@ -79,7 +79,8 @@ callCloud(moduleName, action, payload)
 17. `match-result` 正式环境缺少 `matchId`、查不到结算单或云读取失败时，只能展示固定错误态和重试入口，不能渲染本地结算成功结果。
 18. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
 19. `my-data`、`rankings`、`points-perks` 已通过 `player-service` 优先调用 `player.getProfile`、`player.getRankings`、`player.getPointsPerks`；DevTools 云不可用时保留本地视觉兜底。
-20. 最后替换电视大屏和首页非比赛房间数据读取。
+20. `tv-ranking` 已通过 `screen-service` 优先调用 `screen.getBoard`；DevTools 云不可用时保留本地视觉兜底，正式环境必须读取云函数返回的店内总榜、赏金猎人和老板端大屏配置。
+21. 最后替换首页非比赛房间数据读取。
 
 注意：`admin-config-validator` 和 `member-profile` 当前在小程序端与云函数包内各保留一份。每次修改校验规则后必须运行 `node scripts/test-cloud-contracts.js`，确认前端和云函数口径一致。
 
@@ -121,8 +122,7 @@ callCloud(moduleName, action, payload)
 - `operation-log.js` 仅保留历史开发背景；运营端写操作已改为服务端 `operation_logs` 入口。
 - `match-service.js` 已新增 `createChallengeRoom`、`getWaitingRoomState`、`joinChallengeRoom`、`configureMatchSetup`、`previewSettlement`、`settleCurrentMatch`、`getSettlementResult`，分别对应开房、等待页读取、接受加入、开局参数写入、结算预览、确认写入和结果读取。
 - `match.settle` 已有云函数入口，但真实云环境尚未验证；上线前必须测试重复结算、余额不足、比赛不存在、最低时间不足、双方身份缺失。
-- `screen-service.js` 接入 `screenToken`。
-- `screen-service.js` 的榜单数据接真实排行榜集合。
+- `screen-service.js` 的浏览器静态大屏接入 HTTP 化 `screenToken`。
 - `member-service.js` 的会员资料保存已接云函数；真实云环境可用后要验证 `store_members` / `member_points` 写入。
 
 ## 7. 验收规则

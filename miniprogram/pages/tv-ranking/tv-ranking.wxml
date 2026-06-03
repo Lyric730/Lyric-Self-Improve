@@ -1,5 +1,16 @@
 <view wx:if="{{accessReady}}" class="tv-page">
-  <view class="tv-stage">
+  <view wx:if="{{loading}}" class="tv-state">
+    <text class="tv-state__title">读取大屏榜单</text>
+    <text class="tv-state__text">正在同步门店排行与赏金猎人数据</text>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="tv-state tv-state--error">
+    <text class="tv-state__title">大屏数据读取失败</text>
+    <text class="tv-state__text">{{errorText}}</text>
+    <button class="tv-state__button" bindtap="retryLoad">重新读取</button>
+  </view>
+
+  <view wx:else class="tv-stage">
     <view class="tv-header">
       <view>
         <text class="tv-eyebrow">YUNHAN BILLIARDS CLUB</text>
@@ -7,13 +18,16 @@
         <text class="tv-subtitle">第一赛季 · 天梯排行榜</text>
       </view>
       <view class="tv-activity">
-        <text>今晚活动</text>
-        <text>22:30 前完成挑战，随机奖励提升</text>
+        <text>{{screenConfig.activityTitle}}</text>
+        <text>{{screenConfig.activityText}}</text>
       </view>
     </view>
 
     <view class="tv-grid">
       <view class="tv-podium">
+        <view wx:if="{{topRowsEmpty}}" class="tv-empty">
+          <text>暂无前三名</text>
+        </view>
         <view wx:for="{{topRows}}" wx:key="id" class="tv-podium-card tv-podium-card--{{index}}">
           <text>#{{item.no}}</text>
           <text>{{item.name}}</text>
@@ -26,6 +40,9 @@
         <view class="tv-board__head">
           <text>{{screenConfig.storeBoard}}</text>
           <text>{{screenConfig.refreshText}}</text>
+        </view>
+        <view wx:if="{{rankingRowsEmpty}}" class="tv-empty">
+          <text>暂无榜单数据</text>
         </view>
         <view wx:for="{{rankingRows}}" wx:key="id" class="tv-row">
           <text>#{{item.no}}</text>
@@ -40,6 +57,9 @@
         <view class="tv-board__head">
           <text>{{screenConfig.bountyBoard}}</text>
           <text>本周期赢分榜</text>
+        </view>
+        <view wx:if="{{bountyRowsEmpty}}" class="tv-empty">
+          <text>暂无赏金数据</text>
         </view>
         <view wx:for="{{bountyRows}}" wx:key="id" class="tv-row">
           <text>#{{item.no}}</text>

@@ -17,6 +17,14 @@ const DEFAULT_POINTS_CONFIG = {
   exchangeThreshold: 1000
 };
 
+const DEFAULT_SCREEN_CONFIG = {
+  storeBoard: "店内总榜",
+  bountyBoard: "赏金猎人",
+  refreshText: "60 秒刷新",
+  activityTitle: "今晚活动",
+  activityText: "完成有效挑战，随机奖励提升"
+};
+
 function ok(data = {}) {
   return {
     ok: true,
@@ -1442,6 +1450,115 @@ async function getPlayerPointsPerksData(openid, storeId) {
   };
 }
 
+async function getStoreScreenConfig(storeId) {
+  const configResult = await db.collection("admin_configs")
+    .where({ storeId })
+    .limit(1)
+    .get();
+  const configDoc = configResult.data && configResult.data.length > 0 ? configResult.data[0] : null;
+  const screen = configDoc && configDoc.config && configDoc.config.screen ? configDoc.config.screen : {};
+
+  return {
+    ...DEFAULT_SCREEN_CONFIG,
+    ...screen
+  };
+}
+
+async function getBountyRows(storeId, limit = 10) {
+  const result = await db.collection("settlements")
+    .where({
+      storeId,
+      status: "settled"
+    })
+    .limit(120)
+    .get();
+  const totals = {};
+  const rows = result.data || [];
+
+  rows.forEach((settlement) => {
+    if (!Array.isArray(settlement.pointChanges)) {
+      return;
+    }
+
+    settlement.pointChanges.forEach((change) => {
+      const delta = Number(change.delta || 0);
+      const openid = change.openid || "";
+
+      if (!openid || change.result !== "win" || delta <= 0) {
+        return;
+      }
+
+      if (!totals[openid]) {
+        totals[openid] = {
+          openid,
+          points: 0,
+          wins: 0
+        };
+      }
+
+      totals[openid].points += delta;
+      totals[openid].wins += 1;
+    });
+  });
+
+  const sorted = Object.values(totals)
+    .sort((a, b) => b.points - a.points)
+    .slice(0, limit);
+  const bountyRows = [];
+
+  for (let index = 0; index < sorted.length; index += 1) {
+    const item = sorted[index];
+    const snapshot = await getMemberSnapshot(item.openid, storeId);
+
+    bountyRows.push({
+      id: item.openid,
+      openid: item.openid,
+      no: index + 1,
+      name: snapshot.name,
+      rank: snapshot.rankTitle,
+      points: item.points,
+      trend: `${item.wins} 场`
+    });
+  }
+
+  return bountyRows;
+}
+
+async function validateScreenToken(screenToken, storeId) {
+  if (!screenToken) {
+    return false;
+  }
+
+  const result = await db.collection("screen_tokens")
+    .where({
+      storeId,
+      token: screenToken,
+      status: "active"
+    })
+    .limit(1)
+    .get();
+
+  return Boolean(result.data && result.data.length > 0);
+}
+
+async function getScreenBoardData(storeId) {
+  const [screenConfig, rankingRows, bountyRows] = await Promise.all([
+    getStoreScreenConfig(storeId),
+    getRankingRows(storeId, 30),
+    getBountyRows(storeId, 12)
+  ]);
+
+  return {
+    match: {
+      clubName: "云瀚台球俱乐部"
+    },
+    screenConfig,
+    topRows: rankingRows.slice(0, 3),
+    rankingRows: rankingRows.slice(3, 15),
+    bountyRows
+  };
+}
+
 async function handlePlayer(event) {
   const wxContext = getWxContext();
   const storeId = getStoreId(event);
@@ -1828,14 +1945,26 @@ async function handleMember(event) {
 }
 
 async function handleScreen(event) {
-  if (!event.screenToken) {
-    return fail("缺少大屏访问凭证", "SCREEN_TOKEN_REQUIRED");
+  const payload = event.payload || {};
+  const wxContext = getWxContext();
+  const storeId = getStoreId(event);
+  const screenToken = payload.screenToken || event.screenToken || "";
+
+  if (event.action !== "getBoard") {
+    return fail("暂不支持该大屏操作", "UNKNOWN_SCREEN_ACTION");
   }
 
-  return ok({
-    rankingRows: [],
-    bountyRows: []
-  });
+  if (screenToken) {
+    const tokenValid = await validateScreenToken(screenToken, storeId);
+
+    if (!tokenValid) {
+      return fail("大屏访问凭证无效", "SCREEN_TOKEN_INVALID");
+    }
+  } else {
+    await assertRole(wxContext, ["staff", "owner", "screen"], storeId);
+  }
+
+  return ok(await getScreenBoardData(storeId));
 }
 
 exports.main = async (event = {}) => {

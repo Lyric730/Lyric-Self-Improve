@@ -198,7 +198,29 @@
 { storeId: 1 }
 ```
 
-## 9. 服务端权限规则
+## 9. `screen_tokens`
+
+用于电视浏览器访问大屏网页时校验凭证。小程序内大屏可以通过 `store_members.role = screen / staff / owner` 访问；浏览器静态网页不能依赖微信登录，必须走 token。
+
+字段：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `_id` | string | 是 | 云数据库自动生成 |
+| `storeId` | string | 是 | 门店 ID |
+| `token` | string | 是 | 大屏访问凭证 |
+| `status` | string | 是 | `active` / `disabled` |
+| `label` | string | 否 | 电视或门店备注 |
+| `createdAt` | date | 是 | 创建时间 |
+| `updatedAt` | date | 是 | 更新时间 |
+
+建议索引：
+
+```js
+{ storeId: 1, token: 1, status: 1 }
+```
+
+## 10. 服务端权限规则
 
 云函数必须按以下顺序判断：
 

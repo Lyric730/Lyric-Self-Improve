@@ -2,16 +2,27 @@ const { requireRole } = require("../../utils/access-control");
 const { ensureOk } = require("../../services/api-client");
 const { getScreenBoard } = require("../../services/screen-service");
 
-const initialBoard = ensureOk(getScreenBoard());
-
 Page({
   data: {
     accessReady: false,
-    match: initialBoard.match,
-    screenConfig: initialBoard.screenConfig,
-    topRows: initialBoard.topRows,
-    rankingRows: initialBoard.rankingRows,
-    bountyRows: initialBoard.bountyRows
+    loading: true,
+    errorText: "",
+    match: {
+      clubName: "云瀚台球俱乐部"
+    },
+    screenConfig: {
+      storeBoard: "店内总榜",
+      bountyBoard: "赏金猎人",
+      refreshText: "60 秒刷新",
+      activityTitle: "今晚活动",
+      activityText: "完成有效挑战，随机奖励提升"
+    },
+    topRows: [],
+    rankingRows: [],
+    bountyRows: [],
+    topRowsEmpty: true,
+    rankingRowsEmpty: true,
+    bountyRowsEmpty: true
   },
 
   onLoad() {
@@ -27,16 +38,9 @@ Page({
     }
 
     this.clearRefreshTimer();
+    this.loadBoard();
     this.refreshTimer = setInterval(() => {
-      const board = ensureOk(getScreenBoard());
-
-      this.setData({
-        match: board.match,
-        screenConfig: board.screenConfig,
-        topRows: board.topRows,
-        rankingRows: board.rankingRows,
-        bountyRows: board.bountyRows
-      });
+      this.loadBoard({ silent: true });
     }, 60000);
   },
 
@@ -46,6 +50,44 @@ Page({
 
   onUnload() {
     this.clearRefreshTimer();
+  },
+
+  async loadBoard(options = {}) {
+    if (!options.silent) {
+      this.setData({
+        loading: true,
+        errorText: ""
+      });
+    }
+
+    try {
+      const board = ensureOk(await getScreenBoard());
+      const topRows = board.topRows || [];
+      const rankingRows = board.rankingRows || [];
+      const bountyRows = board.bountyRows || [];
+
+      this.setData({
+        match: board.match,
+        screenConfig: board.screenConfig,
+        topRows,
+        rankingRows,
+        bountyRows,
+        topRowsEmpty: topRows.length === 0,
+        rankingRowsEmpty: rankingRows.length === 0,
+        bountyRowsEmpty: bountyRows.length === 0,
+        loading: false,
+        errorText: ""
+      });
+    } catch (error) {
+      this.setData({
+        loading: false,
+        errorText: error.message || "大屏数据读取失败，请稍后重试"
+      });
+    }
+  },
+
+  retryLoad() {
+    this.loadBoard();
   },
 
   clearRefreshTimer() {

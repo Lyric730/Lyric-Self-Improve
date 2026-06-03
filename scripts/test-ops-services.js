@@ -37,7 +37,7 @@ async function main() {
   assert.strictEqual(savedConfig.points.tableOpenBonus, 45);
   assert.strictEqual(savedConfig.screen.storeBoard, "门店天梯榜");
 
-  const screenBoard = ensureOk(getScreenBoard());
+  const screenBoard = ensureOk(await getScreenBoard());
   assert.strictEqual(screenBoard.screenConfig.storeBoard, "门店天梯榜");
 
   const deskData = ensureOk(getStaffDeskData());

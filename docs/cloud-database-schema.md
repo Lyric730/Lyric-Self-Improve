@@ -175,6 +175,7 @@
 
 ```js
 { storeId: 1, tableId: 1, status: 1 }
+{ storeId: 1, status: 1 }
 ```
 
 ## 8. `admin_configs`

@@ -2602,3 +2602,52 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-53-screen-board-cloud-entry-review.md`
 
+## 2026-06-03 Phase 54 挑战首页开局检查服务化
+
+本轮目的：首页不能继续用本地固定 `challengeGate` 判断能否发起挑战。正式链路需要读取当前会员身份和员工端写入的球桌到点时间；没有可用球桌时给顾客正式不可用状态。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `player.getChallengeHome`。
+  - 返回当前会员昵称、积分、段位。
+  - 读取 `table_sessions` 中 active 球桌到点时间，作为第一版简单开台门槛。
+  - 没有 active 球桌时返回不可用开局状态。
+- 更新 `miniprogram/services/player-service.js`：
+  - `getChallengeHome()` 改为云函数优先。
+  - DevTools 云环境不可用时保留本地视觉兜底。
+  - 正式环境云函数失败时返回错误。
+- 更新 `miniprogram/pages/challenge-home/`：
+  - 页面进入后异步读取首页开局状态。
+  - 增加加载、失败和重试状态。
+  - 加载成功后再执行 `evaluateChallengeGate()`。
+  - 预留 `tableId/tableNo` query 参数，后续可接球桌二维码。
+
+文档变更：
+
+- 更新 `cloudfunctions/README.md`，补充 `player.getChallengeHome`。
+- 更新 `docs/cloud-function-cutover-checklist.md`，加入挑战首页开局检查必测项。
+- 更新 `docs/api-service-layer-contract.md`，明确挑战首页读取服务边界。
+- 更新 `docs/cloud-database-schema.md` 和 `docs/cloud-init-runbook.md`，补充 `table_sessions` active status 查询索引。
+- 更新执行计划，新增 Stage 24。
+
+验证结果：
+
+- `git diff --check` 通过。
+- `node scripts\test-cloud-contracts.js` 通过，输出 `Cloud contract tests OK`。
+- `node scripts\check-service-layer-boundary.js` 通过，输出 `Service layer boundary check OK`。
+- `node scripts\check-production-copy.js` 通过，输出 `Production copy check OK (21 files checked)`。
+- `node scripts\check-player-flow-routes.js` 通过，输出 `Player flow route check OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `831.1 KB / 851002 bytes`。
+
+残余风险：
+
+- 真实云环境尚未创建，`player.getChallengeHome` 还未在真实集合、权限和索引下验证。
+- 地理位置 100 米校验尚未接真机授权和云端校验，本阶段没有假装实现定位。
+- 球桌二维码生成链路尚未接入；页面已预留 `tableId/tableNo` 参数读取路径。
+
+审查归档：
+
+- `docs/reviews/phase-54-challenge-home-cloud-entry-review.md`
+

@@ -87,6 +87,7 @@ cloud.init({
 
 // table_sessions
 { storeId: 1, tableId: 1, status: 1 }
+{ storeId: 1, status: 1 }
 
 // admin_configs
 { storeId: 1 }

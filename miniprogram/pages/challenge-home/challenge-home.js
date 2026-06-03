@@ -2,20 +2,72 @@ const { ensureOk } = require("../../services/api-client");
 const { createChallengeRoom } = require("../../services/match-service");
 const { getChallengeHome } = require("../../services/player-service");
 
-const initialHome = ensureOk(getChallengeHome());
+const DEFAULT_TABLE_SESSION = {
+  clubName: "云瀚台球俱乐部",
+  tableNo: "读取中",
+  dueTime: "--:--",
+  openedAt: "读取中"
+};
 
 Page({
   data: {
-    match: initialHome.match,
-    challengeGate: initialHome.challengeGate,
+    match: {
+      playerA: {
+        shortName: "我",
+        name: "当前会员",
+        rankTitle: "当前段位",
+        points: 0
+      }
+    },
+    challengeGate: {
+      tableSession: DEFAULT_TABLE_SESSION,
+      requiredChecks: [],
+      unavailableMessage: ""
+    },
+    loading: true,
+    errorText: "",
     canStartChallenge: false,
     gateMessage: "",
-    playableStatusText: "排位可用",
+    playableStatusText: "读取中",
     startingChallenge: false
   },
 
-  onLoad() {
-    this.evaluateChallengeGate();
+  onLoad(options = {}) {
+    this.routeOptions = {
+      tableId: options.tableId || options.tableNo || "",
+      tableNo: options.tableNo || options.tableId || ""
+    };
+    this.loadHome();
+  },
+
+  async loadHome() {
+    this.setData({
+      loading: true,
+      errorText: "",
+      canStartChallenge: false,
+      playableStatusText: "读取中"
+    });
+
+    try {
+      const home = ensureOk(await getChallengeHome(this.routeOptions || {}));
+
+      this.setData({
+        match: home.match,
+        challengeGate: home.challengeGate,
+        loading: false
+      });
+      this.evaluateChallengeGate();
+    } catch (error) {
+      this.setData({
+        loading: false,
+        errorText: error.message || "开局状态读取失败，请稍后重试",
+        playableStatusText: "暂不可用"
+      });
+    }
+  },
+
+  retryLoad() {
+    this.loadHome();
   },
 
   evaluateChallengeGate() {

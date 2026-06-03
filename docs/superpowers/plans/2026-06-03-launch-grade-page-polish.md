@@ -475,6 +475,28 @@ Use DevTools preview and manually test:
 - [x] Document `screen_tokens` token index.
 - [x] Keep formal UI copy only; no mock/demo/internal wording in pages.
 
+## Stage 24: 挑战首页开局检查服务化
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Modify: `miniprogram/services/player-service.js`
+- Modify: `miniprogram/pages/challenge-home/challenge-home.js`
+- Modify: `miniprogram/pages/challenge-home/challenge-home.wxml`
+- Modify: `docs/api-service-layer-contract.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Modify: `docs/cloud-database-schema.md`
+- Modify: `docs/cloud-init-runbook.md`
+- Create: `docs/reviews/phase-54-challenge-home-cloud-entry-review.md`
+
+- [x] Add cloud action `player.getChallengeHome`.
+- [x] `player.getChallengeHome` returns current member identity, points, and rank.
+- [x] `player.getChallengeHome` reads active `table_sessions` as the simple open-table gate.
+- [x] If no active table due time exists, challenge home shows a formal unavailable state.
+- [x] Make `player-service.getChallengeHome()` cloud-first with DevTools local fallback.
+- [x] Make `challenge-home` load asynchronously with loading and retryable error states.
+- [x] Document `table_sessions` active status index.
+- [x] Keep formal UI copy only; no mock/demo/internal wording in pages.
+
 ## Standard Verification
 
 Run after each stage:

@@ -1450,6 +1450,64 @@ async function getPlayerPointsPerksData(openid, storeId) {
   };
 }
 
+async function getActiveTableSession(storeId, tableId = "") {
+  const query = {
+    storeId,
+    status: "active"
+  };
+
+  if (tableId) {
+    query.tableId = tableId;
+  }
+
+  const result = await db.collection("table_sessions")
+    .where(query)
+    .limit(1)
+    .get();
+
+  return result.data && result.data.length > 0 ? result.data[0] : null;
+}
+
+async function getChallengeHomeData(openid, storeId, payload = {}) {
+  const player = await getPlayerIdentity(openid, storeId);
+  const tableSession = await getActiveTableSession(storeId, payload.tableId || payload.tableNo || "");
+  const tableReady = Boolean(tableSession && tableSession.dueTime);
+  const tableNo = tableSession ? tableSession.tableId : payload.tableNo || "未开台";
+  const dueTime = tableSession && tableSession.dueTime ? tableSession.dueTime : "--:--";
+
+  return {
+    match: {
+      clubName: "云瀚台球俱乐部",
+      tableNo,
+      dueTime,
+      playerA: player
+    },
+    challengeGate: {
+      tableSession: {
+        tableNo,
+        clubName: "云瀚台球俱乐部",
+        dueTime,
+        openedAt: tableReady ? "已开台" : "联系前台",
+        remainingText: tableReady ? `到点 ${dueTime}` : "请先开台",
+        statusText: tableReady ? "排位可用" : "暂不可用"
+      },
+      requiredChecks: [
+        {
+          key: "auth",
+          ready: Boolean(openid),
+          userMessage: "请先登录后再发起挑战"
+        },
+        {
+          key: "tableSession",
+          ready: tableReady,
+          userMessage: "请先联系前台设置球桌到点时间"
+        }
+      ],
+      unavailableMessage: "请先在前台完成开台后再发起挑战"
+    }
+  };
+}
+
 async function getStoreScreenConfig(storeId) {
   const configResult = await db.collection("admin_configs")
     .where({ storeId })
@@ -1564,6 +1622,10 @@ async function handlePlayer(event) {
   const storeId = getStoreId(event);
 
   await assertRole(wxContext, ["player", "staff", "owner"], storeId);
+
+  if (event.action === "getChallengeHome") {
+    return ok(await getChallengeHomeData(wxContext.OPENID, storeId, event.payload || {}));
+  }
 
   if (event.action === "getProfile") {
     return ok(await getPlayerProfileData(wxContext.OPENID, storeId));

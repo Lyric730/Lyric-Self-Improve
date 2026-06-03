@@ -9,7 +9,18 @@
     </view>
   </view>
 
-  <view class="flow-stack">
+  <view wx:if="{{loading}}" class="flow-state">
+    <text class="flow-state__title">读取开局状态</text>
+    <text class="flow-state__text">正在确认会员身份和球桌到点时间</text>
+  </view>
+
+  <view wx:elif="{{errorText}}" class="flow-state flow-state--error">
+    <text class="flow-state__title">开局状态读取失败</text>
+    <text class="flow-state__text">{{errorText}}</text>
+    <yh-button text="重新读取" variant="secondary" block bind:tap="retryLoad" />
+  </view>
+
+  <view wx:else class="flow-stack">
     <view class="home-entry {{canStartChallenge ? 'is-ready' : 'is-locked'}}">
       <view class="home-entry__topline">
         <text>RANKED MATCH</text>

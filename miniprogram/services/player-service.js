@@ -12,7 +12,7 @@ const {
 } = require("../utils/ladder-data");
 const { isDevtoolsPreview } = require("../utils/dev-preview");
 
-function getChallengeHome() {
+function getLocalChallengeHome() {
   return success({
     match,
     challengeGate
@@ -61,6 +61,24 @@ async function getPlayerProfile() {
   }
 
   return getLocalPlayerProfile();
+}
+
+async function getChallengeHome(params = {}) {
+  try {
+    const result = ensureOk(await callCloud("player", "getChallengeHome", {
+      tableId: params.tableId || "",
+      tableNo: params.tableNo || "",
+      storeId: params.storeId || "default"
+    }));
+
+    return success(result);
+  } catch (error) {
+    if (!isDevtoolsPreview()) {
+      throw error;
+    }
+  }
+
+  return getLocalChallengeHome();
 }
 
 async function getRankingTabs() {

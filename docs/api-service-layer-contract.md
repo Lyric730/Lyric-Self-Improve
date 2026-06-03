@@ -63,7 +63,7 @@ callCloud(moduleName, action, payload)
 1. `staff-service` 的写操作已替换为 `callCloud("staff", action, payload)`。
 2. `admin-service` 的保存配置已替换为 `callCloud("admin", action, payload)`。
 3. `admin-service` 保存配置前已通过 `miniprogram/utils/admin-config-validator.js` 校验门店参数，云函数 `admin.saveConfig` 也已通过 `cloudfunctions/yunhanApi/admin-config-validator.js` 复用同一口径。
-4. `challenge-home` 点击发起挑战时会调用 `match-service.createChallengeRoom()`，优先调用 `callCloud("match", "createRoom", payload)`，创建真实 `matches` 房间。
+4. `challenge-home` 进入页面时会调用 `player-service.getChallengeHome()`，优先调用 `player.getChallengeHome` 读取当前会员和球桌开局检查；点击发起挑战时会调用 `match-service.createChallengeRoom()`，优先调用 `callCloud("match", "createRoom", payload)`，创建真实 `matches` 房间。
 5. `waiting-room` 会调用 `match-service.getWaitingRoomState()`，优先调用 `callCloud("match", "get", { matchId })` 读取房间状态。
 6. `accept-challenge` 会调用 `match-service.getWaitingRoomState()` 读取邀请房间，并通过 `match-service.joinChallengeRoom()` 调用 `callCloud("match", "joinRoom", { matchId })` 加入房间。
 7. `match-confirm` 点击开始比赛时会调用 `match-service.configureMatchSetup()`，优先调用 `callCloud("match", "configure", payload)`，把玩法、底分、倍率和风险积分写回 `matches`。
@@ -80,7 +80,7 @@ callCloud(moduleName, action, payload)
 18. `member-service.saveMemberProfile` 已改为优先调用 `callCloud("member", "saveProfile", payload)`，云函数只允许保存昵称、手机号、备注、头像地址，不允许保存段位和积分；DevTools 无云环境时才使用本地缓存兜底。
 19. `my-data`、`rankings`、`points-perks` 已通过 `player-service` 优先调用 `player.getProfile`、`player.getRankings`、`player.getPointsPerks`；DevTools 云不可用时保留本地视觉兜底。
 20. `tv-ranking` 已通过 `screen-service` 优先调用 `screen.getBoard`；DevTools 云不可用时保留本地视觉兜底，正式环境必须读取云函数返回的店内总榜、赏金猎人和老板端大屏配置。
-21. 最后替换首页非比赛房间数据读取。
+21. `challenge-home` 已通过 `player-service` 优先调用 `player.getChallengeHome` 读取会员身份和球桌到点时间；DevTools 云不可用时保留本地视觉兜底。
 
 注意：`admin-config-validator` 和 `member-profile` 当前在小程序端与云函数包内各保留一份。每次修改校验规则后必须运行 `node scripts/test-cloud-contracts.js`，确认前端和云函数口径一致。
 

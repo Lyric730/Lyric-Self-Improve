@@ -1719,3 +1719,36 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 
 - `docs/reviews/phase-33-waiting-accept-launch-polish-review.md`
 
+## 2026-06-03 Phase 34 玩法、底分倍率、开局确认上线化
+
+本轮目的：继续执行上线级逐页计划，把 `玩法选择 -> 底分倍率 -> 开局确认` 三页补齐为真实开局参数链，重点突出风险积分和随机奖励机制。
+
+代码变更：
+
+- 更新 `miniprogram/pages/points-select/points-select.wxml`：
+  - 在“本场风险积分”模块中展示普通随机奖励和续时冲刺奖励。
+- 更新 `miniprogram/pages/points-select/points-select.wxss`：
+  - 风险积分公式改为固定网格，避免窄屏挤压。
+  - 新增随机奖励预览卡片样式。
+- 更新 `miniprogram/pages/match-confirm/match-confirm.wxml`：
+  - 开局确认页补充发起方和挑战方信息。
+- 更新 `miniprogram/pages/match-confirm/match-confirm.wxss`：
+  - 补充三项参数指标的固定网格样式。
+
+验证结果：
+
+- `node --check miniprogram\pages\mode-select\mode-select.js` 通过。
+- `node --check miniprogram\pages\points-select\points-select.js` 通过。
+- `node --check miniprogram\pages\match-confirm\match-confirm.js` 通过。
+- 全量 `miniprogram` JS `node --check` 通过。
+- `node scripts\check-json-files.js` 通过，共 35 个 JSON 文件。
+- `node scripts\check-production-copy.js` 通过，共 21 个正式页面文件。
+- `node scripts\check-player-flow-routes.js` 通过。
+- `powershell -ExecutionPolicy Bypass -File scripts\check-ui-kit-asset-edges.ps1 -RequireAssets` 通过，共 32 个 PNG 资产。
+- `git diff --check` 通过，仅有既有 CRLF 提示，无阻断错误。
+- 微信开发者工具 CLI preview 通过，当前端口 `30812`，AppID `wxe30b469d64636a2b`，包体 `739.6 KB` / `757339` bytes。
+
+审查归档：
+
+- `docs/reviews/phase-34-mode-risk-confirm-launch-polish-review.md`
+

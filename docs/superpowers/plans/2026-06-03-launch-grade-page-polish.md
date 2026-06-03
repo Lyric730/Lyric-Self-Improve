@@ -123,10 +123,10 @@ Use DevTools preview and manually test:
 - Modify: `miniprogram/pages/match-confirm/`
 - Create: `docs/reviews/phase-34-mode-risk-confirm-launch-polish-review.md`
 
-- [ ] Mode selection passes `modeId`.
-- [ ] Points selection passes `base`, `multiplier`, `risk`.
-- [ ] Confirm page prominently shows normal random reward and rush reward.
-- [ ] Component sizes must fit current page width.
+- [x] Mode selection passes `modeId`.
+- [x] Points selection passes `base`, `multiplier`, `risk`.
+- [x] Confirm page prominently shows normal random reward and rush reward.
+- [x] Component sizes must fit current page width.
 
 ## Stage 5: 计分、时间不足、结算链路上线化
 

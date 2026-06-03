@@ -6,6 +6,21 @@
   </view>
 
   <view class="flow-stack">
+    <view class="player-strip">
+      <view class="player-card">
+        <text class="avatar-token">{{match.playerA.shortName}}</text>
+        <text class="player-card__name">{{match.playerA.name}}</text>
+        <text class="player-card__meta">发起方</text>
+        <text class="player-card__rank">{{match.playerA.rankTitle}}</text>
+      </view>
+      <view class="player-card">
+        <text class="avatar-token avatar-token--blue">{{match.playerB.shortName}}</text>
+        <text class="player-card__name">{{match.playerB.name}}</text>
+        <text class="player-card__meta">挑战方</text>
+        <text class="player-card__rank">{{match.playerB.rankTitle}}</text>
+      </view>
+    </view>
+
     <yh-panel title="本场参数" subtitle="{{setup.mode.name}} · 底分 {{setup.selectedBase}} · x{{setup.selectedMultiplier}}" marker="MATCH" tone="orange" raised>
       <view class="metric-grid">
         <view class="metric-card">

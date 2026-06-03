@@ -1,1 +1,34 @@
 @import "../../styles/player-flow.wxss";
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12rpx;
+}
+
+.metric-card {
+  min-width: 0;
+  padding: 22rpx 12rpx;
+  text-align: center;
+}
+
+.metric-card text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metric-card text:first-child {
+  color: var(--yh-color-text-muted);
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.metric-card text:last-child {
+  margin-top: 10rpx;
+  color: var(--yh-color-gold-bright);
+  font-family: var(--yh-font-number);
+  font-size: 34rpx;
+  font-weight: 900;
+}

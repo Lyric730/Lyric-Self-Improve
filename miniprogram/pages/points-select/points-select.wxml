@@ -46,6 +46,16 @@
         <text>=</text>
         <text>{{riskPoints}} 分</text>
       </view>
+      <view class="reward-preview">
+        <view>
+          <text>普通随机奖励</text>
+          <text>{{mode.normalReward}} 分</text>
+        </view>
+        <view>
+          <text>续时冲刺奖励</text>
+          <text>{{mode.sprintReward}} 分</text>
+        </view>
+      </view>
     </yh-panel>
 
     <view class="flow-actions">

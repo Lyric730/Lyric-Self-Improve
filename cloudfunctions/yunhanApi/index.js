@@ -83,6 +83,14 @@ async function getExistingOwner(storeId) {
   return result.data && result.data.length > 0 ? result.data[0] : null;
 }
 
+async function getOwnerReady(storeId) {
+  try {
+    return Boolean(await getExistingOwner(storeId));
+  } catch (error) {
+    return false;
+  }
+}
+
 function roleAllowed(role, allowedRoles) {
   if (role === "owner") {
     return true;
@@ -116,7 +124,13 @@ async function handleBootstrapOwner(event, wxContext) {
     return fail("初始化密钥不正确", "BOOTSTRAP_SECRET_INVALID");
   }
 
-  const existingOwner = await getExistingOwner(storeId);
+  let existingOwner = null;
+
+  try {
+    existingOwner = await getExistingOwner(storeId);
+  } catch (error) {
+    return fail("请先创建 store_members 集合后再初始化老板账号", "STORE_MEMBERS_COLLECTION_REQUIRED");
+  }
 
   if (existingOwner) {
     return fail("当前门店已存在老板账号", "OWNER_ALREADY_EXISTS");
@@ -1689,12 +1703,14 @@ async function handleAuth(event) {
 
   const storeId = getStoreId(event);
   const role = await getMemberRole(wxContext.OPENID, storeId);
+  const ownerReady = await getOwnerReady(storeId);
 
   return ok({
     openid: wxContext.OPENID,
     unionid: wxContext.UNIONID || "",
     appid: wxContext.APPID,
     role,
+    ownerReady,
     storeId
   });
 }

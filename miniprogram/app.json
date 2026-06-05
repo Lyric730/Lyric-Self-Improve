@@ -16,6 +16,7 @@
     "pages/points-perks/points-perks",
     "pages/member-code/member-code",
     "pages/my-hub/my-hub",
+    "pages/setup-owner/setup-owner",
     "pages/staff-desk/staff-desk",
     "pages/boss-config/boss-config",
     "pages/tv-ranking/tv-ranking"

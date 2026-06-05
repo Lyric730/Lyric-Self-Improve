@@ -127,6 +127,13 @@
           </view>
           <text>进入</text>
         </view>
+        <view wx:if="{{authInfo.ownerReady === false}}" bindtap="goSetupOwner">
+          <view>
+            <text>门店初始化</text>
+            <text>绑定首个老板账号</text>
+          </view>
+          <text>进入</text>
+        </view>
       </view>
     </yh-panel>
   </view>

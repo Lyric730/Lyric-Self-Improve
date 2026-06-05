@@ -10,7 +10,7 @@
 
 `cloudfunctions/yunhanApi` 是第一版统一云函数入口：
 
-- `auth`：读取微信 OpenID。
+- `auth`：读取微信 OpenID、当前角色和门店是否已有 owner。
 - `auth.bootstrapOwner`：使用云函数环境变量完成首个 owner 初始化，仅允许无 owner 门店执行一次。
 - `player`：处理球友端只读数据；`getChallengeHome` 返回首页会员身份和球桌开局检查；`getProfile` 返回会员积分、段位和赛季表现；`getRankings` 返回店内总榜、同段位榜和好友榜占位；`getPointsPerks` 返回积分礼遇和兑换门槛。
 - `match`：处理比赛房间、玩法配置、比赛查询、开赛计分和服务端结算；`getModes` 读取老板端玩法配置；`getSetup` 读取所选玩法的底分、倍率和随机奖励；`createRoom` 创建等待房间；`joinRoom` 写入挑战方并把房间状态改为 `joined`；`configure` 写入玩法、底分、倍率和风险积分；`start` 把房间状态改为 `playing` 并写入服务端开赛时间；`recordScore` 写入双方盘数和 `match_score_events`；`get` 读取房间状态；`previewSettlement` 只计算结算预览、不写库；`settle` 会计算积分、随机奖励、段位变化，写入 `settlements`、`points_ledger`、`member_points` 和 `matches.status`；`getSettlement` 读取已结算记录。

@@ -3,6 +3,7 @@ const {
   getMemberProfile,
   saveMemberProfile
 } = require("../../services/member-service");
+const { getAuthInfo } = require("../../services/auth-service");
 const { isDevtoolsPreview, setPreviewRole } = require("../../utils/dev-preview");
 const { buildProfileDraft } = require("../../utils/member-profile");
 
@@ -22,7 +23,32 @@ Page({
     profileDraftInitial: getInitial(memberProfile.name),
     editingProfile: false,
     savingProfile: false,
+    authInfo: {
+      ownerReady: true,
+      role: "player"
+    },
     devtoolsPreview: isDevtoolsPreview()
+  },
+
+  onShow() {
+    this.loadAuthInfo();
+  },
+
+  async loadAuthInfo() {
+    try {
+      const authInfo = ensureOk(await getAuthInfo());
+
+      this.setData({
+        authInfo
+      });
+    } catch (error) {
+      this.setData({
+        authInfo: {
+          ownerReady: true,
+          role: "player"
+        }
+      });
+    }
   },
 
   startEditProfile() {
@@ -108,6 +134,10 @@ Page({
 
   goMemberCode() {
     wx.navigateTo({ url: "/pages/member-code/member-code" });
+  },
+
+  goSetupOwner() {
+    wx.navigateTo({ url: "/pages/setup-owner/setup-owner" });
   },
 
   openRolePage(event) {

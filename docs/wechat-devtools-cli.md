@@ -93,6 +93,14 @@ HTTP 服务地址：http://127.0.0.1:30812
 & 'F:\微信web开发者工具\cli.bat' cloud functions --help
 ```
 
+当前 `cloud` 子命令只暴露 `env` 和 `functions`。它可以检查云环境、部署云函数、读取云函数状态；没有直接创建云数据库集合、创建索引或调用云函数的命令。
+
+因此：
+
+- 集合和索引仍需要在微信开发者工具“云开发”面板创建。
+- 首个 owner 初始化优先使用小程序 `/pages/setup-owner/setup-owner` 页面。
+- CLI 继续负责云函数部署、函数状态确认和预览构建。
+
 只读检查：
 
 ```powershell

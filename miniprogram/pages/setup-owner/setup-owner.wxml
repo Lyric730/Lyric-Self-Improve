@@ -1,0 +1,56 @@
+<view class="flow-page setup-owner-page">
+  <view class="flow-hero flow-hero--compact">
+    <text class="flow-hero__eyebrow">STORE SETUP</text>
+    <text class="flow-hero__title">门店初始化</text>
+    <text class="flow-hero__subtitle">仅用于首个老板账号绑定</text>
+  </view>
+
+  <view class="flow-stack">
+    <yh-panel title="当前身份" subtitle="云端返回的微信身份和门店状态" marker="AUTH" tone="gold">
+      <view class="setup-status">
+        <view>
+          <text>OpenID</text>
+          <text>{{authInfo.openid || (loading ? '读取中' : '未读取')}}</text>
+        </view>
+        <view>
+          <text>当前角色</text>
+          <text>{{authInfo.role || (loading ? '读取中' : '未知')}}</text>
+        </view>
+        <view>
+          <text>老板账号</text>
+          <text>{{authInfo.ownerReady ? '已初始化' : '未初始化'}}</text>
+        </view>
+      </view>
+      <yh-button text="刷新状态" variant="secondary" block loading="{{loading}}" bind:tap="loadAuthInfo" />
+    </yh-panel>
+
+    <yh-panel title="初始化老板账号" subtitle="输入云函数环境变量中的一次性密钥" marker="OWNER" tone="orange" raised>
+      <view class="setup-form">
+        <view class="setup-field">
+          <text>门店 ID</text>
+          <input value="{{storeId}}" data-field="storeId" disabled placeholder="default" />
+        </view>
+        <view class="setup-field">
+          <text>老板昵称</text>
+          <input value="{{nickname}}" data-field="nickname" maxlength="12" placeholder="请输入老板昵称" bindinput="handleInput" />
+        </view>
+        <view class="setup-field">
+          <text>初始化密钥</text>
+          <input value="{{bootstrapSecret}}" data-field="bootstrapSecret" password placeholder="输入 BOOTSTRAP_OWNER_SECRET" bindinput="handleInput" disabled="{{authInfo.ownerReady}}" />
+        </view>
+      </view>
+
+      <view wx:if="{{errorText}}" class="setup-message setup-message--error">{{errorText}}</view>
+      <view wx:elif="{{resultText}}" class="setup-message setup-message--success">{{resultText}}</view>
+
+      <yh-button
+        text="{{authInfo.ownerReady ? '老板账号已绑定' : '初始化老板账号'}}"
+        variant="primary"
+        block
+        loading="{{submitting}}"
+        disabled="{{authInfo.ownerReady || loading}}"
+        bind:tap="submitBootstrap"
+      />
+    </yh-panel>
+  </view>
+</view>

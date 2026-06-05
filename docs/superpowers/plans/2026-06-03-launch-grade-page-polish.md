@@ -536,6 +536,26 @@ Use DevTools preview and manually test:
 - [x] Document deployment command and function status.
 - [x] Keep database collection/index/owner initialization as explicit next-step verification because it was not proven by deployment alone.
 
+## Stage 27: 首个老板账号初始化入口
+**Files:**
+- Modify: `cloudfunctions/yunhanApi/index.js`
+- Modify: `cloudfunctions/README.md`
+- Create: `miniprogram/services/auth-service.js`
+- Create: `miniprogram/pages/setup-owner/`
+- Modify: `miniprogram/app.json`
+- Modify: `miniprogram/pages/my-hub/`
+- Modify: `docs/cloud-init-runbook.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Create: `docs/reviews/phase-57-owner-bootstrap-entry-review.md`
+
+- [x] `auth.whoami` returns current OpenID, role, store ID, and `ownerReady`.
+- [x] `auth.bootstrapOwner` returns a clear error when `store_members` collection is missing.
+- [x] Add `auth-service` for `whoami` and `bootstrapOwner`.
+- [x] Add a formal setup page for first owner initialization with secret input.
+- [x] Show the setup entry from My page only when `ownerReady === false`.
+- [x] Keep the setup entry out of player challenge, ranking, and points flows.
+- [x] Document that WeChat DevTools CLI can deploy functions but cannot create database collections or call functions directly.
+
 ## Standard Verification
 
 Run after each stage:

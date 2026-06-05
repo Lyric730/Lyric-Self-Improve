@@ -155,9 +155,11 @@ BOOTSTRAP_OWNER_SECRET=一串只用于初始化的长随机字符串
 - 不写入公开文档。
 - owner 初始化完成后，可以删除这个环境变量。
 
-## 8. 获取当前微信 OpenID
+## 8. 获取当前微信 OpenID 和 owner 状态
 
-在小程序调试器 Console 执行：
+推荐方式：打开小程序页面 `/pages/setup-owner/setup-owner`，页面会自动读取当前 OpenID、角色和 `ownerReady`。
+
+兜底方式：在小程序调试器 Console 执行：
 
 ```js
 wx.cloud.callFunction({
@@ -177,13 +179,16 @@ wx.cloud.callFunction({
 ```json
 {
   "role": "player",
+  "ownerReady": false,
   "storeId": "default"
 }
 ```
 
 ## 9. 初始化首个 owner
 
-在小程序调试器 Console 执行一次：
+推荐方式：打开 `/pages/setup-owner/setup-owner`，输入 `BOOTSTRAP_OWNER_SECRET`，点击“初始化老板账号”。
+
+兜底方式：在小程序调试器 Console 执行一次：
 
 ```js
 wx.cloud.callFunction({
@@ -227,7 +232,8 @@ wx.cloud.callFunction({
 注意：
 
 - 同一个门店已有 `active owner` 后，再执行会返回 `OWNER_ALREADY_EXISTS`。
-- 这不是顾客端功能，不能做成页面按钮。
+- 这不是顾客端主流程功能；页面入口只用于门店上线初始化，不能放进挑战、排行榜、积分等球友流程。
+- 初始化密钥只能在云函数环境变量和人工输入中出现，不能写进前端代码。
 - 如果 `operationLogged` 为 `false`，说明 `operation_logs` 集合或写入权限需要补查，但 owner 记录已经写入。
 
 ## 10. 验证权限链路
@@ -290,11 +296,13 @@ wx.cloud.callFunction({
 | `BOOTSTRAP_SECRET_NOT_CONFIGURED` | 云函数环境变量没配置 | 配置 `BOOTSTRAP_OWNER_SECRET` 后重新部署 |
 | `BOOTSTRAP_SECRET_INVALID` | 初始化密钥错误 | 检查 Console 传入值 |
 | `OWNER_ALREADY_EXISTS` | 当前门店已有老板 | 不需要重复初始化 |
+| `STORE_MEMBERS_COLLECTION_REQUIRED` | `store_members` 集合不存在 | 先创建集合后再初始化 |
 | `PERMISSION_DENIED` | 当前 OpenID 不是允许角色 | 检查 `store_members` |
 
 ## 12. 不做的事
 
-- 不把 owner 初始化做成小程序页面。
+- 不把 owner 初始化入口放进顾客挑战主流程。
+- 不把初始化密钥写进前端代码或公开文档。
 - 不把前端传入的 `role` 当成权限依据。
 - 不把没有成员记录的用户默认设为老板。
 - 不在代码中写死老板 OpenID。

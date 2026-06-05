@@ -2759,3 +2759,69 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-56-cloud-env-deploy-review.md`
 
+
+## 2026-06-05 Phase 57 首个老板账号初始化入口
+
+本轮目的：云环境和云函数已经可用，但首个老板账号仍需要手动调用云函数初始化。为了降低上线初始化成本，本阶段新增正式的门店初始化入口，同时保持服务端密钥和“已有 owner 不可重复初始化”的保护。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - `auth.whoami` 返回 `ownerReady`。
+  - `auth.bootstrapOwner` 在 `store_members` 集合缺失时返回 `STORE_MEMBERS_COLLECTION_REQUIRED`。
+- 新增 `miniprogram/services/auth-service.js`：
+  - 封装 `getAuthInfo()` 和 `bootstrapOwner()`。
+- 新增 `miniprogram/pages/setup-owner/`：
+  - 读取当前 OpenID、角色和 owner 状态。
+  - 输入一次性初始化密钥后调用 `auth.bootstrapOwner`。
+- 更新 `miniprogram/pages/my-hub/`：
+  - 读取 `ownerReady`。
+  - 仅当 `ownerReady === false` 时显示“门店初始化”入口。
+- 更新 `miniprogram/app.json`：
+  - 注册 `pages/setup-owner/setup-owner`。
+
+文档变更：
+
+- 更新 `docs/cloud-init-runbook.md`：
+  - owner 初始化从“只能 Console 手动调用”升级为“优先使用初始化页，Console 作为兜底”。
+- 更新 `docs/cloud-function-cutover-checklist.md`：
+  - 加入 `auth.whoami` 和 `auth.bootstrapOwner` 必测项。
+- 更新 `docs/wechat-devtools-cli.md`：
+  - 记录 CLI 只能管理云环境和云函数，不能创建数据库集合或索引。
+- 更新执行计划，新增 Stage 27。
+
+云端操作：
+
+- 重新部署 `yunhanApi` 到 `cloudbase-d9gg155lc1ee1d72e`：
+  - `success = true`
+  - `filesCount = 6`
+  - `packSize = 17.9 KB`
+- readiness 检查通过：
+  - 云环境列表包含 `cloudbase-d9gg155lc1ee1d72e`。
+  - 云函数列表包含 `yunhanApi`。
+  - `yunhanApi` 状态为 `Active`。
+
+阶段验证：
+
+- `git diff --check` 通过。
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check miniprogram\services\auth-service.js` 通过。
+- `node --check miniprogram\pages\setup-owner\setup-owner.js` 通过。
+- `node --check miniprogram\pages\my-hub\my-hub.js` 通过。
+- `node scripts\check-json-files.js` 通过，输出 `JSON check OK (36 files checked)`。
+- `node scripts\check-player-flow-routes.js` 通过，输出 `Player flow route check OK`。
+- `node scripts\check-production-copy.js` 通过，输出 `Production copy check OK (22 files checked)`。
+- `node scripts\test-cloud-contracts.js` 通过，输出 `Cloud contract tests OK`。
+- `node scripts\check-service-layer-boundary.js` 通过，输出 `Service layer boundary check OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `852.0 KB / 872470 bytes`。
+
+残余风险：
+
+- 云数据库集合和索引仍需要在微信开发者工具“云开发”面板人工创建。
+- `BOOTSTRAP_OWNER_SECRET` 仍需要在云函数环境变量中人工配置。
+- 本阶段新增页面后仍需真实云环境实测 owner 初始化成功路径。
+
+审查归档：
+
+- `docs/reviews/phase-57-owner-bootstrap-entry-review.md`

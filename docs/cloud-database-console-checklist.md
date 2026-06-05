@@ -8,18 +8,22 @@
 
 在微信开发者工具打开“云开发” -> “数据库”，逐个创建：
 
-| 顺序 | 集合 | 优先级 | 创建后勾选 |
-| --- | --- | --- | --- |
-| 1 | `store_members` | P0 | [ ] |
-| 2 | `operation_logs` | P0 | [ ] |
-| 3 | `matches` | P0 | [ ] |
-| 4 | `settlements` | P0 | [ ] |
-| 5 | `points_ledger` | P0 | [ ] |
-| 6 | `member_points` | P0 | [ ] |
-| 7 | `table_sessions` | P0 | [ ] |
-| 8 | `admin_configs` | P0 | [ ] |
-| 9 | `match_score_events` | P1 | [ ] |
-| 10 | `screen_tokens` | P1 | [ ] |
+权限类型统一选择：**所有用户不可读写**。
+
+原因：正式版不让小程序前端直接读写云数据库，全部通过 `yunhanApi` 云函数访问；角色、员工、老板权限都在云函数里判断。
+
+| 顺序 | 集合 | 优先级 | 权限类型 | 创建后勾选 |
+| --- | --- | --- | --- | --- |
+| 1 | `store_members` | P0 | 所有用户不可读写 | [ ] |
+| 2 | `operation_logs` | P0 | 所有用户不可读写 | [ ] |
+| 3 | `matches` | P0 | 所有用户不可读写 | [ ] |
+| 4 | `settlements` | P0 | 所有用户不可读写 | [ ] |
+| 5 | `points_ledger` | P0 | 所有用户不可读写 | [ ] |
+| 6 | `member_points` | P0 | 所有用户不可读写 | [ ] |
+| 7 | `table_sessions` | P0 | 所有用户不可读写 | [ ] |
+| 8 | `admin_configs` | P0 | 所有用户不可读写 | [ ] |
+| 9 | `match_score_events` | P1 | 所有用户不可读写 | [ ] |
+| 10 | `screen_tokens` | P1 | 所有用户不可读写 | [ ] |
 
 ## 2. 创建索引
 

@@ -7,6 +7,7 @@
 工具路径：`F:\微信web开发者工具\cli.bat`
 当前服务端口：`30812`
 当前 AppID：`wxe30b469d64636a2b`
+当前云环境：`cloudbase-d9gg155lc1ee1d72e`
 
 ## 1. 官方文档结论
 
@@ -101,13 +102,13 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 指定云环境后检查 `yunhanApi`：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId '你的云环境ID'
+powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId 'cloudbase-d9gg155lc1ee1d72e'
 ```
 
 部署 `yunhanApi`，并让云端安装 npm 依赖：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId '你的云环境ID' -Deploy
+powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId 'cloudbase-d9gg155lc1ee1d72e' -Deploy
 ```
 
 注意：`-Deploy` 会写入云端，只有确认云环境 ID 正确时执行。
@@ -161,6 +162,32 @@ errmsg:"system error."
 ```
 
 说明：已经不是测试号阻塞。下一步需要在微信开发者工具 UI 里打开“云开发”，确认是否已创建云环境，以及当前登录微信号是否有云开发权限。
+
+2026-06-05 更新：
+
+```powershell
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh cloud env list --project 'F:\Making money\taiqiuxcx'
+```
+
+结果：
+
+```text
+* cloudbase-d9gg155lc1ee1d72e
+```
+
+部署 `yunhanApi`：
+
+```powershell
+& 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh cloud functions deploy --project 'F:\Making money\taiqiuxcx' --env 'cloudbase-d9gg155lc1ee1d72e' --names 'yunhanApi' --remote-npm-install
+```
+
+结果：部署成功，`filesCount = 6`，`packSize = 17.8 KB`。函数信息：
+
+```text
+yunhanApi status: Active
+runtime: Nodejs16.13
+timeout: 3
+```
 
 ## 6. 后续使用纪律
 

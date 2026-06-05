@@ -2702,3 +2702,60 @@ git push -u origin codex/launch-page-polish
 
 - `docs/reviews/phase-55-mode-points-cloud-config-review.md`
 
+## 2026-06-05 Phase 56 真实云环境绑定与云函数部署
+
+本轮目的：云开发环境已经创建，需要把小程序前端指向真实环境，并把统一云函数 `yunhanApi` 部署到云端，解除此前“云环境未创建”的阻塞。
+
+代码变更：
+
+- 更新 `miniprogram/app.js`：
+  - `wx.cloud.init()` 增加 `env: "cloudbase-d9gg155lc1ee1d72e"`。
+
+文档变更：
+
+- 更新 `docs/cloud-init-runbook.md`：
+  - 写入真实云环境 ID：`cloudbase-d9gg155lc1ee1d72e`。
+  - 记录 2026-06-05 部署结果。
+- 更新 `docs/wechat-devtools-cli.md`：
+  - 写入云环境 ID、部署命令和函数状态。
+- 更新 `docs/cloud-function-cutover-checklist.md`：
+  - 云环境和 `yunhanApi` 部署状态改为已完成。
+  - 集合、索引、owner 初始化仍保持待确认。
+- 更新执行计划，新增 Stage 26。
+
+云端操作：
+
+- `cloud env list` 通过，返回 `cloudbase-d9gg155lc1ee1d72e`。
+- 首次部署 `yunhanApi` 时云端进入 `Creating` 状态，等待后重试。
+- 第二次部署成功：
+  - `success = true`
+  - `filesCount = 6`
+  - `packSize = 17.8 KB`
+- `cloud functions info` 通过：
+  - `status = Active`
+  - `runtime = Nodejs16.13`
+  - `timeout = 3`
+
+阶段验证：
+
+- `scripts\check-wechat-cloud-readiness.ps1 -EnvId cloudbase-d9gg155lc1ee1d72e -Port 30812` 通过：
+  - 当前微信开发者工具已登录。
+  - 云环境列表包含 `cloudbase-d9gg155lc1ee1d72e`。
+  - 云函数列表包含 `yunhanApi`。
+  - `yunhanApi` 状态为 `Active`。
+- `scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过：
+  - 输出 `Launch verification OK`。
+  - CLI preview 使用 AppID `wxe30b469d64636a2b`。
+  - 预览包体：`841.4 KB / 861544 bytes`。
+
+残余风险：
+
+- 真实云数据库集合和索引尚未验证创建。
+- 首个 owner 尚未完成初始化实证。
+- `BOOTSTRAP_OWNER_SECRET` 尚未确认已配置。
+- `yunhanApi` 当前云端超时时间为 3 秒，后续真实调用需观察二维码生成和冷启动耗时。
+
+审查归档：
+
+- `docs/reviews/phase-56-cloud-env-deploy-review.md`
+

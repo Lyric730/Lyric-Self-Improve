@@ -521,6 +521,21 @@ Use DevTools preview and manually test:
 - [x] Make `points-select` load asynchronously with loading and retryable error states.
 - [x] Keep formal UI copy only; no mock/demo/internal wording in pages.
 
+## Stage 26: 真实云环境绑定与云函数部署
+**Files:**
+- Modify: `miniprogram/app.js`
+- Modify: `docs/cloud-init-runbook.md`
+- Modify: `docs/wechat-devtools-cli.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Create: `docs/reviews/phase-56-cloud-env-deploy-review.md`
+
+- [x] Confirm cloud environment `cloudbase-d9gg155lc1ee1d72e` is visible from WeChat DevTools CLI.
+- [x] Deploy `cloudfunctions/yunhanApi` to `cloudbase-d9gg155lc1ee1d72e`.
+- [x] Confirm `yunhanApi` status is `Active`.
+- [x] Bind mini-program `wx.cloud.init()` to `cloudbase-d9gg155lc1ee1d72e`.
+- [x] Document deployment command and function status.
+- [x] Keep database collection/index/owner initialization as explicit next-step verification because it was not proven by deployment alone.
+
 ## Standard Verification
 
 Run after each stage:

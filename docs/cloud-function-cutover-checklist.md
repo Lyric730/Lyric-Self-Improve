@@ -5,9 +5,9 @@
 ## 1. 前置条件
 
 - 微信开发者工具已使用正式小程序 AppID：`wxe30b469d64636a2b`。
-- 已创建云开发环境，并拿到环境 ID。
-- 已按 `docs/cloud-init-runbook.md` 创建集合、索引、云函数环境变量和首个 owner。
-- 已部署 `cloudfunctions/yunhanApi`，并选择云端安装依赖。
+- 已创建云开发环境：`cloudbase-d9gg155lc1ee1d72e`。
+- 待确认：按 `docs/cloud-init-runbook.md` 创建集合、索引、云函数环境变量和首个 owner。
+- 已部署 `cloudfunctions/yunhanApi` 到 `cloudbase-d9gg155lc1ee1d72e`，并选择云端安装依赖。
 
 ## 2. 必测接口
 
@@ -75,7 +75,7 @@ node scripts/check-json-files.js
 node scripts/check-production-copy.js
 node scripts/check-player-flow-routes.js
 powershell -ExecutionPolicy Bypass -File scripts/check-ui-kit-asset-edges.ps1 -RequireAssets
-powershell -ExecutionPolicy Bypass -File scripts/check-wechat-cloud-readiness.ps1 -EnvId '你的云环境ID' -Deploy
+powershell -ExecutionPolicy Bypass -File scripts/check-wechat-cloud-readiness.ps1 -EnvId 'cloudbase-d9gg155lc1ee1d72e' -Deploy
 & 'F:\微信web开发者工具\cli.bat' --port 30812 --lang zh preview --project 'F:\Making money\taiqiuxcx'
 ```
 

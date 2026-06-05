@@ -25,7 +25,7 @@
 
 1. 打开“云开发”。
 2. 创建一个环境。
-3. 记录环境 ID。
+3. 记录环境 ID：`cloudbase-d9gg155lc1ee1d72e`。
 4. 确认 `project.config.json` 中已经有：
 
 ```json
@@ -34,7 +34,16 @@
 }
 ```
 
-第一版代码使用：
+当前小程序端使用：
+
+```js
+wx.cloud.init({
+  env: "cloudbase-d9gg155lc1ee1d72e",
+  traceUser: true
+});
+```
+
+云函数端使用：
 
 ```js
 cloud.init({
@@ -42,7 +51,7 @@ cloud.init({
 });
 ```
 
-这表示云函数会使用当前部署环境，不在代码里写死环境 ID。
+这表示云函数会使用当前部署环境；小程序端明确指向当前门店云环境，避免开发者工具存在多个环境时走错。
 
 ## 4. 创建第一批集合
 
@@ -120,16 +129,16 @@ powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps
 如果已经创建云环境，指定环境 ID 检查云函数：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId '你的云环境ID'
+powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId 'cloudbase-d9gg155lc1ee1d72e'
 ```
 
 部署 `yunhanApi`，并让云端安装 `qrcode` 和 `wx-server-sdk` 依赖：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId '你的云环境ID' -Deploy
+powershell -ExecutionPolicy Bypass -File scripts\check-wechat-cloud-readiness.ps1 -EnvId 'cloudbase-d9gg155lc1ee1d72e' -Deploy
 ```
 
-当前已验证的阻塞：如果 CLI 返回 `测试号不能使用云服务`，说明当前 AppID 是测试号。测试号不能做云开发部署，必须先切换到已注册小程序 AppID，再创建云环境。
+当前部署记录：2026-06-05 已通过微信开发者工具 CLI 部署 `yunhanApi` 到 `cloudbase-d9gg155lc1ee1d72e`，云函数状态为 `Active`，运行时 `Nodejs16.13`。首次创建时出现过云端 `Creating` 状态，等待 35 秒后重试部署成功。
 
 ## 7. 配置一次性初始化密钥
 

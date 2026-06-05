@@ -556,6 +556,21 @@ Use DevTools preview and manually test:
 - [x] Keep the setup entry out of player challenge, ranking, and points flows.
 - [x] Document that WeChat DevTools CLI can deploy functions but cannot create database collections or call functions directly.
 
+## Stage 28: 云数据库控制台清单与集合文档护栏
+**Files:**
+- Create: `docs/cloud-database-console-checklist.md`
+- Create: `scripts/check-cloud-collection-docs.js`
+- Modify: `scripts/verify-launch-ready.ps1`
+- Modify: `docs/cloud-init-runbook.md`
+- Modify: `docs/cloud-function-cutover-checklist.md`
+- Create: `docs/reviews/phase-58-cloud-db-console-checklist-review.md`
+
+- [x] Add a one-page console checklist for cloud collection creation, indexes, bootstrap secret, and first owner verification.
+- [x] Add a script that extracts `db.collection("...")` names from `yunhanApi`.
+- [x] Fail verification if a code-used collection is missing from `docs/cloud-database-schema.md`.
+- [x] Fail verification if a code-used collection is missing from `docs/cloud-init-runbook.md`.
+- [x] Add the collection docs check to unified launch verification.
+
 ## Standard Verification
 
 Run after each stage:

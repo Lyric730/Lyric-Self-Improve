@@ -57,6 +57,10 @@ Invoke-Check "Cloud contract tests" {
   node scripts\test-cloud-contracts.js
 }
 
+Invoke-Check "Cloud collection docs check" {
+  node scripts\check-cloud-collection-docs.js
+}
+
 Invoke-Check "Service layer boundary check" {
   node scripts\check-service-layer-boundary.js
 }

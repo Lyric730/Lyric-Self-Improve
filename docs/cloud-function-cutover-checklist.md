@@ -6,7 +6,7 @@
 
 - 微信开发者工具已使用正式小程序 AppID：`wxe30b469d64636a2b`。
 - 已创建云开发环境：`cloudbase-d9gg155lc1ee1d72e`。
-- 待确认：按 `docs/cloud-init-runbook.md` 创建集合、索引、云函数环境变量和首个 owner。
+- 待确认：按 `docs/cloud-init-runbook.md` 和 `docs/cloud-database-console-checklist.md` 创建集合、索引、云函数环境变量和首个 owner。
 - 已部署 `cloudfunctions/yunhanApi` 到 `cloudbase-d9gg155lc1ee1d72e`，并选择云端安装依赖。
 
 ## 2. 必测接口

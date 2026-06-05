@@ -2825,3 +2825,50 @@ git push -u origin codex/launch-page-polish
 审查归档：
 
 - `docs/reviews/phase-57-owner-bootstrap-entry-review.md`
+
+## 2026-06-05 Phase 58 云数据库控制台清单与集合文档护栏
+
+本轮目的：当前微信开发者工具 CLI 不能直接创建云数据库集合、索引或调用云函数。为了避免明天人工建库时漏项，本阶段把控制台动作整理成一页式清单，并新增自动脚本检查云函数集合名是否都被 schema 和 runbook 覆盖。
+
+代码变更：
+
+- 新增 `scripts/check-cloud-collection-docs.js`：
+  - 从 `cloudfunctions/yunhanApi/index.js` 提取所有 `db.collection("...")` 集合名。
+  - 校验集合名都出现在 `docs/cloud-database-schema.md`。
+  - 校验集合名都出现在 `docs/cloud-init-runbook.md`。
+- 更新 `scripts/verify-launch-ready.ps1`：
+  - 加入 `Cloud collection docs check`。
+
+文档变更：
+
+- 新增 `docs/cloud-database-console-checklist.md`：
+  - 云开发面板集合创建清单。
+  - 索引创建清单。
+  - `BOOTSTRAP_OWNER_SECRET` 配置要求。
+  - 首个老板账号初始化步骤。
+  - 初始化后的真实写库验证项。
+- 更新 `docs/cloud-init-runbook.md`：
+  - 链接控制台执行清单。
+- 更新 `docs/cloud-function-cutover-checklist.md`：
+  - 把数据库初始化待确认项指向 runbook 和控制台清单。
+- 更新执行计划，新增 Stage 28。
+
+阶段验证：
+
+- `git diff --check` 通过。
+- `node --check scripts\check-cloud-collection-docs.js` 通过。
+- `node scripts\check-cloud-collection-docs.js` 通过，输出 `Cloud collection docs check OK (10 collections checked)`。
+- `node scripts\check-json-files.js` 通过，输出 `JSON check OK (36 files checked)`。
+- `node scripts\check-production-copy.js` 通过，输出 `Production copy check OK (22 files checked)`。
+- `node scripts\check-player-flow-routes.js` 通过，输出 `Player flow route check OK`。
+- `powershell -ExecutionPolicy Bypass -File scripts\verify-launch-ready.ps1 -WithPreview -Port 30812` 通过，输出 `Launch verification OK`。
+- 微信开发者工具 CLI preview 通过，AppID `wxe30b469d64636a2b`，包体 `852.0 KB / 872470 bytes`。
+
+残余风险：
+
+- 本阶段只提供清单和自动文档一致性检查，仍未实际创建云数据库集合或索引。
+- 首个 owner 初始化还需要配置 `BOOTSTRAP_OWNER_SECRET` 并在小程序初始化页执行。
+
+审查归档：
+
+- `docs/reviews/phase-58-cloud-db-console-checklist-review.md`

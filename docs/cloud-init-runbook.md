@@ -72,6 +72,8 @@ cloud.init({
 
 字段说明见 `docs/cloud-database-schema.md`。
 
+控制台逐项勾选清单见 `docs/cloud-database-console-checklist.md`。
+
 ## 5. 建议索引
 
 第一批至少创建：

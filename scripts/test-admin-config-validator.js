@@ -81,6 +81,24 @@ function assertInvalid(config, expectedText) {
 
 {
   const config = clone(adminConfig);
+  config.antiCheat.storeLatitude = "30.5928";
+  config.antiCheat.storeLongitude = "114.3055";
+
+  const result = validateAdminConfig(config);
+
+  assert.equal(result.ok, true);
+}
+
+{
+  const config = clone(adminConfig);
+  config.antiCheat.storeLatitude = "999";
+  config.antiCheat.storeLongitude = "114.3055";
+
+  assertInvalid(config, "门店纬度");
+}
+
+{
+  const config = clone(adminConfig);
   config.screen.refreshText = "5 秒刷新";
 
   assertInvalid(config, "刷新间隔");

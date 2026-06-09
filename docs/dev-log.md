@@ -2982,3 +2982,50 @@ git push -u origin codex/launch-page-polish
 
 - 远端分支已经包含最新代码。
 - 云端 `yunhanApi` 暂时仍是旧版本，尚不包含段位持久化和开台赠分绑定。
+
+## 2026-06-09 Phase 62 店内定位反刷分 gate
+
+本轮目的：补齐“100 米店内定位”反刷分链路。挑战首页不能只检查登录和球桌到点时间，还需要在真实发起挑战前确认用户定位在门店范围内。
+
+代码变更：
+
+- 更新 `miniprogram/app.json`：
+  - 增加 `scope.userLocation` 授权说明。
+- 更新 `miniprogram/pages/challenge-home/challenge-home.js`：
+  - 读取挑战首页前调用 `wx.getLocation({ type: "gcj02" })`。
+  - 用户拒绝定位时继续请求云函数，由服务端返回不可开局原因。
+- 更新 `miniprogram/services/player-service.js`：
+  - `player.getChallengeHome` payload 增加 `location`。
+- 更新老板端配置：
+  - `boss-config` 增加门店纬度、门店经度字段。
+  - 默认配置增加 `antiCheat.storeLatitude / storeLongitude`。
+  - 小程序端和云函数端配置校验同步支持经纬度。
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增门店反刷分配置读取。
+  - 新增距离计算。
+  - `player.getChallengeHome` 返回 `location` 检查项，和登录、球桌到点一起决定能否开局。
+
+文档变更：
+
+- 更新 `docs/cloud-function-cutover-checklist.md`：
+  - `player.getChallengeHome` 必须验证店内定位。
+  - 人工验收新增真机定位授权、店内可开局、拒绝定位/超范围不可开局。
+- 更新 `docs/cloud-database-schema.md`：
+  - `admin_configs.config.antiCheat` 记录 `geoFence / storeLatitude / storeLongitude`。
+
+阶段验证：
+
+- `node scripts\test-admin-config-validator.js` 通过，输出 `Admin config validator tests OK`。
+- `node --check miniprogram\pages\challenge-home\challenge-home.js` 通过。
+- `node --check miniprogram\services\player-service.js` 通过。
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check cloudfunctions\yunhanApi\admin-config-validator.js` 通过。
+
+残余风险：
+
+- 如果老板端未填写门店经纬度，系统不会拦截开局，只会返回 `location.skipped = true`。这是为了避免未配置时误伤顾客；上线前必须填写真实门店坐标。
+- DevTools 模拟器定位不能完全代表真机效果，必须用真机测试授权、拒绝授权、店内/店外距离。
+
+审查归档：
+
+- `docs/reviews/phase-62-location-gate-review.md`

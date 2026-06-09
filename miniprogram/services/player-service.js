@@ -68,6 +68,7 @@ async function getChallengeHome(params = {}) {
     const result = ensureOk(await callCloud("player", "getChallengeHome", {
       tableId: params.tableId || "",
       tableNo: params.tableNo || "",
+      location: params.location || null,
       storeId: params.storeId || "default"
     }));
 

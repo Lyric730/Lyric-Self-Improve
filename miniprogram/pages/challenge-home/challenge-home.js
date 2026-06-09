@@ -9,6 +9,33 @@ const DEFAULT_TABLE_SESSION = {
   openedAt: "读取中"
 };
 
+function getCurrentLocationForGate() {
+  if (typeof wx === "undefined" || !wx.getLocation) {
+    return Promise.resolve({
+      locationDenied: true
+    });
+  }
+
+  return new Promise((resolve) => {
+    wx.getLocation({
+      type: "gcj02",
+      success(result) {
+        resolve({
+          latitude: result.latitude,
+          longitude: result.longitude,
+          locationDenied: false
+        });
+      },
+      fail(error) {
+        resolve({
+          locationDenied: true,
+          locationError: error && error.errMsg ? error.errMsg : "location failed"
+        });
+      }
+    });
+  });
+}
+
 Page({
   data: {
     match: {
@@ -49,7 +76,11 @@ Page({
     });
 
     try {
-      const home = ensureOk(await getChallengeHome(this.routeOptions || {}));
+      const location = await getCurrentLocationForGate();
+      const home = ensureOk(await getChallengeHome({
+        ...(this.routeOptions || {}),
+        location
+      }));
 
       this.setData({
         match: home.match,

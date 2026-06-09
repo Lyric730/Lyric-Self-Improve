@@ -273,6 +273,8 @@ const adminConfig = {
   },
   antiCheat: {
     geoFence: "100 米",
+    storeLatitude: "",
+    storeLongitude: "",
     tableDueRequired: "必须设置",
     minimumTimeRequired: "必须满足"
   },

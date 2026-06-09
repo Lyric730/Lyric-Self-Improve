@@ -270,6 +270,14 @@
 | `createdAt` | date | 是 | 创建时间 |
 | `updatedAt` | date | 是 | 更新时间 |
 
+`config.antiCheat` 至少包含：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `geoFence` | string | 是 | 店内定位范围，例如 `100 米` |
+| `storeLatitude` | string | 否 | 门店纬度；填写后用于挑战首页店内定位 |
+| `storeLongitude` | string | 否 | 门店经度；填写后用于挑战首页店内定位 |
+
 建议索引：
 
 ```js

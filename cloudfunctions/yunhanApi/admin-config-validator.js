@@ -174,6 +174,22 @@ function validateAntiCheat(antiCheat, errors) {
   if (!Number.isInteger(geoFence) || geoFence <= 0) {
     pushError(errors, "店内定位范围需要大于 0 米");
   }
+
+  const hasLatitude = String(antiCheat.storeLatitude || "").trim() !== "";
+  const hasLongitude = String(antiCheat.storeLongitude || "").trim() !== "";
+
+  if (hasLatitude || hasLongitude) {
+    const latitude = toNumber(antiCheat.storeLatitude);
+    const longitude = toNumber(antiCheat.storeLongitude);
+
+    if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90) {
+      pushError(errors, "门店纬度需要填写 -90 到 90 之间的数字");
+    }
+
+    if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
+      pushError(errors, "门店经度需要填写 -180 到 180 之间的数字");
+    }
+  }
 }
 
 function validateScreen(screen, errors) {

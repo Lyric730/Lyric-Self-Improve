@@ -16,7 +16,7 @@
 | `auth` | `whoami` | 我的 / 门店初始化 | 返回当前 OpenID、角色、`ownerReady` 和门店 ID |
 | `auth` | `bootstrapOwner` | 门店初始化 | 只允许无 owner 门店用一次性密钥绑定首个老板账号 |
 | `player` | `getProfile` | 我的数据 / 我的 | 读取当前会员积分、段位和赛季表现 |
-| `player` | `getChallengeHome` | 挑战首页 | 读取当前会员身份、积分、段位和可用球桌到点时间 |
+| `player` | `getChallengeHome` | 挑战首页 | 读取当前会员身份、积分、段位、店内定位检查和可用球桌到点时间 |
 | `player` | `getRankings` | 排行榜 | 读取店内总榜、同段位榜和微信好友榜；好友关系未接入时返回空榜 |
 | `player` | `getPointsPerks` | 积分礼遇 | 读取当前积分、开台赠分和兑换门槛 |
 | `member` | `getCode` | 会员码页 | 返回真实可扫码二维码、当前积分、当前用户 OpenID 绑定账户 |
@@ -49,7 +49,7 @@
 - 加减盘必须通过 `match.recordScore` 写入真实 `matches.scoreA / scoreB` 和 `match_score_events`，不能只改页面变量。
 - 结算用时必须优先由 `matches.startedAtMs` 计算，不能信任页面 query 里的 `elapsed`。
 - 球友端个人数据、排行榜和积分礼遇必须通过 `player` 云函数读取，正式环境不能直接展示本地 `ladder-data.js` 样例数据。
-- 挑战首页必须通过 `player.getChallengeHome` 读取会员身份和球桌开局检查，不能用本地固定 `challengeGate` 判断能否开局。
+- 挑战首页必须通过 `player.getChallengeHome` 读取会员身份、店内定位和球桌开局检查，不能用本地固定 `challengeGate` 判断能否开局。
 - 玩法选择和底分倍率必须通过 `match.getModes` / `match.getSetup` 读取老板端配置，不能只展示本地写死参数。
 - `match.previewSettlement` 只能读取和计算，不得写入 `settlements`、`points_ledger` 或修改 `member_points`。
 - 同一 `matchId` 不能重复写 `settlements` 或重复改积分。
@@ -90,10 +90,11 @@ powershell -ExecutionPolicy Bypass -File scripts/check-wechat-cloud-readiness.ps
 4. 前台扣除积分，会员积分减少，积分流水有记录。
 5. 前台设置球桌到点时间，退出重进后时间保持。
 6. 前台设置球桌到点时间并绑定开台会员，会员积分增加开台赠分；重复保存同一周期不重复赠分。
-7. 老板端修改底分、倍率、随机奖励、大屏标题，保存后退出重进仍保留。
-8. 玩法选择和底分倍率页显示老板端配置的玩法、底分、倍率和随机奖励。
-9. 大屏页显示老板端配置的主榜、副榜、刷新文案。
-10. 球友端完整走一场挑战，结算由云函数完成，重复点击不能重复结算。
+7. 老板端填写门店经纬度和 100 米定位范围，真机授权定位后店内可发起挑战；拒绝定位或超出范围时不能发起有效挑战。
+8. 老板端修改底分、倍率、随机奖励、大屏标题，保存后退出重进仍保留。
+9. 玩法选择和底分倍率页显示老板端配置的玩法、底分、倍率和随机奖励。
+10. 大屏页显示老板端配置的主榜、副榜、刷新文案。
+11. 球友端完整走一场挑战，结算由云函数完成，重复点击不能重复结算。
 
 ## 6. 不能上线的红线
 

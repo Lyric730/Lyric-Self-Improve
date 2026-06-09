@@ -29,6 +29,12 @@ const DEFAULT_SCREEN_CONFIG = {
   activityText: "完成有效挑战，随机奖励提升"
 };
 
+const DEFAULT_ANTI_CHEAT_CONFIG = {
+  geoFence: "100 米",
+  storeLatitude: "",
+  storeLongitude: ""
+};
+
 function ok(data = {}) {
   return {
     ok: true,
@@ -1512,6 +1518,86 @@ async function getStorePointsConfig(storeId) {
   };
 }
 
+async function getStoreAntiCheatConfig(storeId) {
+  const configResult = await db.collection("admin_configs")
+    .where({
+      storeId
+    })
+    .limit(1)
+    .get();
+  const configDoc = configResult.data && configResult.data.length > 0 ? configResult.data[0] : null;
+  const antiCheat = configDoc && configDoc.config && configDoc.config.antiCheat ? configDoc.config.antiCheat : {};
+
+  return {
+    ...DEFAULT_ANTI_CHEAT_CONFIG,
+    ...antiCheat
+  };
+}
+
+function parseFirstNumber(value, fallback = 0) {
+  const match = String(value || "").match(/-?\d+(\.\d+)?/);
+
+  return match ? Number(match[0]) : fallback;
+}
+
+function toRadians(value) {
+  return Number(value) * Math.PI / 180;
+}
+
+function getDistanceMeters(pointA, pointB) {
+  const earthRadiusMeters = 6371000;
+  const lat1 = toRadians(pointA.latitude);
+  const lat2 = toRadians(pointB.latitude);
+  const deltaLat = toRadians(pointB.latitude - pointA.latitude);
+  const deltaLng = toRadians(pointB.longitude - pointA.longitude);
+  const a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2)
+    + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLng / 2) * Math.sin(deltaLng / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return Math.round(earthRadiusMeters * c);
+}
+
+function buildLocationCheck(payload = {}, antiCheat = {}) {
+  const location = payload.location || {};
+  const storeLatitude = Number(antiCheat.storeLatitude);
+  const storeLongitude = Number(antiCheat.storeLongitude);
+  const geoFenceMeters = parseFirstNumber(antiCheat.geoFence, 100);
+  const hasStoreLocation = Number.isFinite(storeLatitude) && Number.isFinite(storeLongitude);
+
+  if (!hasStoreLocation) {
+    return {
+      key: "location",
+      ready: true,
+      skipped: true,
+      userMessage: "门店定位未配置，请先由老板端填写门店经纬度"
+    };
+  }
+
+  const userLatitude = Number(location.latitude);
+  const userLongitude = Number(location.longitude);
+
+  if (location.locationDenied || !Number.isFinite(userLatitude) || !Number.isFinite(userLongitude)) {
+    return {
+      key: "location",
+      ready: false,
+      userMessage: `请允许定位，并在店内 ${geoFenceMeters} 米范围内发起挑战`
+    };
+  }
+
+  const distanceMeters = getDistanceMeters(
+    { latitude: storeLatitude, longitude: storeLongitude },
+    { latitude: userLatitude, longitude: userLongitude }
+  );
+
+  return {
+    key: "location",
+    ready: distanceMeters <= geoFenceMeters,
+    distanceMeters,
+    geoFenceMeters,
+    userMessage: `请回到店内 ${geoFenceMeters} 米范围内再发起挑战`
+  };
+}
+
 async function ensureMemberPointAccount(openid, storeId) {
   const accountResult = await db.collection("member_points")
     .where({
@@ -1712,11 +1798,15 @@ async function getActiveTableSession(storeId, tableId = "") {
 }
 
 async function getChallengeHomeData(openid, storeId, payload = {}) {
-  const player = await getPlayerIdentity(openid, storeId);
-  const tableSession = await getActiveTableSession(storeId, payload.tableId || payload.tableNo || "");
+  const [player, tableSession, antiCheatConfig] = await Promise.all([
+    getPlayerIdentity(openid, storeId),
+    getActiveTableSession(storeId, payload.tableId || payload.tableNo || ""),
+    getStoreAntiCheatConfig(storeId)
+  ]);
   const tableReady = Boolean(tableSession && tableSession.dueTime);
   const tableNo = tableSession ? tableSession.tableId : payload.tableNo || "未开台";
   const dueTime = tableSession && tableSession.dueTime ? tableSession.dueTime : "--:--";
+  const locationCheck = buildLocationCheck(payload, antiCheatConfig);
 
   return {
     match: {
@@ -1740,6 +1830,7 @@ async function getChallengeHomeData(openid, storeId, payload = {}) {
           ready: Boolean(openid),
           userMessage: "请先登录后再发起挑战"
         },
+        locationCheck,
         {
           key: "tableSession",
           ready: tableReady,

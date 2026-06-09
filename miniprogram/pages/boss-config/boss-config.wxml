@@ -73,6 +73,14 @@
           <input value="{{adminConfig.antiCheat.geoFence}}" data-key="geoFence" bindinput="changeAntiCheatField" />
         </label>
         <label class="config-field">
+          <text>门店纬度</text>
+          <input value="{{adminConfig.antiCheat.storeLatitude}}" data-key="storeLatitude" bindinput="changeAntiCheatField" />
+        </label>
+        <label class="config-field">
+          <text>门店经度</text>
+          <input value="{{adminConfig.antiCheat.storeLongitude}}" data-key="storeLongitude" bindinput="changeAntiCheatField" />
+        </label>
+        <label class="config-field">
           <text>开台到点</text>
           <input value="{{adminConfig.antiCheat.tableDueRequired}}" data-key="tableDueRequired" bindinput="changeAntiCheatField" />
         </label>

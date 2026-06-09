@@ -27,6 +27,11 @@
     "navigationBarTextStyle": "white",
     "backgroundColor": "#080705"
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于确认你在门店范围内发起有效挑战"
+    }
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

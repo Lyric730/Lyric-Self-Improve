@@ -2954,3 +2954,31 @@ git push -u origin codex/launch-page-polish
 审查归档：
 
 - `docs/reviews/phase-60-table-open-bonus-review.md`
+
+## 2026-06-09 Phase 61 云函数部署阻塞记录
+
+本轮目的：把 Phase 59 / Phase 60 的云函数改动重新部署到 `cloudbase-d9gg155lc1ee1d72e`。
+
+执行命令：
+
+```powershell
+& 'F:\微信web开发者工具\cli.bat' cloud functions deploy --project 'F:\Making money\taiqiuxcx' --port 49663 --env cloudbase-d9gg155lc1ee1d72e --names yunhanApi
+```
+
+结果：
+
+- 部署失败，`yunhanApi.success = false`。
+- 错误信息：`getCloudAPISignedHeader failed`，微信云接口返回 `ret = 41002` / `errmsg = system error`。
+- `cloud env list` 仍能列出 `cloudbase-d9gg155lc1ee1d72e`。
+- `cloud functions list` 仍能列出 `yunhanApi`。
+
+判断：
+
+- 这不是本地代码语法错误；`verify-launch-ready` 已通过。
+- 失败点在微信开发者工具云接口签名或会话状态。
+- 需要在微信开发者工具里刷新云开发登录态、重新打开项目或稍后重试部署。
+
+影响：
+
+- 远端分支已经包含最新代码。
+- 云端 `yunhanApi` 暂时仍是旧版本，尚不包含段位持久化和开台赠分绑定。

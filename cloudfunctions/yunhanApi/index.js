@@ -233,9 +233,107 @@ async function upsertOne(collectionName, query, data) {
   return "created";
 }
 
+function buildTableBonusKey(params = {}) {
+  const openDate = String(params.openDate || new Date().toISOString().slice(0, 10));
+  const sessionId = String(params.openSessionId || "").trim();
+
+  if (sessionId) {
+    return `session:${sessionId}`;
+  }
+
+  return `daily:${params.tableId}:${params.openid}:${openDate}`;
+}
+
+async function grantTableOpenBonus(params, storeId, operatorOpenid) {
+  const openid = String(params.openid || "").trim();
+
+  if (!openid) {
+    return {
+      granted: false,
+      reason: "memberOpenidMissing"
+    };
+  }
+
+  const pointsConfig = await getStorePointsConfig(storeId);
+  const bonusPoints = Number(pointsConfig.tableOpenBonus || 0);
+
+  if (!Number.isFinite(bonusPoints) || bonusPoints <= 0) {
+    return {
+      granted: false,
+      reason: "bonusDisabled",
+      bonusPoints: 0
+    };
+  }
+
+  const bonusKey = buildTableBonusKey({
+    tableId: params.tableId,
+    openid,
+    openSessionId: params.openSessionId
+  });
+  const existingLedgerResult = await db.collection("points_ledger")
+    .where({
+      storeId,
+      openid,
+      type: "table_bonus",
+      bonusKey
+    })
+    .limit(1)
+    .get();
+  const existingLedger = existingLedgerResult.data && existingLedgerResult.data.length > 0
+    ? existingLedgerResult.data[0]
+    : null;
+
+  if (existingLedger) {
+    return {
+      granted: false,
+      reason: "alreadyGranted",
+      bonusKey,
+      bonusPoints
+    };
+  }
+
+  await ensureMemberPointAccount(openid, storeId);
+
+  const account = await getPointAccountDoc(openid, storeId);
+  const currentBalance = Number(account && account.balance ? account.balance : 0);
+  const balanceAfter = currentBalance + bonusPoints;
+
+  await db.collection("member_points").doc(account._id).update({
+    data: {
+      balance: balanceAfter,
+      updatedAt: db.serverDate()
+    }
+  });
+
+  await db.collection("points_ledger").add({
+    data: {
+      storeId,
+      openid,
+      matchId: "",
+      type: "table_bonus",
+      delta: bonusPoints,
+      balanceAfter,
+      tableId: params.tableId || "",
+      dueTime: params.dueTime || "",
+      bonusKey,
+      operatorOpenid,
+      createdAt: db.serverDate()
+    }
+  });
+
+  return {
+    granted: true,
+    reason: "granted",
+    bonusKey,
+    bonusPoints,
+    balanceAfter
+  };
+}
+
 async function updateTableDueTime(payload, storeId, operatorOpenid) {
   requirePayloadValue(payload, "tableId", "请选择球桌", "TABLE_ID_REQUIRED");
   requirePayloadValue(payload, "dueTime", "请选择到点时间", "DUE_TIME_REQUIRED");
+  const memberOpenid = String(payload.memberOpenid || payload.openid || "").trim();
 
   const writeMode = await upsertOne(
     "table_sessions",
@@ -246,13 +344,22 @@ async function updateTableDueTime(payload, storeId, operatorOpenid) {
     },
     {
       dueTime: payload.dueTime,
+      memberOpenid,
       updatedBy: operatorOpenid
     }
   );
+  const tableBonus = await grantTableOpenBonus({
+    openid: memberOpenid,
+    tableId: payload.tableId,
+    dueTime: payload.dueTime,
+    openSessionId: payload.openSessionId
+  }, storeId, operatorOpenid);
 
   return {
     tableId: payload.tableId,
     dueTime: payload.dueTime,
+    memberOpenid,
+    tableBonus,
     writeMode
   };
 }

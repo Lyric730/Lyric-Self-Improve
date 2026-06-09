@@ -2908,3 +2908,49 @@ git push -u origin codex/launch-page-polish
 审查归档：
 
 - `docs/reviews/phase-59-rank-persistence-review.md`
+
+## 2026-06-09 Phase 60 开台赠分会员绑定
+
+本轮目的：补齐“开台赠分只展示配置、不实际发放”的上线缺口。开台赠分必须知道本次开台绑定哪个会员，不能只凭球桌到点时间盲目发分。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - `staff.updateTableDueTime` 支持可选 `memberOpenid`。
+  - 设置到点时间时，如果绑定会员，则读取老板端 `points.tableOpenBonus` 并发放 `points_ledger(type = table_bonus)`。
+  - 新增开台赠分去重键：没有开台软件订单 ID 时，默认按 `storeId + tableId + openid + date` 去重；如果以后接入订单，可传 `openSessionId`。
+  - 开台赠分会同步更新 `member_points.balance`。
+- 更新员工端：
+  - 到点时间卡片新增“扫码绑定开台会员”。
+  - 绑定会员后保存到点时间，成功时提示开台赠分。
+  - 开台绑定会员和积分核销会员分开管理，避免错发。
+- 更新 `scripts/test-ops-services.js`：
+  - 覆盖员工端本地兜底下的开台赠分返回结果。
+
+文档变更：
+
+- 更新 `docs/cloud-database-schema.md`：
+  - `points_ledger` 新增 `tableId / dueTime / bonusKey / operatorOpenid`。
+  - `table_sessions` 新增 `memberOpenid`。
+- 更新 `docs/cloud-database-console-checklist.md` 和 `docs/cloud-init-runbook.md`：
+  - 新增 `points_ledger` 开台赠分去重索引。
+- 更新 `docs/cloud-function-cutover-checklist.md`：
+  - 增加绑定开台会员后发放开台赠分的人工验收项。
+
+阶段验证：
+
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node --check miniprogram\services\staff-service.js` 通过。
+- `node --check miniprogram\pages\staff-desk\staff-desk.js` 通过。
+- `node scripts\test-ops-services.js` 通过，输出 `Ops service fallback tests OK`。
+- `node scripts\check-cloud-collection-docs.js` 通过，输出 `Cloud collection docs check OK (10 collections checked)`。
+- `git diff --check` 通过。
+
+残余风险：
+
+- 没有开台软件订单 ID 时，无法做到严格“一次真实开台 = 一次赠分”；当前先用门店/球桌/会员/日期去重，偏保守。
+- 真实云环境需要验证重复保存、换会员保存、老板把开台赠分设为 0 三种情况。
+
+审查归档：
+
+- `docs/reviews/phase-60-table-open-bonus-review.md`

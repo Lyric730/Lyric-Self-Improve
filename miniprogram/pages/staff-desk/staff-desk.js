@@ -52,12 +52,15 @@ Page({
     selectedTableId: initialDeskData.staffTables[0].id,
     selectedTime: initialDeskData.staffTables[0].dueTime,
     selectedTable: initialDeskData.staffTables[0],
+    tableOpenMember: null,
+    tableOpenMemberText: "可选：绑定本次开台会员后发放开台赠分",
     selectedMember: null,
     selectedMemberText: "扫码选择会员后核销",
     deductPointsInput: "",
     deductPoints: 0,
     abnormalMatches: initialDeskData.abnormalMatches,
     savingDue: false,
+    scanningTableOpenMember: false,
     scanningMember: false,
     deducting: false,
     voiding: false
@@ -126,6 +129,38 @@ Page({
     }
   },
 
+  async scanTableOpenMember() {
+    if (!this.data.accessReady || this.data.scanningTableOpenMember) {
+      return;
+    }
+
+    this.setData({ scanningTableOpenMember: true });
+
+    try {
+      const scanResult = await scanCode();
+      const openid = parseMemberOpenid(scanResult.result);
+
+      if (!openid) {
+        wx.showToast({ title: "未识别到会员", icon: "none" });
+        return;
+      }
+
+      const member = ensureOk(await getMemberForExchange({ openid }));
+
+      this.setData({
+        tableOpenMember: member,
+        tableOpenMemberText: `${member.name} · 当前 ${member.points} 积分`
+      });
+
+      wx.showToast({ title: "已绑定开台会员", icon: "none" });
+    } catch (error) {
+      const isCancel = error && error.errMsg && error.errMsg.includes("cancel");
+      wx.showToast({ title: isCancel ? "未选择会员" : error.message || "识别失败", icon: "none" });
+    } finally {
+      this.setData({ scanningTableOpenMember: false });
+    }
+  },
+
   async saveDueTime() {
     if (!this.data.accessReady || this.data.savingDue) {
       return;
@@ -137,7 +172,8 @@ Page({
       const result = ensureOk(await updateTableDueTime({
         tables: this.data.staffTables,
         tableId: this.data.selectedTableId,
-        dueTime: this.data.selectedTime
+        dueTime: this.data.selectedTime,
+        memberOpenid: this.data.tableOpenMember ? this.data.tableOpenMember.openid : ""
       }));
 
       this.setData({
@@ -145,7 +181,20 @@ Page({
         selectedTable: result.selectedTable
       });
 
-      wx.showToast({ title: "到点时间已更新", icon: "none" });
+      if (result.tableBonus && result.tableBonus.granted && this.data.tableOpenMember) {
+        const nextPoints = Number(result.tableBonus.balanceAfter || this.data.tableOpenMember.points || 0);
+
+        this.setData({
+          "tableOpenMember.points": nextPoints,
+          tableOpenMemberText: `${this.data.tableOpenMember.name} · 当前 ${nextPoints} 积分`
+        });
+
+        wx.showToast({ title: `到点已更新，开台赠分 +${result.tableBonus.bonusPoints}`, icon: "none" });
+      } else if (result.tableBonus && result.tableBonus.reason === "alreadyGranted") {
+        wx.showToast({ title: "到点已更新，开台赠分已发过", icon: "none" });
+      } else {
+        wx.showToast({ title: "到点时间已更新", icon: "none" });
+      }
     } catch (error) {
       wx.showToast({ title: error.message || "保存失败", icon: "none" });
     } finally {

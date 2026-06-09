@@ -96,6 +96,7 @@ cloud.init({
 
 // points_ledger
 { storeId: 1, openid: 1, createdAt: -1 }
+{ storeId: 1, openid: 1, type: 1, bonusKey: 1 }
 
 // member_points
 { storeId: 1, openid: 1 }

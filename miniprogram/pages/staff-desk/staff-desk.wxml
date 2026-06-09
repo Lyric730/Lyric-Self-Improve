@@ -32,6 +32,13 @@
           <text>{{selectedTime}}</text>
         </view>
       </picker>
+      <view class="member-select member-select--table-open">
+        <view class="member-card {{tableOpenMember ? 'is-active' : ''}}">
+          <text>{{tableOpenMember ? tableOpenMember.name : '未绑定开台会员'}}</text>
+          <text>{{tableOpenMemberText}}</text>
+        </view>
+        <yh-button text="扫码绑定" size="sm" variant="secondary" custom-class="staff-scan-button" loading="{{scanningTableOpenMember}}" bind:tap="scanTableOpenMember" />
+      </view>
       <view class="flow-actions">
         <yh-button text="保存到点时间" size="sm" variant="primary" block custom-class="staff-primary-action" loading="{{savingDue}}" bind:tap="saveDueTime" />
       </view>

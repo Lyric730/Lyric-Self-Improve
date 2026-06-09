@@ -39,6 +39,7 @@
 | `settlements` | `storeId: 1, matchId: 1` | 结算单查询 / 防重复结算 | [ ] |
 | `settlements` | `storeId: 1, status: 1, createdAt: -1` | 最近结算 / 赏金猎人 | [ ] |
 | `points_ledger` | `storeId: 1, openid: 1, createdAt: -1` | 积分流水 | [ ] |
+| `points_ledger` | `storeId: 1, openid: 1, type: 1, bonusKey: 1` | 开台赠分去重 | [ ] |
 | `member_points` | `storeId: 1, openid: 1` | 会员积分账户 | [ ] |
 | `member_points` | `storeId: 1, balance: -1` | 店内总榜 | [ ] |
 | `table_sessions` | `storeId: 1, tableId: 1, status: 1` | 球桌到点时间 | [ ] |

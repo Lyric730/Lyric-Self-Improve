@@ -23,7 +23,7 @@
 | `member` | `saveProfile` | 我的页个人信息 | 只保存昵称、手机号、备注、头像，不允许前端改积分和段位 |
 | `staff` | `getMemberForExchange` | 前台扫码选择 | 扫码后能查到会员积分账户 |
 | `staff` | `deductMemberPoints` | 前台积分核销 | 扣减余额、写 `points_ledger`、余额不足时拒绝 |
-| `staff` | `updateTableDueTime` | 前台到点时间 | 写 `table_sessions`，再次进入前台能读回 |
+| `staff` | `updateTableDueTime` | 前台到点时间 | 写 `table_sessions`，绑定开台会员时写 `points_ledger(type=table_bonus)`，再次进入前台能读回 |
 | `staff` | `voidAbnormalMatch` | 异常比赛 | 更新比赛状态，写操作日志 |
 | `admin` | `saveConfig` | 老板端参数 | 复用前端同一套校验，写 `admin_configs` |
 | `screen` | `getBoard` | 电视大屏 | 读取店内总榜、赏金猎人和老板端大屏配置 |
@@ -89,10 +89,11 @@ powershell -ExecutionPolicy Bypass -File scripts/check-wechat-cloud-readiness.ps
 3. 会员码页生成二维码，前台扫码能选择同一个会员。
 4. 前台扣除积分，会员积分减少，积分流水有记录。
 5. 前台设置球桌到点时间，退出重进后时间保持。
-6. 老板端修改底分、倍率、随机奖励、大屏标题，保存后退出重进仍保留。
-7. 玩法选择和底分倍率页显示老板端配置的玩法、底分、倍率和随机奖励。
-8. 大屏页显示老板端配置的主榜、副榜、刷新文案。
-9. 球友端完整走一场挑战，结算由云函数完成，重复点击不能重复结算。
+6. 前台设置球桌到点时间并绑定开台会员，会员积分增加开台赠分；重复保存同一周期不重复赠分。
+7. 老板端修改底分、倍率、随机奖励、大屏标题，保存后退出重进仍保留。
+8. 玩法选择和底分倍率页显示老板端配置的玩法、底分、倍率和随机奖励。
+9. 大屏页显示老板端配置的主榜、副榜、刷新文案。
+10. 球友端完整走一场挑战，结算由云函数完成，重复点击不能重复结算。
 
 ## 6. 不能上线的红线
 

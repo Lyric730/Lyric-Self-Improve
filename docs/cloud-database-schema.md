@@ -197,6 +197,10 @@
 | `type` | string | 是 | `initial` / `table_bonus` / `match_win` / `match_loss` / `reward` / `exchange` / `adjust` |
 | `delta` | number | 是 | 积分变化 |
 | `balanceAfter` | number | 是 | 变化后余额 |
+| `tableId` | string | 否 | 开台赠分来源球桌 |
+| `dueTime` | string | 否 | 开台赠分对应的到点时间 |
+| `bonusKey` | string | 否 | 开台赠分去重键 |
+| `operatorOpenid` | string | 否 | 员工或老板操作人 OpenID |
 | `createdAt` | date | 是 | 创建时间 |
 
 ## 8. `member_points`
@@ -239,6 +243,7 @@
 | `tableId` | string | 是 | 球桌 ID |
 | `status` | string | 是 | `active` / `closed` |
 | `dueTime` | string | 是 | 到点时间，例：`22:30` |
+| `memberOpenid` | string | 否 | 本次开台绑定会员，绑定后可发开台赠分 |
 | `updatedBy` | string | 是 | 最后更新员工 OpenID |
 | `createdAt` | date | 是 | 创建时间 |
 | `updatedAt` | date | 是 | 更新时间 |

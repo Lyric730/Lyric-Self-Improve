@@ -85,6 +85,10 @@
   margin-bottom: 16rpx;
 }
 
+.member-select--table-open {
+  margin-top: 16rpx;
+}
+
 .member-card {
   display: grid;
   gap: 6rpx;

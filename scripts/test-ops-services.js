@@ -62,6 +62,16 @@ async function main() {
   assert.strictEqual(dueResult.selectedTable.dueTime, "23:45");
   assert.strictEqual(ensureOk(getStaffDeskData()).staffTables[0].dueTime, "23:45");
 
+  const bonusDueResult = ensureOk(await updateTableDueTime({
+    tables: dueResult.staffTables,
+    tableId: selectedTable.id,
+    dueTime: "23:50",
+    memberOpenid: "local-member"
+  }));
+
+  assert.strictEqual(bonusDueResult.tableBonus.granted, true);
+  assert.strictEqual(bonusDueResult.tableBonus.bonusPoints, 30);
+
   const member = ensureOk(await getMemberForExchange({ openid: "local-member" }));
   assert.ok(member.name);
   assert.ok(member.points > 0);

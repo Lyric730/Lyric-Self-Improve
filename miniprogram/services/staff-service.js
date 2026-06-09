@@ -79,9 +79,11 @@ async function getMemberForExchange(params) {
 }
 
 async function updateTableDueTime(params) {
-  ensureOk(await callStaffCloud("updateTableDueTime", {
+  const cloudResult = ensureOk(await callStaffCloud("updateTableDueTime", {
     tableId: params.tableId,
     dueTime: params.dueTime,
+    memberOpenid: params.memberOpenid || "",
+    openSessionId: params.openSessionId || "",
     storeId: params.storeId || "default"
   }));
 
@@ -101,7 +103,13 @@ async function updateTableDueTime(params) {
 
   return success({
     staffTables: nextTables,
-    selectedTable: nextTables.find((table) => table.id === params.tableId)
+    selectedTable: nextTables.find((table) => table.id === params.tableId),
+    tableBonus: cloudResult.tableBonus || (params.memberOpenid ? {
+      granted: true,
+      bonusPoints: params.tableOpenBonus || 30
+    } : {
+      granted: false
+    })
   });
 }
 

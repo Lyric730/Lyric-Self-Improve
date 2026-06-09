@@ -36,7 +36,7 @@
 | `match` | `recordScore` | 比赛计分 | 校验本场双方身份，按单次 `+1 / -1` 写入当前盘数和 `match_score_events`，达到目标盘数后进入 `settlement_pending` |
 | `match` | `get` | 等待对手页 | 按 `matchId` 读取房间状态 |
 | `match` | `previewSettlement` | 结算确认页 | 服务端计算结算预览，不写结算单和积分流水 |
-| `match` | `settle` | 结算链路 | 服务端计算积分、随机奖励、星级，写结算和积分流水 |
+| `match` | `settle` | 结算链路 | 服务端计算积分、随机奖励、星级，写结算、积分流水和双方最新段位 |
 | `match` | `getSettlement` | 结果页 | 按 `matchId` 读取已结算记录，结果页显示云端结算单 |
 
 `match.settle` 当前已有云函数代码入口，但还没在真实云环境验证。上线前必须确认：
@@ -56,6 +56,7 @@
 - 双方 `member_points` 账户必须存在。
 - 败方扣分后不能出现负余额。
 - `points_ledger` 中胜方为 `match_win`，败方为 `match_loss`。
+- 结算成功后必须把双方最新 `rankState / rankTitle` 写回 `store_members`，个人页和同段位榜不能只读结算临时结果。
 - 当前实现不是事务级写入，只是先写 `settlements.status = settling` 作为结算锁；云环境可用后必须做中途失败和重复点击测试。
 
 ## 3. 本地兜底必须替换的点

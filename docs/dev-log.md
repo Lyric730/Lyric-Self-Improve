@@ -2872,3 +2872,39 @@ git push -u origin codex/launch-page-polish
 审查归档：
 
 - `docs/reviews/phase-58-cloud-db-console-checklist-review.md`
+
+## 2026-06-09 Phase 59 结算段位持久化
+
+本轮目的：补齐真实上线结算闭环中“段位只计算、不落库”的缺口。结算不能只返回本次 `rankChanges`，否则个人端当前段位、同段位榜和下一场段位清算都会继续依赖旧值或默认值。
+
+代码变更：
+
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - `getMemberSnapshot()` 返回 `rankState`，并在会员没有段位字段时使用统一默认段位。
+  - `match.previewSettlement` 和 `match.settle` 在服务端读取双方 `store_members.rankState`，不再依赖前端传入的当前段位。
+  - `match.settle` 在积分写账后，把双方最新 `rankState / rankTitle` 写回 `store_members`。
+  - 结算记录新增 `rankResults`，用于保留本次写回后的双方最新段位。
+
+文档变更：
+
+- 更新 `docs/cloud-database-schema.md`：
+  - `store_members` 新增 `rankState / rankTitle / lastRankUpdatedAt`。
+  - `settlements` 新增 `rankResults`。
+- 更新 `docs/cloud-function-cutover-checklist.md`：
+  - `match.settle` 必须写回双方最新段位，不能只保留结算临时结果。
+
+阶段验证：
+
+- `node --check cloudfunctions\yunhanApi\index.js` 通过。
+- `node scripts\test-cloud-contracts.js` 通过，输出 `Cloud contract tests OK`。
+- `node scripts\test-settlement-engine.js` 通过，输出 `Settlement engine tests OK`。
+- `git diff --check` 通过。
+
+残余风险：
+
+- 当前结算写入仍不是数据库事务：如果积分已经写入、段位写回中途失败，`settlements.status` 会停留在 `settling`，上线前仍需在真实云环境做中途失败和重复点击测试。
+- 开台赠分仍需要绑定“本次开台对应哪个会员”后再发放，不能在没有会员归属的情况下盲目加分。
+
+审查归档：
+
+- `docs/reviews/phase-59-rank-persistence-review.md`

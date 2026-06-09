@@ -32,15 +32,19 @@
 | 集合 | 索引字段 | 用途 | 勾选 |
 | --- | --- | --- | --- |
 | `store_members` | `storeId: 1, openid: 1, status: 1` | 角色查询 | [ ] |
+| `store_members` | `storeId: 1, role: 1, status: 1` | 首个老板 / 角色筛选 | [ ] |
 | `operation_logs` | `storeId: 1, module: 1, createdAt: -1` | 操作日志 | [ ] |
 | `matches` | `storeId: 1, status: 1, updatedAt: -1` | 异常列表 / 状态筛选 | [ ] |
 | `matches` | `storeId: 1, roomNo: 1` | 房间码查询 | [ ] |
+| `settlements` | `storeId: 1, matchId: 1` | 结算单查询 / 防重复结算 | [ ] |
+| `settlements` | `storeId: 1, status: 1, createdAt: -1` | 最近结算 / 赏金猎人 | [ ] |
 | `points_ledger` | `storeId: 1, openid: 1, createdAt: -1` | 积分流水 | [ ] |
 | `member_points` | `storeId: 1, openid: 1` | 会员积分账户 | [ ] |
 | `member_points` | `storeId: 1, balance: -1` | 店内总榜 | [ ] |
 | `table_sessions` | `storeId: 1, tableId: 1, status: 1` | 球桌到点时间 | [ ] |
 | `table_sessions` | `storeId: 1, status: 1` | 挑战首页开台检查 | [ ] |
 | `admin_configs` | `storeId: 1` | 老板配置读取 | [ ] |
+| `match_score_events` | `storeId: 1, matchId: 1, createdAt: -1` | 比分事件回溯 | [ ] |
 | `screen_tokens` | `storeId: 1, token: 1, status: 1` | 浏览器大屏凭证 | [ ] |
 
 ## 3. 配置云函数环境变量

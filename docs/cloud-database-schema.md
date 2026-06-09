@@ -37,6 +37,9 @@
 | `phone` | string | 否 | 会员手机号 |
 | `note` | string | 否 | 前台备注 |
 | `avatarUrl` | string | 否 | 会员头像地址 |
+| `rankState` | object | 否 | 当前段位状态，全部玩法共用一个段位 |
+| `rankTitle` | string | 否 | 当前段位展示文案，例如 `走位黄金 III` |
+| `lastRankUpdatedAt` | date | 否 | 最近一次段位结算写回时间 |
 | `createdAt` | date | 是 | 创建时间 |
 | `updatedAt` | date | 是 | 更新时间 |
 
@@ -44,6 +47,7 @@
 
 ```js
 { storeId: 1, openid: 1, status: 1 }
+{ storeId: 1, role: 1, status: 1 }
 ```
 
 第一版角色规则：
@@ -110,7 +114,75 @@
 | `createdAt` | date | 是 | 创建时间 |
 | `updatedAt` | date | 是 | 更新时间 |
 
-## 5. `points_ledger`
+建议索引：
+
+```js
+{ storeId: 1, status: 1, updatedAt: -1 }
+{ storeId: 1, roomNo: 1 }
+```
+
+## 5. `match_score_events`
+
+用于保存比赛计分过程中的每一次加减盘事件。它不是结算结果，只用于回溯“谁在什么时候改了哪一方盘数”。
+
+字段：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `_id` | string | 是 | 云数据库自动生成 |
+| `storeId` | string | 是 | 门店 ID |
+| `matchId` | string | 是 | 比赛 ID |
+| `operatorOpenid` | string | 是 | 操作人 OpenID |
+| `side` | string | 是 | 被调整的一方，`a` / `b` |
+| `delta` | number | 是 | 本次变化，通常为 `1` / `-1` |
+| `scoreA` | number | 是 | 调整后的发起方盘数 |
+| `scoreB` | number | 是 | 调整后的挑战方盘数 |
+| `createdAt` | date | 是 | 创建时间 |
+
+建议索引：
+
+```js
+{ storeId: 1, matchId: 1, createdAt: -1 }
+```
+
+## 6. `settlements`
+
+用于保存比赛结算结果。`match.previewSettlement` 只计算预览，不写入本集合；`match.settle` 确认后才写入。
+
+字段：
+
+| 字段 | 类型 | 必填 | 说明 |
+| --- | --- | --- | --- |
+| `_id` | string | 是 | 云数据库自动生成 |
+| `storeId` | string | 是 | 门店 ID |
+| `matchId` | string | 是 | 比赛 ID |
+| `status` | string | 是 | `settling` / `settled` |
+| `winnerSide` | string | 是 | 胜方，`a` / `b` |
+| `loserSide` | string | 是 | 败方，`a` / `b` |
+| `riskPoints` | number | 是 | 底分乘倍率 |
+| `rewardValue` | number | 是 | 本场随机奖励分 |
+| `rewardPhase` | string | 是 | `normal` / `sprint` |
+| `winnerDelta` | number | 是 | 胜方积分变化 |
+| `loserDelta` | number | 是 | 败方积分变化 |
+| `scoreA` | number | 是 | 发起方最终盘数 |
+| `scoreB` | number | 是 | 挑战方最终盘数 |
+| `elapsedSeconds` | number | 是 | 实际比赛用时秒数 |
+| `pointChanges` | array | 是 | 双方积分变化明细 |
+| `rankChanges` | object | 是 | 双方段位变化明细 |
+| `balances` | array | 否 | 结算写入后的双方余额 |
+| `rankResults` | array | 否 | 结算写回 `store_members` 后的双方最新段位 |
+| `settledBy` | string | 是 | 点击确认结算的 OpenID |
+| `createdAt` | date | 是 | 创建时间 |
+| `updatedAt` | date | 是 | 更新时间 |
+
+建议索引：
+
+```js
+{ storeId: 1, matchId: 1 }
+{ storeId: 1, status: 1, createdAt: -1 }
+```
+
+## 7. `points_ledger`
 
 用于积分流水。所有积分变化都必须写流水。
 
@@ -127,7 +199,7 @@
 | `balanceAfter` | number | 是 | 变化后余额 |
 | `createdAt` | date | 是 | 创建时间 |
 
-## 6. `member_points`
+## 8. `member_points`
 
 用于保存会员当前积分余额。积分核销不能只写流水，必须先读取余额、扣减余额，再写流水。
 
@@ -154,7 +226,7 @@
 { storeId: 1, balance: -1 }
 ```
 
-## 7. `table_sessions`
+## 9. `table_sessions`
 
 用于保存当前球桌开台到点时间。第一版只要求员工设置开台到点时间，不接开台软件 API。
 
@@ -178,7 +250,7 @@
 { storeId: 1, status: 1 }
 ```
 
-## 8. `admin_configs`
+## 10. `admin_configs`
 
 用于保存老板端门店参数。
 
@@ -199,7 +271,7 @@
 { storeId: 1 }
 ```
 
-## 9. `screen_tokens`
+## 11. `screen_tokens`
 
 用于电视浏览器访问大屏网页时校验凭证。小程序内大屏可以通过 `store_members.role = screen / staff / owner` 访问；浏览器静态网页不能依赖微信登录，必须走 token。
 
@@ -221,7 +293,7 @@
 { storeId: 1, token: 1, status: 1 }
 ```
 
-## 10. 服务端权限规则
+## 12. 服务端权限规则
 
 云函数必须按以下顺序判断：
 

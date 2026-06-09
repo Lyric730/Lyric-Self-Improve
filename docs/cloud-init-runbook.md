@@ -81,6 +81,7 @@ cloud.init({
 ```js
 // store_members
 { storeId: 1, openid: 1, status: 1 }
+{ storeId: 1, role: 1, status: 1 }
 
 // operation_logs
 { storeId: 1, module: 1, createdAt: -1 }
@@ -88,6 +89,10 @@ cloud.init({
 // matches
 { storeId: 1, status: 1, updatedAt: -1 }
 { storeId: 1, roomNo: 1 }
+
+// settlements
+{ storeId: 1, matchId: 1 }
+{ storeId: 1, status: 1, createdAt: -1 }
 
 // points_ledger
 { storeId: 1, openid: 1, createdAt: -1 }
@@ -102,6 +107,9 @@ cloud.init({
 
 // admin_configs
 { storeId: 1 }
+
+// match_score_events
+{ storeId: 1, matchId: 1, createdAt: -1 }
 
 // screen_tokens
 { storeId: 1, token: 1, status: 1 }

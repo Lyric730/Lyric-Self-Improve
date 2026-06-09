@@ -2,7 +2,11 @@ const cloud = require("wx-server-sdk");
 const QRCode = require("qrcode");
 const { assertValidAdminConfig } = require("./admin-config-validator");
 const { assertValidMemberProfile } = require("./member-profile");
-const { DEFAULT_MODES } = require("./settlement-engine");
+const {
+  DEFAULT_MODES,
+  formatRankTitle,
+  normalizeRankState
+} = require("./settlement-engine");
 const { buildSettlementPreview, buildSettlementWritePlan } = require("./match-settlement");
 
 cloud.init({
@@ -541,6 +545,66 @@ async function applyPointAccountUpdates(rows, storeId, operatorOpenid) {
   return balances;
 }
 
+async function applyRankStateUpdates(pointChanges, rankChanges, storeId) {
+  const rows = [];
+
+  for (const change of pointChanges) {
+    const rankChange = rankChanges && rankChanges[change.side];
+
+    if (!rankChange || !rankChange.after) {
+      continue;
+    }
+
+    const rankState = normalizeRankState(rankChange.after);
+    const rankTitle = formatRankTitle(rankState);
+    const memberResult = await db.collection("store_members")
+      .where({
+        storeId,
+        openid: change.openid
+      })
+      .limit(1)
+      .get();
+    const member = memberResult.data && memberResult.data.length > 0 ? memberResult.data[0] : null;
+
+    if (member) {
+      await db.collection("store_members").doc(member._id).update({
+        data: {
+          rankState,
+          rankTitle,
+          lastRankUpdatedAt: db.serverDate(),
+          updatedAt: db.serverDate()
+        }
+      });
+    } else {
+      await db.collection("store_members").add({
+        data: {
+          storeId,
+          openid: change.openid,
+          role: "player",
+          status: "active",
+          rankState,
+          rankTitle,
+          lastRankUpdatedAt: db.serverDate(),
+          createdAt: db.serverDate(),
+          updatedAt: db.serverDate()
+        }
+      });
+    }
+
+    rows.push({
+      openid: change.openid,
+      side: change.side,
+      result: change.result,
+      rankState,
+      rankTitle,
+      deltaStars: Number(rankChange.deltaStars || 0),
+      protected: Boolean(rankChange.protected)
+    });
+  }
+
+  return rows;
+}
+
 function buildRoomNo(tableNo) {
   const safeTableNo = String(tableNo || "T00").replace(/\s+/g, "").toUpperCase();
   const suffix = String(Date.now()).slice(-6);
@@ -556,10 +620,13 @@ function getShortName(name, fallback = "我") {
 
 async function getMemberSnapshot(openid, storeId) {
   if (!openid) {
+    const rankState = normalizeRankState();
+
     return {
       name: "当前会员",
       shortName: "我",
-      rankTitle: "会员"
+      rankTitle: "会员",
+      rankState
     };
   }
 
@@ -574,17 +641,22 @@ async function getMemberSnapshot(openid, storeId) {
       .get();
     const member = result.data && result.data.length > 0 ? result.data[0] : null;
     const name = member && (member.nickname || member.name) ? (member.nickname || member.name) : "当前会员";
+    const rankState = normalizeRankState(member && member.rankState ? member.rankState : {});
 
     return {
       name,
       shortName: getShortName(name),
-      rankTitle: member && member.rankTitle ? member.rankTitle : "会员"
+      rankTitle: member && member.rankTitle ? member.rankTitle : formatRankTitle(rankState),
+      rankState
     };
   } catch (error) {
+    const rankState = normalizeRankState();
+
     return {
       name: "当前会员",
       shortName: "我",
-      rankTitle: "会员"
+      rankTitle: "会员",
+      rankState
     };
   }
 }
@@ -1118,20 +1190,28 @@ async function recordMatchScore(payload, storeId, operatorOpenid) {
   };
 }
 
-function buildCloudSettlementPayload(payload, match) {
+async function buildCloudSettlementPayload(payload, match, storeId) {
   const startedAtMs = Number(match.startedAtMs || 0);
   const elapsedSeconds = startedAtMs > 0
     ? Math.max(1, Math.floor((Date.now() - startedAtMs) / 1000) + 1)
     : Number(payload.elapsedSeconds || payload.elapsed || 0);
+  const playerAOpenid = match.hostOpenid || payload.playerAOpenid;
+  const playerBOpenid = match.guestOpenid || payload.playerBOpenid;
+  const [playerASnapshot, playerBSnapshot] = await Promise.all([
+    getMemberSnapshot(playerAOpenid, storeId),
+    getMemberSnapshot(playerBOpenid, storeId)
+  ]);
 
   return {
     ...payload,
     ...match,
     matchId: payload.matchId,
-    playerAOpenid: match.hostOpenid || payload.playerAOpenid,
-    playerBOpenid: match.guestOpenid || payload.playerBOpenid,
+    playerAOpenid,
+    playerBOpenid,
     selectedBase: match.base || payload.selectedBase || payload.base,
     selectedMultiplier: match.multiplier || payload.selectedMultiplier || payload.multiplier,
+    rankStateA: playerASnapshot.rankState,
+    rankStateB: playerBSnapshot.rankState,
     elapsedSeconds
   };
 }
@@ -1168,7 +1248,8 @@ async function previewMatchSettlement(payload, storeId) {
     return matchResult;
   }
 
-  const preview = buildSettlementPreview(buildCloudSettlementPayload(payload, matchResult.match));
+  const cloudSettlementPayload = await buildCloudSettlementPayload(payload, matchResult.match, storeId);
+  const preview = buildSettlementPreview(cloudSettlementPayload);
 
   if (!preview.ok) {
     return preview;
@@ -1216,7 +1297,8 @@ async function settleMatch(payload, storeId, operatorOpenid) {
     return fail("比赛已存在结算记录", "MATCH_ALREADY_SETTLED");
   }
 
-  const plan = buildSettlementWritePlan(buildCloudSettlementPayload(payload, matchResult.match));
+  const cloudSettlementPayload = await buildCloudSettlementPayload(payload, matchResult.match, storeId);
+  const plan = buildSettlementWritePlan(cloudSettlementPayload);
 
   if (!plan.ok) {
     return plan;
@@ -1252,11 +1334,13 @@ async function settleMatch(payload, storeId, operatorOpenid) {
   });
   const settlementDocId = settlementAddResult._id;
   const balances = await applyPointAccountUpdates(accountUpdates.rows, storeId, operatorOpenid);
+  const rankResults = await applyRankStateUpdates(plan.pointChanges, plan.rankChanges, storeId);
 
   await db.collection("settlements").doc(settlementDocId).update({
     data: {
       status: "settled",
       balances,
+      rankResults,
       updatedAt: db.serverDate()
     }
   });
@@ -1278,6 +1362,7 @@ async function settleMatch(payload, storeId, operatorOpenid) {
     matchId: plan.matchId,
     settlement: plan.settlement,
     balances,
+    rankResults,
     rankChanges: plan.rankChanges
   };
 }
@@ -1377,6 +1462,7 @@ async function getPlayerIdentity(openid, storeId) {
     name: snapshot.name,
     shortName: snapshot.shortName,
     rankTitle: snapshot.rankTitle,
+    rankState: snapshot.rankState,
     points: account.balance
   };
 }

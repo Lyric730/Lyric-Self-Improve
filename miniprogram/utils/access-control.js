@@ -4,14 +4,23 @@ const ROLE_ORDER = {
   screen: 2,
   owner: 3
 };
+const ROLE_KEY = "yunhanUserRole";
 
 function normalizeRoles(roles) {
   return Array.isArray(roles) ? roles : [roles];
 }
 
 function getCurrentRole() {
-  const storedRole = wx.getStorageSync("yunhanUserRole");
+  const storedRole = wx.getStorageSync(ROLE_KEY);
   return ROLE_ORDER[storedRole] ? storedRole : "player";
+}
+
+function setCurrentRole(role) {
+  const nextRole = ROLE_ORDER[role] ? role : "player";
+
+  wx.setStorageSync(ROLE_KEY, nextRole);
+
+  return nextRole;
 }
 
 function canAccess(allowedRoles) {
@@ -47,5 +56,6 @@ function requireRole(allowedRoles, options = {}) {
 module.exports = {
   canAccess,
   getCurrentRole,
-  requireRole
+  requireRole,
+  setCurrentRole
 };

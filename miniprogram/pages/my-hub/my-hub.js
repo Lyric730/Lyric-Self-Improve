@@ -4,6 +4,7 @@ const {
   saveMemberProfile
 } = require("../../services/member-service");
 const { getAuthInfo } = require("../../services/auth-service");
+const { setCurrentRole } = require("../../utils/access-control");
 const { isDevtoolsPreview, setPreviewRole } = require("../../utils/dev-preview");
 const { buildProfileDraft } = require("../../utils/member-profile");
 
@@ -41,6 +42,10 @@ Page({
       this.setData({
         authInfo
       });
+
+      if (authInfo && authInfo.role) {
+        setCurrentRole(authInfo.role);
+      }
     } catch (error) {
       this.setData({
         authInfo: {

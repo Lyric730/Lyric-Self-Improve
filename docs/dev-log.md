@@ -3029,3 +3029,47 @@ git push -u origin codex/launch-page-polish
 审查归档：
 
 - `docs/reviews/phase-62-location-gate-review.md`
+
+## 2026-06-10 Phase 63 上线使用路径与员工授权闭环
+
+本轮目的：解决“初始化老板之后，小程序到底怎么用、员工怎么获得权限、开台怎么走”的上线操作缺口。
+
+代码变更：
+
+- 新增 `miniprogram/utils/member-code-parser.js`：
+  - 统一解析会员码中的 `openid`。
+  - 员工端和老板端共用，避免二维码格式变更时两边不一致。
+- 更新 `miniprogram/pages/staff-desk/staff-desk.js`：
+  - 移除页面内重复的会员码解析逻辑。
+- 更新 `miniprogram/services/admin-service.js`：
+  - 新增 `getMemberForRole`。
+  - 新增 `setMemberRole`。
+  - DevTools 本地预览时保留角色授权兜底。
+- 更新 `miniprogram/pages/boss-config/`：
+  - 新增“人员权限”面板。
+  - 老板可扫码会员码，将会员设为员工、大屏或普通球友。
+- 更新 `miniprogram/utils/access-control.js`、`my-hub` 和 `setup-owner`：
+  - 云端返回角色后写入本地权限缓存。
+  - 首个老板初始化成功后立即缓存 `owner`，避免老板端被本地默认 `player` 拦截。
+- 更新 `cloudfunctions/yunhanApi/index.js`：
+  - 新增 `admin.getMemberForRole`。
+  - 新增 `admin.setMemberRole`。
+  - 禁止修改当前老板自己的身份。
+  - 禁止通过人员权限入口修改已有老板账号。
+
+文档变更：
+
+- 新增 `docs/miniapp-operation-runbook.md`：
+  - 按云端准备、初始化老板、老板配置、员工授权、员工开台、球友挑战、大屏榜单、上线验收拆分使用路径。
+- 更新 `cloudfunctions/README.md`。
+- 更新 `docs/cloud-database-schema.md`。
+- 更新 `docs/cloud-function-cutover-checklist.md`。
+
+残余风险：
+
+- 最新云函数仍必须重新部署到 `cloudbase-d9gg155lc1ee1d72e` 后才能真机验证员工授权。
+- 小米电视浏览器大屏的正式 H5 部署方式仍未收口。
+
+审查归档：
+
+- `docs/reviews/phase-63-operation-path-staff-role-review.md`

@@ -91,6 +91,28 @@
       </view>
     </yh-panel>
 
+    <yh-panel title="人员权限" subtitle="{{roleMemberText}}" marker="ROLE" tone="gold">
+      <view class="role-admin-card">
+        <view class="role-admin-card__member">
+          <text>{{roleMember ? roleMember.name : '未选择会员'}}</text>
+          <text>{{roleMember ? roleMember.openid : '请让员工打开会员码，老板扫码授权'}}</text>
+        </view>
+        <yh-button text="扫码选择" size="sm" variant="secondary" custom-class="role-admin-scan" loading="{{scanningRoleMember}}" bind:tap="scanRoleMember" />
+      </view>
+      <picker range="{{roleOptions}}" range-key="label" value="{{roleTargetIndex}}" bindchange="chooseRoleTarget">
+        <view class="role-picker" hover-class="role-picker--hover">
+          <view>
+            <text>目标身份</text>
+            <text>员工可进前台工作台，大屏账号只用于榜单屏幕</text>
+          </view>
+          <text>{{roleTargetLabel}}</text>
+        </view>
+      </picker>
+      <view class="flow-actions">
+        <yh-button text="保存人员权限" size="sm" variant="primary" block loading="{{savingRole}}" disabled="{{!roleMember}}" bind:tap="saveMemberRole" />
+      </view>
+    </yh-panel>
+
     <yh-panel title="大屏榜单" subtitle="{{adminConfig.screen.refreshText}}" marker="SCREEN" tone="orange">
       <view class="config-grid">
         <label class="config-field">

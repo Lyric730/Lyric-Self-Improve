@@ -1,5 +1,6 @@
 const { ensureOk } = require("../../services/api-client");
 const { bootstrapOwner, getAuthInfo } = require("../../services/auth-service");
+const { setCurrentRole } = require("../../utils/access-control");
 
 Page({
   data: {
@@ -32,6 +33,10 @@ Page({
         loading: false,
         resultText: authInfo.ownerReady ? "当前门店已有老板账号" : ""
       });
+
+      if (authInfo && authInfo.role) {
+        setCurrentRole(authInfo.role);
+      }
     } catch (error) {
       this.setData({
         loading: false,
@@ -87,6 +92,7 @@ Page({
         bootstrapSecret: "",
         resultText: "老板账号已绑定"
       });
+      setCurrentRole("owner");
 
       wx.showToast({ title: "初始化成功", icon: "none" });
     } catch (error) {

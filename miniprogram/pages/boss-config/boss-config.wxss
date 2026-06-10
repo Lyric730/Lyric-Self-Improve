@@ -79,3 +79,87 @@
 .config-field input::placeholder {
   color: rgba(246, 239, 230, 0.32);
 }
+
+.role-admin-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 176rpx;
+  gap: 16rpx;
+  align-items: stretch;
+}
+
+.role-admin-card__member {
+  min-width: 0;
+  padding: 20rpx;
+  background: rgba(8, 7, 6, 0.72);
+  border: 1rpx solid rgba(255, 214, 145, 0.14);
+  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+}
+
+.role-admin-card__member text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.role-admin-card__member text:first-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-md);
+  font-weight: 900;
+}
+
+.role-admin-card__member text:last-child {
+  margin-top: 8rpx;
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+}
+
+.role-admin-scan {
+  min-height: 92rpx;
+}
+
+.role-picker {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16rpx;
+  align-items: center;
+  margin-top: 18rpx;
+  padding: 20rpx;
+  background: linear-gradient(135deg, rgba(255, 118, 0, 0.16), rgba(8, 7, 6, 0.82));
+  border: 1rpx solid rgba(255, 214, 145, 0.2);
+  clip-path: polygon(14rpx 0, 100% 0, 100% calc(100% - 14rpx), calc(100% - 14rpx) 100%, 0 100%, 0 14rpx);
+}
+
+.role-picker--hover {
+  filter: brightness(1.12);
+}
+
+.role-picker view {
+  min-width: 0;
+}
+
+.role-picker text {
+  display: block;
+}
+
+.role-picker view text:first-child {
+  color: var(--yh-color-text);
+  font-size: var(--yh-text-md);
+  font-weight: 900;
+}
+
+.role-picker view text:last-child {
+  margin-top: 8rpx;
+  color: var(--yh-color-text-muted);
+  font-size: var(--yh-text-xs);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.role-picker > text {
+  color: var(--yh-color-gold-bright);
+  font-size: 30rpx;
+  font-weight: 900;
+}

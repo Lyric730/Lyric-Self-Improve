@@ -7,6 +7,7 @@ const {
   updateTableDueTime,
   voidAbnormalMatch
 } = require("../../services/staff-service");
+const { parseMemberOpenid } = require("../../utils/member-code-parser");
 
 const initialDeskData = ensureOk(getStaffDeskData());
 
@@ -18,31 +19,6 @@ function scanCode() {
       fail: reject
     });
   });
-}
-
-function parseMemberOpenid(rawValue) {
-  const raw = String(rawValue || "").trim();
-
-  if (!raw) {
-    return "";
-  }
-
-  try {
-    const parsed = JSON.parse(raw);
-
-    if (parsed.openid) return parsed.openid;
-    if (parsed.openId) return parsed.openId;
-  } catch (error) {
-    // Non-JSON QR content is handled below.
-  }
-
-  const queryMatch = raw.match(/[?&](openid|openId)=([^&]+)/);
-  if (queryMatch) return decodeURIComponent(queryMatch[2]);
-
-  const labelMatch = raw.match(/(?:openid|openId):([^\s;]+)/);
-  if (labelMatch) return labelMatch[1];
-
-  return raw;
 }
 
 Page({

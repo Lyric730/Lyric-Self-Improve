@@ -507,6 +507,114 @@ async function saveAdminConfig(payload, storeId, operatorOpenid) {
   };
 }
 
+async function getRoleMemberForAdmin(payload, storeId) {
+  requirePayloadValue(payload, "openid", "请先选择会员", "MEMBER_OPENID_REQUIRED");
+  const openid = String(payload.openid || "").trim();
+  const [memberResult, pointsResult] = await Promise.all([
+    db.collection("store_members")
+      .where({
+        storeId,
+        openid,
+        status: "active"
+      })
+      .limit(1)
+      .get(),
+    db.collection("member_points")
+      .where({
+        storeId,
+        openid
+      })
+      .limit(1)
+      .get()
+  ]);
+  const member = memberResult.data && memberResult.data.length > 0 ? memberResult.data[0] : null;
+  const pointsAccount = pointsResult.data && pointsResult.data.length > 0 ? pointsResult.data[0] : null;
+  const name = (member && (member.nickname || member.name)) ||
+    (pointsAccount && (pointsAccount.nickname || pointsAccount.name)) ||
+    "待授权会员";
+
+  return {
+    openid,
+    name,
+    role: member && member.role ? member.role : "player",
+    status: member && member.status ? member.status : "active",
+    points: Number(pointsAccount && pointsAccount.balance ? pointsAccount.balance : 0)
+  };
+}
+
+async function setMemberRole(payload, storeId, operatorOpenid) {
+  requirePayloadValue(payload, "openid", "请先选择会员", "MEMBER_OPENID_REQUIRED");
+  requirePayloadValue(payload, "targetRole", "请选择目标身份", "TARGET_ROLE_REQUIRED");
+
+  const openid = String(payload.openid || "").trim();
+  const targetRole = String(payload.targetRole || "").trim();
+  const allowedRoles = ["player", "staff", "screen"];
+
+  if (!allowedRoles.includes(targetRole)) {
+    return fail("请选择正确的身份", "INVALID_TARGET_ROLE");
+  }
+
+  if (openid === operatorOpenid && targetRole !== "owner") {
+    return fail("不能修改当前老板自己的身份", "CANNOT_CHANGE_SELF_ROLE");
+  }
+
+  const memberResult = await db.collection("store_members")
+    .where({
+      storeId,
+      openid,
+      status: "active"
+    })
+    .limit(1)
+    .get();
+  const member = memberResult.data && memberResult.data.length > 0 ? memberResult.data[0] : null;
+
+  if (member && member.role === "owner") {
+    return fail("不能在这里修改老板账号", "CANNOT_CHANGE_OWNER_ROLE");
+  }
+
+  const pointsResult = await db.collection("member_points")
+    .where({
+      storeId,
+      openid
+    })
+    .limit(1)
+    .get();
+  const pointsAccount = pointsResult.data && pointsResult.data.length > 0 ? pointsResult.data[0] : null;
+  const name = (member && (member.nickname || member.name)) ||
+    (pointsAccount && (pointsAccount.nickname || pointsAccount.name)) ||
+    String(payload.name || "").trim() ||
+    "待授权会员";
+
+  if (member) {
+    await db.collection("store_members").doc(member._id).update({
+      data: {
+        role: targetRole,
+        nickname: name,
+        updatedAt: db.serverDate()
+      }
+    });
+  } else {
+    await db.collection("store_members").add({
+      data: {
+        storeId,
+        openid,
+        role: targetRole,
+        status: "active",
+        nickname: name,
+        createdAt: db.serverDate(),
+        updatedAt: db.serverDate()
+      }
+    });
+  }
+
+  return {
+    openid,
+    name,
+    role: targetRole,
+    status: "active"
+  };
+}
+
 async function saveMemberProfile(payload, storeId, openid) {
   const profile = assertValidMemberProfile(payload.profile || payload);
   const memberResult = await db.collection("store_members")
@@ -2298,6 +2406,10 @@ async function handleAdmin(event) {
 
   if (event.action === "saveConfig") {
     result = await saveAdminConfig(payload, storeId, wxContext.OPENID);
+  } else if (event.action === "getMemberForRole") {
+    result = await getRoleMemberForAdmin(payload, storeId);
+  } else if (event.action === "setMemberRole") {
+    result = await setMemberRole(payload, storeId, wxContext.OPENID);
   } else if (event.action !== "ping") {
     return fail("暂不支持该老板操作", "UNKNOWN_ADMIN_ACTION");
   }

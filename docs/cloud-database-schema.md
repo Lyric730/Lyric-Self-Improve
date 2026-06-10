@@ -57,6 +57,14 @@
 - `screen`：只用于大屏访问。
 - `player`：只访问球友端。
 
+老板端人员权限规则：
+
+- 首个 `owner` 通过 `/pages/setup-owner/setup-owner` 初始化。
+- 后续员工和大屏账号由老板端“人员权限”扫码会员码设置。
+- `admin.setMemberRole` 只能设置 `player` / `staff` / `screen`。
+- 不能通过人员权限入口修改已有 `owner`。
+- 不能把当前老板自己的账号降权。
+
 ## 3. `operation_logs`
 
 用于追踪员工和老板动作。
@@ -316,3 +324,4 @@
 4. `owner` 拥有老板端、员工端、大屏端权限。
 5. `staff` 只能访问员工端和大屏端。
 6. 服务端禁止相信前端传入的角色。
+7. 老板端人员权限变更必须写 `operation_logs`。

@@ -15,7 +15,12 @@ global.wx = {
 };
 
 const { ensureOk } = require("../miniprogram/services/api-client");
-const { getAdminConfig, saveAdminConfig } = require("../miniprogram/services/admin-service");
+const {
+  getAdminConfig,
+  getMemberForRole,
+  saveAdminConfig,
+  setMemberRole
+} = require("../miniprogram/services/admin-service");
 const { getMemberCode } = require("../miniprogram/services/member-service");
 const { getAvailableModes, getConfigurableMatchSetup } = require("../miniprogram/services/match-service");
 const {
@@ -26,6 +31,7 @@ const {
   voidAbnormalMatch
 } = require("../miniprogram/services/staff-service");
 const { getScreenBoard } = require("../miniprogram/services/screen-service");
+const { parseMemberOpenid } = require("../miniprogram/utils/member-code-parser");
 
 async function main() {
   const adminConfig = ensureOk(getAdminConfig());
@@ -39,6 +45,27 @@ async function main() {
   const savedConfig = ensureOk(getAdminConfig());
   assert.strictEqual(savedConfig.points.tableOpenBonus, 45);
   assert.strictEqual(savedConfig.screen.storeBoard, "门店天梯榜");
+
+  assert.strictEqual(parseMemberOpenid('{"openid":"member-001"}'), "member-001");
+  assert.strictEqual(parseMemberOpenid("https://club.test/member?openid=member-002"), "member-002");
+  assert.strictEqual(parseMemberOpenid("openid:member-003"), "member-003");
+
+  const roleMember = ensureOk(await getMemberForRole({ openid: "staff-member" }));
+  assert.strictEqual(roleMember.role, "player");
+
+  const updatedRoleMember = ensureOk(await setMemberRole({
+    openid: roleMember.openid,
+    targetRole: "staff",
+    name: roleMember.name
+  }));
+  assert.strictEqual(updatedRoleMember.role, "staff");
+
+  const screenRoleMember = ensureOk(await setMemberRole({
+    openid: roleMember.openid,
+    targetRole: "screen",
+    name: roleMember.name
+  }));
+  assert.strictEqual(screenRoleMember.role, "screen");
 
   const availableModes = ensureOk(await getAvailableModes());
   assert.deepStrictEqual(availableModes[0].baseOptions, [25, 50, 75]);

@@ -3073,3 +3073,33 @@ git push -u origin codex/launch-page-polish
 审查归档：
 
 - `docs/reviews/phase-63-operation-path-staff-role-review.md`
+
+## 2026-06-11 Phase 64 Agent 交接文档整理
+
+本轮目的：降低长上下文依赖，让下一位 agent 不需要翻完整聊天记录也能接手项目。
+
+文档变更：
+
+- 新增 `docs/agent-handoff.md`：
+  - 记录真实项目根目录和分支。
+  - 说明当前项目阶段和最大阻塞。
+  - 汇总已完成的小程序页面、云函数模块、数据库集合、权限、开台、防刷分、积分段位能力。
+  - 梳理关键文档阅读顺序。
+  - 明确下一步任务：云函数部署恢复、首个老板初始化、老板配置与员工授权、员工开台、球友挑战闭环、排行榜和大屏、球桌二维码落地。
+  - 标注当前不要优先做的事和容易踩坑的点。
+- 更新 `AGENTS.md`：
+  - 新增“接手第一读物”，要求新 agent 先读 `docs/agent-handoff.md`。
+
+判断：
+
+- 当前文档数量已经足够，但此前缺一个面向下一位 agent 的稳定入口。
+- `docs/dev-log.md` 记录完整但过长，不适合作为第一入口。
+- `docs/miniapp-operation-runbook.md` 面向门店真实使用，不等于技术交接。
+
+验证：
+
+- 本阶段只改 Markdown 文档，未改业务代码。
+
+残余风险：
+
+- `docs/agent-handoff.md` 内的云端部署状态需要在下一次部署成功或失败后及时更新。
